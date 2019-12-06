@@ -6,7 +6,8 @@ import LearnNav from '../Components/Learn/LearnNav.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SplitPane from 'react-split-pane'
 import lessonList from '../Lessons/LessonList.js'
-import Prediction from '../Lessons/Prediction.js'
+
+import Intro from '../Lessons/Intro.js'
 
 class Learn extends Component {
 
@@ -23,10 +24,12 @@ class Learn extends Component {
     })
   }
 
+  // a little inellegant. Switches between lesson names and
+  // components
   getLesson() {
     let levelName = lessonList[this.state.levelIndex]['name']
-    if(levelName == 'Prediction') {
-      return <Prediction />
+    if(levelName == 'Intro') {
+      return <Intro />
     }
     return <div/>
             
