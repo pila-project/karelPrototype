@@ -25,13 +25,11 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import CodeWindow from './BlocklyDemo/CodeWindow.js';
 import logo from './BlocklyDemo/logo.svg';
 
 import BlocklyComponent, { Category, Block, Value, Field, Shadow } from './BlocklyDemo/Blockly';
-
 import BlocklyJS from 'blockly/javascript';
-
-import CodeWindow from './BlocklyDemo/CodeWindow.js';
 
 import './BlocklyDemo/blocks/customblocks';
 import './BlocklyDemo/generator/generator';
@@ -43,6 +41,9 @@ class BlocklyDemo extends React.Component {
       this.state = {userCode: ''};
   }
 
+  componentDidMount(){
+    this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
+  }
 
   generateCode = () => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
@@ -57,10 +58,10 @@ class BlocklyDemo extends React.Component {
           <Col>
             <CodeWindow userCode={this.state.userCode} />
             {/* <header className="App-header"> */}
+            {/* <button onClick={this.generateCode}>Convert</button> */}
           </Col>
           <Col>
             <img src={logo} className="App-logo" alt="logo" />
-            <button onClick={this.generateCode}>Convert</button>
           </Col>
         </Row>
         <Row>
