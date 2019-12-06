@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Skin from '../Img/skin4.jpg'
 
-class Prediction extends Component {
+class Intro extends Component {
 
   render() {
     return (
@@ -20,4 +20,4 @@ class Prediction extends Component {
   }
 }
 
-export default Prediction
+export default Intro

@@ -1,18 +1,23 @@
-import Prediction from './Prediction';
 
 var lessonList = [
   {
-    name:'Prediction'
+    name:'Intro'
   },
   {
-    name:'Inside'
+    name:'Motivation'
   },
   {
-    name:'Intelligence'
+    name:'Karel Commands'
   },
   {
-    name:'Other Tasks' 
-  }
+    name:'Pre Test'
+  },
+  {
+    name:'Learning'
+  },
+  {
+    name:'Challenge'
+  },
 ]
 
 export default lessonList
