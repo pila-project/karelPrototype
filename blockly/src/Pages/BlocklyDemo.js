@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,6 +28,7 @@ import Col from 'react-bootstrap/Col';
 import CodeWindow from './BlocklyDemo/CodeWindow.js';
 import logo from './BlocklyDemo/logo.svg';
 
+import Blockly from 'blockly/core';
 import BlocklyComponent, { Category, Block, Value, Field, Shadow } from './BlocklyDemo/Blockly';
 import BlocklyJS from 'blockly/javascript';
 
@@ -45,9 +46,8 @@ class BlocklyDemo extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
   }
 
-  generateCode = () => {
+  generateCode = (event) => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
-    console.log(code);
     this.setState({userCode: code});
   }
 
