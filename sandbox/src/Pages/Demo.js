@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 
 class Demo extends Component {
@@ -27,7 +25,6 @@ class Demo extends Component {
       </div>
     )
   }
-
 }
 
 export default Demo

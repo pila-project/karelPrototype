@@ -1,0 +1,24 @@
+/* make the customizations before importing */
+$theme-colors: (
+        "info": blue,
+        "danger": red
+);
+
+// Your variable overrides
+$body-bg: #888;
+//$body-color: #222;
+$pre-color: #00ff00;
+
+pre {
+        box-shadow: -10px 10px 10px black;
+        padding: 15px;
+        margin: 20px;
+        background-color: #555;
+}
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+#code-window {
+        padding-top:20px;
+}

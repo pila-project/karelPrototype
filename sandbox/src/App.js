@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import Demo from './Pages/Demo.js'
-import Rich from './Pages/Rich.js'
+// import Tutorial from './Pages/Tutorial.js'
+import BlocklyDemo from './Pages/BlocklyDemo.js'
 import {
   HashRouter as Router,
   Route
@@ -12,7 +13,8 @@ function App() {
     <Router>
       <div>
         <Route exact path="/" component={Demo} />
-        <Route exact path="/rich" component={Rich} />
+        {/* <Route exact path="/tutorial" component={Tutorial} /> */}
+        <Route exact path="/blockly" component={BlocklyDemo} />
       </div>
     </Router>
   )
