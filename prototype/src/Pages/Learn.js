@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
-import './Learn.css';
+import React, { Component } from 'react'
+import './Learn.css'
 
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/Learn/LearnNav.js'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
 import lessonList from '../Lessons/LessonList.js'
 
 import Intro from '../Lessons/Intro.js'
+import Motivation from '../Lessons/Motivation.js'
+import KarelCommands from '../Lessons/KarelCommands.js'
+import PreTest from '../Lessons/PreTest.js'
+import Learning from '../Lessons/Learning.js'
+import PostTest from '../Lessons/PostTest.js'
+import KarelDemo from '../Lessons/KarelDemo.js'
 
 class Learn extends Component {
 
   componentWillMount() {
     document.title = "Pisa 2024";
     this.setState({
-      levelIndex:1
+      levelIndex:3
     })
   }
 
@@ -30,9 +36,20 @@ class Learn extends Component {
     let levelName = lessonList[this.state.levelIndex]['name']
     if(levelName == 'Intro') {
       return <Intro />
+    } else if(levelName == 'Motivation') {
+      return <Motivation />
+    } else if(levelName == 'Karel Commands') {
+      return <KarelCommands />
+    } else if(levelName == 'Pre Test') {
+      return <PreTest />
+    } else if(levelName == 'Learning') {
+      return <Learning />
+    } else if(levelName == 'Post Test') {
+      return <PostTest />
+    } else if(levelName == 'Karel Demo') {
+      return <KarelDemo />
     }
-    return <div/>
-            
+    return <div/>        
   }
  
   render() {

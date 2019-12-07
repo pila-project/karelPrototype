@@ -16,7 +16,10 @@ var lessonList = [
     name:'Learning'
   },
   {
-    name:'Challenge'
+    name:'Post Test'
+  },
+  {
+    name:'Karel Demo'
   },
 ]
 
