@@ -56,3 +56,13 @@ Blockly.JavaScript['karel_place_stone'] = function (block) {
 Blockly.JavaScript['karel_pickup_stone'] = function (block) {
     return 'pickupStone();\n'
 };
+
+Blockly.JavaScript['karel_front_is_clear'] = function (block) {
+    var code = 'frontIsClear';
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.JavaScript['karel_stones_present'] = function (block) {
+    var code = 'stonesPresent';
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}

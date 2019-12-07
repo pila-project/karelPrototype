@@ -76,6 +76,8 @@ class BlocklyDemo extends React.Component {
                   <Block type="karel_turn_left" />
                   <Block type="karel_place_stone" />
                   <Block type="karel_pickup_stone" />
+                  <Block type="karel_front_is_clear" />
+                  <Block type="karel_stones_present" />
               </Category>
 
               <Category name="Control Flow" colour="230">

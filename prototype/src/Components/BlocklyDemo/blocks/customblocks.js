@@ -30,6 +30,7 @@ import * as Blockly from 'blockly/core';
 // Since we're using json to initialize the field, we'll need to import it.
 import '../fields/BlocklyReactField';
 import '../fields/DateField';
+import { bool } from 'prop-types';
 
 var testReactField = {
   "type": "test_react_field",
@@ -84,7 +85,6 @@ var karelMain = {
   ],
   "colour": 240,
   "tooltip": "Main function",
-  "helpUrl": "Put blocks in here"
 }
 
 Blockly.Blocks['karel_main'] = {
@@ -103,7 +103,7 @@ var karelMove = {
 Blockly.Blocks['karel_move'] = {
   init: function() {
     this.jsonInit(karelMove);
-    this.setStyle('loop_blocks');
+    this.setStyle('procedure_blocks');
   }
 };
 
@@ -117,7 +117,7 @@ var karelTurnLeft = {
 Blockly.Blocks['karel_turn_left'] = {
   init: function() {
     this.jsonInit(karelTurnLeft);
-    this.setStyle('loop_blocks');
+    this.setStyle('procedure_blocks');
   }
 };
 
@@ -131,7 +131,7 @@ var karelPlaceStone = {
 Blockly.Blocks['karel_place_stone'] = {
   init: function() {
     this.jsonInit(karelPlaceStone);
-    this.setStyle('loop_blocks');
+    this.setStyle('procedure_blocks');
   }
 };
 
@@ -145,6 +145,34 @@ var karelPickupStone = {
 Blockly.Blocks['karel_pickup_stone'] = {
   init: function() {
     this.jsonInit(karelPickupStone);
-    this.setStyle('loop_blocks');
+    this.setStyle('procedure_blocks');
+  }
+};
+
+var karelFrontIsClear = {
+  "type": "karel_front_is_clear",
+  "message0": "front is clear",
+  "output": "Boolean",
+  "colour": 45,
+  "tooltip": "Check if there is an obstacle in front of Karel",
+}
+
+Blockly.Blocks['karel_front_is_clear'] = {
+  init: function() {
+    this.jsonInit(karelFrontIsClear);
+  }
+};
+
+var karelStonesPresent = {
+  "type": "karel_stones_present",
+  "message0": "stones present",
+  "output": "Boolean",
+  "colour": 45,
+  "tooltip": "Check if Karel is on top of any stones",
+}
+
+Blockly.Blocks['karel_stones_present'] = {
+  init: function() {
+    this.jsonInit(karelStonesPresent);
   }
 };

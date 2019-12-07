@@ -7,7 +7,6 @@ import lessonList from '../../Lessons/LessonList.js'
 import Logo from "../../Img/stanford-black.png";
 
 class LearnNav extends Component {
-
  
   getButton(value, index) {
     if(index == this.props.levelIndex) {
