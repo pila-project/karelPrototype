@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Skin from '../Img/skin4.jpg'
 import KarelWorld from '../Components/Karel/KarelWorld.js'
 
   

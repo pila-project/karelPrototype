@@ -12,8 +12,17 @@
 
 .stone {
   position: absolute;
+  border: solid 1px;
+  background-color: #1CB7FE;
+  transform: rotateY(0deg) rotate(45deg); /* needs Y at 0 deg to behave properly*/
+  /*transition: transform 2s;*/
 }
 
 .karel {
   position: absolute;
+}
+
+.wall {
+  position: absolute;
+  background-color: black;
 }

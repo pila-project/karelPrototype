@@ -5,6 +5,18 @@
  * of the operators defined in the XParser class.
  */
 
+import VM from './VM.js'
+import {
+   PrefixOp,
+   InfixOp,
+   AssignOp,
+   CallIns,
+   StoreIns,
+   DupIns,
+   PopIns,
+   JumpIns
+} from './VM.js'
+
 function XVM() {
    VM.call(this);
    this.initOperators();
@@ -110,7 +122,7 @@ function QuestionMarkColonOp() {
 }
 
 QuestionMarkColonOp.prototype.toString = function() {
-   return name;
+   return this.name;
 };
 
 QuestionMarkColonOp.prototype.compile = function(vm, exp, code) {
@@ -124,3 +136,5 @@ QuestionMarkColonOp.prototype.compile = function(vm, exp, code) {
    vm.compile(exp[3], code);
    jump2.setTarget(code.length);
 };
+
+export default XVM

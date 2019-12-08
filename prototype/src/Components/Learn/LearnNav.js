@@ -13,6 +13,7 @@ class LearnNav extends Component {
       return (
         <button 
           className="selectedLevelNav"
+          key = {index}
           title={lessonList[index]['name']}
           alt={lessonList[index]['name']}
           data-toggle="tooltip"

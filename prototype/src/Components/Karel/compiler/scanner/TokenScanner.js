@@ -32,6 +32,14 @@
  * described individually in the documentation.
  */
 
+ import {
+   isdigit, 
+   isalnum, 
+   isalpha,
+   isspace,
+   isxdigit
+} from '../util/StringUtil.js'
+
 function TokenScanner(str) {
    this.ignoreWhitespaceFlag = false;
    this.ignoreCommentsFlag = false;
@@ -42,6 +50,12 @@ function TokenScanner(str) {
    this.operators = { };
    this.wordChars = "";
    this.setInput(str || "");
+}
+
+function assert(bool) {
+   if(!bool) {
+      console.error('Assertion failed!')
+   }
 }
 
 /*
@@ -649,3 +663,6 @@ TokenScanner.prototype.makeLineNumberMap = function(str) {
    }
    return lineNumMap
 }
+
+
+export default TokenScanner

@@ -4,6 +4,10 @@
  * This file implements a parser for the Karel language.
  */
 
+import Parser from '../parser/Parser.js'
+import XParser from '../parser/XParser.js'
+import TokenScanner from '../scanner/TokenScanner.js'
+
 function KarelParser() {
    Parser.call(this);
    this.scanner.addWordCharacters("_");
@@ -50,6 +54,7 @@ KarelParser.statementForms["repeat"] = function(parser) {
    var numberToken = parser.nextToken();
    parser.verifyToken(")");
    var stmt = parser.readStatement();
+   let lineNumber = numberToken.lineNumber;
    return [ "repeat", TokenScanner.getNumber(numberToken.text), stmt, ["lineNumber", lineNumber] ];
 };
 
@@ -201,3 +206,5 @@ KarelParser.prototype.readStatement = function() {
 KarelParser.prototype.readPredicate = function() {
    return this.readE(0);
 };
+
+export default KarelParser

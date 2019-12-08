@@ -5,6 +5,8 @@
  * arithmetic expressions.
  */
 
+ import Parser from './Parser.js'
+
 function XParser() {
    Parser.call(this);
    this.scanner.addWordCharacters("_");
@@ -12,6 +14,12 @@ function XParser() {
 }
 XParser.prototype = new Parser;
 XParser.prototype.constructor = XParser;
+
+function assert(bool) {
+   if(!bool) {
+      console.error('Assertion failed!')
+   }
+}
 
 XParser.prototype.defineOperators = function() {
    this.definePrefixOperator("(", this.parenOperator, 0, "RIGHT");
@@ -106,3 +114,5 @@ XParser.prototype.questionMarkColon = function(parser, op, lhs) {
    var e2 = parser.readE(parser.infixProperties[op].prec);
    return ["?:", lhs, e1, e2];
 };
+
+export default XParser

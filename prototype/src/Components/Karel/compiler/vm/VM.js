@@ -24,6 +24,10 @@
  * Creates a new virtual machine.
  */
 
+ import Parser from '../parser/Parser.js'
+
+import TokenScanner from '../scanner/TokenScanner.js'
+
 function VM() {
    this.reset();
    this.globals = { };
@@ -298,7 +302,8 @@ function CallIns(fn) {
 }
 
 CallIns.prototype.toString = function() {
-   return "call " + fn;
+   console.error('not implemented')
+   // return "call " + fn;
 };
 
 CallIns.prototype.compile = function(vm, exp, code) {
@@ -451,3 +456,10 @@ function VMScope() {
    this.bindings = { };
    this.link = null;
 }
+
+export default VM
+export { 
+   ReturnIns, JumpIns, PushIns, LoadIns, StoreIns, CallIns, 
+   DupIns, PopIns,
+   PrefixOp, AssignOp, PostfixOp, InfixOp
+} 

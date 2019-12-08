@@ -10,9 +10,10 @@ import KarelCommandsTurnLeft from '../Lessons/KarelCommandsTurnLeft.js'
 import PreTest from '../Lessons/PreTest.js'
 import Learning from '../Lessons/Learning.js'
 import PostTest from '../Lessons/PostTest.js'
-import KarelDemo from '../Lessons/KarelDemo.js'
-
-
+import DemoBlocks from '../Lessons/DemoBlocks.js'
+import DemoIde from '../Lessons/DemoIde.js'
+import DemoPrePostIde from '../Lessons/DemoPrePostIde.js'
+import DemoMultipleTests from '../Lessons/DemoMultipleTests.js'
 
 var lessonList = [
   {
@@ -48,8 +49,16 @@ var lessonList = [
     render:<PostTest />
   },
   {
-    name:'Karel Demo',
-    render:<KarelDemo />
+    name:'Ide Demo',
+    render:<DemoIde />
+  },
+  {
+    name:'PrePost Demo',
+    render:<DemoPrePostIde />
+  },
+  {
+    name:'MultipleTests Demo',
+    render:<DemoMultipleTests />
   },
 ]
 

@@ -15,6 +15,8 @@
  * of applications.
  */
 
+import TokenScanner from '../scanner/TokenScanner.js'
+
 function Parser() {
    this.scanner = new TokenScanner();
    this.scanner.setIgnoreWhitespaceFlag(true);
@@ -200,3 +202,5 @@ Parser.unparse = function(exp) {
 Parser.prototype.toString = function() {
    return typeof(this) + "(...)";
 };
+
+export default Parser

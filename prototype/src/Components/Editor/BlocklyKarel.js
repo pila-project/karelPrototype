@@ -14,6 +14,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+
+ * https://github.com/google/blockly-samples/tree/master/blockly-react
  */
 
 /**
@@ -25,17 +27,16 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CodeWindow from './BlocklyDemo/CodeWindow.js';
-import logo from './BlocklyDemo/logo.svg';
+import CodeWindow from './CodeWindow.js';
 
 import Blockly from 'blockly/core';
-import BlocklyComponent, { Category, Block, Value, Field, Shadow } from './BlocklyDemo/Blockly';
+import BlocklyComponent, { Category, Block, Value, Field, Shadow } from './Blockly';
 import BlocklyJS from 'blockly/javascript';
 
-import './BlocklyDemo/blocks/customblocks';
-import './BlocklyDemo/generator/generator';
+import './blocks/customblocks';
+import './generator/generator';
 
-class BlocklyDemo extends React.Component {
+class BlocklyKarel extends React.Component {
 
   constructor(props){
       super(props);
@@ -46,6 +47,10 @@ class BlocklyDemo extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
   }
 
+  getCode() {
+    return this.state.userCode
+  }
+
   generateCode = (event) => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
     this.setState({userCode: code});
@@ -54,20 +59,20 @@ class BlocklyDemo extends React.Component {
   render() {
     return (
       <div className="verticalContainer">
+        
         <div className="horizontalContainer">
-            <CodeWindow userCode={this.state.userCode} />
-            {/* <header className="App-header"> */}
-            {/* <button onClick={this.generateCode}>Convert</button> */}
-            <img src={logo} className="App-logo" alt="logo" />
-        </div>
-        <div className="horizontalContainer">
-            <BlocklyComponent ref={e => this.simpleWorkspace = e} readOnly={false} move={{
-              scrollbars: true,
-              drag: true,
-              wheel: true
-            }} initialXml={`
+            <BlocklyComponent 
+              ref={e => this.simpleWorkspace = e} 
+              style={{height:'100%'}}
+              readOnly={false} 
+              move={{
+                scrollbars: true,
+                drag: true,
+                wheel: true
+              }} 
+              initialXml={`
   <xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="karel_main" deletable="false" x="250" y="50"></block>
+  <block type="karel_main" deletable="false" x="180" y="50"></block>
   </xml>
         `}>
               <Category name="Karel" colour="120">
@@ -76,14 +81,10 @@ class BlocklyDemo extends React.Component {
                   <Block type="karel_turn_left" />
                   <Block type="karel_place_stone" />
                   <Block type="karel_pickup_stone" />
-                  <Block type="karel_front_is_clear" />
-                  <Block type="karel_stones_present" />
               </Category>
 
               <Category name="Control Flow" colour="230">
                   <Block type="controls_ifelse" />
-                  <Block type="logic_compare" />
-                  <Block type="logic_operation" />
                   <Block type="controls_repeat_ext">
                   <Value name="TIMES">
                       <Shadow type="math_number">
@@ -92,23 +93,6 @@ class BlocklyDemo extends React.Component {
                   </Value>
                   </Block>
               </Category>>
-
-              <Category name="Misc" colour="000">
-                  <Block type="test_react_field" />
-                  <Block type="test_react_date_field" />
-                  <Block type="logic_operation" />
-                  <Block type="logic_negate" />
-                  <Block type="logic_boolean" />
-                  <Block type="logic_null" disabled="true" />
-                  <Block type="logic_ternary" />
-                  <Block type="text_charAt">
-                  <Value name="VALUE">
-                      <Block type="variables_get">
-                      <Field name="VAR">text</Field>
-                      </Block>
-                  </Value>
-                  </Block>
-              </Category>
             </BlocklyComponent>
           </div>
         {/* </header> */}
@@ -117,4 +101,4 @@ class BlocklyDemo extends React.Component {
   }
 }
 
-export default BlocklyDemo;
+export default BlocklyKarel;

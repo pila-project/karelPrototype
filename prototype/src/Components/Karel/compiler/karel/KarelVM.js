@@ -7,10 +7,20 @@
  * I have not made sure that it works correctly in all cases.
  */
 
+import XVM from '../vm/XVM.js'
+import KarelInstructions from './KarelInstructions.js'
+import {
+   JumpIns,
+   PushIns, 
+   LoadIns, 
+   StoreIns,
+   DupIns
+} from '../vm/VM.js'
+
 function KarelVM(karel) {
    XVM.call(this);
-   this.karel = karel;
    this.initKarelOperators();
+   this.karel = karel;
    this.userFnNames = [];
    this.currLineNum = null;
 }
@@ -67,9 +77,9 @@ KarelCall.prototype.toString = function() {
 };
 
 KarelCall.prototype.legalFn = function(fn, userFns) {
-   if (Karel.instructions[fn]) return true;
-   if (Karel.predicates[fn]) return true;
-   if ($.inArray(fn, userFns) != -1) return true;
+   if (KarelInstructions.instructions[fn]) return true;
+   if (KarelInstructions.predicates[fn]) return true;
+   // if ($.inArray(fn, userFns) != -1) return true;
    return false;
 }
 
@@ -88,11 +98,12 @@ KarelCall.prototype.execute = function(vm) {
    vm.currLineNum = this.lineNumber;
    
    // user defined methods take precidence
-   if ($.inArray(this.fn, vm.userFnNames) != -1) {
+   if (this.fn in vm.userFnNames) {
       vm.call(this.fn, vm.functions[this.fn]);
-   } else if (Karel.instructions[this.fn]) {
+   } else if (KarelInstructions.instructions[this.fn]) {
+      vm.changedWorld = true
       vm.karel[this.fn]();
-   } else if (Karel.predicates[this.fn]) {
+   } else if (KarelInstructions.predicates[this.fn]) {
       vm.push(vm.karel[this.fn]());
    } 
 };
@@ -230,3 +241,5 @@ KarelStmt.prototype.compile = function(vm, exp, code) {
 
 KarelStmt.prototype.execute = function(vm, exp, code) {
 };
+
+export default KarelVM

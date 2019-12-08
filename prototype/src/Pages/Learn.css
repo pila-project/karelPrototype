@@ -1,7 +1,6 @@
 .learnContainer {
   width:100vw;
   height:100vh;
-  background-color:black;
   display: flex;
   flex-direction: column;
 }
@@ -11,7 +10,7 @@
   flex-grow:1;
   background-color:white;
   display:flex;
-  align-items: center;
+  margin-top:50px;
   justify-content: space-around;
 }
 
@@ -56,22 +55,24 @@
 }
 
 .selectedLevelNav {
-  width:35px;
-  height: 35px;
+  width:30px;
+  height: 30px;
   border-radius: 100%;
   border-style: solid;
   border-color: rgb(14, 190, 14);
   border-width: 2px;
-  margin-right:10px;
+  margin-right:8px;
+  padding:0px;
 }
 
 .levelNav {
-  width: 15px;
+  width: 18px;
   height: 18px;
   border-radius: 100%;
   border-style: solid;
   border-width: 2px;
-  margin-right:10px;
+  margin-right:8px;
+  padding:0px;
   border-color: grey;
 }
 
@@ -83,9 +84,18 @@
   display: flex;
   flex-direction: column;
 }
+.horizontal {
+  display:flex;
+
+}
 
 .centered {
   align-items: center;
+}
+
+.ideButton{
+  margin-right:10px;
+  width:90px;
 }
 
 .horizontalContainer {

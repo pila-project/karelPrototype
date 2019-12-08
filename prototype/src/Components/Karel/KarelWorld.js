@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style/karel.css'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2'
 import KarelNorth from './images/karelNorth.png'
 import KarelSouth from './images/karelSouth.png'
 import KarelEast from './images/karelEast.png'
@@ -14,19 +15,44 @@ import Beeper from './images/beeper.png'
  nCols
  */
 const KAREL_IMG_PCT = 0.8
-const BEEPER_IMG_PCT = 0.5
+const BEEPER_IMG_PCT = 0.35
 const CROSS_PCT = 0.1
 
 class KarelWorld extends Component {
 
 
   componentWillMount() {
+
+    var karelRow = this.props.nRows - 1
+    if('karelRow' in this.props){
+      karelRow = this.props.karelRow
+    }
+
+    var karelCol = 0
+    if('karelCol' in this.props) {
+      karelCol = this.props.karelCol
+    }
+
+    var karelDir = 'East'
+    if('karelDir' in this.props) {
+      karelDir = this.props.karelDir
+    }
+
+    this.setState({
+      karelRow:karelRow,
+      karelCol:karelCol,
+      dir:karelDir,
+      stones:this.initStones()
+    })
+  }
+
+  reset(callbackFn) {
     this.setState({
       karelRow:this.props.nRows - 1,
       karelCol:0,
       dir:'East',
       stones:this.initStones()
-    })
+    }, callbackFn)
   }
 
   initStones() {
@@ -49,6 +75,10 @@ class KarelWorld extends Component {
     return stones
   }
 
+  setStepCallback(callbackFn) {
+    this.onStepFinished = callbackFn
+  }
+
  /***********************************************
   *     Commands                                *
   ***********************************************/
@@ -69,7 +99,7 @@ class KarelWorld extends Component {
       this.setState({
         karelRow:newRow,
         karelCol:newCol
-      })
+      }, this.onStepFinished)
     } else {
       this.error('Front Is Blocked');
     }
@@ -85,7 +115,7 @@ class KarelWorld extends Component {
         return {
           stones
         };
-      });
+      }, this.onStepFinished);
     } else {
       this.error('No Stones Present');
     }
@@ -100,7 +130,7 @@ class KarelWorld extends Component {
       return {
         stones
       };
-    }); 
+    }, this.onStepFinished); 
   }
 
   turnLeft() {
@@ -114,7 +144,7 @@ class KarelWorld extends Component {
     }
     this.setState({
       dir:newD
-    })
+    }, this.onStepFinished)
   }
 
   stonesPresent() {
@@ -150,8 +180,11 @@ class KarelWorld extends Component {
   ***********************************************/
 
   error(message) {
-    console.log(message)
-    console.log('TODO: make this a swal')
+    Swal.fire({
+      title: message,
+      icon: 'error',
+      toast:true,
+    })
   }
 
   getCornerSize() {
@@ -184,6 +217,34 @@ class KarelWorld extends Component {
       case 'West': return KarelWest
       default: return KarelNorth
     }
+  }
+
+  renderInnerWalls() {
+    var walls = []
+    if(!('walls' in this.props)) return <div />
+    for (var i = 0; i < this.props.walls.length; i++) {
+      let wall = this.props.walls[i]
+      let x = this.getCornerX(wall.r, wall.c)
+      let y = this.getCornerY(wall.r, wall.c)
+      if(wall.d == 'North') {
+        walls.push(<div
+          className="wall" 
+          style={{
+            marginLeft:x,
+            marginTop:y,
+            width:this.getCornerSize(),
+            height:2,
+          }}
+          key={i}
+        ></div>)
+      } else if(wall.d == 'East') {
+
+      } else {
+        console.error('Walls must be North or East')
+      }
+    }
+    console.log('walls', walls)
+    return (<div>{walls}</div>)
   }
 
   renderGrid() {
@@ -238,14 +299,14 @@ class KarelWorld extends Component {
           let offset = (this.getCornerSize() - size)/2
           let x = this.getCornerX(stone.r, stone.c) + offset
           let y = this.getCornerY(stone.r, stone.c) + offset
-          return <img 
+          return <div 
             key={index}
-            src={Beeper}
-            width={size}
-            height={size}
             className ="stone"
-            style={{marginLeft:x,marginTop:y}}
-          ></img>
+            style={{
+              width:size,height:size,
+              marginLeft:x,marginTop:y
+            }}
+          ></div>
         })
       }
     </div>
@@ -277,6 +338,7 @@ class KarelWorld extends Component {
           height:this.props.height
         }}
       >
+        {this.renderInnerWalls()}
         {this.renderGrid()}
         {this.renderStones()}
         {this.renderKarel()}
