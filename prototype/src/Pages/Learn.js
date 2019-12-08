@@ -7,20 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
 import lessonList from '../Lessons/LessonList.js'
 
-import Intro from '../Lessons/Intro.js'
-import Motivation from '../Lessons/Motivation.js'
-import KarelCommands from '../Lessons/KarelCommands.js'
-import PreTest from '../Lessons/PreTest.js'
-import Learning from '../Lessons/Learning.js'
-import PostTest from '../Lessons/PostTest.js'
-import KarelDemo from '../Lessons/KarelDemo.js'
-
 class Learn extends Component {
 
   componentWillMount() {
     document.title = "Pisa 2024";
     this.setState({
-      levelIndex:3
+      levelIndex:0
     })
   }
 
@@ -33,23 +25,8 @@ class Learn extends Component {
   // a little inellegant. Switches between lesson names and
   // components
   getLesson() {
-    let levelName = lessonList[this.state.levelIndex]['name']
-    if(levelName == 'Intro') {
-      return <Intro />
-    } else if(levelName == 'Motivation') {
-      return <Motivation />
-    } else if(levelName == 'Karel Commands') {
-      return <KarelCommands />
-    } else if(levelName == 'Pre Test') {
-      return <PreTest />
-    } else if(levelName == 'Learning') {
-      return <Learning />
-    } else if(levelName == 'Post Test') {
-      return <PostTest />
-    } else if(levelName == 'Karel Demo') {
-      return <KarelDemo />
-    }
-    return <div/>        
+    let lesson = lessonList[this.state.levelIndex]
+    return lesson['render']      
   }
  
   render() {

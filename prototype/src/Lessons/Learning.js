@@ -9,7 +9,7 @@ class Learning extends Component {
   render() {
     return (
       <div className="verticalContainer">
-      < h1>Lesson Description</h1>
+      <h1>Lesson Description</h1>
         <br />
 
         <h3>What Students Do</h3>

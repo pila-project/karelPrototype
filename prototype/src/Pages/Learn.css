@@ -84,6 +84,10 @@
   flex-direction: column;
 }
 
+.centered {
+  align-items: center;
+}
+
 .horizontalContainer {
   display: flex;
   flex-direction: row;

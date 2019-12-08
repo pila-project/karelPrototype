@@ -1,0 +1,19 @@
+.ideCanvas {
+  border:1px;
+  border-style:solid;
+}
+
+.cross{
+  width:3px;
+  height:3px;
+  background-color: black;
+  position: absolute;
+}
+
+.stone {
+  position: absolute;
+}
+
+.karel {
+  position: absolute;
+}
