@@ -29,7 +29,7 @@ class KarelIde extends Component {
       isReset:false
     }, () => {
       let engine = new KarelEngine()
-      engine.runCode(codeText, this.refs.world)
+      engine.runCode(codeText, this.refs.world, this.refs.editor)
     })
   }
 
