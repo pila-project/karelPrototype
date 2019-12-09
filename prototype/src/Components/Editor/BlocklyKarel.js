@@ -47,6 +47,7 @@ class BlocklyKarel extends React.Component {
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
+    this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
   }
 
   highlightBlock = (id) => {
