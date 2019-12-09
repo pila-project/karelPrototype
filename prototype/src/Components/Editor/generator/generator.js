@@ -67,7 +67,7 @@ Blockly.JavaScript['karel_stones_present'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
-Blockly.JavaScript['karel_if_dropdown'] = function(block) {
+Blockly.JavaScript['karel_if_front_dropdown'] = function(block) {
     var dropdown_condition = block.getFieldValue('CONDITION');
     var statements_then = Blockly.JavaScript.statementToCode(block, 'THEN');
     var code = 'if (' + dropdown_condition + ') {\n';
@@ -76,7 +76,25 @@ Blockly.JavaScript['karel_if_dropdown'] = function(block) {
     return code;
 };
 
-Blockly.JavaScript['karel_while_dropdown'] = function(block) {
+Blockly.JavaScript['karel_if_stone_dropdown'] = function(block) {
+    var dropdown_condition = block.getFieldValue('CONDITION');
+    var statements_then = Blockly.JavaScript.statementToCode(block, 'THEN');
+    var code = 'if (' + dropdown_condition + ') {\n';
+    code += statements_then + '\n'
+    code += '}\n'
+    return code;
+};
+
+Blockly.JavaScript['karel_while_front_dropdown'] = function(block) {
+    var dropdown_condition = block.getFieldValue('CONDITION');
+    var statements_loop = Blockly.JavaScript.statementToCode(block, 'LOOP');
+    var code = 'while (' + dropdown_condition + ') {\n';
+    code += statements_loop + '\n'
+    code += '}\n'
+    return code;
+  };
+
+  Blockly.JavaScript['karel_while_stone_dropdown'] = function(block) {
     var dropdown_condition = block.getFieldValue('CONDITION');
     var statements_loop = Blockly.JavaScript.statementToCode(block, 'LOOP');
     var code = 'while (' + dropdown_condition + ') {\n';
