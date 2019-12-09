@@ -6,10 +6,12 @@ import BlocklyKarel from '../Components/Editor/BlocklyKarel.js'
 import KarelWorld from '../Components/Karel/KarelWorld.js'
 import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelEngine from '../Components/Karel/KarelEngine.js'
+import KarelStepEngine from '../Components/Karel/KarelEngine.js'
 
 class DemoMultipleTests extends Component {
 
   componentWillMount() {
+    this.engine = new KarelEngine()
     this.setState({
       isReset:true
     })
@@ -24,17 +26,22 @@ class DemoMultipleTests extends Component {
   }
 
   run() {
-    let codeText = this.refs.editor.getCode()
     this.setState({
       isReset:false
     }, () => {
-      let engine = new KarelEngine()
-      let isValid = engine.runCode(codeText, this.refs.world, this.refs.editor)
+      let isValid = this.engine.runCode(this.refs.world, this.refs.editor)
       if(!isValid) {
         this.setState({
           isReset:true
         })
       }
+    })
+  }
+
+  step() {
+    this.engine.step(this.refs.world, this.refs.editor)
+    this.setState({
+      isReset:false
     })
   }
 

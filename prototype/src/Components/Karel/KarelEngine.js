@@ -2,22 +2,58 @@
 import KarelCompiler from './compiler/karelCompiler.js'
 import Swal from 'sweetalert2'
 
+/**
+ * Class: Karel Engine
+ * -------------------
+ * This class is responsible for linking between the world
+ * and the editor. It reduces the need for each IDE version
+ * to recreate this logic. It might also be worthwhile to
+ * include refs to the buttons in the longness of time. 
+ **/
 class KarelEngine {
 
   constructor() {
-    this.lineToBlockID = {};
+    this.compiler = null
   }
 
-  runCode(codeText, world, editor) {
-    let javaCode = this.convertToJava(codeText)
-    this.compiler = new KarelCompiler(world)
-    let functions = this.compiler.compile(javaCode)
-    let isValid = this.validate(functions)
-    this.heartbeat(editor)
-    if(!isValid) {
-      this.compilerWarning('Your program is empty')
+  step(world, editor) {
+    if(this.compiler == null) {
+      this.compiler = this.compileBlockly(world, editor)
     }
-    return isValid
+    this.compiler.executeStep((results) => {
+      let blockID = this.lineToBlockID[results.lineNumber];
+      editor.highlightBlock(blockID);
+    })
+  }
+
+  // this function is meant to be stateless, in that
+  // it doesn't require any set up to be called.
+  runCode(world, editor) {
+    this.compiler = this.compileBlockly(world, editor)
+    
+    if(this.compiler == null) {
+      this.compilerWarning('Your program is empty')
+    } else {
+      this.heartbeat(editor)
+    }
+
+    // let the caller know if the code didn't compile
+    return this.compiler == null
+  }
+
+  // after this method is called, the compiler is
+  // set up as well as lineToBlockID. If successful
+  // returns the compiler
+  compileBlockly(world, editor) {
+    let codeText = editor.getCode()
+    let javaCode = this.processBlocklyText(codeText)
+    let compiler = new KarelCompiler(world)
+    let functions = compiler.compile(javaCode)
+    let isValid = this.validate(functions)
+    if(!isValid) {
+      return null
+    }
+    return compiler
   }
 
   compilerWarning(message) {
@@ -61,21 +97,11 @@ class KarelEngine {
     return hasRun
   }
 
-  // convertToJava(codeText) {
-  //   var java = `public class MyProgram extends Karel {
-  //     ${codeText}
-  //   }
-  //   `
-  //   java = java.replace("main", "public void run");
-
-  //   // this is a lame hack. On flight couldn't remember
-  //   // the javascript method for "replace all"
-  //   java = java.replace("var", "int")
-  //   java = java.replace("var", "int")
-  //   return java
-  // }
-
-  convertToJava(codeText) {
+  // both sets up the lineToBlockID and also
+  // converts the output of blockly into "java"
+  // which is compilable
+  processBlocklyText(codeText) {
+    this.lineToBlockID = {}
     const codeLines = codeText.split('\n');
     const cleanedCodeLines = [];
     let lineNo = 1 // Start at 1 because the first line is java boilerplate

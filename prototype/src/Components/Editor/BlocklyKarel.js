@@ -72,7 +72,6 @@ class BlocklyKarel extends React.Component {
         <div className="horizontalContainer">
             <BlocklyComponent 
               ref={e => this.simpleWorkspace = e} 
-              style={{height:'100%'}}
               readOnly={false} 
               move={{
                 scrollbars: true,
@@ -81,7 +80,7 @@ class BlocklyKarel extends React.Component {
               }} 
               initialXml={`
   <xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="karel_main" deletable="false" x="180" y="50"></block>
+  <block type="karel_main" deletable="false" x="30" y="30"></block>
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
