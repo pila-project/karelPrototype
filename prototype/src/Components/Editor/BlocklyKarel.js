@@ -62,10 +62,7 @@ class BlocklyKarel extends React.Component {
 
   generateCode = (event) => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
-    // code = code.substring(code.indexOf("\n") + 1) // Remove first highlightBlock call
     this.setState({userCode: code});
-    // var id = code.split(';')[0].split(/'/)[1];
-    // this.highlightBlock(id);
   }
 
   render() {
@@ -75,17 +72,19 @@ class BlocklyKarel extends React.Component {
         <div className="horizontalContainer">
             <BlocklyComponent 
               ref={e => this.simpleWorkspace = e} 
+              //horizontalLayout={true}
+              //toolboxPosition='end'
               style={{height:'100%'}}
               readOnly={false}
               //theme={Blockly.Themes.Modern}
               move={{
                 scrollbars: true,
-                drag: true,
+                drag: false,
                 wheel: true
               }} 
               initialXml={`
   <xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="karel_main" deletable="false" x="180" y="50"></block>
+  <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
