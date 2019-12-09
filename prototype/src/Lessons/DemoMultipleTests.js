@@ -69,14 +69,12 @@ class DemoMultipleTests extends Component {
               <h3>World:</h3>
               <KarelWorld 
                 width = {260}
-                height = {260}
-                nRows = {4}
+                height = {65}
+                nRows = {1}
                 nCols = {4}
                 stones = {[
                   {r:0,c:1,n:1},
-                  {r:2,c:0,n:1},
-                  {r:3,c:2,n:1},
-                  {r:2,c:3,n:1},
+                  {r:0,c:3,n:1},
                 ]}
                 ref="world"
               />   
@@ -85,8 +83,8 @@ class DemoMultipleTests extends Component {
               <h3>Goal:</h3>
               <KarelGoal
                 width = {260}
-                height = {260}
-                nRows = {4}
+                height = {65}
+                nRows = {1}
                 nCols = {4}
                 karelRow = {0}
                 karelCol={3}
