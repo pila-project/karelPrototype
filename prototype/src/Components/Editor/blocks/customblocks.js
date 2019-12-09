@@ -176,3 +176,97 @@ Blockly.Blocks['karel_stones_present'] = {
     this.jsonInit(karelStonesPresent);
   }
 };
+
+var karelIfDropdown = {
+  "type": "karel_if_dropdown",
+  "message0": "if %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "front is clear",
+          "FRONT_CLEAR"
+        ],
+        [
+          "front is blocked",
+          "FRONT_BLOCKED"
+        ],
+        [
+          "stone is present",
+          "STONE_PRESENT"
+        ],
+        [
+          "no stone is present",
+          "STONE_ABSENT"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "THEN"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "If statement",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_if_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelIfDropdown);
+    this.setStyle('logic_blocks');
+  }
+};
+
+var karelWhileDropdown = {
+  "type": "karel_while_dropdown",
+  "message0": "while %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "front is clear",
+          "FRONT_CLEAR"
+        ],
+        [
+          "front is blocked",
+          "FRONT_BLOCKED"
+        ],
+        [
+          "stone is present",
+          "STONE_PRESENT"
+        ],
+        [
+          "no stone is present",
+          "STONE_ABSENT"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "LOOP"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "Loop until condition is met",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_while_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelWhileDropdown);
+    this.setStyle('loop_blocks');
+  }
+};

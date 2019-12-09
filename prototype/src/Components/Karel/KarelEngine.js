@@ -76,6 +76,7 @@ class KarelEngine {
   // }
 
   convertToJava(codeText) {
+    this.lineToBlockID = {}; // Clear map each time code is generated
     const codeLines = codeText.split('\n');
     const cleanedCodeLines = [];
     let lineNo = 1 // Start at 1 because the first line is java boilerplate

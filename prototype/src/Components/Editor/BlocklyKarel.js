@@ -89,7 +89,10 @@ class BlocklyKarel extends React.Component {
                   <Block type="karel_turn_left" />
                   <Block type="karel_place_stone" />
                   <Block type="karel_pickup_stone" />
-                  <Block type="controls_ifelse" />
+                  <Block type="karel_if_dropdown" />
+                  {/* <Block type="controls_if" /> */}
+                  <Block type="karel_while_dropdown" />
+                  {/* <Block type="controls_whileUntil" /> */}
                   <Block type="controls_repeat_ext">
                   <Value name="TIMES">
                       <Shadow type="math_number">
