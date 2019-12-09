@@ -55,8 +55,8 @@ class BlocklyKarel extends React.Component {
   }
 
   getCode = () => {
-    // console.log(Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace));
-    // console.log(Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace));
+    console.log(Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace));
+    console.log(Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace));
     return this.state.userCode
   }
 
@@ -89,7 +89,7 @@ class BlocklyKarel extends React.Component {
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
-                  {/* <category name="Karel"> */}
+                  <category name="Karel">
                     <Block type="karel_move" />
                     <Block type="karel_turn_left" />
                     <Block type="karel_place_stone" />
@@ -107,8 +107,8 @@ class BlocklyKarel extends React.Component {
                         </Shadow>
                     </Value>
                     </Block>
-                  {/* </category>
-                  <category name="Functions" custom="PROCEDURE"></category> */}
+                  </category>
+                  <category name="Functions" custom="PROCEDURE"></category>
                   {/* <Block type="procedures_defnoreturn" /> */}
                   {/* <Block type="procedures_callnoreturn" /> */}
             </BlocklyComponent>
