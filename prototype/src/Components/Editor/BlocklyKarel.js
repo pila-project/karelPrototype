@@ -75,15 +75,11 @@ class BlocklyKarel extends React.Component {
   <block type="karel_main" deletable="false" x="180" y="50"></block>
   </xml>
         `}>
-              <Category name="Karel" colour="120">
                   {/* <Block type="karel_main" /> */}
                   <Block type="karel_move" />
                   <Block type="karel_turn_left" />
                   <Block type="karel_place_stone" />
                   <Block type="karel_pickup_stone" />
-              </Category>
-
-              <Category name="Control Flow" colour="230">
                   <Block type="controls_ifelse" />
                   <Block type="controls_repeat_ext">
                   <Value name="TIMES">
@@ -92,7 +88,6 @@ class BlocklyKarel extends React.Component {
                       </Shadow>
                   </Value>
                   </Block>
-              </Category>>
             </BlocklyComponent>
           </div>
         {/* </header> */}
