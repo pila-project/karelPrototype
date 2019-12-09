@@ -29,7 +29,7 @@ class DemoMultipleTests extends Component {
       isReset:false
     }, () => {
       let engine = new KarelEngine()
-      let isValid = engine.runCode(codeText, this.refs.world)
+      let isValid = engine.runCode(codeText, this.refs.world, this.refs.editor)
       if(!isValid) {
         this.setState({
           isReset:true
