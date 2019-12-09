@@ -44,16 +44,25 @@ class BlocklyKarel extends React.Component {
   }
 
   componentDidMount(){
+    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    Blockly.JavaScript.addReservedWords('highlightBlock');
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
   }
 
-  getCode() {
+  highlightBlock = (id) => {
+    this.simpleWorkspace.workspace.highlightBlock(id);
+  }
+
+  getCode = () => {
     return this.state.userCode
   }
 
   generateCode = (event) => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
+    // code = code.substring(code.indexOf("\n") + 1) // Remove first highlightBlock call
     this.setState({userCode: code});
+    // var id = code.split(';')[0].split(/'/)[1];
+    // this.highlightBlock(id);
   }
 
   render() {
