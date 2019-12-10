@@ -98,7 +98,8 @@ KarelCall.prototype.execute = function(vm) {
    vm.currLineNum = this.lineNumber;
    
    // user defined methods take precidence
-   if (this.fn in vm.userFnNames) {
+   if (vm.userFnNames.indexOf(this.fn) != -1) {
+      console.log('call ', this.fn)
       vm.call(this.fn, vm.functions[this.fn]);
    } else if (KarelInstructions.instructions[this.fn]) {
       vm.changedWorld = true

@@ -46,6 +46,7 @@ class KarelEngine {
     let javaCode = this.processBlocklyText(codeText)
     let compiler = new KarelCompiler(world)
     let functions = compiler.compile(javaCode)
+    console.log(functions)
     let isValid = this.validate(functions)
     if(!isValid) {
       return null

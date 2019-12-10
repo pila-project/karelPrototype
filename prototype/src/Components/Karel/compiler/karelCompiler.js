@@ -74,6 +74,7 @@ class KarelCompiler {
    // is done. The callbackFn will be told if the program 
    // is finished and what line number was just executed.
    executeStep(callbackFn) {
+      console.log('step started')
       // we need to keep track of the callback function
       this.callbackFn = callbackFn
       this.isEngineFinished = false
@@ -106,6 +107,7 @@ class KarelCompiler {
    // if the world "state" is changed, then it will call this function
    // once react has finished with the state update.
    worldStepFinished() {
+      console.log('step finished')
       
       // to avoid a deadlock condition, you must busy wait
       // if the engine hasn't finished
@@ -115,7 +117,6 @@ class KarelCompiler {
             lineNumber:this.vm.getCurrLineNum()
          })
       } else {
-         // TODO: I forgot the command for setTimeout
          setTimeout(() => this.worldStepFinished(), 100)
       }
    }
