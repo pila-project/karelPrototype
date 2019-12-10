@@ -55,17 +55,14 @@ class BlocklyKarel extends React.Component {
   }
 
   getCode = () => {
-    // console.log(Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace));
-    // console.log(Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace));
+    console.log(Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace));
+    console.log(Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace));
     return this.state.userCode
   }
 
   generateCode = (event) => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
-    // code = code.substring(code.indexOf("\n") + 1) // Remove first highlightBlock call
     this.setState({userCode: code});
-    // var id = code.split(';')[0].split(/'/)[1];
-    // this.highlightBlock(id);
   }
 
   render() {
@@ -75,22 +72,27 @@ class BlocklyKarel extends React.Component {
         <div className="horizontalContainer fullSize">
             <BlocklyComponent 
               ref={e => this.simpleWorkspace = e} 
-
+              //horizontalLayout={true}
+              //toolboxPosition='end'
               style={{height:'100%'}}
               readOnly={false}
               //theme={Blockly.Themes.Modern}
               move={{
                 scrollbars: true,
-                drag: true,
+                drag: false,
                 wheel: true
               }} 
               initialXml={`
   <xml xmlns="http://www.w3.org/1999/xhtml">
+<<<<<<< HEAD
   <block type="karel_main" deletable="false" x="30" y="30"></block>
+=======
+  <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
+>>>>>>> c92cc7a62576fc69fe3aa6668b12b1026e3e04a0
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
-                  {/* <category name="Karel"> */}
+                  <category name="Karel">
                     <Block type="karel_move" />
                     <Block type="karel_turn_left" />
                     <Block type="karel_place_stone" />
@@ -108,8 +110,8 @@ class BlocklyKarel extends React.Component {
                         </Shadow>
                     </Value>
                     </Block>
-                  {/* </category>
-                  <category name="Functions" custom="PROCEDURE"></category> */}
+                  </category>
+                  <category name="Functions" custom="PROCEDURE"></category>
                   {/* <Block type="procedures_defnoreturn" /> */}
                   {/* <Block type="procedures_callnoreturn" /> */}
             </BlocklyComponent>
