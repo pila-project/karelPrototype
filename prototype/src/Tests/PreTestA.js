@@ -8,14 +8,25 @@ import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelCommands from '../Components/Templates/KarelCommands.js'
 import IdeSingleWorldNoStep from '../Components/Templates/IdeSingleWorldNoStep.js'
 
-const WORLD_HEIGHT = 150
+const WORLD_WIDTH = 250
   
 class PreTestA extends Component {
 
+  getPreWorld() {
+    return {
+      width:WORLD_WIDTH,
+      height:WORLD_WIDTH,
+      nRows:6,
+      nCols:6
+    }
+  }
+
   render() {
     return (<div className="verticalContainer centered testBody">
-      <h1 style={{marginBottom:40,marginTop:40}}>Hello world</h1>
-      <IdeSingleWorldNoStep/>
+      <IdeSingleWorldNoStep
+        preWorld = {this.getPreWorld()}
+
+      />
     </div>)
   }
 

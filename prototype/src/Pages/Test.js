@@ -8,7 +8,7 @@ import SplitPane from 'react-split-pane'
 
 import Swal from 'sweetalert2'
 
-import Splash from '../Components/Test/Splash.js'
+import Splash from '../Components/Templates/Splash.js'
 import Intro from '../Lessons/Intro.js'
 import Motivation from '../Lessons/Motivation.js'
 import KarelCommands from '../Lessons/KarelCommands.js'
