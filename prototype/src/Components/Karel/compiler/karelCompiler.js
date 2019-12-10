@@ -54,7 +54,7 @@ class KarelCompiler {
          functionNames.push(fnName);
          functions.push(fn);
       }
-
+      console.log(functionNames)
       this.vm.setUserFnNames(functionNames);
       for(var i = 0; i < functions.length; i++) {
          var fn = functions[i];

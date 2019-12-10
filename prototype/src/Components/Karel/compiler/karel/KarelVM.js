@@ -77,9 +77,9 @@ KarelCall.prototype.toString = function() {
 };
 
 KarelCall.prototype.legalFn = function(fn, userFns) {
-   if (KarelInstructions.instructions[fn]) return true;
-   if (KarelInstructions.predicates[fn]) return true;
-   // if ($.inArray(fn, userFns) != -1) return true;
+   if(KarelInstructions.instructions[fn]) return true;
+   if(KarelInstructions.predicates[fn]) return true;
+   if(userFns.indexOf(fn) != -1) return true;
    return false;
 }
 
