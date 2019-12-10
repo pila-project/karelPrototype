@@ -84,11 +84,8 @@ class BlocklyKarel extends React.Component {
               }} 
               initialXml={`
   <xml xmlns="http://www.w3.org/1999/xhtml">
-<<<<<<< HEAD
-  <block type="karel_main" deletable="false" x="30" y="30"></block>
-=======
-  <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
->>>>>>> c92cc7a62576fc69fe3aa6668b12b1026e3e04a0
+
+  <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
