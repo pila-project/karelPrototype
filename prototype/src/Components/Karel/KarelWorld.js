@@ -147,6 +147,21 @@ class KarelWorld extends Component {
     }, this.onStepFinished)
   }
 
+  frontIsClear() {
+    let oldRow = this.state.karelRow;
+    let oldCol = this.state.karelCol;
+    var newRow = oldRow;
+    var newCol = oldCol;
+    switch(this.state.dir) {
+      case 'East': newCol++; break;
+      case 'West': newCol--; break;
+      case 'North': newRow = newRow - 1; break;
+      case 'South': newRow = newRow + 1; break;
+      default: console.console.error("invalid this.dir: " + this.dir); break;   
+    }
+    return this.isMoveValid(oldRow, oldCol, newRow, newCol)
+  }
+
   stonesPresent() {
     let r = this.state.karelRow
     let c = this.state.karelCol

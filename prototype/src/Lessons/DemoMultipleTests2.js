@@ -8,7 +8,7 @@ import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelEngine from '../Components/Karel/KarelEngine.js'
 import KarelStepEngine from '../Components/Karel/KarelEngine.js'
 
-class DemoMultipleTests extends Component {
+class DemoMultipleTests2 extends Component {
 
   componentWillMount() {
     this.engine = new KarelEngine()
@@ -89,7 +89,7 @@ class DemoMultipleTests extends Component {
                   />
                 </div>
               </div>
-              <div style={{marginTop:20}}>
+              <div style={{marginTop:40}}>
                 {this.renderRunResetButton()}
                 <Button 
                   className="ideButton"
@@ -97,28 +97,33 @@ class DemoMultipleTests extends Component {
                   variant="info"
                   onClick = {() => this.step()}>Step</Button>
               </div>
-            </div>
-            {/* other worlds */}
-            <div className="otherWorldOuter">
-              <h3>Other Worlds:</h3>
-              <div className="otherWorldContainer">
-                <KarelGoal
-                  width = {180}
-                  height = {60}
-                  nRows = {1}
-                  nCols = {3}
-                  karelRow = {0}
-                  karelCol={0}
-                />
-                <div style={{height:20}}/>
-                <KarelGoal
-                  width = {300}
-                  height = {60}
-                  nRows = {1}
-                  nCols = {5}
-                  karelRow = {0}
-                  karelCol={0}
-                />
+              <div style={{marginTop:10}}>
+                <Button
+                  variant="outline-secondary"
+                >
+
+                  <KarelGoal 
+                    key = {'someTest'}
+                    width = {150}
+                    height = {50}
+                    nRows = {1}
+                    nCols = {3}
+                    karelCol = {-1.45}
+                  />  
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  style={{marginLeft:10}}
+                >
+
+                  <KarelGoal 
+                    width = {100}
+                    height = {50}
+                    nRows = {1}
+                    nCols = {2}
+                    karelCol = {-0.95}
+                  />  
+                </Button>
               </div>
             </div>
           </div>
@@ -131,4 +136,4 @@ class DemoMultipleTests extends Component {
 
 }
 
-export default DemoMultipleTests
+export default DemoMultipleTests2

@@ -12,10 +12,6 @@ import Swal from 'sweetalert2'
  **/
 class KarelEngine {
 
-  constructor() {
-    this.compiler = null
-  }
-
   step(world, editor) {
     if(this.compiler == null) {
       this.compiler = this.compileBlockly(world, editor)
@@ -38,7 +34,8 @@ class KarelEngine {
     }
 
     // let the caller know if the code didn't compile
-    return this.compiler == null
+    // returns "isValid"
+    return this.compiler != null
   }
 
   // after this method is called, the compiler is
@@ -97,9 +94,7 @@ class KarelEngine {
     return hasRun
   }
 
-  // both sets up the lineToBlockID and also
-  // converts the output of blockly into "java"
-  // which is compilable
+
   processBlocklyText(codeText) {
     this.lineToBlockID = {}
     const codeLines = codeText.split('\n');
@@ -125,7 +120,8 @@ class KarelEngine {
     // the javascript method for "replace all"
     java = java.replace("var", "int")
     java = java.replace("var", "int")
-
+    java = java.replace("FRONT_CLEAR", "frontIsClear()")
+    console.log('java', java)
     return java
   }
 

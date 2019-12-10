@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+
 import BlocklyKarel from '../Components/Editor/BlocklyKarel.js'
 import KarelWorld from '../Components/Karel/KarelWorld.js'
 import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelEngine from '../Components/Karel/KarelEngine.js'
 import KarelStepEngine from '../Components/Karel/KarelEngine.js'
 
-class DemoMultipleTests extends Component {
+class DemoMultipleTests3 extends Component {
 
   componentWillMount() {
     this.engine = new KarelEngine()
@@ -47,9 +50,9 @@ class DemoMultipleTests extends Component {
 
   renderRunResetButton() {
     if(this.state.isReset) {
-      return <Button className="ideButton" size="lg" onClick = {() => this.run()}>Run</Button>
+      return <Button style={{height:64}}className="ideButton" size="lg" onClick = {() => this.run()}>Run</Button>
     } else {
-      return <Button className="ideButton" size="lg" onClick = {() => this.reset()}>Reset</Button>
+      return <Button style={{height:64}}className="ideButton" size="lg" onClick = {() => this.reset()}>Reset</Button>
     }
   }
 
@@ -89,36 +92,34 @@ class DemoMultipleTests extends Component {
                   />
                 </div>
               </div>
-              <div style={{marginTop:20}}>
+              <div style={{marginTop:40}}>
                 {this.renderRunResetButton()}
                 <Button 
                   className="ideButton"
                   size="lg" 
                   variant="info"
-                  onClick = {() => this.step()}>Step</Button>
-              </div>
-            </div>
-            {/* other worlds */}
-            <div className="otherWorldOuter">
-              <h3>Other Worlds:</h3>
-              <div className="otherWorldContainer">
-                <KarelGoal
-                  width = {180}
-                  height = {60}
-                  nRows = {1}
-                  nCols = {3}
-                  karelRow = {0}
-                  karelCol={0}
-                />
-                <div style={{height:20}}/>
-                <KarelGoal
-                  width = {300}
-                  height = {60}
-                  nRows = {1}
-                  nCols = {5}
-                  karelRow = {0}
-                  karelCol={0}
-                />
+                  onClick = {() => this.step()}
+                  style={{height:64}}
+                >Step</Button>
+              
+                <Button
+                  variant="outline-secondary"
+                >
+                  <div class="horizontal" style={{alignItems:'center'}}>
+                    <span style={{marginRight:5}}>Change World:</span>
+                    <KarelGoal 
+                      key = {'someTest'}
+                      width = {150}
+                      height = {50}
+                      nRows = {1}
+                      nCols = {3}
+                      karelCol = {-1.45}
+                    />  
+                    <span style={{width:10}}/>
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  </div>
+                </Button>
+                
               </div>
             </div>
           </div>
@@ -131,4 +132,4 @@ class DemoMultipleTests extends Component {
 
 }
 
-export default DemoMultipleTests
+export default DemoMultipleTests3

@@ -176,3 +176,159 @@ Blockly.Blocks['karel_stones_present'] = {
     this.jsonInit(karelStonesPresent);
   }
 };
+
+var karelIfFrontDropdown = {
+  "type": "karel_if_front_dropdown",
+  "message0": "if front is %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "clear",
+          "FRONT_CLEAR"
+        ],
+        [
+          "blocked",
+          "FRONT_BLOCKED"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "THEN"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "Check if Karel's path is blocked",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_if_front_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelIfFrontDropdown);
+    this.setStyle('logic_blocks');
+  }
+};
+
+var karelIfStoneDropdown = {
+  "type": "karel_if_stone_dropdown",
+  "message0": "if stone is %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "present",
+          "STONE_PRESENT"
+        ],
+        [
+          "not present",
+          "STONE_ABSENT"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "THEN"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "Check if Karel is on top of a stone",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_if_stone_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelIfStoneDropdown);
+    this.setStyle('logic_blocks');
+  }
+};
+
+var karelWhileFrontDropdown = {
+  "type": "karel_while_front_dropdown",
+  "message0": "while front is %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "clear",
+          "FRONT_CLEAR"
+        ],
+        [
+          "blocked",
+          "FRONT_BLOCKED"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "LOOP"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "Repeat until condition is met",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_while_front_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelWhileFrontDropdown);
+    this.setStyle('loop_blocks');
+  }
+};
+
+var karelWhileStoneDropdown = {
+  "type": "karel_while_stone_dropdown",
+  "message0": "while stone is %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "CONDITION",
+      "options": [
+        [
+          "present",
+          "STONE_PRESENT"
+        ],
+        [
+          "not present",
+          "STONE_ABSENT"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "LOOP"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "Loop until condition is met",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['karel_while_stone_dropdown'] = {
+  init: function() {
+    this.jsonInit(karelWhileStoneDropdown);
+    this.setStyle('loop_blocks');
+  }
+};

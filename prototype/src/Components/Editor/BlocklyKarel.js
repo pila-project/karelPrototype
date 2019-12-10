@@ -47,6 +47,7 @@ class BlocklyKarel extends React.Component {
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
+    this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
   }
 
   highlightBlock = (id) => {
@@ -54,6 +55,8 @@ class BlocklyKarel extends React.Component {
   }
 
   getCode = () => {
+    // console.log(Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace));
+    // console.log(Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace));
     return this.state.userCode
   }
 
@@ -67,12 +70,15 @@ class BlocklyKarel extends React.Component {
 
   render() {
     return (
-      <div className="verticalContainer">
+      <div className="verticalContainer fullSize">
         
-        <div className="horizontalContainer">
+        <div className="horizontalContainer fullSize">
             <BlocklyComponent 
               ref={e => this.simpleWorkspace = e} 
-              readOnly={false} 
+
+              style={{height:'100%'}}
+              readOnly={false}
+              //theme={Blockly.Themes.Modern}
               move={{
                 scrollbars: true,
                 drag: true,
@@ -84,18 +90,28 @@ class BlocklyKarel extends React.Component {
   </xml>
         `}>
                   {/* <Block type="karel_main" /> */}
-                  <Block type="karel_move" />
-                  <Block type="karel_turn_left" />
-                  <Block type="karel_place_stone" />
-                  <Block type="karel_pickup_stone" />
-                  <Block type="controls_ifelse" />
-                  <Block type="controls_repeat_ext">
-                  <Value name="TIMES">
-                      <Shadow type="math_number">
-                      <Field name="NUM">10</Field>
-                      </Shadow>
-                  </Value>
-                  </Block>
+                  {/* <category name="Karel"> */}
+                    <Block type="karel_move" />
+                    <Block type="karel_turn_left" />
+                    <Block type="karel_place_stone" />
+                    <Block type="karel_pickup_stone" />
+                    <Block type="karel_if_front_dropdown" />
+                    <Block type="karel_if_stone_dropdown" />
+                    {/* <Block type="controls_if" /> */}
+                    <Block type="karel_while_front_dropdown" />
+                    <Block type="karel_while_stone_dropdown" />
+                    {/* <Block type="controls_whileUntil" /> */}
+                    <Block type="controls_repeat_ext">
+                    <Value name="TIMES">
+                        <Shadow type="math_number">
+                        <Field name="NUM">10</Field>
+                        </Shadow>
+                    </Value>
+                    </Block>
+                  {/* </category>
+                  <category name="Functions" custom="PROCEDURE"></category> */}
+                  {/* <Block type="procedures_defnoreturn" /> */}
+                  {/* <Block type="procedures_callnoreturn" /> */}
             </BlocklyComponent>
           </div>
         {/* </header> */}

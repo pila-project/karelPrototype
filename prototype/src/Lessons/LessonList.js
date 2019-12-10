@@ -11,9 +11,10 @@ import PreTest from '../Lessons/PreTest.js'
 import Learning from '../Lessons/Learning.js'
 import PostTest from '../Lessons/PostTest.js'
 import DemoBlocks from '../Lessons/DemoBlocks.js'
-import DemoIde from '../Lessons/DemoIde.js'
 import DemoPrePostIde from '../Lessons/DemoPrePostIde.js'
 import DemoMultipleTests from '../Lessons/DemoMultipleTests.js'
+import DemoMultipleTests2 from '../Lessons/DemoMultipleTests2.js'
+import DemoMultipleTests3 from '../Lessons/DemoMultipleTests3.js'
 
 var lessonList = [
   {
@@ -49,16 +50,20 @@ var lessonList = [
     render:<PostTest />
   },
   {
-    name:'Ide Demo',
-    render:<DemoIde />
-  },
-  {
     name:'PrePost Demo',
     render:<DemoPrePostIde />
   },
   {
     name:'MultipleTests Demo',
     render:<DemoMultipleTests />
+  },
+  {
+    name:'MultipleTests Demo 2',
+    render:<DemoMultipleTests2 />
+  },
+  {
+    name:'MultipleTests Demo 3',
+    render:<DemoMultipleTests3 />
   },
 ]
 

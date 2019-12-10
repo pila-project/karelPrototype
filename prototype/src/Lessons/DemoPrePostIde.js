@@ -29,7 +29,7 @@ class DemoPrePostIde extends Component {
       isReset:false
     }, () => {
       let engine = new KarelEngine()
-      let isValid = engine.runCode(codeText, this.refs.world, this.refs.editor)
+      let isValid = engine.runCode(this.refs.world, this.refs.editor)
       if(!isValid) {
         this.setState({
           isReset:true
@@ -52,19 +52,12 @@ class DemoPrePostIde extends Component {
         <div style={{width:500, height:560, marginRight:40}}>
           <BlocklyKarel 
             ref="editor"
-          /><br/>
-          <div>
-            {this.renderRunResetButton()}
-            <Button 
-              className="ideButton"
-              size="lg" 
-              variant="info"
-              onClick = {() => this.step()}>Step</Button>
-          </div>
-        </div>
-        <div>
+          />
           
-          <div className="horizontal" style={{marginTop:20}}>
+        </div>
+        <div className = "vertical">
+
+          <div className="horizontal">
             <div style={{marginRight:40}}>
               <h3>World:</h3>
               <KarelWorld 
@@ -93,8 +86,14 @@ class DemoPrePostIde extends Component {
               />
             </div>
           </div>
-          
-          <br/>    
+          <div style={{marginTop:20}}>
+            {this.renderRunResetButton()}
+            <Button 
+              className="ideButton"
+              size="lg" 
+              variant="info"
+              onClick = {() => this.step()}>Step</Button>
+          </div>  
         </div>
       </div>
     )
