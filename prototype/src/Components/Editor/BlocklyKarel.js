@@ -103,7 +103,7 @@ class BlocklyKarel extends React.Component {
   <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
   </xml>
         `}>
-              <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} />
+              <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
               {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
           </div>
@@ -117,10 +117,41 @@ class ToolboxXML extends React.Component {
   constructor(props){
     super(props);
   }
-
+  
   render() {
-    return (
+    if (this.props.categories == false)
+    {
+      return (
+        <React.Fragment>
+          <Block type="karel_move" />
+          <Block type="karel_turn_left" />
+          <Block type="karel_place_stone" />
+          <Block type="karel_pickup_stone" />
+          <Block type="karel_if_front_dropdown" />
+          <Block type="karel_if_stone_dropdown" />
+          <Block type="karel_while_front_dropdown" />
+          <Block type="karel_while_stone_dropdown" />
+          <Block type="controls_repeat_ext">
+          <Value name="TIMES">
+              <Shadow type="math_number">
+              <Field name="NUM">10</Field>
+              </Shadow>
+          </Value>
+          </Block>
+          <Block type="procedures_defnoreturn" />
+          <React.Fragment>
+          {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
+            <React.Fragment key={block.id}>
+              <Block type="procedures_callnoreturn" children={<mutation name={blockName}/>}/>
+            </React.Fragment>
+          )}
+          </React.Fragment>
+        </React.Fragment>
+      );
+    }
+    return(
       <React.Fragment>
+        <category name="Karel">
         <Block type="karel_move" />
         <Block type="karel_turn_left" />
         <Block type="karel_place_stone" />
@@ -136,16 +167,10 @@ class ToolboxXML extends React.Component {
             </Shadow>
         </Value>
         </Block>
-        <Block type="procedures_defnoreturn" />
-        <React.Fragment>
-        {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
-          <React.Fragment key={block.id}>
-            <Block type="procedures_callnoreturn" children={<mutation name={blockName}/>}/>
-          </React.Fragment>
-        )}
-        </React.Fragment>
+        </category>
+        <category name="Functions" custom="PROCEDURE"></category>
       </React.Fragment>
-    )
+    );
   }
 }
 
