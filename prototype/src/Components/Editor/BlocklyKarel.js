@@ -102,7 +102,7 @@ class BlocklyKarel extends React.Component {
               }} 
               initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
-                <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
+                <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
                 </xml>
         `      }>
               <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
@@ -129,10 +129,8 @@ class ToolboxXML extends React.Component {
           <Block type="karel_turn_left" />
           <Block type="karel_place_stone" />
           <Block type="karel_pickup_stone" />
-          <Block type="karel_if_front_dropdown" />
-          <Block type="karel_if_stone_dropdown" />
-          <Block type="karel_while_front_dropdown" />
-          <Block type="karel_while_stone_dropdown" />
+          <Block type="karel_if_dropdown" />
+          <Block type="karel_while_dropdown" />
           <Block type="controls_repeat_ext">
           <Value name="TIMES">
               <Shadow type="math_number">
@@ -158,7 +156,7 @@ class ToolboxXML extends React.Component {
         <Block type="karel_turn_left" />
         <Block type="karel_place_stone" />
         <Block type="karel_pickup_stone" />
-        <Block type="karel_if_front_dropdown" />
+        <Block type="karel_if_dropdown" />
         <Block type="karel_if_stone_dropdown" />
         <Block type="karel_while_front_dropdown" />
         <Block type="karel_while_stone_dropdown" />

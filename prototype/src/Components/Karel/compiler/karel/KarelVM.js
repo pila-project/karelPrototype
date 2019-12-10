@@ -77,9 +77,9 @@ KarelCall.prototype.toString = function() {
 };
 
 KarelCall.prototype.legalFn = function(fn, userFns) {
-   if (KarelInstructions.instructions[fn]) return true;
-   if (KarelInstructions.predicates[fn]) return true;
-   // if ($.inArray(fn, userFns) != -1) return true;
+   if(KarelInstructions.instructions[fn]) return true;
+   if(KarelInstructions.predicates[fn]) return true;
+   if(userFns.indexOf(fn) != -1) return true;
    return false;
 }
 
@@ -98,7 +98,8 @@ KarelCall.prototype.execute = function(vm) {
    vm.currLineNum = this.lineNumber;
    
    // user defined methods take precidence
-   if (this.fn in vm.userFnNames) {
+   if (vm.userFnNames.indexOf(this.fn) != -1) {
+      console.log('call ', this.fn)
       vm.call(this.fn, vm.functions[this.fn]);
    } else if (KarelInstructions.instructions[this.fn]) {
       vm.changedWorld = true
