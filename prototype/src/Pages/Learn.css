@@ -10,8 +10,11 @@
   flex-grow:1;
   background-color:white;
   display:flex;
-  margin-top:50px;
   justify-content: space-around;
+}
+
+.testBody {
+  padding-top: 40px
 }
 
 .learnNav {
@@ -145,4 +148,8 @@
   width:150px;
   height:150px;
   background-color:black;
+}
+
+.blue {
+  color:blue;
 }

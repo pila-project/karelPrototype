@@ -9,6 +9,8 @@ import Swal from 'sweetalert2'
  * and the editor. It reduces the need for each IDE version
  * to recreate this logic. It might also be worthwhile to
  * include refs to the buttons in the longness of time. 
+
+ * WARNING: assumes that the editor is a BlocklyEditor
  **/
 class KarelEngine {
 

@@ -6,6 +6,8 @@ import LearnNav from '../Components/Learn/LearnNav.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
 
+import Swal from 'sweetalert2'
+
 import Splash from '../Components/Test/Splash.js'
 import Intro from '../Lessons/Intro.js'
 import Motivation from '../Lessons/Motivation.js'
@@ -23,29 +25,45 @@ import DemoMultipleTests from '../Lessons/DemoMultipleTests.js'
 import DemoMultipleTests2 from '../Lessons/DemoMultipleTests2.js'
 import DemoMultipleTests3 from '../Lessons/DemoMultipleTests3.js'
 
+import CommandsA from '../Tests/CommandsA.js'
+import CommandsB from '../Tests/CommandsB.js'
+
+import PreTestA from '../Tests/PreTestA.js'
+
 var testList = [
   {
-    render:<Splash text={'Prototype'}/>
+    render:<Splash text={'Prototype'} subText={'(use <- and ->)'}/>
   },
   {
-    render:<Splash text={'Pre Test'}/>
+    render:<Splash text={'Motivation!'} subText={'In this experience you are going to be learning! Everyone will succeed. Coding is important'}/>
   },
   {
-    name:'KarelCommandsMove',
     render:<KarelCommandsMove />
   },
   {
-    name:'KarelCommandsTurnLeft',
     render:<KarelCommandsTurnLeft />
   },
   {
-    name:'KarelCommandsPlaceStone',
+    render:<KarelCommandsPickStone />
+  },
+  {
     render:<KarelCommandsPlaceStone />
   },
   {
-    name:'KarelCommandsPickStone',
-    render:<KarelCommandsPickStone />
-  }
+    render:<CommandsA />
+  },
+  {
+    render:<CommandsB />
+  },
+  {
+    render:<Splash text={'Pre Test'} subText={"Make your best guess"}/>
+  },
+  {
+    render:<PreTestA />
+  },
+  {
+    render:<Splash text={'Learning'} subText={"Let's learn how to program!"}/>
+  },
 ]
 
 class Test extends Component {
@@ -83,20 +101,50 @@ class Test extends Component {
     return lesson['render']      
   }
 
+  previousLesson() {
+    this.setState(function(prevState){
+      if(prevState.levelIndex > 0) {
+        return {levelIndex: prevState.levelIndex-1}
+      }
+    })
+  }
+
+  nextLesson() {
+    this.setState(function(prevState){
+      if(prevState.levelIndex < testList.length -1){
+        return {levelIndex: prevState.levelIndex+1}
+      }
+    })
+  }
+
+  motivation() {
+    let options = [
+      'Great work',
+      'Amazing',
+      'Wonderful',
+      'Awesome',
+      'How cool',
+      'You are really learning'
+    ]
+    return options[Math.floor(Math.random() * options.length)];
+  }
+
   handleKeyPress(e) {
     let key = e.key
     if(key == 'ArrowLeft') {
-      this.setState(function(prevState){
-        if(prevState.levelIndex > 0) {
-          return {levelIndex: prevState.levelIndex-1}
-        }
-      })
+      this.previousLesson()
     }
     if(key == 'ArrowRight') {
-      this.setState(function(prevState){
-        if(prevState.levelIndex < testList.length -1){
-          return {levelIndex: prevState.levelIndex+1}
-        }
+      this.nextLesson()
+    }
+    if(key == 'ArrowUp') {
+      Swal.fire({
+        title: this.motivation() + '!',
+        html: 'You solved the puzzle',
+        icon: 'success',
+        showConfirmButton:false,
+        timer: 1500,
+        onClose: () => this.nextLesson()
       })
     }
   }

@@ -18,8 +18,8 @@ class KarelCommandsMove extends Component {
   }
 
   render() {
-    return (<div className="verticalContainer centered">
-      <h1 style={{marginBottom:40}}>Karel can move</h1>
+    return (<div className="verticalContainer centered testBody">
+      <h1 style={{marginBottom:40,marginTop:40}}>Karel can <span className="blue">move</span></h1>
       <div className="horizontal centered" style={{marginBottom:20}}>
         <div>
           <h3>World:</h3>
