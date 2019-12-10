@@ -77,7 +77,9 @@ class BlocklyKarel extends React.Component {
         uFuncBlocks[proc[0]] = Blockly.Procedures.getDefinition(proc[0], this.simpleWorkspace.workspace);
       }
       this.setState({userFunctionBlocks:uFuncBlocks});
-      this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML); // Feels like a hack
+
+      // This is a hack, but I can't figure out how to get the toolbox view to re-render otherwise.
+      this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML);
     }
   }
 
@@ -99,10 +101,10 @@ class BlocklyKarel extends React.Component {
                 wheel: true
               }} 
               initialXml={`
-  <xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
-  </xml>
-        `}>
+                <xml xmlns="http://www.w3.org/1999/xhtml">
+                <block type="karel_main" deletable="false" movable="false" x="50" y="30"></block>
+                </xml>
+        `      }>
               <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
               {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
