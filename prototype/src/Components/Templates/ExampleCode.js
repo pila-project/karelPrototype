@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,14 +7,7 @@ import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
 
-/**
-
-WARNING: depricated. Use IdeSingleWorld
-and turn off the step button :-)
-
- **/
-
-class IdeSingleWorld extends Component {
+class ExampleCode extends Component {
 
   componentWillMount() {
     this.setState({
@@ -53,43 +46,28 @@ class IdeSingleWorld extends Component {
     }
   }
 
-  renderInstructions() {
-    if(!('instructions' in this.props)) {
-      return <span/>
-    }
-    return (
-      <div className="instructionBox">
-        {this.props.instructions}
-      </div>
-    )
-  }
-
   render() {
     return (
       <div className="horizontal">
         <div style={{width:500, height:560, marginRight:40}}>
           <BlocklyKarel 
             ref="editor"
-            initialXml = {this.props.initialXml}
+            initialXml={this.props.initialXml}
+            toolboxPresent={false}
           />
           
         </div>
         <div className = "vertical">
-          {this.renderInstructions()}
+
           <div className="horizontal">
             <div style={{marginRight:40}}>
               <h3>World:</h3>
               <KarelWorld 
-                {...this.props.preWorld}
+                {...this.props.world}
                 ref="world"
               />   
             </div> 
-            <div>
-              <h3>Goal:</h3>
-              <KarelGoal
-                {...this.props.postWorld}
-              />
-            </div>
+            
           </div>
           <div style={{marginTop:20}}>
             {this.renderRunResetButton()}
@@ -98,6 +76,7 @@ class IdeSingleWorld extends Component {
       </div>
     )
   }
+
 }
 
-export default IdeSingleWorld
+export default ExampleCode

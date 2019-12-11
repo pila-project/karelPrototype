@@ -324,7 +324,8 @@ class KarelWorld extends Component {
                 className ="stoneDiamond"
               />
               <span className="stoneText" style={{
-                marginTop:-size,
+                fontSize:size * 0.75,
+                marginTop:-size * 1.05,
                 width:size
               }}>{text}</span>
             </div>

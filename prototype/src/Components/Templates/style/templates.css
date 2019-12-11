@@ -17,3 +17,11 @@
   justify-content: space-between;
   width:80vw;
 }
+
+.instructionBox {
+  background-color: #ccf2ff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}

@@ -86,7 +86,7 @@ class Test extends Component {
   componentWillMount() {
     document.title = "Pisa 2024";
     this.setState({
-      levelIndex:0
+      levelIndex:12
     })
   }
 

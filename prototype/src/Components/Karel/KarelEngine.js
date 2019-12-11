@@ -12,6 +12,12 @@ import Swal from 'sweetalert2'
 
  * WARNING: assumes that the editor is a BlocklyEditor
  **/
+
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this;
+  return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 class KarelEngine {
 
   step(world, editor) {
@@ -121,12 +127,13 @@ class KarelEngine {
 
     // this is a lame hack. On flight couldn't remember
     // the javascript method for "replace all"
-    java = java.replace("var", "int")
-    java = java.replace("var", "int")
+    java = java.replaceAll("var", "int")
     java = java.replace("FRONT_CLEAR", "frontIsClear()")
     console.log('java', java)
     return java
   }
+
+  
 
 }
 

@@ -36,6 +36,10 @@ import BlocklyJS from 'blockly/javascript';
 import './blocks/customblocks';
 import './generator/generator';
 
+const defaultXml = `<xml xmlns="http://www.w3.org/1999/xhtml">
+                    <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
+                  </xml>`
+
 class BlocklyKarel extends React.Component {
 
   constructor(props){
@@ -47,9 +51,7 @@ class BlocklyKarel extends React.Component {
   }
 
   static defaultProps = {
-    initialXml: `<xml xmlns="http://www.w3.org/1999/xhtml">
-                    <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
-                  </xml>`,
+    initialXml: defaultXml,
     toolboxPresent: true
   }
 
@@ -67,6 +69,13 @@ class BlocklyKarel extends React.Component {
 
   getCode = () => {
     return this.state.userCode
+  }
+
+  getInitialXml() {
+    if(this.props.initialXml == '')  {
+      return defaultXml
+    }
+    return this.props.initialXml
   }
 
   generateCode = (event) => {
@@ -107,7 +116,7 @@ class BlocklyKarel extends React.Component {
                 drag: false,
                 wheel: true
               }} 
-              initialXml={this.props.initialXml}>
+              initialXml={this.getInitialXml()}>
               {this.props.toolboxPresent &&
                 <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
               }

@@ -7,16 +7,17 @@ import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
 
-/**
-
-WARNING: depricated. Use IdeSingleWorld
-and turn off the step button :-)
-
- **/
-
 class IdeSingleWorld extends Component {
 
+  static defaultProps = {
+    hasRun: true,
+    hasStep: false,
+    postWorld: null,
+    isEditable:true
+  }
+
   componentWillMount() {
+    this.engine = new KarelEngine()
     this.setState({
       isReset:true
     })
@@ -45,6 +46,33 @@ class IdeSingleWorld extends Component {
     })
   }
 
+  step() {
+    this.engine.step(this.refs.world, this.refs.editor)
+    this.setState({
+      isReset:false
+    })
+  }
+
+  renderButtons() {
+    let buttons = []
+    if(this.props.hasRun) {
+      buttons.push(this.renderRunResetButton())
+    }
+    if(this.props.hasStep){
+      buttons.push(this.renderStepButton())
+    }
+    return <div>{buttons}</div>
+  }
+
+  renderStepButton() {
+    return <Button 
+      className="ideButton"
+      size="lg" 
+      variant="info"
+      onClick = {() => this.step()}
+    >Step</Button>
+  }
+
   renderRunResetButton() {
     if(this.state.isReset) {
       return <Button className="ideButton" size="lg" onClick = {() => this.run()}>Run</Button>
@@ -64,6 +92,21 @@ class IdeSingleWorld extends Component {
     )
   }
 
+  renderPost() {
+    if(this.props.postWorld != null){
+      return (
+        <div>
+          <h3>Goal:</h3>
+          <KarelGoal
+            {...this.props.postWorld}
+          />
+        </div>
+      )
+    }
+    return <div/>
+    
+  }
+
   render() {
     return (
       <div className="horizontal">
@@ -71,6 +114,7 @@ class IdeSingleWorld extends Component {
           <BlocklyKarel 
             ref="editor"
             initialXml = {this.props.initialXml}
+            toolboxPresent={this.props.isEditable}
           />
           
         </div>
@@ -84,15 +128,10 @@ class IdeSingleWorld extends Component {
                 ref="world"
               />   
             </div> 
-            <div>
-              <h3>Goal:</h3>
-              <KarelGoal
-                {...this.props.postWorld}
-              />
-            </div>
+            {this.renderPost()}
           </div>
           <div style={{marginTop:20}}>
-            {this.renderRunResetButton()}
+            {this.renderButtons()}
           </div>  
         </div>
       </div>

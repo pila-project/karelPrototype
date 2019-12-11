@@ -17,10 +17,6 @@ import DemoMultipleTests3_CustomStarterCode from './DemoMultipleTests3_CustomSta
 
 var lessonList = [
   {
-    name:'Motivation',
-    render:<Motivation />
-  },
-  {
     name:'KarelCommandsMove',
     render:<KarelCommandsMove />
   },

@@ -1,21 +1,58 @@
 import React, { Component } from 'react'
 
 import LearnNav from '../Components/Learn/LearnNav.js'
-
+import ProgramsA from './ProgramsA.js'
+import ModifyMoves from './ModifyMoves.js'
+import ModifyB from './ModifyB.js'
+import ModifyC from './ModifyC.js'
+import FnTurnRight from './FnTurnRight.js'
+import FnTurnAround from './FnTurnAround.js'
+import Repeat5 from './Repeat5.js'
+import Repeat9 from './Repeat9.js'
+import RepeatCorners from './RepeatCorners.js'
+import RepeatMethodsA from './RepeatMethodsA.js'
 
 var lessonList = [
   {
     name:'A',
-    type:'Learn',
-    render:<div>A</div>,
+    type:'lesson',
+    render:<ProgramsA />,
   },
   {
     name:'B',
-    render:<div>B</div>
+    render:<ModifyMoves/>
   },
   {
     name:'C',
-    render:<div>B</div>
+    render:<ModifyB />
+  },
+  {
+    name:'D',
+    render:<ModifyC />
+  },
+  {
+    name:'Turn Right',
+    render:<FnTurnRight />
+  },
+  {
+    name:'Turn Around',
+    render:<FnTurnAround />
+  },
+  {
+    name:'Repeat 5',
+    render:<Repeat5 />
+  },
+  {
+    name:'Repeat Corners',
+    render:<RepeatCorners />
+  },
+  {
+    name:'Repeat 9',
+    render:<Repeat9 />
+  },
+  {
+    name:'Repeat Methods',
+    render:<RepeatMethodsA />
   },
 ]
 
