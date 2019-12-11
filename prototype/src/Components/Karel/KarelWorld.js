@@ -15,7 +15,7 @@ import Beeper from './images/beeper.png'
  nCols
  */
 const KAREL_IMG_PCT = 0.8
-const BEEPER_IMG_PCT = 0.35
+const BEEPER_IMG_PCT = 0.5
 const CROSS_PCT = 0.1
 
 class KarelWorld extends Component {
@@ -308,20 +308,27 @@ class KarelWorld extends Component {
     }
     return <div>
       {
-        
         stoneList.map((stone, index) => {
           let size = BEEPER_IMG_PCT * this.getCornerSize()
           let offset = (this.getCornerSize() - size)/2
           let x = this.getCornerX(stone.r, stone.c) + offset
           let y = this.getCornerY(stone.r, stone.c) + offset
-          return <div 
-            key={index}
-            className ="stone"
-            style={{
+          let text = stone.n > 1 ? stone.n : ''
+          return (
+            <div className="stone" style={{
               width:size,height:size,
               marginLeft:x,marginTop:y
-            }}
-          ></div>
+            }}>
+              <div 
+                key={index}
+                className ="stoneDiamond"
+              />
+              <span className="stoneText" style={{
+                marginTop:-size,
+                width:size
+              }}>{text}</span>
+            </div>
+          )
         })
       }
     </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import lessonList from '../../Lessons/LessonList.js'
 
 import Logo from "../../Img/stanford-black.png";
 
@@ -14,8 +13,8 @@ class LearnNav extends Component {
         <button 
           className="selectedLevelNav"
           key = {index}
-          title={lessonList[index]['name']}
-          alt={lessonList[index]['name']}
+          title={this.props.list[index]['name']}
+          alt={this.props.list[index]['name']}
           data-toggle="tooltip"
           data-placement="bottom"
         >
@@ -43,16 +42,15 @@ class LearnNav extends Component {
       <div className="learnNav">
         <img src={Logo} className="logo"/>
         <div className="middleNav">
-          <a>Pisa 2024</a>
+          <a>{this.props.name}</a>
           <div className="breadcrumbContainer">
-            {lessonList.map((value, index) => {
+            {this.props.list.map((value, index) => {
               return this.getButton(value, index)
             })}
           </div>
-          <a>I finished!</a>
         </div>
         <div className="rightNav">
-          <a>About</a>
+          <a>{this.props.rightText}</a>
         </div>
       </div>
     )

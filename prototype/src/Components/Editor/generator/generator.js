@@ -54,7 +54,7 @@ Blockly.JavaScript['karel_place_stone'] = function (block) {
 };
 
 Blockly.JavaScript['karel_pickup_stone'] = function (block) {
-    return 'pickupStone();\n'
+    return 'pickStone();\n'
 };
 
 Blockly.JavaScript['karel_front_is_clear'] = function (block) {

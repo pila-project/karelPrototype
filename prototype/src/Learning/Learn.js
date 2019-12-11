@@ -1,41 +1,53 @@
 import React, { Component } from 'react'
-import './Learn.css'
 
-import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/Learn/LearnNav.js'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import SplitPane from 'react-split-pane'
-import lessonList from '../Lessons/LessonList.js'
+
+
+var lessonList = [
+  {
+    name:'A',
+    type:'Learn',
+    render:<div>A</div>,
+  },
+  {
+    name:'B',
+    render:<div>B</div>
+  },
+  {
+    name:'C',
+    render:<div>B</div>
+  },
+]
 
 class Learn extends Component {
 
   componentWillMount() {
-    document.title = "Pisa 2024";
     this.setState({
-      levelIndex:0
+      levelIndex:0,
+      unlockedIndex:2
     })
   }
 
-  changeLevel(newIndex) {
+  changeLevel(newLevel) {
     this.setState({
-      levelIndex:newIndex
+      levelIndex:newLevel
     })
   }
 
-  // a little inellegant. Switches between lesson names and
-  // components
   getLesson() {
     let lesson = lessonList[this.state.levelIndex]
     return lesson['render']      
   }
- 
-  render() {
 
+  render() {
     return (
       <div className="learnContainer">
         <LearnNav 
           levelIndex = {this.state.levelIndex}
           changeLevel = {(e) => this.changeLevel(e)}
+          list = {lessonList}
+          name = {'Learn'}
+          rightText = {'Time left: 60 mins'}
         />
         <div className="learnBody">
           {this.getLesson()}
@@ -43,6 +55,7 @@ class Learn extends Component {
       </div>
     )
   }
+
 }
 
 export default Learn

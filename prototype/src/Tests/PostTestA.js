@@ -10,7 +10,7 @@ import IdeSingleWorldNoStep from '../Components/Templates/IdeSingleWorldNoStep.j
 
 const WORLD_WIDTH = 280
   
-class PreTestA extends Component {
+class PostTestA extends Component {
 
   getPreWorld() {
     return {
@@ -19,25 +19,29 @@ class PreTestA extends Component {
       nRows:6,
       nCols:6,
       stones: [
-        {r:0,c:2,n:9},
+        {r:0,c:5,n:9},
         {r:0,c:3,n:9},
+        {r:0,c:1,n:9},
+
+        {r:1,c:4,n:9},
         {r:1,c:2,n:9},
-        {r:1,c:3,n:9},
+        {r:1,c:0,n:9},
 
-        {r:2,c:0,n:9},
-        {r:3,c:0,n:9},
-        {r:2,c:1,n:9},
-        {r:3,c:1,n:9},
-
-        {r:2,c:4,n:9},
-        {r:3,c:4,n:9},
         {r:2,c:5,n:9},
-        {r:3,c:5,n:9},
+        {r:2,c:3,n:9},
+        {r:2,c:1,n:9},
 
-        {r:4,c:2,n:9},
+        {r:3,c:4,n:9},
+        {r:3,c:2,n:9},
+        {r:3,c:0,n:9},
+
+        {r:4,c:5,n:9},
         {r:4,c:3,n:9},
+        {r:4,c:1,n:9},
+
+        {r:5,c:4,n:9},
         {r:5,c:2,n:9},
-        {r:5,c:3,n:9},
+        {r:5,c:0,n:9},
       ]
     }
   }
@@ -64,4 +68,4 @@ class PreTestA extends Component {
 
 }
 
-export default PreTestA
+export default PostTestA

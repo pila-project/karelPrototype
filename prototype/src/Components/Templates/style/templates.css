@@ -7,3 +7,13 @@
   margin-right:-10px;
 
 }
+
+.guessImg {
+  max-height: 200px
+}
+
+.worldGuesses {
+  display:flex;
+  justify-content: space-between;
+  width:80vw;
+}

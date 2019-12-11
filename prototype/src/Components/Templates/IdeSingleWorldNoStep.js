@@ -68,15 +68,7 @@ class IdeSingleWorldNoStep extends Component {
             <div>
               <h3>Goal:</h3>
               <KarelGoal
-                width = {260}
-                height = {260}
-                nRows = {2}
-                nCols = {2}
-                walls = {[
-                  {r:1,c:0,d:'North'}
-                ]}
-                karelRow = {0}
-                karelDir = {'West'}
+                {...this.props.postWorld}
               />
             </div>
           </div>

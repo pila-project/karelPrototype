@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Learn.css'
+import './style/pages.css'
 
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/Learn/LearnNav.js'
@@ -9,26 +9,21 @@ import SplitPane from 'react-split-pane'
 import Swal from 'sweetalert2'
 
 import Splash from '../Components/Templates/Splash.js'
-import Intro from '../Lessons/Intro.js'
-import Motivation from '../Lessons/Motivation.js'
-import KarelCommands from '../Lessons/KarelCommands.js'
-import KarelCommandsMove from '../Lessons/KarelCommandsMove.js'
-import KarelCommandsPickStone from '../Lessons/KarelCommandsPickStone.js'
-import KarelCommandsPlaceStone from '../Lessons/KarelCommandsPlaceStone.js'
-import KarelCommandsTurnLeft from '../Lessons/KarelCommandsTurnLeft.js'
-import PreTest from '../Lessons/PreTest.js'
-import Learning from '../Lessons/Learning.js'
-import PostTest from '../Lessons/PostTest.js'
-import DemoBlocks from '../Lessons/DemoBlocks.js'
-import DemoPrePostIde from '../Lessons/DemoPrePostIde.js'
-import DemoMultipleTests from '../Lessons/DemoMultipleTests.js'
-import DemoMultipleTests2 from '../Lessons/DemoMultipleTests2.js'
-import DemoMultipleTests3 from '../Lessons/DemoMultipleTests3.js'
+import KarelCommandsMove from '../Demos/KarelCommandsMove.js'
+import KarelCommandsPickStone from '../Demos/KarelCommandsPickStone.js'
+import KarelCommandsPlaceStone from '../Demos/KarelCommandsPlaceStone.js'
+import KarelCommandsTurnLeft from '../Demos/KarelCommandsTurnLeft.js'
 
 import CommandsA from '../Tests/CommandsA.js'
 import CommandsB from '../Tests/CommandsB.js'
 
 import PreTestA from '../Tests/PreTestA.js'
+import PreTestGuessSimple from '../Tests/PreTestGuessSimple.js'
+import PreTestGuessWhile from '../Tests/PreTestGuessWhile.js'
+
+import PostTestA from '../Tests/PostTestA.js'
+
+import Learn from '../Learning/Learn.js'
 
 var testList = [
   {
@@ -59,10 +54,25 @@ var testList = [
     render:<Splash text={'Pre Test'} subText={"Make your best guess"}/>
   },
   {
+    render:<PreTestGuessSimple />
+  },
+  {
+    render:<PreTestGuessWhile />
+  },
+  {
     render:<PreTestA />
   },
   {
     render:<Splash text={'Learning'} subText={"Let's learn how to program!"}/>
+  },
+  {
+    render:<Learn />
+  },
+  {
+    render:<Splash text={'Post Test'} subText={"Lets celebrate"}/>
+  },
+  {
+    render:<PostTestA />
   },
 ]
 

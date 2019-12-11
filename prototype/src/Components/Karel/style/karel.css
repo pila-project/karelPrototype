@@ -14,10 +14,20 @@
 
 .stone {
   position: absolute;
+}
+
+.stoneDiamond {
+  width:100%;
+  height:100%;
   border: solid 1px;
   background-color: #1CB7FE;
   transform: rotateY(0deg) rotate(45deg); /* needs Y at 0 deg to behave properly*/
   /*transition: transform 2s;*/
+}
+
+.stoneText {
+  position: absolute;
+  text-align: center
 }
 
 .karel {
