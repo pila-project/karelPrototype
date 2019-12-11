@@ -12,6 +12,8 @@ import DemoPrePostIde from './DemoPrePostIde.js'
 import DemoMultipleTests from './DemoMultipleTests.js'
 import DemoMultipleTests2 from './DemoMultipleTests2.js'
 import DemoMultipleTests3 from './DemoMultipleTests3.js'
+import DemoMultipleTests3_CustomStarterCode from './DemoMultipleTests3_CustomStarterCode.js'
+
 
 var lessonList = [
   {
@@ -61,6 +63,10 @@ var lessonList = [
   {
     name:'MultipleTests Demo 3',
     render:<DemoMultipleTests3 />
+  },
+  {
+    name:'MultipleTests Demo 3 Custom Starter Code',
+    render:<DemoMultipleTests3_CustomStarterCode />
   },
 ]
 

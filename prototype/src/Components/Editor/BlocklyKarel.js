@@ -46,6 +46,13 @@ class BlocklyKarel extends React.Component {
       };
   }
 
+  static defaultProps = {
+    initialXml: `<xml xmlns="http://www.w3.org/1999/xhtml">
+                    <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
+                  </xml>`,
+    toolboxPresent: true
+  }
+
   componentDidMount(){
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
@@ -100,12 +107,10 @@ class BlocklyKarel extends React.Component {
                 drag: false,
                 wheel: true
               }} 
-              initialXml={`
-                <xml xmlns="http://www.w3.org/1999/xhtml">
-                <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
-                </xml>
-        `      }>
-              <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
+              initialXml={this.props.initialXml}>
+              {this.props.toolboxPresent &&
+                <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
+              }
               {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
           </div>

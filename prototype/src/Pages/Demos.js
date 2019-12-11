@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/Learn/LearnNav.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
-import lessonList from '../Demos/LessonList.js'
+import demoList from '../Demos/DemoList.js'
 
 class Demos extends Component {
 
@@ -25,7 +25,7 @@ class Demos extends Component {
   // a little inellegant. Switches between lesson names and
   // components
   getLesson() {
-    let lesson = lessonList[this.state.levelIndex]
+    let lesson = demoList[this.state.levelIndex]
     return lesson['render']      
   }
  
@@ -36,7 +36,7 @@ class Demos extends Component {
         <LearnNav 
           levelIndex = {this.state.levelIndex}
           changeLevel = {(e) => this.changeLevel(e)}
-          list = {lessonList}
+          list = {demoList}
           name = {'Pisa 2024'}
         />
         <div className="learnBody">
