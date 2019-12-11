@@ -5,6 +5,9 @@ import IdeSingleWorldNoStep from '../Components/Templates/IdeSingleWorldNoStep.j
 import MsgProgram from '../Img/thisIsProgram.png'
 import MsgRun from '../Img/hitRunButton.png'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="30" y="30"><statement name="program"><block type="karel_move"><next><block type="karel_move"></block></next></block></statement></block></xml>`
 class ModifyMoves extends Component {
 
@@ -13,8 +16,15 @@ class ModifyMoves extends Component {
       <div className="vertical centered testBody">
 
         <IdeSingleWorldNoStep
-          instructions = {<span>
-            <b>Challenge:</b> Add another "move" to the program.
+          instructions = {<span className="horizontal spaceBetween">
+            <span>
+              <b>Challenge:</b> Add another "move" to the program.
+            </span>
+            <div>
+              <FontAwesomeIcon 
+                icon={faQuestionCircle}
+              />
+            </div>
           </span>}
           preWorld = {{
             width:300,

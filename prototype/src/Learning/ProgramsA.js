@@ -19,18 +19,19 @@ class ProgramsA extends Component {
             nCols:4
           }}
           initialXml = {initialXml}
-        />
+        >
+        </ExampleCode>
         <img style= {{
           position:'absolute',
           height:150,
-          top:150,
+          top:120,
           marginLeft:-60
           }}
           src={MsgProgram} />
         <img style= {{
           position:'absolute',
           height:150,
-          top:400,
+          top:370,
           marginLeft:-60,
           zIndex:999
           }}

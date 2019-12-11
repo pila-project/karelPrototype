@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import LearnNav from '../Components/Learn/LearnNav.js'
+import LearnNav from '../Components/NavBars/LearnNav.js'
 import ProgramsA from './ProgramsA.js'
 import ModifyMoves from './ModifyMoves.js'
 import ModifyB from './ModifyB.js'
@@ -11,12 +11,19 @@ import Repeat5 from './Repeat5.js'
 import Repeat9 from './Repeat9.js'
 import RepeatCorners from './RepeatCorners.js'
 import RepeatMethodsA from './RepeatMethodsA.js'
+import RepeatMethodsTest from './RepeatMethodsTest.js'
+import AnimatedProgram from './AnimatedProgram.js'
 
 var lessonList = [
   {
-    name:'A',
+    name:'First Example',
     type:'lesson',
     render:<ProgramsA />,
+  },
+  {
+    name:'How to Program',
+    type:'lesson',
+    render:<AnimatedProgram />,
   },
   {
     name:'B',
@@ -54,6 +61,10 @@ var lessonList = [
     name:'Repeat Methods',
     render:<RepeatMethodsA />
   },
+  {
+    name:'Repeat Test',
+    render:<RepeatMethodsTest />
+  },
 ]
 
 class Learn extends Component {
@@ -61,7 +72,7 @@ class Learn extends Component {
   componentWillMount() {
     this.setState({
       levelIndex:0,
-      unlockedIndex:2
+      lockedIndex:11
     })
   }
 
@@ -81,10 +92,11 @@ class Learn extends Component {
       <div className="learnContainer">
         <LearnNav 
           levelIndex = {this.state.levelIndex}
+          lockedIndex = {this.state.lockedIndex}
           changeLevel = {(e) => this.changeLevel(e)}
           list = {lessonList}
           name = {'Learn'}
-          rightText = {'Time left: 60 mins'}
+          rightText = {'Time left: 45 mins'}
         />
         <div className="learnBody">
           {this.getLesson()}

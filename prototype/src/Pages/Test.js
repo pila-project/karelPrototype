@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './style/pages.css'
 
 import Button from 'react-bootstrap/Button'
-import LearnNav from '../Components/Learn/LearnNav.js'
+import LearnNav from '../Components/NavBars/LearnNav.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
 
@@ -22,6 +22,7 @@ import PreTestGuessSimple from '../Tests/PreTestGuessSimple.js'
 import PreTestGuessWhile from '../Tests/PreTestGuessWhile.js'
 
 import PostTestA from '../Tests/PostTestA.js'
+import ProgramDemoA from '../Learning/ProgramsA.js'
 
 import Learn from '../Learning/Learn.js'
 
@@ -60,6 +61,9 @@ var testList = [
     render:<PreTestGuessWhile />
   },
   {
+    render:<ProgramDemoA />
+  },
+  {
     render:<PreTestA />
   },
   {
@@ -86,7 +90,7 @@ class Test extends Component {
   componentWillMount() {
     document.title = "Pisa 2024";
     this.setState({
-      levelIndex:12
+      levelIndex:0
     })
   }
 
