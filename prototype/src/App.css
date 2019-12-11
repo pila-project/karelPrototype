@@ -27,12 +27,7 @@ pre {
   box-shadow: -10px 10px 10px black;
   padding: 15px;
   margin: 20px;
-  background-color: #555;
-}
-
-#code-window {
-  padding-top:20px;
-  width:40vmin;
+  background-color: #ddd;
 }
 
 @keyframes App-logo-spin {
