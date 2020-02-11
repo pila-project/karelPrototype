@@ -24,6 +24,19 @@ import PreTestGuessWhile from '../Tests/PreTestGuessWhile.js'
 import PostTestA from '../Tests/PostTestA.js'
 import ProgramDemoA from '../Learning/ProgramsA.js'
 
+import ProgramsA from '../Learning/ProgramsA.js'
+import ModifyMoves from '../Learning/ModifyMoves.js'
+import ModifyB from '../Learning/ModifyB.js'
+import ModifyC from '../Learning/ModifyC.js'
+import FnTurnRight from '../Learning/FnTurnRight.js'
+import FnTurnAround from '../Learning/FnTurnAround.js'
+import Repeat5 from '../Learning/Repeat5.js'
+import Repeat9 from '../Learning/Repeat9.js'
+import RepeatCorners from '../Learning/RepeatCorners.js'
+import RepeatMethodsA from '../Learning/RepeatMethodsA.js'
+import RepeatMethodsTest from '../Learning/RepeatMethodsTest.js'
+import AnimatedProgram from '../Learning/AnimatedProgram.js'
+
 import Learn from '../Learning/Learn.js'
 
 var testList = [
@@ -32,6 +45,9 @@ var testList = [
   },
   {
     render:<Splash text={'Motivation!'} subText={'In this experience you are going to be learning! Everyone will succeed. Coding is important'}/>
+  },
+  {
+    render:<Splash text={'PreTest: Context + Knowledge'} subText={'We teach students how to use the UI and test both their comfort in the environment and their prior control flow.'}/>
   },
   {
     render:<KarelCommandsMove />
@@ -61,7 +77,16 @@ var testList = [
     render:<PreTestGuessWhile />
   },
   {
-    render:<ProgramDemoA />
+    render:<AnimatedProgram />,
+  },
+  {
+    name:'First Example',
+    type:'lesson',
+    render:<ProgramsA />,
+  },
+  {
+    name:'B',
+    render:<ModifyMoves/>
   },
   {
     render:<PreTestA />

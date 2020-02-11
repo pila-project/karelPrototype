@@ -16,20 +16,6 @@ import AnimatedProgram from './AnimatedProgram.js'
 
 var lessonList = [
   {
-    name:'First Example',
-    type:'lesson',
-    render:<ProgramsA />,
-  },
-  {
-    name:'How to Program',
-    type:'lesson',
-    render:<AnimatedProgram />,
-  },
-  {
-    name:'B',
-    render:<ModifyMoves/>
-  },
-  {
     name:'C',
     render:<ModifyB />
   },

@@ -32,52 +32,55 @@ import '../fields/BlocklyReactField';
 import '../fields/DateField';
 import { bool } from 'prop-types';
 
-var testReactField = {
-  "type": "test_react_field",
-  "message0": "custom field %1",
-  "args0": [
-    {
-      "type": "field_react_component",
-      "name": "FIELD",
-      "text": "Click me"
-    },
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-};
+// var testReactField = {
+//   "type": "test_react_field",
+//   "message0": "custom field %1",
+//   "args0": [
+//     {
+//       "type": "field_react_component",
+//       "name": "FIELD",
+//       "text": "Click me"
+//     },
+//   ],
+//   "previousStatement": null,
+//   "nextStatement": null,
+// };
 
-Blockly.Blocks['test_react_field'] = {
-  init: function() {
-    this.jsonInit(testReactField);
-    this.setStyle('loop_blocks');
-  }
-};
+// Blockly.Blocks['test_react_field'] = {
+//   init: function() {
+//     this.jsonInit(testReactField);
+//     this.setStyle('loop_blocks');
+//   }
+// };
 
-var reactDateField = {
-  "type": "test_react_date_field",
-  "message0": "date field %1",
-  "args0": [
-    {
-      "type": "field_react_date",
-      "name": "DATE",
-      "date": "01/01/2020"
-    },
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-};
+// var reactDateField = {
+//   "type": "test_react_date_field",
+//   "message0": "date field %1",
+//   "args0": [
+//     {
+//       "type": "field_react_date",
+//       "name": "DATE",
+//       "date": "01/01/2020"
+//     },
+//   ],
+//   "previousStatement": null,
+//   "nextStatement": null,
+// };
 
-Blockly.Blocks['test_react_date_field'] = {
-  init: function() {
-    this.jsonInit(reactDateField);
-    this.setStyle('loop_blocks');
-  }
-};
+// Blockly.Blocks['test_react_date_field'] = {
+//   init: function() {
+//     this.jsonInit(reactDateField);
+//     this.setStyle('loop_blocks');
+//   }
+// };
 
 var karelMain = {
   "type": "karel_main",
-  "message0": "main %1",
+  "message0": "define main %1 %2",
   "args0": [
+    {
+      "type": "input_dummy"
+    },
     {
       "type": "input_statement",
       "name": "program"
@@ -107,6 +110,31 @@ Blockly.Blocks['karel_move'] = {
   }
 };
 
+var karelCall = {
+  "type": "karel_call",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label_serializable",
+      "name": "NAME"
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+}
+
+Blockly.Blocks['karel_call'] = {
+  init: function() {
+    console.log('iniiiit')
+    console.log(this.getChildren())
+    this.jsonInit(karelCall);
+    this.setStyle('procedure_blocks');
+  },
+  componentDidMount() {
+    alert('ph ')
+  }
+};
+
 var karelTurnLeft = {
   "type": "karel_turn_left",
   "message0": "turn left",
@@ -131,6 +159,32 @@ var karelPlaceStone = {
 Blockly.Blocks['karel_place_stone'] = {
   init: function() {
     this.jsonInit(karelPlaceStone);
+    this.setStyle('procedure_blocks');
+  }
+};
+
+var karelProcedure = {
+  "type": "karel_procedure",
+  "message0": "define %1 %2 %3",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "NAME",
+      "text": "my name"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ]
+}
+
+Blockly.Blocks['karel_procedure'] = {
+  init: function() {
+    this.jsonInit(karelProcedure);
     this.setStyle('procedure_blocks');
   }
 };

@@ -36,8 +36,10 @@ import BlocklyJS from 'blockly/javascript';
 import './blocks/customblocks';
 import './generator/generator';
 
+const OFFSET = 20
+
 const defaultXml = `<xml xmlns="http://www.w3.org/1999/xhtml">
-                    <block type="karel_main" deletable="false" movable="false" x="30" y="30"></block>
+                    <block type="karel_main" deletable="false" movable="false" x="${OFFSET}" y="${OFFSET}"></block>
                   </xml>`
 
 class BlocklyKarel extends React.Component {
@@ -60,6 +62,7 @@ class BlocklyKarel extends React.Component {
     Blockly.JavaScript.addReservedWords('highlightBlock');
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
+    // this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.BlockCreate);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
   }
 
@@ -83,19 +86,79 @@ class BlocklyKarel extends React.Component {
     this.setState({userCode: code});
   }
 
-  updateFunctions = (event) => {
-    if (event.type == Blockly.Events.CREATE || event.type == Blockly.Events.DELETE || (event.type == Blockly.Events.CHANGE && event.element == 'field')){
-      const allProcedures = Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace);
-      const flyoutCategory = Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace);
+  isFunction(block){
+    if(block.type == 'procedures_defnoreturn') {
+      return true
+    }
+    if(block.type == 'karel_main') {
+      return true
+    }
+    if(block.type == 'karel_procedure') {
+      return true
+    }
+    return false
+  }
 
-      const uFuncBlocks = {}
-      for (const proc of allProcedures[0]) {
-        uFuncBlocks[proc[0]] = Blockly.Procedures.getDefinition(proc[0], this.simpleWorkspace.workspace);
+  getAllFunctions() {
+    let topBlocks = this.simpleWorkspace.workspace.getTopBlocks()
+    let functions = []
+    for (var i = 0; i < topBlocks.length; i++) {
+      let block = topBlocks[i]
+      if(this.isFunction(block)) {
+        functions.push(block)
       }
-      this.setState({userFunctionBlocks:uFuncBlocks});
+    }
+    return functions
+  }
+
+  autoPositionBlocks() {
+    let goalX = OFFSET
+    var goalY = OFFSET
+      // only auto indent functions
+    let functions = this.getAllFunctions()
+    for (var i = 0; i < functions.length; i++) {
+      let block = functions[i]
+      let xy = block.getRelativeToSurfaceXY()
+      // delta = goal - curr
+      block.moveBy(goalX - xy['x'], goalY - xy['y'])
+      goalY += block.height + OFFSET
+    }
+  }
+
+  populateFunctionList() {
+    const functions = this.getAllFunctions()
+    const uFuncBlocks = {}
+    for(const block of functions) {
+      if(block.type == 'karel_main') continue
+      let name = block.inputList[0]['fieldRow'][1].getValue()
+      uFuncBlocks[name] = block
+    }
+    this.setState({userFunctionBlocks:uFuncBlocks});
+
+    // const allProcedures = Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace);
+    //   const flyoutCategory = Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace);
+
+    //   const uFuncBlocks = {}
+    //   for (const proc of allProcedures[0]) {
+    //     uFuncBlocks[proc[0]] = Blockly.Procedures.getDefinition(proc[0], this.simpleWorkspace.workspace);
+    //   }
+    //   this.setState({userFunctionBlocks:uFuncBlocks});
 
       // This is a hack, but I can't figure out how to get the toolbox view to re-render otherwise.
       this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML);
+  }
+
+  updateFunctions = (event) => {
+    if(event.type == 'create') {
+    }
+
+    if(event.type == Blockly.Events.MOVE) {
+      this.autoPositionBlocks()
+    }
+    
+    if (event.type == Blockly.Events.CREATE || event.type == Blockly.Events.DELETE || (event.type == Blockly.Events.CHANGE && event.element == 'field')){
+      this.populateFunctionList()
+      let code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
     }
   }
 
@@ -105,6 +168,7 @@ class BlocklyKarel extends React.Component {
         
         <div className="horizontalContainer fullSize">
             <BlocklyComponent 
+
               ref={e => this.simpleWorkspace = e} 
               //horizontalLayout={true}
               //toolboxPosition='end'
@@ -118,7 +182,9 @@ class BlocklyKarel extends React.Component {
               }} 
               initialXml={this.getInitialXml()}>
               {this.props.toolboxPresent &&
-                <ToolboxXML userFunctionBlocks={this.state.userFunctionBlocks} categories={false}/>
+                <ToolboxXML 
+                  userFunctionBlocks={this.state.userFunctionBlocks} 
+                />
               }
               {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
@@ -135,54 +201,35 @@ class ToolboxXML extends React.Component {
   }
   
   render() {
-    if (this.props.categories == false)
-    {
-      return (
+    
+    return (
+      <React.Fragment>
+        <Block type="karel_procedure" />
+        <Block type="karel_move" />
+        <Block type="karel_turn_left" />
+        <Block type="karel_place_stone" />
+        <Block type="karel_pickup_stone" />
+        {/*<Block type="karel_if_dropdown" />*/}
         <React.Fragment>
-          <Block type="karel_move" />
-          <Block type="karel_turn_left" />
-          <Block type="karel_place_stone" />
-          <Block type="karel_pickup_stone" />
-          {/*<Block type="karel_if_dropdown" />*/}
-          <Block type="karel_while_dropdown" />
-          <Block type="controls_repeat_ext">
+        {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
+          <React.Fragment key={block.id}>
+            <Block key={block.id} type="karel_call" children={<mutation name={blockName}/>}>
+              <Field EDITABLE={false} key={blockName} name="NAME">{blockName}</Field>
+            </Block>
+          </React.Fragment>
+        )}
+        </React.Fragment>
+        <Block type="karel_while_dropdown" />
+        <Block type="controls_repeat_ext">
           <Value name="TIMES">
               <Shadow type="math_number">
               <Field name="NUM">10</Field>
               </Shadow>
           </Value>
-          </Block>
-          <Block type="procedures_defnoreturn" />
-          <React.Fragment>
-          {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
-            <React.Fragment key={block.id}>
-              <Block type="procedures_callnoreturn" children={<mutation name={blockName}/>}/>
-            </React.Fragment>
-          )}
-          </React.Fragment>
-        </React.Fragment>
-      );
-    }
-    return(
-      <React.Fragment>
-        <category name="Karel">
-        <Block type="karel_move" />
-        <Block type="karel_turn_left" />
-        <Block type="karel_place_stone" />
-        <Block type="karel_pickup_stone" />
-        <Block type="karel_if_dropdown" />
-        <Block type="karel_if_stone_dropdown" />
-        <Block type="karel_while_front_dropdown" />
-        <Block type="karel_while_stone_dropdown" />
-        <Block type="controls_repeat_ext">
-        <Value name="TIMES">
-            <Shadow type="math_number">
-            <Field name="NUM">10</Field>
-            </Shadow>
-        </Value>
-        </Block>
-        </category>
-        <category name="Functions" custom="PROCEDURE"></category>
+        </Block>    
+        {/*<Block type="procedures_defnoreturn" />
+      <Block type="karel_call" name="test" mutation = {{'attributes':{name:'test'}}} children={<mutation name={'hello'}/>}/>*/}
+        
       </React.Fragment>
     );
   }

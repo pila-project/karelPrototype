@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LearnNav.css'
-import Logo from "../../Img/stanford-black.png";
+import Logo from "../../Img/pisa.jpeg";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'

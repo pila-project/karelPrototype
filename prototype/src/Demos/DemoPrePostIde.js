@@ -25,6 +25,7 @@ class DemoPrePostIde extends Component {
 
   run() {
     let codeText = this.refs.editor.getCode()
+    alert(codeText)
     this.setState({
       isReset:false
     }, () => {

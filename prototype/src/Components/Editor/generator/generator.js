@@ -28,6 +28,12 @@ import * as Blockly from 'blockly/core';
 import 'blockly/javascript';
 import { Block } from 'blockly/blockly-node';
 
+import UniqueEncoder from './uniqueEncoder.js'
+
+function autoFormatFnName(original) {
+    return UniqueEncoder.getEncoding(original)
+}
+
 Blockly.JavaScript['test_react_field'] = function (block) {
     return 'console.log(\'custom block\');\n';
 };
@@ -43,6 +49,12 @@ Blockly.JavaScript['karel_main'] = function (block) {
 
 Blockly.JavaScript['karel_move'] = function (block) {
     return 'move();\n'
+};
+
+Blockly.JavaScript['karel_call'] = function (block) {
+    var name = block.getFieldValue('NAME')
+    name = autoFormatFnName(name)
+    return `${name}();\n`
 };
 
 Blockly.JavaScript['karel_turn_left'] = function (block) {
@@ -65,6 +77,15 @@ Blockly.JavaScript['karel_front_is_clear'] = function (block) {
 Blockly.JavaScript['karel_stones_present'] = function (block) {
     var code = 'stonesPresent';
     return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.JavaScript['karel_procedure'] = function (block) {
+    var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+    var name = block.getFieldValue('NAME')
+    name = autoFormatFnName(name)
+    return `public void ${name}() {
+        ${statements_body}
+    }`
 }
 
 Blockly.JavaScript['karel_if_front_dropdown'] = function(block) {

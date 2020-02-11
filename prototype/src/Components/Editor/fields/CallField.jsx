@@ -29,10 +29,10 @@ import ReactDOM from 'react-dom';
 import * as Blockly from 'blockly/core';
 
 
-class BlocklyReactField extends Blockly.Field {
+class CallField extends Blockly.FieldInput {
 
   static fromJson(options) {
-    let field = new BlocklyReactField(options['text']);
+    let field = new CallField(options['text']);
     field.EDITABLE = false
     return field
   }
@@ -68,6 +68,6 @@ class FieldRenderComponent extends React.Component {
   }
 }
 
-Blockly.fieldRegistry.register('field_react_component', BlocklyReactField);
+Blockly.fieldRegistry.register('call_field', CallField);
 
-export default BlocklyReactField;
+export default CallField;
