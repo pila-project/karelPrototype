@@ -9,6 +9,10 @@ const mapStateToProps = (state, ownProps) => {
 
 class DashboardView extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   static defaultProps = {
     curriculum: [
       {
