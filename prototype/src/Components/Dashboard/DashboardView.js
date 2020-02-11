@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import PreTest from '../../Demos/PreTest.js'
+
+const mapStateToProps = (state, ownProps) => {
+  const studentState = state.studentState;
+  return { studentState };
+}
 
 class DashboardView extends Component {
 
@@ -9,41 +16,34 @@ class DashboardView extends Component {
         problems: [
           {
             id:'cmd1',
-            component:<Commands1 />
+            component:<PreTest />
           },
           {
             id:'cmd2',
-            component:<Commands2 />
+            component:<PreTest />
           }
         ],
         workedExamples : [
           {
             id:'exCmd1',
-            component:<CommandsEx1 />
+            component:<PreTest />
           },
           {
             id:'exCmd2',
-            component:<CommandsEx2 />
+            component:<PreTest />
           }
         ]
       }
-    ],
-    studentState: {
-      cmd1: {
-        isDone:true,
-        code:`<xml xmlns="http://www.w3.org/1999/xhtml">
-                    <block type="karel_main" deletable="false" movable="false" x="${OFFSET}" y="${OFFSET}"></block>
-                  </xml>`
-      }
-    }
+    ]
   }
 
   render() {
-
     return (
       <div>Hello world</div>
     )
   }
 }
 
-export default DashboardView
+export default connect(
+  mapStateToProps
+)(DashboardView)
