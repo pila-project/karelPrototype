@@ -121,18 +121,14 @@ var karelCall = {
   ],
   "previousStatement": null,
   "nextStatement": null,
+  "colour": 45,
 }
 
 Blockly.Blocks['karel_call'] = {
   init: function() {
-    console.log('iniiiit')
-    console.log(this.getChildren())
     this.jsonInit(karelCall);
     this.setStyle('procedure_blocks');
   },
-  componentDidMount() {
-    alert('ph ')
-  }
 };
 
 var karelTurnLeft = {
