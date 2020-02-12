@@ -51,7 +51,11 @@ class DashboardView extends Component {
     for (const property in this.props.studentState){
       studentInfo.push(
         <li>
-          {property}: {this.props.studentState[property].status}
+          {property}
+          <ul>
+            <li>Status: {this.props.studentState[property].status}</li>
+            <li>Code: {this.props.studentState[property].code} </li>
+          </ul>
         </li>
       )
     }

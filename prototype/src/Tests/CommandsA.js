@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStatus } from '../redux/actions';
+import { updateStatus, updateCode } from '../redux/actions';
 import { STATUS } from '../redux/constants.js';
 
 import Button from 'react-bootstrap/Button';
@@ -10,7 +10,8 @@ import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelCommands from '../Components/Templates/KarelCommands.js'
 
 const mapDispatchToProps = {
-  onUpdateStatus: (status) => updateStatus(status)
+  onUpdateStatus: (status) => updateStatus(status),
+  onUpdateCode: (code) => updateCode(code)
 };
 
 const WORLD_HEIGHT = 150
@@ -18,7 +19,8 @@ const WORLD_HEIGHT = 150
 class CommandsA extends Component {
   constructor(props){
     super(props);
-    this.testRedux = this.testRedux.bind(this);
+    this.updateReduxStatus = this.updateReduxStatus.bind(this);
+    this.updateReduxCode = this.updateReduxCode.bind(this);
   }
 
   renderPreWorld() {
@@ -31,14 +33,21 @@ class CommandsA extends Component {
     }
   }
 
-  testRedux(){
+  updateReduxStatus(){
     this.props.onUpdateStatus(
       { status: STATUS.INPROGRESS, id: 'cmd1' }
     );
   }
 
+  updateReduxCode(){
+    this.props.onUpdateCode(
+      { code: 'console.log("Testing Redux")', id: 'cmd1' }
+    );
+  }
+
   renderPostWorld() {
-    setTimeout(this.testRedux, 3000);
+    setTimeout(this.updateReduxStatus, 3000);
+    setTimeout(this.updateReduxCode, 5000);
     return {
       width: WORLD_HEIGHT * 3.0,
       height: WORLD_HEIGHT,
