@@ -1,83 +1,86 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import './style/pages.css'
 import Swal from 'sweetalert2'
 import Splash from '../Components/Templates/Splash.js'
+import { getComponentFromId } from '../constants'
+import { updateCurrentID } from '../redux/actions';
 
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/NavBars/LearnNav.js'
 import SplitPane from 'react-split-pane'
 
-import { CommandsA, CommandsB, PreTestA, PreTestGuessSimple, PreTestGuessWhile, PostTestA } from '../Tests'
-import { KarelCommandsMove, KarelCommandsTurnLeft, KarelCommandsPickStone, KarelCommandsPlaceStone } from '../Demos'
-import { AnimatedProgram, ProgramsA, ModifyMoves, Learn } from '../Learning'
+const mapDispatchToProps = {
+  onUpdateCurrentID: (id) => updateCurrentID(id)
+};
 
 var testList = [
   {
-    render:<Splash text={'Prototype'} subText={'(use <- and ->)'}/>
+    id:'splashNavigation'
   },
   {
-    render:<Splash text={'Motivation!'} subText={'In this experience you are going to be learning! Everyone will succeed. Coding is important'}/>
+    id:'splashMotivation'
   },
   {
-    render:<Splash text={'PreTest: Context + Knowledge'} subText={'We teach students how to use the UI and test both their comfort in the environment and their prior control flow.'}/>
+    id:'splashPreTestInfo'
   },
   {
-    render:<KarelCommandsMove />
+    id:'tutorialKarelCommandsMove'
   },
   {
-    render:<KarelCommandsTurnLeft />
+    id:'tutorialKarelCommandsTurnLeft'
   },
   {
-    render:<KarelCommandsPickStone />
+    id:'tutorialKarelCommandsPickStone'
   },
   {
-    render:<KarelCommandsPlaceStone />
+    id:'tutorialKarelCommandsPlaceStone'
   },
   {
-    render:<CommandsA />
+    id:'tutorialCommandsA'
   },
   {
-    render:<CommandsB />
+    id:'tutorialCommandsB'
   },
   {
-    render:<Splash text={'Pre Test'} subText={"Make your best guess"}/>
+    id:'splashPreTestGuess'
   },
   {
-    render:<PreTestGuessSimple />
+    id:'preTestGuessSimple'
   },
   {
-    render:<PreTestGuessWhile />
+    id:'preTestGuessWhile'
   },
   {
-    render:<AnimatedProgram />,
+    id:'tutorialAnimatedProgram'
   },
   {
     name:'First Example',
     type:'lesson',
-    render:<ProgramsA />,
+    id:'tutorialProgramsA'
   },
   {
     name:'B',
-    render:<ModifyMoves/>
+    id:'tutorialModifyMoves'
   },
   {
-    render:<PreTestA />
+    id:'preTestA'
   },
   {
-    render:<Splash text={'Learning'} subText={"Let's learn how to program!"}/>
+    id:'splashLearn'
   },
   {
-    render:<Learn />
+    id:'learnDashboard'
   },
   {
-    render:<Splash text={'Post Test'} subText={"Lets celebrate"}/>
+    id:'splashPostTest'
   },
   {
-    render:<PostTestA />
+    id:'postTestA'
   },
 ]
 
-class Test extends Component {
+class TestKarel extends Component {
 
   constructor(props){
     super(props)
@@ -109,7 +112,8 @@ class Test extends Component {
   // components
   getLesson() {
     let lesson = testList[this.state.levelIndex]
-    return lesson['render']      
+    this.props.onUpdateCurrentID(lesson.id);
+    return getComponentFromId(lesson.id)
   }
 
   previousLesson() {
@@ -161,7 +165,6 @@ class Test extends Component {
   }
  
   render() {
-
     return (
       <div onKeyPress={this.handleKeyPress} >
         {this.getLesson()}
@@ -170,4 +173,7 @@ class Test extends Component {
   }
 }
 
-export default Test
+export default connect(
+  null,
+  mapDispatchToProps
+)(TestKarel)

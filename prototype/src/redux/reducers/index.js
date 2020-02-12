@@ -1,6 +1,6 @@
 import React from 'react'
 import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
-import { STATUS, VIEW } from "../constants.js"
+import { STATUS, VIEW } from "../../constants"
 
 const initialState = {
     currentID: null,

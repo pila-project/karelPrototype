@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { connect } from 'react-redux';
 import CommandsA from '../../Tests/CommandsA';
 import { isUnitUnlocked } from '../../Minions/IsLocked';
+import { idToComponent } from '../../constants'
 
 import Logo from "../../Img/pisa.jpeg";
 
