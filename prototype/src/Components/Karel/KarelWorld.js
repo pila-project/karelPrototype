@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './style/karel.css'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'
 import KarelNorth from './images/karelNorth.png'
 import KarelSouth from './images/karelSouth.png'

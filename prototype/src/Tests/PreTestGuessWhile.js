@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import CodeWhile from '../Img/codeWhile.png'
 
