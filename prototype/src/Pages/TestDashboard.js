@@ -11,15 +11,17 @@ const mapDispatchToProps = {
 class TestDashboard extends Component {
 
   componentWillMount() {
-    this.setState({
-      view:'item5'
-    })
+    this.props.onUpdateCurrentID('item5');
+    // this.setState({
+    //   view:'item5'
+    // })
   }
 
   onSelectItem(e) {
-    this.setState({
-      view: e
-    })
+    this.props.onUpdateCurrentID(e);
+    // this.setState({
+    //   view: e
+    // })
   }
  
   render() {
