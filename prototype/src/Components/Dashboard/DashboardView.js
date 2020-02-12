@@ -111,6 +111,14 @@ const EXAMPLE_STUDENT_STATE = {
 
 class DashboardView extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
+  componentWillMount(){
+    document.title = "PISA 2024 Dashboard";
+  }
+  
   static defaultProps = {
     curriculum: EXAMPLE_CURRICULA,
     studentState: EXAMPLE_STUDENT_STATE
@@ -210,13 +218,6 @@ class DashboardView extends Component {
         </div>
       </div>
     )
-  }
-  constructor(props){
-    super(props);
-  }
-
-  componentWillMount(){
-    document.title = "PISA 2024 Dashboard";
   }
 }
 

@@ -35,13 +35,13 @@ class CommandsA extends Component {
 
   updateReduxStatus(){
     this.props.onUpdateStatus(
-      { status: STATUS.INPROGRESS, id: 'cmd1' }
+      { status: STATUS.INPROGRESS, id: 'learnCmd1' }
     );
   }
 
   updateReduxCode(){
     this.props.onUpdateCode(
-      { code: 'console.log("Testing Redux")', id: 'cmd1' }
+      { code: 'console.log("Testing Redux")', id: 'learnCmd1' }
     );
   }
 

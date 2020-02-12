@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { connect } from 'react-redux';
+import { updateCurrentID } from '../redux/actions';
 
 import DashboardView from '../Components/Dashboard/DashboardView.js'
+
+const mapDispatchToProps = {
+  onUpdateCurrentID: (id) => updateCurrentID(id)
+};
 
 class TestDashboard extends Component {
 
@@ -20,13 +24,14 @@ class TestDashboard extends Component {
  
   render() {
     return (
-
-      <DashboardView 
+      <DashboardView
         onSelectItem = {(e) => this.onSelectItem(e)}
       />
-
     )
   }
 }
 
-export default TestDashboard
+export default connect(
+  null,
+  mapDispatchToProps
+)(TestDashboard)
