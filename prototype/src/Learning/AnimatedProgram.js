@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 const initialXml = ''
-class ModifyMoves extends Component {
+class AnimatedProgram extends Component {
 
   renderVideo() {
     return <video width="1200" height="560" controls autoplay>
@@ -63,4 +63,4 @@ class ModifyMoves extends Component {
 
 }
 
-export default ModifyMoves
+export default AnimatedProgram

@@ -15,8 +15,6 @@ const mapStateToProps = (state, ownProps) => {
   return { studentState };
 }
 
-
-
 const EXAMPLE_CURRICULA = [
   {
     unitName:'Commands',

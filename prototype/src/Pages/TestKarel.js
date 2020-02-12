@@ -1,42 +1,15 @@
 import React, { Component } from 'react'
 import './style/pages.css'
+import Swal from 'sweetalert2'
+import Splash from '../Components/Templates/Splash.js'
 
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/NavBars/LearnNav.js'
 import SplitPane from 'react-split-pane'
 
-import Swal from 'sweetalert2'
-
-import Splash from '../Components/Templates/Splash.js'
-import KarelCommandsMove from '../Demos/KarelCommandsMove.js'
-import KarelCommandsPickStone from '../Demos/KarelCommandsPickStone.js'
-import KarelCommandsPlaceStone from '../Demos/KarelCommandsPlaceStone.js'
-import KarelCommandsTurnLeft from '../Demos/KarelCommandsTurnLeft.js'
-
-import CommandsA from '../Tests/CommandsA.js'
-import CommandsB from '../Tests/CommandsB.js'
-
-import PreTestA from '../Tests/PreTestA.js'
-import PreTestGuessSimple from '../Tests/PreTestGuessSimple.js'
-import PreTestGuessWhile from '../Tests/PreTestGuessWhile.js'
-
-import PostTestA from '../Tests/PostTestA.js'
-import ProgramDemoA from '../Learning/ProgramsA.js'
-
-import ProgramsA from '../Learning/ProgramsA.js'
-import ModifyMoves from '../Learning/ModifyMoves.js'
-import ModifyB from '../Learning/ModifyB.js'
-import ModifyC from '../Learning/ModifyC.js'
-import FnTurnRight from '../Learning/FnTurnRight.js'
-import FnTurnAround from '../Learning/FnTurnAround.js'
-import Repeat5 from '../Learning/Repeat5.js'
-import Repeat9 from '../Learning/Repeat9.js'
-import RepeatCorners from '../Learning/RepeatCorners.js'
-import RepeatMethodsA from '../Learning/RepeatMethodsA.js'
-import RepeatMethodsTest from '../Learning/RepeatMethodsTest.js'
-import AnimatedProgram from '../Learning/AnimatedProgram.js'
-
-import Learn from '../Learning/Learn.js'
+import { CommandsA, CommandsB, PreTestA, PreTestGuessSimple, PreTestGuessWhile, PostTestA } from '../Tests'
+import { KarelCommandsMove, KarelCommandsTurnLeft, KarelCommandsPickStone, KarelCommandsPlaceStone } from '../Demos'
+import { AnimatedProgram, ProgramsA, ModifyMoves, Learn } from '../Learning'
 
 var testList = [
   {

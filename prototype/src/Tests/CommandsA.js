@@ -6,7 +6,6 @@ import KarelWorld from '../Components/Karel/KarelWorld.js'
 import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelCommands from '../Components/Templates/KarelCommands.js'
 
-
 const WORLD_HEIGHT = 150
   
 class CommandsA extends Component {
@@ -44,9 +43,6 @@ class CommandsA extends Component {
       />
     </div>)
   }
-
-  
-
 }
 
 export default CommandsA
