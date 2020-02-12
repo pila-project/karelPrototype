@@ -1,32 +1,39 @@
 import React, { Component } from 'react'
-
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { connect } from 'react-redux';
+import { updateCurrentID } from '../redux/actions';
 
 import DashboardView from '../Components/Dashboard/DashboardView.js'
+
+const mapDispatchToProps = {
+  onUpdateCurrentID: (id) => updateCurrentID(id)
+};
 
 class TestDashboard extends Component {
 
   componentWillMount() {
-    this.setState({
-      view:'item5'
-    })
+    this.props.onUpdateCurrentID('item5');
+    // this.setState({
+    //   view:'item5'
+    // })
   }
 
   onSelectItem(e) {
-    this.setState({
-      view: e
-    })
+    this.props.onUpdateCurrentID(e);
+    // this.setState({
+    //   view: e
+    // })
   }
  
   render() {
     return (
-
-      <DashboardView 
+      <DashboardView
         onSelectItem = {(e) => this.onSelectItem(e)}
       />
-
     )
   }
 }
 
-export default TestDashboard
+export default connect(
+  null,
+  mapDispatchToProps
+)(TestDashboard)

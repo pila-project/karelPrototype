@@ -1,29 +1,46 @@
 import React from 'react'
-import { UPDATE_STATUS, UPDATE_CODE } from "../actionTypes";
-import { STATUS, VIEW } from "../constants.js"
+import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
+import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
-    studentState: {
-        cmd1: {
-            status:STATUS.UNVISITED,
-            code:''
-        },
-        cmd2: {
-            status:STATUS.UNVISITED,
-            code:''
-        }
-    }
+    currentID: null,
+    studentState: {} // Lazy load
+    
+    // Example of what studentState will look like with content
+    // studentState: {
+    //     learnCmd1: {
+    //         status:STATUS.UNVISITED,
+    //         code:''
+    //     },
+    //     learnCmd2: {
+    //         status:STATUS.UNVISITED,
+    //         code:''
+    //     }
+    // }
+
 };
+
+// Reducers can't update the redux store directly because it is immutable.
+// So, reducers have to copy the store, modify it, and return the copy.
+// All of the spread operators below are being used to create a copy of the state
+// and selectively modify the part that needs to be changed based 
+// on the action that was received. For example, when UPDATE_STATUS is 
+// received, the `status` value of the item specified by state.currentID is updated.
   
 function rootReducer(state = initialState, action) {
     switch (action.type) {
+        case UPDATE_CURRENT_ID:
+            return {
+                ...state,
+                currentID: action.payload
+            }
         case UPDATE_STATUS:
             return {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [action.payload.id]: {
-                        ...state.studentState[action.payload.id],
+                    [state.currentID]: {
+                        ...state.studentState[state.currentID],
                         status: action.payload.status
                     }
                 }
@@ -33,8 +50,8 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [action.payload.id]: {
-                        ...state.studentState[action.payload.id],
+                    [state.currentID]: {
+                        ...state.studentState[state.currentID],
                         code: action.payload.code
                     }
                 }

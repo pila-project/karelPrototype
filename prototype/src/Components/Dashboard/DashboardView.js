@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { connect } from 'react-redux';
 import CommandsA from '../../Tests/CommandsA';
 import { isUnitUnlocked } from '../../Minions/IsLocked';
+import { idToComponent } from '../../constants'
 
 import Logo from "../../Img/pisa.jpeg";
 
@@ -14,8 +14,6 @@ const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
   return { studentState };
 }
-
-
 
 const EXAMPLE_CURRICULA = [
   {
@@ -111,6 +109,14 @@ const EXAMPLE_STUDENT_STATE = {
 
 class DashboardView extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
+  componentWillMount(){
+    document.title = "PISA 2024 Dashboard";
+  }
+  
   static defaultProps = {
     curriculum: EXAMPLE_CURRICULA,
     studentState: EXAMPLE_STUDENT_STATE
@@ -212,13 +218,6 @@ class DashboardView extends Component {
         </div>
       </div>
     )
-  }
-  constructor(props){
-    super(props);
-  }
-
-  componentWillMount(){
-    document.title = "PISA 2024 Dashboard";
   }
 }
 

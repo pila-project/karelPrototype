@@ -1,0 +1,6 @@
+export {default as CommandsA} from './CommandsA'
+export {default as CommandsB} from './CommandsB'
+export {default as PostTestA} from './PostTestA'
+export {default as PreTestA} from './PreTestA'
+export {default as PreTestGuessSimple} from './PreTestGuessSimple'
+export {default as PreTestGuessWhile} from './PreTestGuessWhile'

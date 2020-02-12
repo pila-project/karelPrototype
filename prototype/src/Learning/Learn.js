@@ -1,55 +1,40 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux';
+import { getComponentFromId } from '../constants'
 import LearnNav from '../Components/NavBars/LearnNav.js'
-import ProgramsA from './ProgramsA.js'
-import ModifyMoves from './ModifyMoves.js'
-import ModifyB from './ModifyB.js'
-import ModifyC from './ModifyC.js'
-import FnTurnRight from './FnTurnRight.js'
-import FnTurnAround from './FnTurnAround.js'
-import Repeat5 from './Repeat5.js'
-import Repeat9 from './Repeat9.js'
-import RepeatCorners from './RepeatCorners.js'
-import RepeatMethodsA from './RepeatMethodsA.js'
-import RepeatMethodsTest from './RepeatMethodsTest.js'
-import AnimatedProgram from './AnimatedProgram.js'
+import { updateCurrentID } from '../redux/actions';
+
+const mapDispatchToProps = {
+  onUpdateCurrentID: (id) => updateCurrentID(id)
+};
 
 var lessonList = [
   {
-    name:'C',
-    render:<ModifyB />
+    id:'learnModifyB'
   },
   {
-    name:'D',
-    render:<ModifyC />
+    id:'learnModifyC'
   },
   {
-    name:'Turn Right',
-    render:<FnTurnRight />
+    id:'learnTurnRight'
   },
   {
-    name:'Turn Around',
-    render:<FnTurnAround />
+    id:'learnTurnAround'
   },
   {
-    name:'Repeat 5',
-    render:<Repeat5 />
+    id:'learnRepeat5'
   },
   {
-    name:'Repeat Corners',
-    render:<RepeatCorners />
+    id:'learnRepeatCorners'
   },
   {
-    name:'Repeat 9',
-    render:<Repeat9 />
+    id:'learnRepeat9'
   },
   {
-    name:'Repeat Methods',
-    render:<RepeatMethodsA />
+    id:'learnRepeatMethodsA'
   },
   {
-    name:'Repeat Test',
-    render:<RepeatMethodsTest />
+    id:'learnRepeatMethodsTest'
   },
 ]
 
@@ -69,8 +54,9 @@ class Learn extends Component {
   }
 
   getLesson() {
-    let lesson = lessonList[this.state.levelIndex]
-    return lesson['render']      
+    let lesson = lessonList[this.state.levelIndex];
+    this.props.onUpdateCurrentID(lesson.id);
+    return getComponentFromId(lesson.id);
   }
 
   render() {
@@ -93,4 +79,7 @@ class Learn extends Component {
 
 }
 
-export default Learn
+export default connect(
+  null,
+  mapDispatchToProps
+)(Learn)
