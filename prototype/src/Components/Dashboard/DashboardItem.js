@@ -4,7 +4,6 @@ import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
-import { isUnitUnlocked } from 'Minions/IsLocked';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";

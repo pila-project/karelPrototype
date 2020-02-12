@@ -4,8 +4,7 @@ import DemoKarel from './Pages/DemoKarel.js'
 import DemoBuilder from './Pages/DemoBuilder.js'
 import TestKarel from './Pages/TestKarel.js'
 import StarterCode from './Pages/StarterCode.js'
-import TestDashboard from './Pages/TestDashboard.js'
-import DashboardView from './Components/Dashboard/DashboardView.js'
+import Dashboard from './Components/Dashboard/Dashboard.js'
 import DashboardItem from './Components/Dashboard/DashboardItem.js'
 import {
   HashRouter as Router,
@@ -20,9 +19,8 @@ function App() {
         <Route exact path="/demoKarel" component={DemoKarel} />
         <Route exact path="/demoBuilder" component={DemoBuilder} />
         <Route exact path="/testKarel" component={TestKarel} />
-        <Route exact path="/testDashboard" component={TestDashboard} />
         <Route exact path="/startercode" component={StarterCode} />
-        <Route exact path="/dashboard" component={DashboardView} />
+        <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/item" component={DashboardItem} />
         {/* <Route exact path="/reduxTest" component={ReduxTest} /> */}
       </div>

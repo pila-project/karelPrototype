@@ -3,9 +3,17 @@ import React, { Component } from 'react';
 import {CommandsMLMR} from 'Items'
 
 
-export default class Curriculum {
+export default class SimpleCurriculum {
 
-  static get() {
+  static getPre() {
+    return []
+  }
+
+  static getPost() {
+    return []
+  }
+
+  static getLearning() {
     return [
       {
         unitName:'Commands',
@@ -97,8 +105,7 @@ export default class Curriculum {
    * seem like a performance heavy task!
    */
   static getComponent(goalId) {
-
-    let model = Curriculum.get()
+    let model = SimpleCurriculum.getLearning()
     for(let unitIndex in model) {
       let unit = model[unitIndex]
       // search in all the problems

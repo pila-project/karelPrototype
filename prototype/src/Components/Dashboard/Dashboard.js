@@ -4,7 +4,6 @@ import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
-import { isUnitUnlocked } from 'Minions/IsLocked';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
@@ -23,7 +22,7 @@ const EXAMPLE_STUDENT_STATE = {
   }
 }
 
-class DashboardView extends Component {
+class Dashboard extends Component {
 
   constructor(props){
     super(props);
@@ -79,7 +78,7 @@ class DashboardView extends Component {
   }
 
   renderUnitsRows() {
-    let curriculum = Curriculum.get()
+    let curriculum = Curriculum.getLearning()
     return (
       <div>
         {curriculum.map((unit, index) =>
@@ -134,4 +133,4 @@ class DashboardView extends Component {
 
 export default connect(
   mapStateToProps
-)(DashboardView)
+)(Dashboard)
