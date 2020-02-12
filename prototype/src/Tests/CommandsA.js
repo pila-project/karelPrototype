@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateStatus } from '../redux/actions';
+import { STATUS } from '../redux/constants.js';
 
 import Button from 'react-bootstrap/Button';
 
@@ -6,10 +9,17 @@ import KarelWorld from '../Components/Karel/KarelWorld.js'
 import KarelGoal from '../Components/Karel/KarelGoal.js'
 import KarelCommands from '../Components/Templates/KarelCommands.js'
 
+const mapDispatchToProps = {
+  onUpdateStatus: (status) => updateStatus(status)
+};
 
 const WORLD_HEIGHT = 150
   
 class CommandsA extends Component {
+  constructor(props){
+    super(props);
+    this.testRedux = this.testRedux.bind(this);
+  }
 
   renderPreWorld() {
     return {
@@ -21,7 +31,14 @@ class CommandsA extends Component {
     }
   }
 
+  testRedux(){
+    this.props.onUpdateStatus(
+      { status: STATUS.INPROGRESS, id: 'cmd1' }
+    );
+  }
+
   renderPostWorld() {
+    setTimeout(this.testRedux, 3000);
     return {
       width: WORLD_HEIGHT * 3.0,
       height: WORLD_HEIGHT,
@@ -44,9 +61,9 @@ class CommandsA extends Component {
       />
     </div>)
   }
-
-  
-
 }
 
-export default CommandsA
+export default connect(
+  null,
+  mapDispatchToProps
+)(CommandsA)

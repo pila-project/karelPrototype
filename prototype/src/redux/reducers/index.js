@@ -18,11 +18,15 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_STATUS:
+            console.log(action);
             return {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [action.id]: action.status
+                    [action.payload.id]: {
+                        ...state.studentState[action.payload.id],
+                        status: action.payload.status
+                    }
                 }
             }
         default:

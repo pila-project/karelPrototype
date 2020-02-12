@@ -56,9 +56,12 @@ class DashboardView extends Component {
       )
     }
     return (
-      <ul>
-        {studentInfo}
-      </ul>
+      <div>
+        <ul>
+          {studentInfo}
+        </ul>
+        <CommandsA />
+      </div>
     );
   }
 }
