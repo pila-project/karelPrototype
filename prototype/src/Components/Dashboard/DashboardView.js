@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import PreTest from '../../Demos/PreTest.js'
+import { connect } from 'react-redux';
+import CommandsA from '../../Tests/CommandsA';
+import { isUnitUnlocked } from '../../Minions/IsLocked';
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
@@ -13,6 +14,10 @@ class DashboardView extends Component {
     super(props);
   }
 
+  componentWillMount(){
+    document.title = "PISA 2024 Dashboard";
+  }
+
   static defaultProps = {
     curriculum: [
       {
@@ -20,21 +25,21 @@ class DashboardView extends Component {
         problems: [
           {
             id:'cmd1',
-            component:<PreTest />
+            component:<CommandsA />
           },
           {
             id:'cmd2',
-            component:<PreTest />
+            component:<CommandsA />
           }
         ],
         workedExamples : [
           {
             id:'exCmd1',
-            component:<PreTest />
+            component:<CommandsA />
           },
           {
             id:'exCmd2',
-            component:<PreTest />
+            component:<CommandsA />
           }
         ]
       }
@@ -42,9 +47,19 @@ class DashboardView extends Component {
   }
 
   render() {
+    let studentInfo = [];
+    for (const property in this.props.studentState){
+      studentInfo.push(
+        <li>
+          {property}: {this.props.studentState[property].status}
+        </li>
+      )
+    }
     return (
-      <div>Hello world</div>
-    )
+      <ul>
+        {studentInfo}
+      </ul>
+    );
   }
 }
 

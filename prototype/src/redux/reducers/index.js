@@ -7,6 +7,10 @@ const initialState = {
         cmd1: {
             status:STATUS.UNVISITED,
             code:''
+        },
+        cmd2: {
+            status:STATUS.UNVISITED,
+            code:''
         }
     }
 };
