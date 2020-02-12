@@ -1,0 +1,83 @@
+.displayOuter {
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+}
+
+.displayInner {
+  max-width:500px;
+}
+
+.timer {
+
+}
+
+.unitIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  border-width: 0px;
+  background: #CFE8FF;
+  background-position : 81px center;
+  background-size: 95px 85px;
+}
+
+.unitIcon:hover {
+  /*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
+  opacity: 0.8;
+}
+
+.col1 {
+  padding-top: 20px;
+  width:200px;
+  text-align: center;
+}
+
+.alignedVertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bigChallengeBtn {
+  width:100%;
+  border-radius: 70px;
+  height:70px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+#egg {
+  background-image: url("../../Img/lessonEgg.png");
+}
+
+#hatch {
+  background-image: url("../../Img/lessonHatch.png");
+}
+
+#pointsDiv {
+  border-radius: 25px;
+  background: #CFE8FF;
+  width: 500px;
+  height: 70px;
+  margin-top:20px;
+  text-align: center;
+  line-height: 70px;
+}
+
+.dashboardLogo{
+  width:96px;
+}
+
+.dashboardNav {
+  width:100%;
+  height: 40px;
+  background-color: #149eae;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  padding-left:20px;
+  padding-right: 20px;
+}

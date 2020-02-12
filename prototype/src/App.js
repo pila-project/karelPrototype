@@ -5,6 +5,7 @@ import DemoBuilder from './Pages/DemoBuilder.js'
 import TestKarel from './Pages/TestKarel.js'
 import TestBuilder from './Pages/TestBuilder.js'
 import StarterCode from './Pages/StarterCode.js'
+import TestDashboard from './Pages/TestDashboard.js'
 import {
   HashRouter as Router,
   Route
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/demoBuilder" component={DemoBuilder} />
         <Route exact path="/testKarel" component={TestKarel} />
         <Route exact path="/testBuilder" component={TestBuilder} />
+        <Route exact path="/testDashboard" component={TestDashboard} />
         <Route exact path="/startercode" component={StarterCode} />
       </div>
     </Router>
