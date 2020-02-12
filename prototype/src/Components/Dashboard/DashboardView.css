@@ -62,19 +62,42 @@
   background: #CFE8FF;
   width: 500px;
   height: 70px;
-  margin-top:20px;
   text-align: center;
   line-height: 70px;
 }
 
+.dashboadNavElem {
+  color:black;
+  line-height: 100%;
+  display:flex;
+  align-items:center;
+}
+
+
+.boxContainer {
+  display: flex;
+  padding:20px;
+}
+.box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  line-height: 100%;
+}
+
+.box:first-child > span { margin-right: auto; }
+
+.box:last-child  > span { margin-left: auto;  }
+
 .dashboardLogo{
-  width:96px;
+  width:100px;
 }
 
 .dashboardNav {
   width:100%;
-  height: 40px;
-  background-color: #149eae;
+  height: 70px;
+  background-color: white;
   display: flex;
   flex-shrink: 0;
   justify-content: space-between;

@@ -125,7 +125,7 @@ class DashboardView extends Component {
         {this.renderNav()}
         <div className="displayOuter">
           <div className="displayInner">
-            {this.renderPoints()}
+            
             {this.renderUnitsTable()}
             {this.renderBigChallenge()}
             <div style={{height:30}} />
@@ -194,16 +194,18 @@ class DashboardView extends Component {
 
   renderNav() {
     return (
-      <div className="dashboardNav">
-        <div>
-          <img src={Logo} className="dashboardLogo"/>
+      <div className="boxContainer">
+        <div className="box">
+          <span>
+            <img src={Logo} className="dashboardLogo"/>
+            </span>
         </div>
-        <div className="middleNav">
-          <span className="timer">
-          Learning Dashboard
+        <div className="box">
+          <span>
+          {this.renderPoints()}
           </span>
         </div>
-        <div className="rightNav">
+        <div className="box">
           <span className="timer">
           Time left: 45mins
           </span>
