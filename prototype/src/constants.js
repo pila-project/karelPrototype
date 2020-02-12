@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { CommandsA, CommandsB, PreTestA, PreTestGuessSimple, PreTestGuessWhile, PostTestA } from './Tests'
-import { KarelCommandsMove, KarelCommandsTurnLeft, KarelCommandsPickStone, KarelCommandsPlaceStone } from './Demos'
-import { AnimatedProgram, ProgramsA, ModifyMoves, Learn, ModifyB, ModifyC, FnTurnRight, FnTurnAround, Repeat5, RepeatCorners, Repeat9, RepeatMethodsA, RepeatMethodsTest } from './Learning'
+import { CommandsA, CommandsB, PreTestA, PreTestGuessSimple, PreTestGuessWhile, PostTestA } from './Items/Old/Tests'
+import { KarelCommandsMove, KarelCommandsTurnLeft, KarelCommandsPickStone, KarelCommandsPlaceStone } from './Items/Old/Demos'
+import { AnimatedProgram, ProgramsA, ModifyMoves, Learn, ModifyC, FnTurnRight, FnTurnAround, Repeat5, RepeatCorners, Repeat9, RepeatMethodsA, RepeatMethodsTest } from './Items/Old/Learning'
 import Splash from './Components/Templates/Splash'
 
 export const STATUS = {
@@ -10,6 +10,8 @@ export const STATUS = {
     COMPLETED:'completed'
 }
 
+// Depricated. Use different curriculum files (see Curriculum folder)
+// That way we can easily swap out different curriculum
 export const idToComponent = {
     'splashNavigation': <Splash text={'Prototype'} subText={'(use <- and ->)'}/>,
     'splashMotivation': <Splash text={'Motivation!'} subText={'In this experience you are going to be learning! Everyone will succeed. Coding is important'}/>,
@@ -30,7 +32,7 @@ export const idToComponent = {
     'tutorialModifyMoves': <ModifyMoves/>,
     'preTestA': <PreTestA />,
     'learnDashboard': <Learn />,
-    'learnModifyB': <ModifyB />,
+    'learnModifyB': <span>old</span>,
     'learnModifyC': <ModifyC />,
     'learnTurnRight': <FnTurnRight />,
     'learnTurnAround': <FnTurnAround />,

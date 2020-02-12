@@ -3,11 +3,10 @@ import './App.css';
 import DemoKarel from './Pages/DemoKarel.js'
 import DemoBuilder from './Pages/DemoBuilder.js'
 import TestKarel from './Pages/TestKarel.js'
-import TestBuilder from './Pages/TestBuilder.js'
 import StarterCode from './Pages/StarterCode.js'
 import TestDashboard from './Pages/TestDashboard.js'
 import DashboardView from './Components/Dashboard/DashboardView.js'
-import ReduxTest from './Components/Dashboard/ReduxTest'
+import DashboardItem from './Components/Dashboard/DashboardItem.js'
 import {
   HashRouter as Router,
   Route
@@ -21,10 +20,10 @@ function App() {
         <Route exact path="/demoKarel" component={DemoKarel} />
         <Route exact path="/demoBuilder" component={DemoBuilder} />
         <Route exact path="/testKarel" component={TestKarel} />
-        <Route exact path="/testBuilder" component={TestBuilder} />
         <Route exact path="/testDashboard" component={TestDashboard} />
         <Route exact path="/startercode" component={StarterCode} />
         <Route exact path="/dashboard" component={DashboardView} />
+        <Route exact path="/item" component={DashboardItem} />
         {/* <Route exact path="/reduxTest" component={ReduxTest} /> */}
       </div>
     </Router>

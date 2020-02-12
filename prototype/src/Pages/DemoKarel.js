@@ -4,7 +4,7 @@ import './style/pages.css'
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/NavBars/LearnNav.js'
 import SplitPane from 'react-split-pane'
-import demoList from '../Demos/DemoList.js'
+import demoList from '../Items/Old/Demos/DemoList.js'
 
 class Demos extends Component {
 

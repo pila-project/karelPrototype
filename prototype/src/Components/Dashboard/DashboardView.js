@@ -4,99 +4,15 @@ import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
-import CommandsA from '../../Tests/CommandsA';
-import { isUnitUnlocked } from '../../Minions/IsLocked';
-import { idToComponent } from '../../constants'
-
-import Logo from "../../Img/pisa.jpeg";
+import { isUnitUnlocked } from 'Minions/IsLocked';
+import { idToComponent } from 'constants'
+import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Logo from "Img/pisa.jpeg";
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
   return { studentState };
 }
-
-const EXAMPLE_CURRICULA = [
-  {
-    unitName:'Commands',
-    iconId:'egg',
-    problem: [
-      {
-        id:'cmd1',
-        component:<div />
-      }
-    ],
-    workedExamples : [
-      {
-        id:'exCmd1',
-        component:<div />
-      },
-      {
-        id:'exCmd2',
-        component:<div />
-      }
-    ]
-  },
-  {
-    unitName:'Teach Karel',
-    iconId:'hatch',
-    problem: [
-      {
-        id:'teach1',
-        component:<div />,
-      }
-    ],
-    workedExamples : [
-      {
-        id:'exTeach1',
-        component:<div />
-      },
-      {
-        id:'exTeach2',
-        component:<div />
-      }
-    ]
-  },
-  {
-    unitName:'Loops Lv1',
-    iconId:'hatch',
-    problem: [
-      {
-        id:'teach1',
-        component:<div />,
-      }
-    ],
-    workedExamples : [
-      {
-        id:'exTeach1',
-        component:<div />
-      },
-      {
-        id:'exTeach2',
-        component:<div />
-      }
-    ]
-  },
-  {
-    unitName:'Loops Lv2',
-    iconId:'hatch',
-    problem: [
-      {
-        id:'teach1',
-        component:<div />,
-      }
-    ],
-    workedExamples : [
-      {
-        id:'exTeach1',
-        component:<div />
-      },
-      {
-        id:'exTeach2',
-        component:<div />
-      }
-    ]
-  },
-]
 
 const EXAMPLE_STUDENT_STATE = {
   cmd1: {
@@ -118,13 +34,10 @@ class DashboardView extends Component {
   }
   
   static defaultProps = {
-    curriculum: EXAMPLE_CURRICULA,
     studentState: EXAMPLE_STUDENT_STATE
   }
 
   render() {
-
-    console.log(this.props.curriculum)
 
     return (
       <div>
@@ -151,7 +64,6 @@ class DashboardView extends Component {
   }
 
   renderUnitsTable() {
-    let unit = EXAMPLE_CURRICULA[0]
     return (
       <div>
         <table className="table" style={{marginBottom:0}}>
@@ -167,11 +79,10 @@ class DashboardView extends Component {
   }
 
   renderUnitsRows() {
-    // let unit = EXAMPLE_CURRICULA[0]
-    // return this.renderUnit(unit)
+    let curriculum = Curriculum.get()
     return (
       <div>
-        {EXAMPLE_CURRICULA.map((unit, index) =>
+        {curriculum.map((unit, index) =>
           <div key={index}>{this.renderUnit(unit)}</div>
         )}
       </div>

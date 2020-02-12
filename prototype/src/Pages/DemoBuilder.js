@@ -7,8 +7,8 @@ import SplitPane from 'react-split-pane'
 
 import Splash from '../Components/Templates/Splash.js'
 
-import DemoBuilderIde from '../Demos/DemoBuilder/DemoBuilderIde.js'
-import DemoBuilderCommands from '../Demos/DemoBuilder/DemoBuilderCommands.js'
+import DemoBuilderIde from '../Items/Old/Demos/DemoBuilder/DemoBuilderIde.js'
+import DemoBuilderCommands from '../Items/Old/Demos/DemoBuilder/DemoBuilderCommands.js'
 
 var demoList = [
   {
