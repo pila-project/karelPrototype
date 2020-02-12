@@ -13,6 +13,7 @@
 
 }
 
+
 .unitIcon {
   width: 70px;
   height: 70px;
@@ -23,16 +24,48 @@
   background-size: 95px 85px;
 }
 
+.lockedCover1 {
+  position:absolute;
+  border-radius: 70px;
+  width:70px;
+  height:70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.lockedCover2 {
+  position:absolute;
+  border-radius: 70px;
+  background-color: white;
+  width:70px;
+  height:70px;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .unitIcon:hover {
   /*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
   opacity: 0.8;
 }
 
-.col1 {
-  padding-top: 20px;
-  width:200px;
-  text-align: center;
+.unitBtnPadLeft {
+  padding-left: 50px
 }
+
+.unit {
+  padding-top: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:400px;
+}
+
 
 .alignedVertical {
   display: flex;
@@ -40,20 +73,25 @@
   align-items: center;
 }
 
+.alignedHorizontal {
+  display: flex;
+  align-items: center;
+}
+
 .bigChallengeBtn {
   width:100%;
   border-radius: 70px;
   height:70px;
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 1.5rem;
   font-weight: 400;
 }
 
-#egg {
+.egg {
   background-image: url("../../Img/lessonEgg.png");
 }
 
-#hatch {
+.hatch {
   background-image: url("../../Img/lessonHatch.png");
 }
 
@@ -74,9 +112,11 @@
 }
 
 
+
 .boxContainer {
   display: flex;
   padding:20px;
+  padding-bottom: 0px;
 }
 .box {
   flex: 1;

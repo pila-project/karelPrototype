@@ -26,6 +26,9 @@ class Item extends Component {
             height:250,
             nRows:2,
             nCols:2,
+            stones:[
+              {r:0,c:0,n:1}
+            ],
             karelCol:1,
             karelRow:0
           }}

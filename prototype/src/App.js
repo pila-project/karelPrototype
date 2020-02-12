@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './Pages/style/pages.css'
 import DemoKarel from './Pages/DemoKarel.js'
 import DemoBuilder from './Pages/DemoBuilder.js'
 import TestKarel from './Pages/TestKarel.js'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {CommandsMLMR} from 'Items'
+import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 
 export default class SimpleCurriculum {
@@ -20,80 +20,126 @@ export default class SimpleCurriculum {
         iconId:'egg',
         problems: [
           {
-            id:'cmd1',
-            component:<CommandsMLMR />
-          }
-        ],
-        workedExamples : [
-          {
-            id:'exCmd1',
-            component:<div />
+            itemId:'cmd1',
+            name:'Commands',
+            examples: {
+              'Example':'cmdHouse'
+            }
           },
-          {
-            id:'exCmd2',
-            component:<div />
-          }
         ]
       },
       {
         unitName:'Teach Karel',
         iconId:'hatch',
-        problem: [
+        problems: [
           {
-            id:'teach1',
-            component:<div />,
-          }
-        ],
-        workedExamples : [
-          {
-            id:'exTeach1',
-            component:<div />
+            itemId:'teach1',
+            name:'Teach 1',
+            prereq:'cmd1',
+            examples: {
+              'Example':'cmdHouse'
+            }
           },
           {
-            id:'exTeach2',
-            component:<div />
+            itemId:'teach2',
+            name:'Teach 2',
+            prereq:'teach1',
+            examples: {
+              'Example':'cmdHouse'
+            }
           }
+        ],
+      },
+      {
+        unitName:'Repeat',
+        iconId:'hatch',
+        problems:[
+          {
+            itemId:'repeat1',
+            name:'Repeat 1',
+            prereq:'teach1',
+            examples: {
+              'Example':'cmdHouse'
+            }
+          },
+          {
+            itemId:'repeat2',
+            name:'Repeat 2',
+            prereq:'repeat1',
+            examples: {
+              'Example':'cmdHouse'
+            }
+          },
+          {
+            itemId:'repeat3',
+            name:'Repeat 3',
+            prereq:'repeat2',
+            examples: {
+              'Example':'cmdHouse'
+            }
+          },
         ]
       },
       {
-        unitName:'Loops Lv1',
-        iconId:'hatch',
-        problem: [
-          {
-            id:'teach1',
-            component:<div />,
-          }
-        ],
-        workedExamples : [
-          {
-            id:'exTeach1',
-            component:<div />
-          },
-          {
-            id:'exTeach2',
-            component:<div />
-          }
-        ]
+        unitName:'Big Challenge Problem #1',
+        isChallenge:true,
+        itemId:'challenge1',
+        examples: {
+          'Example':'cmdHouse'
+        }
       },
       {
-        unitName:'Loops Lv2',
-        iconId:'hatch',
-        problem: [
+        unitName:'While Loops',
+        iconId:'egg',
+        problems: [
           {
-            id:'teach1',
-            component:<div />,
-          }
-        ],
-        workedExamples : [
-          {
-            id:'exTeach1',
-            component:<div />
+            itemId:'while1',
+            name:'While 1',
+            prereq:'challenge1',
+            examples: {
+              'Example':'cmdHouse'
+            }
           },
           {
-            id:'exTeach2',
-            component:<div />
+            itemId:'while2',
+            name:'While 2',
+            prereq:'while1',
+            examples: {
+              'Example':'cmdHouse'
+            }
           }
-        ]
+        ],
+      },
+      {
+        unitName:'If',
+        iconId:'hatch',
+        problems: [
+          {
+            itemId:'if1',
+            name:'If 1',
+            prereq:'while1',
+            examples: {
+              'Example':'cmdHouse'
+            }
+          },
+          {
+            itemId:'if2',
+            name:'If 2',
+            prereq:'if1',
+            examples: {
+              'Example':'cmdHouse'
+            }
+          }
+        ],
+      },
+      {
+        unitName:'Big Challenge Problem #2',
+        isChallenge:true,
+        itemId:'challenge2',
+        prereq:'challenge1',
+        examples: {
+          'Example':'cmdHouse'
+        }
       },
     ]
   }
@@ -105,24 +151,6 @@ export default class SimpleCurriculum {
    * seem like a performance heavy task!
    */
   static getComponent(goalId) {
-    let model = SimpleCurriculum.getLearning()
-    for(let unitIndex in model) {
-      let unit = model[unitIndex]
-      // search in all the problems
-      for(let probIndex in unit['problems']) {
-        let prob = unit['problems'][probIndex]
-        if(prob['id'] == goalId) {
-          return prob['component']
-        }
-      }
-      // search in all the worked examples
-      for(let workedIndex in unit['workedExamples']) {
-        let worked = unit['workedExamples'][workedIndex]
-        if(worked['id'] == goalId) {
-          return worked['component']
-        }
-      }
-    }
-    return <span>Item not found!</span>
+    return <MethodsRightAround />
   }
 }

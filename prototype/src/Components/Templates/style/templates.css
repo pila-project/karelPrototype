@@ -8,6 +8,22 @@
 
 }
 
+.navContainer {
+  display: flex;
+}
+.navItem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  line-height: 100%;
+}
+
+.navItem:first-child > span { margin-right: auto; }
+
+.navItem:last-child  > span { margin-left: auto;  }
+
+
 .guessImg {
   max-height: 200px
 }
@@ -24,4 +40,5 @@
   padding: 20px;
   margin-bottom: 20px;
   font-size: 18px;
+  max-width:100%;
 }

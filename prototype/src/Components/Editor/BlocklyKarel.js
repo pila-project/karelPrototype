@@ -54,7 +54,8 @@ class BlocklyKarel extends React.Component {
 
   static defaultProps = {
     initialXml: defaultXml,
-    toolboxPresent: true
+    isEditable: true,
+    hideBlocks: {}
   }
 
   componentDidMount(){
@@ -181,11 +182,11 @@ class BlocklyKarel extends React.Component {
                 wheel: true
               }} 
               initialXml={this.getInitialXml()}>
-              {this.props.toolboxPresent &&
-                <ToolboxXML 
-                  userFunctionBlocks={this.state.userFunctionBlocks} 
-                />
-              }
+              
+              <ToolboxXML 
+                userFunctionBlocks={this.state.userFunctionBlocks} 
+                hideBlocks = {this.props.hideBlocks}
+              />
               {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
           </div>
@@ -199,18 +200,38 @@ class ToolboxXML extends React.Component {
   constructor(props){
     super(props);
   }
-  
-  render() {
-    
+
+  getBlockComponent(blockType) {
+    // the loop is a bit complex
+    if(blockType === 'controls_repeat_ext') {
+      return (
+        <Block type="controls_repeat_ext">
+          <Value name="TIMES">
+              <Shadow type="math_number">
+              <Field name="NUM">10</Field>
+              </Shadow>
+          </Value>
+        </Block>   
+      )
+    }
+
+    // most blocks are straightforward
+    return <Block type={blockType} />
+  }
+
+  addBlock(blockType) {
+    console.log(this.props)
+    if(blockType in this.props.hideBlocks) {
+      return <span />
+    } else {
+      return this.getBlockComponent(blockType)
+    }
+  }
+
+  addUserBlocks() {
+    // add the blocks for all the user defined methods
     return (
       <React.Fragment>
-        <Block type="karel_procedure" />
-        <Block type="karel_move" />
-        <Block type="karel_turn_left" />
-        <Block type="karel_place_stone" />
-        <Block type="karel_pickup_stone" />
-        {/*<Block type="karel_if_dropdown" />*/}
-        <React.Fragment>
         {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
           <React.Fragment key={block.id}>
             <Block key={block.id} type="karel_call" children={<mutation name={blockName}/>}>
@@ -218,17 +239,22 @@ class ToolboxXML extends React.Component {
             </Block>
           </React.Fragment>
         )}
-        </React.Fragment>
-        <Block type="karel_while_dropdown" />
-        <Block type="controls_repeat_ext">
-          <Value name="TIMES">
-              <Shadow type="math_number">
-              <Field name="NUM">10</Field>
-              </Shadow>
-          </Value>
-        </Block>    
-        {/*<Block type="procedures_defnoreturn" />
-      <Block type="karel_call" name="test" mutation = {{'attributes':{name:'test'}}} children={<mutation name={'hello'}/>}/>*/}
+      </React.Fragment>
+    )
+  }
+  
+  render() {
+    
+    return (
+      <React.Fragment>
+        {this.addBlock('karel_procedure')}
+        {this.addBlock('karel_move')}
+        {this.addBlock('karel_turn_left')}
+        {this.addBlock('karel_place_stone')}
+        {this.addBlock('karel_pickup_stone')}
+        {this.addUserBlocks()}
+        {this.addBlock('karel_while_dropdown')}
+        {this.addBlock('controls_repeat_ext')}
         
       </React.Fragment>
     );

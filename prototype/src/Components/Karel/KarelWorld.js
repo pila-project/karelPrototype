@@ -252,7 +252,16 @@ class KarelWorld extends Component {
           key={i}
         ></div>)
       } else if(wall.d == 'East') {
-
+        walls.push(<div
+          className="wall" 
+          style={{
+            marginLeft:x,
+            marginTop:y,
+            width:2,
+            height:this.getCornerSize(),
+          }}
+          key={i}
+        ></div>)
       } else {
         console.error('Walls must be North or East')
       }

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
-import MsgProgram from '../Img/thisIsProgram.png'
-import MsgRun from '../Img/hitRunButton.png'
+import MsgProgram from 'Img/thisIsProgram.png'
+import MsgRun from 'Img/hitRunButton.png'
 
 const initialXml = ``
 class Item extends Component {
@@ -13,27 +13,32 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>Challenge:</b> Write a program from scratch that makes Karel move to the position shown in the "Goal" world:
+            <b>Learn:</b> Hit the <b>step</b> button until the program finishes.
           </span>}
           preWorld = {{
-            width:250,
-            height:250,
-            nRows:2,
-            nCols:2
+            width:300,
+            height:300,
+            nRows:3,
+            nCols:3,
           }}
           postWorld = {{
-            width:250,
-            height:250,
-            nRows:2,
-            nCols:2,
-            karelCol:1,
-            karelRow:0
+            width:300,
+            height:300,
+            nRows:3,
+            nCols:3,
+            stones:[
+              {r:0,c:0,n:9},
+              {r:0,c:2,n:9},
+              {r:2,c:2,n:9},
+              {r:2,c:0,n:9},
+            ]
           }}
           initialXml = {initialXml}
+          hasRun={false}
+          hasStep={true}
+          isEditable={false}
           hideBlocks = {{
-            'karel_procedure':true,
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
           }}
         />
       </div>

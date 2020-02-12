@@ -17,21 +17,21 @@ class Item extends Component {
           </span>}
           preWorld = {{
             width:250,
-            height:250,
+            height:166.6,
             nRows:2,
-            nCols:2
+            nCols:3
           }}
           postWorld = {{
             width:250,
-            height:250,
+            height:166.6,
             nRows:2,
-            nCols:2,
-            karelCol:1,
-            karelRow:0
+            nCols:3,
+            stones:[
+              {r:1,c:1,n:1}
+            ],
           }}
           initialXml = {initialXml}
           hideBlocks = {{
-            'karel_procedure':true,
             'karel_while_dropdown':true,
             'controls_repeat_ext':true
           }}

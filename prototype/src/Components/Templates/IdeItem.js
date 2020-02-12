@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
 
+const SPACE_FLOAT = 20
+const SPACING = SPACE_FLOAT + 'px'
 
 class IdeItem extends Component {
 
@@ -83,13 +90,26 @@ class IdeItem extends Component {
   }
 
   renderInstructions() {
+    let width = this.calculateLeftWidth()
     if(!('instructions' in this.props)) {
       return <span/>
     }
     return (
-      <div className="instructionBox">
+      <div className="instructionBox" style={{width:width}}>
         {this.props.instructions}
       </div>
+    )
+  }
+
+  renderPre() {
+    return (
+      <div style={{marginRight:SPACING}}>
+        <h3>World:</h3>
+        <KarelWorld 
+          {...this.props.preWorld}
+          ref="world"
+        />   
+      </div> 
     )
   }
 
@@ -110,33 +130,100 @@ class IdeItem extends Component {
 
   render() {
     return (
-      <div className="horizontal">
-        <div style={{width:500, height:560, marginRight:40}}>
-          <BlocklyKarel 
-            ref="editor"
-            initialXml = {this.props.initialXml}
-            toolboxPresent={this.props.isEditable}
-          />
-          
-        </div>
-        <div className = "vertical">
-          {this.renderInstructions()}
-          <div className="horizontal">
-            <div style={{marginRight:40}}>
-              <h3>World:</h3>
-              <KarelWorld 
-                {...this.props.preWorld}
-                ref="world"
-              />   
-            </div> 
-            {this.renderPost()}
-          </div>
-          <div style={{marginTop:20}}>
-            {this.renderButtons()}
-          </div>  
-        </div>
+      <div className="horizontal fullSize" style={{padding:SPACING}}>
+        {this.renderLeftSide()}
+        <div style={{'min-width':'10px', 'width':SPACING}} />
+        {this.renderRightSide()}
       </div>
     )
+  }
+
+  renderRightSide() {
+    return (
+      <div className="editorContainer" style = {{
+        'min-width': '400px',
+        'flex-grow': '1',
+        'height':'100%',
+        'min-height':'500px'
+      }}>
+        <BlocklyKarel 
+          ref="editor"
+          initialXml = {this.props.initialXml}
+          isEditable={this.props.isEditable}
+          hideBlocks = {this.props.hideBlocks}
+        />
+        
+      </div>
+    )
+  }
+
+  renderLeftSide() {
+    return (
+      <div className = "vertical">
+        {this.renderNavBar()}
+        {this.renderInstructions()}
+        <div className="horizontal">
+          {this.renderPre()}
+          {this.renderPost()}
+        </div>
+        <div style={{marginTop:SPACING}}>
+          {this.renderButtons()}
+        </div>  
+      </div>
+    )
+  }
+
+  renderNavBar() {
+    return (
+      <div className="navContainer" style={{height:'40px',
+        width:this.calculateLeftWidth(),
+        'margin-bottom':SPACING
+      }}>
+        <div className="navItem">
+          <span>
+            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faHome} />
+          </span>
+        </div>
+        <div className="navItem">
+          <span>
+            {this.renderExampleChoser()}
+          </span>
+        </div>
+        <div className="navItem">
+          <span>
+            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 30mins
+          </span>
+        </div>   
+      </div>
+    )
+  }
+
+  onExampleChosen(e) {
+    alert(e)
+  }
+
+  renderExampleChoser() {
+    return (
+      <DropdownButton 
+        variant="outline-primary"
+        title="Show Worked Example">
+        <Dropdown.Item 
+          onClick = {() => this.onExampleChosen('a')}
+        >Good Example</Dropdown.Item>
+        <Dropdown.Item 
+          onClick = {() => this.onExampleChosen('b')}
+        >Bad Example</Dropdown.Item>
+      </DropdownButton>
+    )
+  }
+
+  calculateLeftWidth() {
+    var width = parseFloat(this.props.preWorld.width)
+    if(this.props.postWorld != null) {
+      width += parseFloat(this.props.postWorld.width)
+      width += SPACE_FLOAT
+    }
+    return Math.max(width, 500)
   }
 }
 

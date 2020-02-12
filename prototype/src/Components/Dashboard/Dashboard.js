@@ -5,8 +5,12 @@ import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
+import { isLocked } from 'Curriculum/IsLocked.js'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
@@ -43,9 +47,9 @@ class Dashboard extends Component {
         {this.renderNav()}
         <div className="displayOuter">
           <div className="displayInner">
-            
-            {this.renderUnitsTable()}
-            {this.renderBigChallenge()}
+            {this.renderUnitsRows()}
+            <div style={{height:30}} />
+            <hr/>
             <div style={{height:30}} />
           </div>
         </div>
@@ -53,51 +57,84 @@ class Dashboard extends Component {
     )
   }
 
-  renderBigChallenge() {
+  renderBigChallenge(unit) {
     return (
       <Button className="bigChallengeBtn">
-        Big Challenge Problem
+        {unit['unitName']}
       </Button>
 
     )
   }
 
-  renderUnitsTable() {
-    return (
-      <div>
-        <table className="table" style={{marginBottom:0}}>
-          <thead>
-            <th className="col1">Challenge</th>
-            <th>Worked Examples</th>
-          </thead>
-        </table>
-        {this.renderUnitsRows()}
-      </div>
+  // renderUnitsTable() {
+  //   return (
+  //     <div>
+  //       <table className="table" style={{marginBottom:0}}>
+  //         <thead>
+  //           <th className="col1">Challenge</th>
+  //           <th>Worked Examples</th>
+  //         </thead>
+  //       </table>
+        
+  //     </div>
 
-    )
-  }
+  //   )
+  // }
 
   renderUnitsRows() {
     let curriculum = Curriculum.getLearning()
     return (
-      <div>
+      <div class="alignedVertical">
         {curriculum.map((unit, index) =>
-          <div key={index}>{this.renderUnit(unit)}</div>
+          {return this.renderDashboardRow(unit, index)}
         )}
       </div>
     )
   }
 
-  renderUnit(unit) {
+  renderDashboardRow(unit, index) {
+    if('isChallenge' in unit) {
+      return this.renderBigChallenge(unit, index)
+    }
+    return <div key={index}>{this.renderUnit(unit)}</div>
+  }
+
+  renderItem(unit, item, index) {
+    let itemId = item['itemId']
+    let curriculum = Curriculum.getLearning()
+    let locked = isLocked(curriculum, this.props.studentState, item)
     return (
-      <div className="col1 alignedVertical">
-        <Button className="unitIcon"
-          id={unit['iconId']}
-        >
-        </Button>
-        <span>{unit['unitName']}</span>
+      <span 
+        key={itemId + '-btn'} 
+        class={"alignedVertical " + this.padLeft(index)}
+      >
+        <Button className={"unitIcon " + unit['iconId']} />
+        {
+          locked &&
+            <span className="lockedCover1">
+              <FontAwesomeIcon style={{'font-size':'30px'}}icon={faLock} />
+              <span className="lockedCover2"></span>
+            </span>
+        }
+        <span>{item['name']}</span>
+      </span>
+    )
+  }
+
+  renderUnit(unit) {
+    let problems = unit['problems']
+    return (
+      <div className="unit alignedHorizontal">
+        {problems.map((item, index) =>
+          {return this.renderItem(unit, item, index)}
+        )}
       </div>
     )
+  }
+
+  padLeft(i) {
+    if(i == 0) {return ' '}
+    return 'unitBtnPadLeft'
   }
 
   renderPoints() {
@@ -123,7 +160,7 @@ class Dashboard extends Component {
         </div>
         <div className="box">
           <span className="timer">
-          Time left: 45mins
+            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 45mins
           </span>
         </div>
       </div>
