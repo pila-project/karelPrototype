@@ -3,7 +3,6 @@ import './style/pages.css'
 
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/NavBars/LearnNav.js'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import SplitPane from 'react-split-pane'
 
 import Swal from 'sweetalert2'

@@ -5,7 +5,11 @@ import DemoBuilder from './Pages/DemoBuilder.js'
 import TestKarel from './Pages/TestKarel.js'
 import TestBuilder from './Pages/TestBuilder.js'
 import StarterCode from './Pages/StarterCode.js'
+
 import TestDashboard from './Pages/TestDashboard.js'
+
+import DashboardView from './Components/Dashboard/DashboardView.js'
+
 import {
   HashRouter as Router,
   Route
@@ -22,6 +26,7 @@ function App() {
         <Route exact path="/testBuilder" component={TestBuilder} />
         <Route exact path="/testDashboard" component={TestDashboard} />
         <Route exact path="/startercode" component={StarterCode} />
+        <Route exact path="/dashboard" component={DashboardView} />
       </div>
     </Router>
   )

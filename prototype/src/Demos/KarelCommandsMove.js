@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import MovePrompt from '../Img/movePrompt.png'
 import KarelWorld from '../Components/Karel/KarelWorld.js'
 import KarelGoal from '../Components/Karel/KarelGoal.js'

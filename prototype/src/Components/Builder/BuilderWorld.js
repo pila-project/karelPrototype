@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './style/builder.css'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'
 import BuilderEast from './images/builderEast.png'
 import BuilderWest from './images/builderWest.png'

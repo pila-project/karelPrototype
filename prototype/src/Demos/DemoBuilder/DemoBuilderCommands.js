@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BuilderWorld from '../../Components/Builder/BuilderWorld.js'
 import BuilderGoal from '../../Components/Builder/BuilderGoal.js'

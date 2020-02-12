@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
