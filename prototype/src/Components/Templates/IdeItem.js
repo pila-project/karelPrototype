@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateStatus, updateCode } from 'redux/actions'
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -11,6 +13,10 @@ import KarelEngine from '../Karel/KarelEngine.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+
+const mapDispatchToProps = {
+  onUpdateCode: (code) => updateCode(code)
+};
 
 const SPACE_FLOAT = 20
 const SPACING = SPACE_FLOAT + 'px'
@@ -37,6 +43,9 @@ class IdeItem extends Component {
         isReset:true
       })
     })
+    this.props.onUpdateCode(
+      { code: this.props.initialXml }
+    );
   }
 
   run() {
@@ -227,4 +236,7 @@ class IdeItem extends Component {
   }
 }
 
-export default IdeItem
+export default connect(
+  null,
+  mapDispatchToProps
+)(IdeItem)

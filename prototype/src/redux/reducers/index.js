@@ -3,7 +3,7 @@ import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
-    currentID: null,
+    currentId: null,
     studentState: {} 
     
     // Student state will be populated as the student works through
@@ -29,23 +29,23 @@ const initialState = {
 // All of the spread operators below are being used to create a copy of the state
 // and selectively modify the part that needs to be changed based 
 // on the action that was received. For example, when UPDATE_STATUS is 
-// received, the `status` value of the item specified by state.currentID is updated.
-  
+// received, the `status` value of the item specified by state.currentId is updated.
+
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_CURRENT_ID:
             return {
                 ...state,
-                currentID: action.payload
+                currentId: action.id
             }
         case UPDATE_STATUS:
             return {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [state.currentID]: {
-                        ...state.studentState[state.currentID],
-                        status: action.payload.status
+                    [state.currentId]: {
+                        ...state.studentState[state.currentId],
+                        status: action.status
                     }
                 }
             }
@@ -54,9 +54,9 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [state.currentID]: {
-                        ...state.studentState[state.currentID],
-                        code: action.payload.code
+                    [state.currentId]: {
+                        ...state.studentState[state.currentId],
+                        code: action.code
                     }
                 }
             }

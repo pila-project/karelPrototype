@@ -1,13 +1,13 @@
 import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_ID } from "./actionTypes";
 
-export function updateStatus(payload) {
-    return { type: UPDATE_STATUS, payload }
+export function updateStatus(status) {
+    return { type: UPDATE_STATUS, status }
 };
 
-export function updateCode(payload) {
-    return { type: UPDATE_CODE, payload }
+export function updateCode(code) {
+    return { type: UPDATE_CODE, code }
 }
 
-export function updateCurrentID(payload) {
-    return { type: UPDATE_CURRENT_ID, payload }
+export function updateCurrentId(id) {
+    return { type: UPDATE_CURRENT_ID, id }
 }

@@ -4,14 +4,14 @@ import './style/pages.css'
 import Swal from 'sweetalert2'
 import Splash from '../Components/Templates/Splash.js'
 import { getComponentFromId } from '../constants'
-import { updateCurrentID } from '../redux/actions';
+import { updateCurrentId } from '../redux/actions';
 
 import Button from 'react-bootstrap/Button'
 import LearnNav from '../Components/NavBars/LearnNav.js'
 import SplitPane from 'react-split-pane'
 
 const mapDispatchToProps = {
-  onUpdateCurrentID: (id) => updateCurrentID(id)
+  onUpdateCurrentId: (id) => updateCurrentId(id)
 };
 
 var testList = [
@@ -112,7 +112,7 @@ class TestKarel extends Component {
   // components
   getLesson() {
     let lesson = testList[this.state.levelIndex]
-    this.props.onUpdateCurrentID(lesson.id);
+    this.props.onUpdateCurrentId(lesson.id);
     return getComponentFromId(lesson.id)
   }
 

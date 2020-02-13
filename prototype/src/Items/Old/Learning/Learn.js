@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import LearnNav from 'Components/NavBars/LearnNav.js'
-import { updateCurrentID } from 'redux/actions';
+import { updateCurrentId } from 'redux/actions';
 
 const mapDispatchToProps = {
-  onUpdateCurrentID: (id) => updateCurrentID(id)
+  onUpdateCurrentId: (id) => updateCurrentId(id)
 };
 
 var lessonList = [
@@ -54,7 +54,7 @@ class Learn extends Component {
 
   getLesson() {
     let lesson = lessonList[this.state.levelIndex];
-    this.props.onUpdateCurrentID(lesson.id);
+    this.props.onUpdateCurrentId(lesson.id);
     return <span>TODO</span>
     // return getComponentFromId(lesson.id);
   }

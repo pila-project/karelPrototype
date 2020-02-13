@@ -1,7 +1,8 @@
-export const selectProblemsByID = (store, id) => {
-    return store.learningPaths[id].problems;
-}
-
-export const selectPathTypeByID = (store, id) => {
-    return store.learningPaths[id].pathType;
+export const selectCodeByCurrentId = (store) => {
+    let currentId = store.currentId;
+    if (store.studentState[currentId] != undefined){
+        return (store.studentState[currentId].code);
+    } else {
+        return;
+    }
 }

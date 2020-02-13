@@ -24,6 +24,9 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateStatus, updateCode } from 'redux/actions';
+import { selectCodeByCurrentId } from 'redux/selectors';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -35,6 +38,16 @@ import BlocklyJS from 'blockly/javascript';
 
 import './blocks/customblocks';
 import './generator/generator';
+
+const mapStateToProps = (state, ownProps) => {
+  const savedXml = selectCodeByCurrentId(state);
+  return { savedXml };
+}
+
+const mapDispatchToProps = {
+  // onUpdateStatus: (status) => updateStatus(status),
+  onUpdateCode: (code) => updateCode(code)
+};
 
 const OFFSET = 20
 
@@ -48,7 +61,8 @@ class BlocklyKarel extends React.Component {
       super(props);
       this.state = {
         userCode: '',
-        userFunctionBlocks: {}
+        userFunctionBlocks: {},
+        initialXml: this.getInitialXml()
       };
   }
 
@@ -65,6 +79,7 @@ class BlocklyKarel extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
     // this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.BlockCreate);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
+    this.simpleWorkspace.workspace.addChangeListener(this.storeCode);
   }
 
   highlightBlock = (id) => {
@@ -76,10 +91,13 @@ class BlocklyKarel extends React.Component {
   }
 
   getInitialXml() {
-    if(this.props.initialXml == '')  {
-      return defaultXml
+    // TODO: Determine if savedXml should overwrite initialXml, 
+    // or if there is a better way of handling this.
+    let initialXml = this.props.initialXml;
+    if(this.props.savedXml != undefined) {
+      initialXml = this.props.savedXml;
     }
-    return this.props.initialXml
+    return initialXml;
   }
 
   generateCode = (event) => {
@@ -163,6 +181,13 @@ class BlocklyKarel extends React.Component {
     }
   }
 
+  storeCode = (event) => {
+    this.props.onUpdateCode(Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML);
+    // if(event.type == Blockly.Events.CHANGE || event.type == Blockly.Events.CREATE || event.type == Blockly.Events.DELETE){
+    //   this.props.onUpdateCode(Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML);
+    // }
+  }
+
   render() {
     return (
       <div className="verticalContainer fullSize">
@@ -181,7 +206,7 @@ class BlocklyKarel extends React.Component {
                 drag: false,
                 wheel: true
               }} 
-              initialXml={this.getInitialXml()}>
+              initialXml={this.state.initialXml}>
               
               <ToolboxXML 
                 userFunctionBlocks={this.state.userFunctionBlocks} 
@@ -220,7 +245,6 @@ class ToolboxXML extends React.Component {
   }
 
   addBlock(blockType) {
-    console.log(this.props)
     if(blockType in this.props.hideBlocks) {
       return <span />
     } else {
@@ -261,4 +285,7 @@ class ToolboxXML extends React.Component {
   }
 }
 
-export default BlocklyKarel;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlocklyKarel)
