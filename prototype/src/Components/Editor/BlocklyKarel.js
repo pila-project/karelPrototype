@@ -287,5 +287,7 @@ class ToolboxXML extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { forwardRef: true }
 )(BlocklyKarel)
