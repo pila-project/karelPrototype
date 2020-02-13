@@ -4,16 +4,20 @@ import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
     currentID: null,
-    studentState: {} // Lazy load
+    studentState: {} 
+    
+    // Student state will be populated as the student works through
+    // the exam. Here is an example of what studentState could
+    // look 
     
     // Example of what studentState will look like with content
     // studentState: {
     //     learnCmd1: {
-    //         status:STATUS.UNVISITED,
+    //         status:STATUS.COMPLETED,
     //         code:''
     //     },
     //     learnCmd2: {
-    //         status:STATUS.UNVISITED,
+    //         status:STATUS.VISITED,
     //         code:''
     //     }
     // }
