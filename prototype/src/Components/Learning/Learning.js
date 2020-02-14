@@ -24,8 +24,6 @@ const mapDispatchToProps = {
 class Learning extends Component {
 
   render() {
-    console.log('asdfsd')
-    console.log('chris log', this.props.learningView)
     if(this.props.learningView === 'dashboard') {
       return <Dashboard />
     } else {

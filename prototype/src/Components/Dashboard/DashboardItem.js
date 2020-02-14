@@ -12,7 +12,8 @@ import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
-  return { studentState };
+  const learningView = state.currentLearningView;
+  return { studentState , learningView };
 }
 
 const mapDispatchToProps = {
@@ -31,21 +32,14 @@ class DashboardItem extends Component {
   }
   
   static defaultProps = {
-    itemId: {
-      itemId:'while1',
-      name:'While 1',
-      prereq:'challenge1',
-      examples: {
-        'Example':'cmdHouse'
-      },
-      component:<MethodsRightAround />
-    }
+    itemId: 'MethodsRightAround'
   }
 
   render() {
+
     return (
       <div style={{width:'100vw', height:'100vh'}}>
-        {this.props.itemId['component']}
+        {Curriculum.getComponent(this.props.learningView)}
       </div>
     )
   }

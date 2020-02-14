@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import {updateCurrentId, updateCurrentLearningView} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
-import { isLocked } from 'Curriculum/IsLocked.js'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,15 +22,6 @@ const mapDispatchToProps = {
   onUpdateCurrentView: (view) => updateCurrentLearningView(view)
 };
 
-const EXAMPLE_STUDENT_STATE = {
-  cmd1: {
-    isDone:true,
-    code:`<xml xmlns="http://www.w3.org/1999/xhtml">
-                <block type="karel_main" deletable="false" movable="false" x="10" y="10"></block>
-              </xml>`
-  }
-}
-
 class Dashboard extends Component {
 
   constructor(props){
@@ -40,10 +30,6 @@ class Dashboard extends Component {
 
   componentWillMount(){
     document.title = "PISA 2024 Dashboard";
-  }
-  
-  static defaultProps = {
-    studentState: EXAMPLE_STUDENT_STATE
   }
 
   render() {
@@ -72,21 +58,6 @@ class Dashboard extends Component {
     )
   }
 
-  // renderUnitsTable() {
-  //   return (
-  //     <div>
-  //       <table className="table" style={{marginBottom:0}}>
-  //         <thead>
-  //           <th className="col1">Challenge</th>
-  //           <th>Worked Examples</th>
-  //         </thead>
-  //       </table>
-        
-  //     </div>
-
-  //   )
-  // }
-
   renderUnitsRows() {
     let curriculum = Curriculum.getLearning()
     return (
@@ -109,10 +80,11 @@ class Dashboard extends Component {
     return <div key={index}>{this.renderUnit(unit)}</div>
   }
 
-  renderItem(unit, item, index) {
-    let itemId = item['itemId']
+  renderItem(unit, itemId, index) {
+    let item = Curriculum.getItemFromId(itemId)
     let curriculum = Curriculum.getLearning()
-    let locked = isLocked(curriculum, this.props.studentState, item)
+    let locked = Curriculum.isLocked(this.props.studentState, itemId)
+    // t is for translation
     const { t } = this.props;
     return (
       <span 
@@ -136,8 +108,8 @@ class Dashboard extends Component {
     let problems = unit['problems']
     return (
       <div className="unit alignedHorizontal">
-        {problems.map((item, index) =>
-          {return this.renderItem(unit, item, index)}
+        {problems.map((itemId, index) =>
+          {return this.renderItem(unit, itemId, index)}
         )}
       </div>
     )

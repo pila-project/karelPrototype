@@ -9,6 +9,7 @@ import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
+import Curriculum from 'Curriculum/SimpleCurriculum.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +19,12 @@ const mapDispatchToProps = {
   onUpdateCode: (code) => updateCode(code),
   onUpdateCurrentView: (view) => updateCurrentLearningView(view)
 };
+
+const mapStateToProps = (state, ownProps) => {
+  const studentState = state.studentState;
+  const currentLearningView = state.currentLearningView;
+  return { studentState , currentLearningView };
+}
 
 const SPACE_FLOAT = 20
 const SPACING = SPACE_FLOAT + 'px'
@@ -200,7 +207,7 @@ class IdeItem extends Component {
         </div>
         <div className="navItem">
           <span>
-            {this.renderExampleChoser()}
+            {this.renderExampleToggle()}
           </span>
         </div>
         <div className="navItem">
@@ -212,23 +219,32 @@ class IdeItem extends Component {
     )
   }
 
-  onExampleChosen(e) {
-    alert(e)
-  }
-
-  renderExampleChoser() {
-    return (
-      <DropdownButton 
-        variant="outline-primary"
-        title="Show Worked Example">
-        <Dropdown.Item 
-          onClick = {() => this.onExampleChosen('a')}
-        >Good Example</Dropdown.Item>
-        <Dropdown.Item 
-          onClick = {() => this.onExampleChosen('b')}
-        >Bad Example</Dropdown.Item>
-      </DropdownButton>
-    )
+  renderExampleToggle() {
+    // there are a few states in this button:
+    // if the item has an example, show it
+    // if the item "is" an example, show a button to
+    // take you back to its problem. Examples to problems
+    // must be 1:1
+    let currentItemId = this.props.currentLearningView
+    let item = Curriculum.getItemFromId(currentItemId)
+    let hasExample = 'example' in item
+    // case 1: its a problem with an example
+    if(hasExample) {
+      return (
+        <Button variant="outline-primary">
+          Show Example
+        </Button>
+      )
+    } 
+    // case 2: its an example with a problem
+    let isExample = 'isExample' in item && item['isExample']
+    if(isExample) {
+      return (
+        <Button variant="outline-primary">
+          Show Problem
+        </Button>
+      )
+    }
   }
 
   calculateLeftWidth() {
@@ -242,6 +258,6 @@ class IdeItem extends Component {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(IdeItem)
