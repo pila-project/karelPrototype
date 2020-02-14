@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {RepeatL3Dash5, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {RepeatL3Dash5, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 export default class SimpleCurriculum {
 
@@ -224,8 +224,26 @@ const itemDatabase = {
     component:<Repeat9 />,
     // Repeat 1 Tripplet
     challenge:'Repeat9',
-    goodExample:'Repeat9',
-    badExample:'Repeat9'
+    goodExample:'Repeat5',
+    badExample:'Repeat5Bad'
+  },
+  Repeat5: {
+    name:'Repeat 1',
+    prereq:'cmd1',
+    component:<Repeat5 />,
+    // Repeat 1 Tripplet
+    challenge:'Repeat9',
+    goodExample:'Repeat5',
+    badExample:'Repeat5Bad'
+  },
+  Repeat5Bad: {
+    name:'Repeat 1',
+    prereq:'cmd1',
+    component:<Repeat5Bad />,
+    // Repeat 1 Tripplet
+    challenge:'Repeat9',
+    goodExample:'Repeat5',
+    badExample:'Repeat5Bad'
   },
   // Repeat 2
   RepeatL2PlaceRow: {

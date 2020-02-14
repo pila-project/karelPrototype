@@ -29,7 +29,6 @@ class Item extends Component {
             karelCol:1,
             karelRow:0
           }}
-          initialXml = {initialXml}
           hideBlocks = {{
             'karel_procedure':true,
             'karel_while_dropdown':true,
