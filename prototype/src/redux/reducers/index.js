@@ -1,9 +1,10 @@
 import React from 'react'
-import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
+import { UPDATE_STATUS,UPDATE_LEARNING_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
     currentId: null,
+    currentLearningView: 'dashboard',
     studentState: {} 
     
     // Student state will be populated as the student works through
@@ -33,6 +34,11 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
+        case UPDATE_LEARNING_VIEW:
+            return {
+                ...state,
+                currentLearningView: action.view
+            }
         case UPDATE_CURRENT_ID:
             return {
                 ...state,

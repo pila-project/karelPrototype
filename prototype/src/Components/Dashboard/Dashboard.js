@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-
+import {updateCurrentId, updateCurrentLearningView} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
 import { isLocked } from 'Curriculum/IsLocked.js'
@@ -16,6 +16,11 @@ const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
   return { studentState };
 }
+
+const mapDispatchToProps = {
+  onUpdateCurrentId: (id) => updateCurrentId(id),
+  onUpdateCurrentView: (view) => updateCurrentLearningView(view)
+};
 
 const EXAMPLE_STUDENT_STATE = {
   cmd1: {
@@ -92,6 +97,10 @@ class Dashboard extends Component {
     )
   }
 
+  selectItem(itemId){
+    this.props.onUpdateCurrentView(itemId)
+  }
+
   renderDashboardRow(unit, index) {
     if('isChallenge' in unit) {
       return this.renderBigChallenge(unit, index)
@@ -108,7 +117,7 @@ class Dashboard extends Component {
         key={itemId + '-btn'} 
         class={"alignedVertical " + this.padLeft(index)}
       >
-        <Button className={"unitIcon " + unit['iconId']} />
+        <Button onClick = {() => this.selectItem(itemId)}className={"unitIcon " + unit['iconId']} />
         {
           locked &&
             <span className="lockedCover1">
@@ -169,5 +178,5 @@ class Dashboard extends Component {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(Dashboard)

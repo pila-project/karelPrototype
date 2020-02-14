@@ -3,7 +3,6 @@ export function isLocked(curriculum, studentState, item){
   
   studentState = {
     'cmd1':true,
-    'teach1':true,
   }
 
   if('prereq' in item){

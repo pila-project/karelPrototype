@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStatus, updateCode } from 'redux/actions'
+import { updateStatus, updateCode, updateCurrentLearningView } from 'redux/actions'
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -15,7 +15,8 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
-  onUpdateCode: (code) => updateCode(code)
+  onUpdateCode: (code) => updateCode(code),
+  onUpdateCurrentView: (view) => updateCurrentLearningView(view)
 };
 
 const SPACE_FLOAT = 20
@@ -35,6 +36,10 @@ class IdeItem extends Component {
     this.setState({
       isReset:true
     })
+  }
+
+  goHome() {
+    this.props.onUpdateCurrentView('dashboard')
   }
 
   reset() {
@@ -190,7 +195,7 @@ class IdeItem extends Component {
       }}>
         <div className="navItem">
           <span>
-            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faHome} />
+            <FontAwesomeIcon onClick={() => this.goHome()} style={{'font-size':'30px'}}icon={faHome} />
           </span>
         </div>
         <div className="navItem">
