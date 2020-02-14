@@ -7,9 +7,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 // import store from "./redux/store"; // Replaced by configureStore.js
 import configureStore from "redux/configureStore.js";
+// import { I18nextProvider } from "react-i18next";
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+import './i18n';
 
 const { store, persistor } = configureStore();
 persistor.purge(); // Uncomment to stop saving the store in localStorage

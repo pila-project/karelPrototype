@@ -11,6 +11,7 @@ import Logo from "Img/pisa.jpeg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
@@ -46,7 +47,6 @@ class Dashboard extends Component {
   }
 
   render() {
-
     return (
       <div>
         {this.renderNav()}
@@ -63,9 +63,10 @@ class Dashboard extends Component {
   }
 
   renderBigChallenge(unit) {
+    const { t } = this.props;
     return (
       <Button className="bigChallengeBtn">
-        {unit['unitName']}
+        {t(unit['unitName'])}
       </Button>
 
     )
@@ -112,12 +113,13 @@ class Dashboard extends Component {
     let itemId = item['itemId']
     let curriculum = Curriculum.getLearning()
     let locked = isLocked(curriculum, this.props.studentState, item)
+    const { t } = this.props;
     return (
       <span 
         key={itemId + '-btn'} 
         class={"alignedVertical " + this.padLeft(index)}
       >
-        <Button onClick = {() => this.selectItem(itemId)}className={"unitIcon " + unit['iconId']} />
+        <Button onClick = {() => this.selectItem(itemId)} className={"unitIcon " + unit['iconId']} />
         {
           locked &&
             <span className="lockedCover1">
@@ -125,7 +127,7 @@ class Dashboard extends Component {
               <span className="lockedCover2"></span>
             </span>
         }
-        <span>{item['name']}</span>
+        <span>{t(item['name'])}</span>
       </span>
     )
   }
@@ -147,9 +149,10 @@ class Dashboard extends Component {
   }
 
   renderPoints() {
+    const { t } = this.props;
     return (
       <div id="pointsDiv">
-      Great work! You have earned 100 points. Click on an activity!
+      {t('Great work! You have earned 100 points. Click on an activity!')}
       </div>
     )
   }
@@ -179,4 +182,4 @@ class Dashboard extends Component {
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(Dashboard)
+)(withTranslation()(Dashboard))

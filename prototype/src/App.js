@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import './Pages/style/pages.css'
 import DemoKarel from './Pages/DemoKarel.js'
@@ -17,6 +17,7 @@ function App() {
   return (
     <Router>
       <div>
+        <Suspense fallback={(<div>Loading</div>)}>
         <Route exact path="/" component={TestKarel} />
         <Route exact path="/demoKarel" component={DemoKarel} />
         <Route exact path="/demoBuilder" component={DemoBuilder} />
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/learning" component={Learning} />
         <Route exact path="/item" component={DashboardItem} />
         {/* <Route exact path="/reduxTest" component={ReduxTest} /> */}
+        </Suspense>
       </div>
     </Router>
   )
