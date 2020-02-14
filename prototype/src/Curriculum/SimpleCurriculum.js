@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {RepeatL3Dash5, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 export default class SimpleCurriculum {
 
@@ -21,11 +21,12 @@ export default class SimpleCurriculum {
   }
 
   static isLocked(studentState, itemId) {
-    let item = SimpleCurriculum.getItemFromId(itemId)
-    if('prereq' in item){
-      let prereq = item['prereq']
-      return !(prereq in studentState)
-    }
+    // let item = SimpleCurriculum.getItemFromId(itemId)
+    // if('prereq' in item){
+    //   let prereq = item['prereq']
+    //   return !(prereq in studentState)
+    // }
+    //for now everything is unlocked (testing)
     return false
   }
 
@@ -57,44 +58,23 @@ const learningPlan = [
       'MethodsRightAround'
     ],
   },
-  // {
-  //   unitName:'Repeat',
-  //   iconId:'hatch',
-  //   problems:[
-  //     {
-  //       itemId:'repeat1',
-  //       name:'Repeat 1',
-  //       prereq:'teach1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     },
-  //     {
-  //       itemId:'repeat2',
-  //       name:'Repeat 2',
-  //       prereq:'repeat1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     },
-  //     {
-  //       itemId:'repeat3',
-  //       name:'Repeat 3',
-  //       prereq:'repeat2',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     },
-  //   ]
-  // },
-  // {
-  //   unitName:'Big Challenge Problem #1',
-  //   isChallenge:true,
-  //   itemId:'challenge1',
-  //   examples: {
-  //     'Example':'cmdHouse'
-  //   }
-  // },
+  {
+    unitName:'Repeat',
+    iconId:'hatch',
+    problems:[
+      'Repeat9',
+      'RepeatL2PlaceRow',
+      'RepeatL3Corner9'
+    ]
+  },
+  {
+    unitName:'Big Challenge Problem #1',
+    isChallenge:true,
+    itemId:'challenge1',
+    examples: {
+      'Example':'cmdHouse'
+    }
+  },
   // {
   //   unitName:'While Loops',
   //   iconId:'egg',
@@ -151,27 +131,124 @@ const learningPlan = [
 ]
 
 const itemDatabase = {
+  // Commands 1
   CommandsMLMR: {
     name:'Commands 1',
     component:<CommandsMLMR />,
-    example:'CommandsHouse'
+    // Commands 1 Tripplet
+    challenge:'CommandsMLMR',
+    goodExample:'CommandsHouse',
+    badExample:'CommandsHouseBad'
   },
   CommandsHouse: {
     name:'Commands House',
     component:<CommandsHouse />,
-    isExample:true,
-    problem:'CommandsMLMR'
+    isGoodExample:true,
+    // Commands 1 Tripplet
+    challenge:'CommandsMLMR',
+    goodExample:'CommandsHouse',
+    badExample:'CommandsHouseBad'
   },
+  CommandsHouseBad: {
+    name:'Commands House Bad',
+    component:<CommandsHouseBad />,
+    isBadExample:true,
+    // Commands 1 Tripplet
+    challenge:'CommandsMLMR',
+    goodExample:'CommandsHouse',
+    badExample:'CommandsHouseBad'
+  },
+
+  // Teach 1
   MethodsTurnAround: {
     name:'Teach 1',
-    example:'MethodsStepUp',
     component:<MethodsTurnAround />,
+    // Teach 1 Tripplet
+    challenge:'MethodsTurnAround',
+    goodExample:'MethodsStepUp',
+    badExample:'MethodsStepUpBad'
   },
+  MethodsStepUp: {
+    name:'Teach StepUp',
+    isGoodExample:true,
+    component:<MethodsStepUp />,
+    // Teach 1 Tripplet
+    challenge:'MethodsTurnAround',
+    goodExample:'MethodsStepUp',
+    badExample:'MethodsStepUpBad'
+  },
+  MethodsStepUpBad: {
+    name:'Teach StepUp',
+    isBadExample:true,
+    component:<MethodsStepUpBad />,
+    // Teach 1 Tripplet
+    challenge:'MethodsTurnAround',
+    goodExample:'MethodsStepUp',
+    badExample:'MethodsStepUpBad'
+  },
+
+  // Teach 2
   MethodsRightAround: {
     name:'Teach 2',
     prereq:'cmd1',
-    example:'MethodsStepUp',
     component:<MethodsRightAround />,
-  }
+    // Teach 1 Tripplet
+    challenge:'MethodsRightAround',
+    goodExample:'MethodsReuse',
+    badExample:'MethodsReuseBad'
+  },
+  MethodsReuse: {
+    name:'Teach 2',
+    prereq:'cmd1',
+    isGoodExample:true,
+    component:<MethodsReuse />,
+    // Teach 1 Tripplet
+    challenge:'MethodsRightAround',
+    goodExample:'MethodsReuse',
+    badExample:'MethodsReuseBad'
+  },
+  MethodsReuseBad: {
+    name:'Teach 2',
+    prereq:'cmd1',
+    isBadExample:true,
+    component:<MethodsReuseBad />,
+    // Teach 1 Tripplet
+    challenge:'MethodsRightAround',
+    goodExample:'MethodsReuse',
+    badExample:'MethodsReuseBad'
+  },
+  // Repeat 1
+  Repeat9: {
+    name:'Repeat 1',
+    prereq:'cmd1',
+    component:<Repeat9 />,
+    // Repeat 1 Tripplet
+    challenge:'Repeat9',
+    goodExample:'Repeat9',
+    badExample:'Repeat9'
+  },
+  // Repeat 2
+  RepeatL2PlaceRow: {
+    name:'Repeat 2',
+    prereq:'cmd1',
+    component:<RepeatL2PlaceRow />,
+    // Repeat 2 Tripplet
+    challenge:'RepeatL2PlaceRow',
+    goodExample:'RepeatL2PlaceRow',
+    badExample:'RepeatL2PlaceRow'
+  },
+  // Repeat 3
+  RepeatL3Corner9: {
+    name:'Repeat 3',
+    prereq:'cmd1',
+    component:<RepeatL3Corner9 />,
+    // Repeat 3 Tripplet
+    challenge:'RepeatL3Corner9',
+    goodExample:'RepeatL3Corner9',
+    badExample:'RepeatL3Corner9'
+  },
+
+  //// 'RepeatL2PlaceRow',
+  // 'RepeatL3Corner9'
 }
 

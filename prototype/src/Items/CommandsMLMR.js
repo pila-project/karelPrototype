@@ -16,14 +16,14 @@ class Item extends Component {
             <b>Challenge:</b> Write a program from scratch that makes Karel move to the position shown in the "Goal" world:
           </span>}
           preWorld = {{
-            width:250,
-            height:250,
+            width:300,
+            height:300,
             nRows:2,
             nCols:2
           }}
           postWorld = {{
-            width:250,
-            height:250,
+            width:300,
+            height:300,
             nRows:2,
             nCols:2,
             karelCol:1,

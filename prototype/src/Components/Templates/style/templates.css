@@ -10,9 +10,9 @@
 
 .navContainer {
   display: flex;
+  font-size: 18px;
 }
 .navItem {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items:center;
@@ -34,8 +34,20 @@
   width:80vw;
 }
 
-.instructionBox {
+.instructionBlue {
   background-color: #ccf2ff;
+}
+
+.instructionGreen {
+  background-color: lightgreen
+}
+
+.instructionRed {
+  background-color: pink
+}
+
+.instructionBox {
+  
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;

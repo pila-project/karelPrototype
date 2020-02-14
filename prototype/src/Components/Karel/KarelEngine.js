@@ -80,6 +80,8 @@ class KarelEngine {
         setTimeout(() => {
           this.heartbeat(editor)
         }, 400)
+      } else {
+        alert('done')
       }
       let blockID = this.lineToBlockID[results.lineNumber];
       editor.highlightBlock(blockID);

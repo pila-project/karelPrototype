@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateStatus, updateCode, updateCurrentLearningView } from 'redux/actions'
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
@@ -14,6 +15,10 @@ import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import {faPlay} from '@fortawesome/free-solid-svg-icons'
+import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (code) => updateCode(code),
@@ -46,7 +51,29 @@ class IdeItem extends Component {
   }
 
   goHome() {
-    this.props.onUpdateCurrentView('dashboard')
+    this.goToItem('dashboard')
+  }
+
+  goChallenge() {
+    let currentItemId = this.props.currentLearningView
+    let item = Curriculum.getItemFromId(currentItemId)
+    this.goToItem(item['challenge'])
+  }
+
+  goGoodExample() {
+    let currentItemId = this.props.currentLearningView
+    let item = Curriculum.getItemFromId(currentItemId)
+    this.goToItem(item['goodExample'])
+  }
+
+  goBadExample() {
+    let currentItemId = this.props.currentLearningView
+    let item = Curriculum.getItemFromId(currentItemId)
+    this.goToItem(item['badExample'])
+  }
+
+  goToItem(itemId) {
+    this.props.onUpdateCurrentView(itemId)
   }
 
   reset() {
@@ -104,10 +131,22 @@ class IdeItem extends Component {
 
   renderRunResetButton() {
     if(this.state.isReset) {
-      return <Button className="ideButton" size="lg" onClick = {() => this.run()}>Run</Button>
+      return <Button className="ideButton" size="lg" onClick = {() => this.run()}>
+        <FontAwesomeIcon icon={faPlay}/> &nbsp;Run
+      </Button>
     } else {
       return <Button className="ideButton" size="lg" onClick = {() => this.reset()}>Reset</Button>
     }
+  }
+
+  getInstructionColor(item){
+    if(item['isGoodExample']) {
+      return 'instructionGreen'
+    }
+    if(item['isBadExample']) {
+      return 'instructionRed'
+    }
+    return 'instructionBlue'
   }
 
   renderInstructions() {
@@ -115,8 +154,11 @@ class IdeItem extends Component {
     if(!('instructions' in this.props)) {
       return <span/>
     }
+    let currentItemId = this.props.currentLearningView
+    let item = Curriculum.getItemFromId(currentItemId)
+    let classColor = this.getInstructionColor(item)
     return (
-      <div className="instructionBox" style={{width:width}}>
+      <div className={"instructionBox " + classColor} style={{width:width}}>
         {this.props.instructions}
       </div>
     )
@@ -205,7 +247,7 @@ class IdeItem extends Component {
             <FontAwesomeIcon onClick={() => this.goHome()} style={{'font-size':'30px'}}icon={faHome} />
           </span>
         </div>
-        <div className="navItem">
+        <div className="navItem" style={{flex:2}}>
           <span>
             {this.renderExampleToggle()}
           </span>
@@ -219,32 +261,66 @@ class IdeItem extends Component {
     )
   }
 
+  getActiveKey(item) {
+    if('isGoodExample' in item) {
+      return 'good'
+    }
+    if('isBadExample' in item) {
+      return 'bad'
+    }
+    return 'challenge'
+  }
+
   renderExampleToggle() {
-    // there are a few states in this button:
-    // if the item has an example, show it
-    // if the item "is" an example, show a button to
-    // take you back to its problem. Examples to problems
-    // must be 1:1
     let currentItemId = this.props.currentLearningView
     let item = Curriculum.getItemFromId(currentItemId)
-    let hasExample = 'example' in item
-    // case 1: its a problem with an example
-    if(hasExample) {
-      return (
-        <Button variant="outline-primary">
-          Show Example
-        </Button>
-      )
-    } 
-    // case 2: its an example with a problem
-    let isExample = 'isExample' in item && item['isExample']
-    if(isExample) {
-      return (
-        <Button variant="outline-primary">
-          Show Problem
-        </Button>
-      )
-    }
+    let activeKey = this.getActiveKey(item)
+
+    return (
+      <Nav variant="tabs" size="lg" activeKey={activeKey}>
+        <Nav.Item>
+          <Nav.Link eventKey="challenge" onClick={() => this.goChallenge()}>
+            <FontAwesomeIcon icon={faPuzzlePiece} />
+            &nbsp;Challenge</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="good" onClick={() => this.goGoodExample()}>
+            <FontAwesomeIcon icon={faCheck} /> Example</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="bad" onClick={() => this.goBadExample()}>
+            <FontAwesomeIcon icon={faTimes} /> Example
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+    )
+    // // there are a few states in this button:
+    // // if the item has an example, show it
+    // // if the item "is" an example, show a button to
+    // // take you back to its problem. Examples to problems
+    // // must be 1:1
+    // let currentItemId = this.props.currentLearningView
+    // let item = Curriculum.getItemFromId(currentItemId)
+    // let hasExample = 'example' in item
+    // // case 1: its a problem with an example
+    // if(hasExample) {
+    //   let exampleId = item['example']
+    //   return (
+    //     <Button variant="outline-primary" onClick={() => this.goToItem(exampleId)}>
+    //       Show Example
+    //     </Button>
+    //   )
+    // } 
+    // // case 2: its an example with a problem
+    // let isExample = 'isExample' in item && item['isExample']
+    // if(isExample) {
+    //   let problemId = item['problem']
+    //   return (
+    //     <Button variant="outline-success" onClick={() => this.goToItem(problemId)}>
+    //       Show Challenge
+    //     </Button>
+    //   )
+    // }
   }
 
   calculateLeftWidth() {
@@ -253,7 +329,7 @@ class IdeItem extends Component {
       width += parseFloat(this.props.postWorld.width)
       width += SPACE_FLOAT
     }
-    return Math.max(width, 500)
+    return Math.max(width, 620)
   }
 }
 
