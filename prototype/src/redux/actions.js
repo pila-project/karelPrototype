@@ -1,4 +1,4 @@
-import { UPDATE_STATUS, UPDATE_CODE, UPDATE_LEARNING_VIEW, UPDATE_CURRENT_ID } from "./actionTypes";
+import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_VIEW } from "./actionTypes";
 
 export function updateStatus(status) {
     return { type: UPDATE_STATUS, status }
@@ -8,10 +8,6 @@ export function updateCode(code) {
     return { type: UPDATE_CODE, code }
 }
 
-export function updateCurrentId(id) {
-    return { type: UPDATE_CURRENT_ID, id }
-}
-
-export function updateCurrentLearningView(view) {
-    return { type: UPDATE_LEARNING_VIEW, view }
+export function updateCurrentView(view) {
+    return { type: UPDATE_CURRENT_VIEW, view }
 }

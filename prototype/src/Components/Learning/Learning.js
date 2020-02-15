@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
-import {onUpdateCurrentId, onUpdateCurrentView} from 'redux/actions.js'
 import Dashboard from '../Dashboard/Dashboard.js'
 import DashboardItem from '../Dashboard/DashboardItem.js'
 import { connect } from 'react-redux';
-import { updateCurrentId } from 'redux/actions';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
@@ -13,18 +11,14 @@ import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
-  const learningView = state.currentLearningView;
-  return { studentState, learningView };
+  const currentView = state.currentView;
+  return { studentState, currentView };
 }
-
-const mapDispatchToProps = {
-  onUpdateCurrentId: (id) => updateCurrentId(id)
-};
 
 class Learning extends Component {
 
   render() {
-    if(this.props.learningView === 'dashboard') {
+    if(this.props.currentView === 'dashboard') {
       return <Dashboard />
     } else {
       // change this to redux
@@ -36,5 +30,5 @@ class Learning extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Learning)

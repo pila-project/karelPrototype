@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import Splash from 'Components/Templates/Splash'
 
 import {RepeatL3Dash5, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 export default class SimpleCurriculum {
+
+ static getItemFromId(itemId) {
+    if (IDs.includes(itemId)) {
+      return itemDatabase[itemId]
+    } else {
+      return itemDatabase['DefaultItem']
+    }
+  }
 
   static getPre() {
     return []
@@ -14,10 +23,6 @@ export default class SimpleCurriculum {
 
   static getLearning() {
     return learningPlan
-  }
-
-  static getItemFromId(itemId) {
-    return itemDatabase[itemId]
   }
 
   static isLocked(studentState, itemId) {
@@ -36,10 +41,16 @@ export default class SimpleCurriculum {
    * this faster by caching a lookup map, but it doesn't
    * seem like a performance heavy task!
    */
-  static getComponent(itemId) {
-    let item = SimpleCurriculum.getItemFromId(itemId)
-    return item['component']
+  // static getComponent(itemId) {
+  //   let item = SimpleCurriculum.getItemFromId(itemId)
+  //   return item['component']
+  // }
+
+  static getComponent(itemId){
+    let item = SimpleCurriculum.getItemFromId(itemId);
+    return(item['component']) 
   }
+
 }
 
 const learningPlan = [
@@ -265,8 +276,15 @@ const itemDatabase = {
     goodExample:'RepeatL3Corner9',
     badExample:'RepeatL3Corner9'
   },
-
+  DefaultItem: {
+    name:'Default Item',
+    component: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
+    challenge:'DefaultItem',
+    goodExample:'DefaultItem',
+    badExample:'DefaultItem'
+  },
   //// 'RepeatL2PlaceRow',
   // 'RepeatL3Corner9'
 }
 
+const IDs = Object.keys(itemDatabase);

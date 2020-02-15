@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStatus, updateCode, updateCurrentLearningView } from 'redux/actions'
+import { updateStatus, updateCode, updateCurrentView } from 'redux/actions'
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -22,13 +22,13 @@ import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (code) => updateCode(code),
-  onUpdateCurrentView: (view) => updateCurrentLearningView(view)
+  onUpdateCurrentView: (view) => updateCurrentView(view)
 };
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
-  const currentLearningView = state.currentLearningView;
-  return { studentState , currentLearningView };
+  const currentView = state.currentView;
+  return { studentState , currentView };
 }
 
 const SPACE_FLOAT = 20
@@ -55,19 +55,19 @@ class IdeItem extends Component {
   }
 
   goChallenge() {
-    let currentItemId = this.props.currentLearningView
+    let currentItemId = this.props.currentView
     let item = Curriculum.getItemFromId(currentItemId)
     this.goToItem(item['challenge'])
   }
 
   goGoodExample() {
-    let currentItemId = this.props.currentLearningView
+    let currentItemId = this.props.currentView
     let item = Curriculum.getItemFromId(currentItemId)
     this.goToItem(item['goodExample'])
   }
 
   goBadExample() {
-    let currentItemId = this.props.currentLearningView
+    let currentItemId = this.props.currentView
     let item = Curriculum.getItemFromId(currentItemId)
     this.goToItem(item['badExample'])
   }
@@ -154,7 +154,7 @@ class IdeItem extends Component {
     if(!('instructions' in this.props)) {
       return <span/>
     }
-    let currentItemId = this.props.currentLearningView
+    let currentItemId = this.props.currentView
     let item = Curriculum.getItemFromId(currentItemId)
     let classColor = this.getInstructionColor(item)
     return (
@@ -272,7 +272,7 @@ class IdeItem extends Component {
   }
 
   renderExampleToggle() {
-    let currentItemId = this.props.currentLearningView
+    let currentItemId = this.props.currentView
     let item = Curriculum.getItemFromId(currentItemId)
     let activeKey = this.getActiveKey(item)
 
@@ -299,7 +299,7 @@ class IdeItem extends Component {
     // // if the item "is" an example, show a button to
     // // take you back to its problem. Examples to problems
     // // must be 1:1
-    // let currentItemId = this.props.currentLearningView
+    // let currentItemId = this.props.currentView
     // let item = Curriculum.getItemFromId(currentItemId)
     // let hasExample = 'example' in item
     // // case 1: its a problem with an example

@@ -4,7 +4,6 @@ import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
-import { updateCurrentId } from 'redux/actions';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
@@ -12,19 +11,14 @@ import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
-  const learningView = state.currentLearningView;
-  return { studentState , learningView };
+  const currentView = state.currentView;
+  return { studentState , currentView };
 }
-
-const mapDispatchToProps = {
-  onUpdateCurrentId: (id) => updateCurrentId(id)
-};
 
 class DashboardItem extends Component {
 
   constructor(props){
     super(props);
-    this.props.onUpdateCurrentId('dashboardItem');
   }
 
   componentWillMount(){
@@ -39,7 +33,7 @@ class DashboardItem extends Component {
 
     return (
       <div style={{width:'100vw', height:'100vh'}}>
-        {Curriculum.getComponent(this.props.learningView)}
+        {Curriculum.getComponent(this.props.currentView)}
       </div>
     )
   }
@@ -48,5 +42,5 @@ class DashboardItem extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(DashboardItem)

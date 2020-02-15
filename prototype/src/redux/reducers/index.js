@@ -1,10 +1,9 @@
 import React from 'react'
-import { UPDATE_STATUS,UPDATE_LEARNING_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
+import { UPDATE_STATUS,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
-    currentId: null,
-    currentLearningView: 'dashboard',
+    currentView: 'dashboard',
     studentState: {} 
     
     // Student state will be populated as the student works through
@@ -30,27 +29,22 @@ const initialState = {
 // All of the spread operators below are being used to create a copy of the state
 // and selectively modify the part that needs to be changed based 
 // on the action that was received. For example, when UPDATE_STATUS is 
-// received, the `status` value of the item specified by state.currentId is updated.
+// received, the `status` value of the item specified by state.currentView is updated.
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
-        case UPDATE_LEARNING_VIEW:
+        case UPDATE_CURRENT_VIEW:
             return {
                 ...state,
-                currentLearningView: action.view
-            }
-        case UPDATE_CURRENT_ID:
-            return {
-                ...state,
-                currentId: action.id
+                currentView: action.view
             }
         case UPDATE_STATUS:
             return {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [state.currentId]: {
-                        ...state.studentState[state.currentId],
+                    [state.currentView]: {
+                        ...state.studentState[state.currentView],
                         status: action.status
                     }
                 }
@@ -60,8 +54,8 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 studentState: {
                     ...state.studentState,
-                    [state.currentId]: {
-                        ...state.studentState[state.currentId],
+                    [state.currentView]: {
+                        ...state.studentState[state.currentView],
                         code: action.code
                     }
                 }

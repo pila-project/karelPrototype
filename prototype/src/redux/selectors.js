@@ -1,7 +1,7 @@
-export const selectCodeByCurrentId = (store) => {
-    let currentId = store.currentId;
-    if (store.studentState[currentId] != undefined){
-        return (store.studentState[currentId].code);
+export const selectCodeByCurrentView = (store) => {
+    let currentView = store.currentView;
+    if (store.studentState[currentView] != undefined){
+        return (store.studentState[currentView].code);
     } else {
         return;
     }

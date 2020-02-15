@@ -26,7 +26,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateStatus, updateCode } from 'redux/actions';
-import { selectCodeByCurrentId } from 'redux/selectors';
+import { selectCodeByCurrentView } from 'redux/selectors';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -40,7 +40,7 @@ import './blocks/customblocks';
 import './generator/generator';
 
 const mapStateToProps = (state, ownProps) => {
-  const savedXml = selectCodeByCurrentId(state);
+  const savedXml = selectCodeByCurrentView(state);
   return { savedXml };
 }
 

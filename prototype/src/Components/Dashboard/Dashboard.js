@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import {updateCurrentId, updateCurrentLearningView} from 'redux/actions.js'
+import {updateCurrentView} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
@@ -18,8 +18,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  onUpdateCurrentId: (id) => updateCurrentId(id),
-  onUpdateCurrentView: (view) => updateCurrentLearningView(view)
+  onUpdateCurrentView: (view) => updateCurrentView(view)
 };
 
 class Dashboard extends Component {
@@ -82,10 +81,8 @@ class Dashboard extends Component {
 
   renderItem(unit, itemId, index) {
     let item = Curriculum.getItemFromId(itemId)
-    let curriculum = Curriculum.getLearning()
     let locked = Curriculum.isLocked(this.props.studentState, itemId)
-    // t is for translation
-    const { t } = this.props;
+    const { t } = this.props; // t is for translation
     return (
       <span 
         key={itemId + '-btn'} 
