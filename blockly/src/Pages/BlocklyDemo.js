@@ -110,7 +110,8 @@ class BlocklyDemo extends React.Component {
                       </Block>
                   </Value>
                   </Block>
-              </Category>
+            </Category>
+	    <Category name="Functions" colour="290" custom="PROCEDURE"></Category>
             </BlocklyComponent>
           </Row>
         {/* </header> */}

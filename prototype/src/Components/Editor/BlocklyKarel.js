@@ -45,7 +45,6 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  // onUpdateStatus: (status) => updateStatus(status),
   onUpdateCode: (code) => updateCode(code)
 };
 
@@ -91,8 +90,6 @@ class BlocklyKarel extends React.Component {
   }
 
   getInitialXml() {
-    // TODO: Determine if savedXml should overwrite initialXml, 
-    // or if there is a better way of handling this.
     let initialXml = this.props.initialXml;
     if(this.props.savedXml != undefined) {
       initialXml = this.props.savedXml;
@@ -168,6 +165,7 @@ class BlocklyKarel extends React.Component {
   }
 
   updateFunctions = (event) => {
+    console.log(event);
     if(event.type == 'create') {
     }
 
@@ -183,9 +181,6 @@ class BlocklyKarel extends React.Component {
 
   storeCode = (event) => {
     this.props.onUpdateCode(Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML);
-    // if(event.type == Blockly.Events.CHANGE || event.type == Blockly.Events.CREATE || event.type == Blockly.Events.DELETE){
-    //   this.props.onUpdateCode(Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML);
-    // }
   }
 
   render() {
