@@ -82,9 +82,6 @@ class IdeItem extends Component {
         isReset:true
       })
     })
-    this.props.onUpdateCode(
-      { code: this.props.initialXml }
-    );
   }
 
   run() {

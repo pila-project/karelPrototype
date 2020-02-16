@@ -28,11 +28,11 @@ import * as Blockly from 'blockly/core';
 import 'blockly/javascript';
 import { Block } from 'blockly/blockly-node';
 
-import UniqueEncoder from './uniqueEncoder.js'
+// import UniqueEncoder from './uniqueEncoder.js'
 
-function autoFormatFnName(original) {
-    return UniqueEncoder.getEncoding(original)
-}
+// function autoFormatFnName(original) {
+//     return UniqueEncoder.getEncoding(original)
+// }
 
 Blockly.JavaScript['test_react_field'] = function (block) {
     return 'console.log(\'custom block\');\n';
@@ -51,11 +51,11 @@ Blockly.JavaScript['karel_move'] = function (block) {
     return 'move();\n'
 };
 
-Blockly.JavaScript['karel_call'] = function (block) {
-    var name = block.getFieldValue('NAME')
-    name = autoFormatFnName(name)
-    return `${name}();\n`
-};
+// Blockly.JavaScript['karel_call'] = function (block) {
+//     var name = block.getFieldValue('NAME')
+//     name = autoFormatFnName(name)
+//     return `${name}();\n`
+// };
 
 Blockly.JavaScript['karel_turn_left'] = function (block) {
     return 'turnLeft();\n'
