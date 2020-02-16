@@ -79,14 +79,14 @@ Blockly.JavaScript['karel_stones_present'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
-Blockly.JavaScript['karel_procedure'] = function (block) {
-    var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-    var name = block.getFieldValue('NAME')
-    name = autoFormatFnName(name)
-    return `public void ${name}() {
-        ${statements_body}
-    }`
-}
+// Blockly.JavaScript['karel_procedure'] = function (block) {
+//     var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+//     var name = block.getFieldValue('NAME')
+//     name = autoFormatFnName(name)
+//     return `public void ${name}() {
+//         ${statements_body}
+//     }`
+// }
 
 Blockly.JavaScript['karel_if_front_dropdown'] = function(block) {
     var dropdown_condition = block.getFieldValue('CONDITION');

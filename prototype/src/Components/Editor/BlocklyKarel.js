@@ -74,9 +74,9 @@ class BlocklyKarel extends React.Component {
   componentDidMount(){
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
+    Blockly.JavaScript.addReservedWords('run');
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
-    // this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.BlockCreate);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
     this.simpleWorkspace.workspace.addChangeListener(this.storeCode);
   }
@@ -91,7 +91,7 @@ class BlocklyKarel extends React.Component {
 
   getInitialXml() {
     let initialXml = this.props.initialXml;
-    if(this.props.savedXml != undefined) {
+    if(this.props.savedXml != undefined) { // TODO: Make sure this check is necessary
       initialXml = this.props.savedXml;
     }
     return initialXml;
@@ -109,14 +109,15 @@ class BlocklyKarel extends React.Component {
     if(block.type == 'karel_main') {
       return true
     }
-    if(block.type == 'karel_procedure') {
-      return true
-    }
+    // if(block.type == 'karel_procedure') {
+    //   return true
+    // }
     return false
   }
 
   getAllFunctions() {
-    let topBlocks = this.simpleWorkspace.workspace.getTopBlocks()
+    // Find top-level blocks and return them by position, sorted top to bottom
+    let topBlocks = this.simpleWorkspace.workspace.getTopBlocks(true)
     let functions = []
     for (var i = 0; i < topBlocks.length; i++) {
       let block = topBlocks[i]
@@ -130,7 +131,7 @@ class BlocklyKarel extends React.Component {
   autoPositionBlocks() {
     let goalX = OFFSET
     var goalY = OFFSET
-      // only auto indent functions
+    // only auto indent functions
     let functions = this.getAllFunctions()
     for (var i = 0; i < functions.length; i++) {
       let block = functions[i]
@@ -142,40 +143,32 @@ class BlocklyKarel extends React.Component {
   }
 
   populateFunctionList() {
-    const functions = this.getAllFunctions()
+    // const functions = this.getAllFunctions()
+    // const uFuncBlocks = {}
+    // for(const block of functions) {
+    //   if(block.type == 'karel_main') continue
+    //   let name = block.inputList[0]['fieldRow'][1].getValue()
+    //   uFuncBlocks[name] = block
+    // }
+    // this.setState({userFunctionBlocks:uFuncBlocks});
+
+    const allProcedures = Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace);
     const uFuncBlocks = {}
-    for(const block of functions) {
-      if(block.type == 'karel_main') continue
-      let name = block.inputList[0]['fieldRow'][1].getValue()
-      uFuncBlocks[name] = block
+    for (const proc of allProcedures[0]) {
+      let name = proc[0];
+      uFuncBlocks[name] = Blockly.Procedures.getDefinition(name, this.simpleWorkspace.workspace);
     }
     this.setState({userFunctionBlocks:uFuncBlocks});
-
-    // const allProcedures = Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace);
-    //   const flyoutCategory = Blockly.Procedures.flyoutCategory(this.simpleWorkspace.workspace);
-
-    //   const uFuncBlocks = {}
-    //   for (const proc of allProcedures[0]) {
-    //     uFuncBlocks[proc[0]] = Blockly.Procedures.getDefinition(proc[0], this.simpleWorkspace.workspace);
-    //   }
-    //   this.setState({userFunctionBlocks:uFuncBlocks});
-
-      // This is a hack, but I can't figure out how to get the toolbox view to re-render otherwise.
-      this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML);
+    // This is a bit of a hack, but I can't figure out how to get the toolbox view to re-render otherwise.
+    this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML);
   }
 
   updateFunctions = (event) => {
-    console.log(event);
-    if(event.type == 'create') {
-    }
-
-    if(event.type == Blockly.Events.MOVE) {
+    if(event.type == Blockly.Events.MOVE || event.type == Blockly.Events.DELETE) {
       this.autoPositionBlocks()
     }
-    
     if (event.type == Blockly.Events.CREATE || event.type == Blockly.Events.DELETE || (event.type == Blockly.Events.CHANGE && event.element == 'field')){
       this.populateFunctionList()
-      let code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
     }
   }
 
@@ -186,11 +179,11 @@ class BlocklyKarel extends React.Component {
   render() {
     return (
       <div className="verticalContainer fullSize">
-        
-        <div className="horizontalContainer fullSize">
-            <BlocklyComponent 
 
-              ref={e => this.simpleWorkspace = e} 
+        <div className="horizontalContainer fullSize">
+            <BlocklyComponent
+
+              ref={e => this.simpleWorkspace = e}
               //horizontalLayout={true}
               //toolboxPosition='end'
               style={{height:'100%'}}
@@ -200,17 +193,15 @@ class BlocklyKarel extends React.Component {
                 scrollbars: true,
                 drag: false,
                 wheel: true
-              }} 
+              }}
               initialXml={this.state.initialXml}>
-              
-              <ToolboxXML 
-                userFunctionBlocks={this.state.userFunctionBlocks} 
+
+              <ToolboxXML
+                userFunctionBlocks={this.state.userFunctionBlocks}
                 hideBlocks = {this.props.hideBlocks}
               />
-              {/* <category name="Functions" custom="PROCEDURE"></category> */}
             </BlocklyComponent>
           </div>
-        {/* </header> */}
       </div>
     );
   }
@@ -222,7 +213,7 @@ class ToolboxXML extends React.Component {
   }
 
   getBlockComponent(blockType) {
-    // the loop is a bit complex
+    // The loop block is a bit complex
     if(blockType === 'controls_repeat_ext') {
       return (
         <Block type="controls_repeat_ext">
@@ -231,11 +222,14 @@ class ToolboxXML extends React.Component {
               <Field name="NUM">10</Field>
               </Shadow>
           </Value>
-        </Block>   
+        </Block>
       )
     }
+    if(blockType === 'karel_procedure') {
+      return <Block type="procedures_defnoreturn" />
+    }
 
-    // most blocks are straightforward
+    // But most blocks are straightforward
     return <Block type={blockType} />
   }
 
@@ -248,22 +242,34 @@ class ToolboxXML extends React.Component {
   }
 
   addUserBlocks() {
-    // add the blocks for all the user defined methods
     return (
-      <React.Fragment>
-        {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
-          <React.Fragment key={block.id}>
-            <Block key={block.id} type="karel_call" children={<mutation name={blockName}/>}>
-              <Field EDITABLE={false} key={blockName} name="NAME">{blockName}</Field>
-            </Block>
-          </React.Fragment>
-        )}
+    <React.Fragment>
+      {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
+      <React.Fragment key={block.id}>
+        <Block type="procedures_callnoreturn" children={<mutation name={blockName}/>}/>
       </React.Fragment>
+      )}
+    </React.Fragment>
     )
   }
-  
+
+  // addUserBlocks() {
+  //   // add the blocks for all the user defined methods
+  //   return (
+  //     <React.Fragment>
+  //       {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
+  //         <React.Fragment key={block.id}>
+  //           <Block key={block.id} type="karel_call" children={<mutation name={blockName}/>}>
+  //             <Field EDITABLE={false} key={blockName} name="NAME">{blockName}</Field>
+  //           </Block>
+  //         </React.Fragment>
+  //       )}
+  //     </React.Fragment>
+  //   )
+  // }
+
   render() {
-    
+
     return (
       <React.Fragment>
         {this.addBlock('karel_procedure')}
@@ -274,7 +280,6 @@ class ToolboxXML extends React.Component {
         {this.addUserBlocks()}
         {this.addBlock('karel_while_dropdown')}
         {this.addBlock('controls_repeat_ext')}
-        
       </React.Fragment>
     );
   }
