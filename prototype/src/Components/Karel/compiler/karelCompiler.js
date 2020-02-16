@@ -30,6 +30,12 @@ class KarelCompiler {
       this.vm = new KarelVM(karel);
    }
 
+   stop(){
+      if (this.stepTimeout != null){
+         clearTimeout(this.stepTimeout);
+      }
+   }
+
    // public: run this to compile a string to be executed
    compile(text) {
       // var parser = new KarelAstParser()
@@ -117,7 +123,7 @@ class KarelCompiler {
             lineNumber:this.vm.getCurrLineNum()
          })
       } else {
-         setTimeout(() => this.worldStepFinished(), 100)
+         this.stepTimeout = setTimeout(() => this.worldStepFinished(), 100) // TODO: Create way to cancel this when necessary
       }
    }
 }

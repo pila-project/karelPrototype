@@ -50,6 +50,10 @@ class IdeItem extends Component {
     })
   }
 
+  componentWillUnmount(){
+    this.engine.stop();
+  }
+
   goHome() {
     this.goToItem('dashboard')
   }
@@ -89,8 +93,9 @@ class IdeItem extends Component {
     this.setState({
       isReset:false
     }, () => {
-      let engine = new KarelEngine()
-      let isValid = engine.runCode(this.refs.world, this.refs.editor)
+      // Replacing `let engine` with `this.engine` to get `this.engine.stop()` working
+      // let engine = new KarelEngine()
+      let isValid = this.engine.runCode(this.refs.world, this.refs.editor)
       if(!isValid) {
         this.setState({
           isReset:true

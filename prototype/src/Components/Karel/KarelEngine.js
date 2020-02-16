@@ -20,6 +20,15 @@ String.prototype.replaceAll = function(search, replacement) {
 
 class KarelEngine {
 
+  stop(){
+    if (this.heartbeatTimeout != null){
+      clearTimeout(this.heartbeatTimeout);
+    }
+    if (this.compiler != null) {
+      this.compiler.stop();
+    }
+  }
+
   step(world, editor) {
     if(this.compiler == null) {
       this.compiler = this.compileBlockly(world, editor)
@@ -77,7 +86,7 @@ class KarelEngine {
       // when finished executing, do another
       // (unless you are done) in 400ms
       if(!results.isDone) {
-        setTimeout(() => {
+        this.heartbeatTimeout = setTimeout(() => {
           this.heartbeat(editor)
         }, 400)
       } else {
