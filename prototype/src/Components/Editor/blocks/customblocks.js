@@ -442,10 +442,13 @@ Blockly.Blocks['karel_while_stone_dropdown'] = {
   }
 };
 
-// Monkey patching init function for the procedures_defnoreturn block to
-// change the title from 'to' to 'define' and to remove the button that
-// adds arguments.
-Blockly.Blocks['procedures_defnoreturn'].init = function() {
+// Copy procedures_defnoreturn block
+const procedures_defnoreturn_copy = Object.assign({}, Blockly.Blocks['procedures_defnoreturn']);
+
+// Monkeypatch init function of copied object to change the title of the block from 'to' to 'define' 
+// and remove the button that adds arguments.
+// See https://github.com/google/blockly/blob/master/blocks/procedures.js for the full definition.
+procedures_defnoreturn_copy.init = function() {
   var nameField = new Blockly.FieldTextInput('my name',
         Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
@@ -453,7 +456,7 @@ Blockly.Blocks['procedures_defnoreturn'].init = function() {
         .appendField(Blockly.Msg['PROCEDURES_DEFNOARGSNORETURN_TITLE'])
         .appendField(nameField, 'NAME')
         .appendField('', 'PARAMS');
-    // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg'])); // Remove button to add arguments to function definition
+    // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg'])); // Remove button that adds arguments to function definition
     if ((this.workspace.options.comments ||
          (this.workspace.options.parentWorkspace &&
           this.workspace.options.parentWorkspace.options.comments)) &&
@@ -468,6 +471,43 @@ Blockly.Blocks['procedures_defnoreturn'].init = function() {
     this.setStatements_(true);
     this.statementConnection_ = null;
 }
+procedures_defnoreturn_copy.callType_ = 'procedures_callnoargsnoreturn';
+
+// Finally, define new custom block for use in Blockly
+Blockly.Blocks['procedures_defnoargsnoreturn'] = procedures_defnoreturn_copy
+
+// Create matching call block for procedures_defnoargsnoreturn
+const procedures_callnoreturn_copy = Object.assign({}, Blockly.Blocks['procedures_callnoreturn']);
+procedures_callnoreturn_copy.defType_ = 'procedures_defnoargsnoreturn';
+Blockly.Blocks['procedures_callnoargsnoreturn'] = procedures_callnoreturn_copy;
+
+// // Monkey patching init function for the procedures_defnoreturn block to
+// // change the title from 'to' to 'define' and to remove the button that
+// // adds arguments.
+// Blockly.Blocks['procedures_defnoreturn'].init = function() {
+//   var nameField = new Blockly.FieldTextInput('my name',
+//         Blockly.Procedures.rename);
+//     nameField.setSpellcheck(false);
+//     this.appendDummyInput()
+//         // .appendField(Blockly.Msg['PROCEDURES_DEFNORETURN_TITLE'])
+//         .appendField("define") // Change function text to 'define' from 'to'. TODO: Update this in Blockly.Msg, not here.
+//         .appendField(nameField, 'NAME')
+//         .appendField('', 'PARAMS');
+//     // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg'])); // Remove button that adds arguments to function definition
+//     if ((this.workspace.options.comments ||
+//          (this.workspace.options.parentWorkspace &&
+//           this.workspace.options.parentWorkspace.options.comments)) &&
+//         Blockly.Msg['PROCEDURES_DEFNORETURN_COMMENT']) {
+//       this.setCommentText(Blockly.Msg['PROCEDURES_DEFNORETURN_COMMENT']);
+//     }
+//     this.setStyle('procedure_blocks');
+//     this.setTooltip(Blockly.Msg['PROCEDURES_DEFNORETURN_TOOLTIP']);
+//     this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFNORETURN_HELPURL']);
+//     this.arguments_ = [];
+//     this.argumentVarModels_ = [];
+//     this.setStatements_(true);
+//     this.statementConnection_ = null;
+// }
 
 // Blockly.Blocks['procedures_defnoreturn'] = {
 //   /**

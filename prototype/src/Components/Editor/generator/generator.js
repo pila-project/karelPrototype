@@ -143,7 +143,7 @@ Blockly.JavaScript['karel_while_front_dropdown'] = function(block) {
   };
 
   // Override existing generator
-  Blockly.JavaScript['procedures_defnoreturn'] = function(block) {
+  Blockly.JavaScript['procedures_defnoargsnoreturn'] = function(block) {
     // Define a procedure with a return value.
     var funcName = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
@@ -189,4 +189,12 @@ Blockly.JavaScript['karel_while_front_dropdown'] = function(block) {
     // Add % so as not to collide with helper functions in definitions list.
     Blockly.JavaScript.definitions_['%' + funcName] = code;
     return null;
+  };
+
+  Blockly.JavaScript['procedures_callnoargsnoreturn'] = function(block) {
+    // Call a procedure with no return value.
+    // Generated code is for a function call as a statement is the same as a
+    // function call as a value, with the addition of line ending.
+    var tuple = Blockly.JavaScript['procedures_callreturn'](block);
+    return tuple[0] + ';\n';
   };

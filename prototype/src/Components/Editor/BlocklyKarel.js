@@ -103,7 +103,7 @@ class BlocklyKarel extends React.Component {
   }
 
   isFunction(block){
-    if(block.type == 'procedures_defnoreturn') {
+    if(block.type == 'procedures_defnoargsnoreturn') {
       return true
     }
     if(block.type == 'karel_main') {
@@ -226,7 +226,7 @@ class ToolboxXML extends React.Component {
       )
     }
     if(blockType === 'karel_procedure') {
-      return <Block type="procedures_defnoreturn" />
+      return <Block type="procedures_defnoargsnoreturn" />
     }
 
     // But most blocks are straightforward
@@ -246,7 +246,7 @@ class ToolboxXML extends React.Component {
     <React.Fragment>
       {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
       <React.Fragment key={block.id}>
-        <Block type="procedures_callnoreturn" children={<mutation name={blockName}/>}/>
+        <Block type="procedures_callnoargsnoreturn" children={<mutation name={blockName}/>}/>
       </React.Fragment>
       )}
     </React.Fragment>
