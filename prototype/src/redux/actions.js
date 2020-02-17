@@ -1,8 +1,7 @@
 import { UPDATE_STATUS, UPDATE_CODE, UPDATE_CURRENT_VIEW, UPDATE_LOCALE } from "./actionTypes";
 import i18n from "i18n";
 import Blockly from 'blockly/core';
-import en from 'blockly/msg/en';
-import fr from 'blockly/msg/fr';
+import { en, fr } from 'blocklyTranslations.js'
 
 export function updateStatus(status) {
     return { type: UPDATE_STATUS, status }
