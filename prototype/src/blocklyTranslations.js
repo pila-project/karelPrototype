@@ -23,8 +23,6 @@ en["KAREL_WHILE"] = "while";
 en["KAREL_WHILE_FRONT_IS"] = "while front is";
 en["KAREL_WHILE_STONES_ARE"] = "while stones are";
 
-//copying en object with all translation strings into pl variable
-var pl = Object.assign({}, en);
 
 fr["PROCEDURES_DEFAULT_NAME"] = "mon nom";
 fr["PROCEDURES_DEFNOARGSNORETURN_TITLE"] = "définir";
@@ -46,5 +44,6 @@ fr["KAREL_NOT_PRESENT"] = "ne sont pas présentes";
 fr["KAREL_WHILE"] = "tant que";
 fr["KAREL_WHILE_FRONT_IS"] = "tant que le devant est";
 fr["KAREL_WHILE_STONES_ARE"] = "tant que les pierres sont";
+
 
 export { en, fr }
