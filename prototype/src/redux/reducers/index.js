@@ -1,16 +1,16 @@
 import React from 'react'
-import { UPDATE_STATUS,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
+import { UPDATE_STATUS,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_LOCALE } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
+    locale: 'en',
     currentView: 'dashboard',
     studentState: {} 
     
     // Student state will be populated as the student works through
     // the exam. Here is an example of what studentState could
-    // look 
+    // look like.
     
-    // Example of what studentState will look like with content
     // studentState: {
     //     learnCmd1: {
     //         status:STATUS.COMPLETED,
@@ -59,6 +59,11 @@ function rootReducer(state = initialState, action) {
                         code: action.code
                     }
                 }
+            }
+        case UPDATE_LOCALE:
+            return {
+                ...state,
+                locale: action.locale
             }
         default:
             return state

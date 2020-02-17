@@ -1,3 +1,4 @@
 export const UPDATE_STATUS = "UPDATE_STATUS";
 export const UPDATE_CODE = "UPDATE_CODE";
 export const UPDATE_CURRENT_VIEW = "UPDATE_CURRENT_VIEW";
+export const UPDATE_LOCALE = "UPDATE_LOCALE";
