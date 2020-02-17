@@ -450,8 +450,7 @@ Blockly.Blocks['procedures_defnoreturn'].init = function() {
         Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-        // .appendField(Blockly.Msg['PROCEDURES_DEFNORETURN_TITLE'])
-        .appendField("define") // Change function text to 'define' from 'to'. TODO: Update this in Blockly.Msg, not here.
+        .appendField(Blockly.Msg['PROCEDURES_DEFNOARGSNORETURN_TITLE'])
         .appendField(nameField, 'NAME')
         .appendField('', 'PARAMS');
     // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg'])); // Remove button to add arguments to function definition
