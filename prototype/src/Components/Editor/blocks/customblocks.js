@@ -457,7 +457,7 @@ const procedures_defnoreturn_copy = Object.assign({}, Blockly.Blocks['procedures
 //    See https://github.com/google/blockly/blob/master/blocks/procedures.js for the full definition.
 
 procedures_defnoreturn_copy.init = function() {
-  var nameField = new Blockly.FieldTextInput('my name',
+  var nameField = new Blockly.FieldTextInput(Blockly.Msg['PROCEDURES_DEFAULT_NAME'],
         Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()

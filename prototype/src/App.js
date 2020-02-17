@@ -15,7 +15,7 @@ import {
   Route
 } from 'react-router-dom'
 
-const LOCALE = 'fr'; // options are {'en', 'fr'}
+const LOCALE = 'en'; // options are {'en', 'fr'}
 
 const mapDispatchToProps = {
   onUpdateLocale: (locale) => updateLocale(locale)

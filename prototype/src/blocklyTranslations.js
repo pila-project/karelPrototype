@@ -1,6 +1,8 @@
 import en from 'blockly/msg/en';
 import fr from 'blockly/msg/fr';
 
+
+en["PROCEDURES_DEFAULT_NAME"] = "my name";
 en["PROCEDURES_DEFNOARGSNORETURN_TITLE"] = "define";
 en["KAREL_MAIN_TITLE"] = "define main";
 en["KAREL_MOVE_FORWARD"] = "move forward";
@@ -21,6 +23,10 @@ en["KAREL_WHILE"] = "while";
 en["KAREL_WHILE_FRONT_IS"] = "while front is";
 en["KAREL_WHILE_STONES_ARE"] = "while stones are";
 
+//copying en object with all translation strings into pl variable
+var pl = Object.assign({}, en);
+
+fr["PROCEDURES_DEFAULT_NAME"] = "mon nom";
 fr["PROCEDURES_DEFNOARGSNORETURN_TITLE"] = "définir";
 fr["KAREL_MAIN_TITLE"] = "définir main";
 fr["KAREL_MOVE_FORWARD"] = "avancer";
