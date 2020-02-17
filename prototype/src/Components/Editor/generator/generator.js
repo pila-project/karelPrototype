@@ -34,13 +34,13 @@ import { Block } from 'blockly/blockly-node';
 //     return UniqueEncoder.getEncoding(original)
 // }
 
-Blockly.JavaScript['test_react_field'] = function (block) {
-    return 'console.log(\'custom block\');\n';
-};
+// Blockly.JavaScript['test_react_field'] = function (block) {
+//     return 'console.log(\'custom block\');\n';
+// };
 
-Blockly.JavaScript['test_react_date_field'] = function (block) {
-    return 'console.log(' + block.getField('DATE').getText() + ');\n';
-};
+// Blockly.JavaScript['test_react_date_field'] = function (block) {
+//     return 'console.log(' + block.getField('DATE').getText() + ');\n';
+// };
 
 Blockly.JavaScript['karel_main'] = function (block) {
     var statements_program = Blockly.JavaScript.statementToCode(block, 'program');

@@ -35,7 +35,7 @@ import { bool } from 'prop-types';
 // Style Blockly Main function definition to look like other function definitions
 var karelMain = {
   "type": "karel_main",
-  "message0": "define main %1 %2",
+  "message0": "%{BKY_KAREL_MAIN_TITLE} %1 %2",
   "args0": [
     {
       "type": "input_dummy"
@@ -71,7 +71,7 @@ Blockly.Blocks['karel_main'] = {
 
 var karelMove = {
   "type": "karel_move",
-  "message0": "move forward",
+  "message0": "%{BKY_KAREL_MOVE_FORWARD}",
   "previousStatement": null,
   "nextStatement": null,
 }
@@ -106,7 +106,7 @@ Blockly.Blocks['karel_move'] = {
 
 var karelTurnLeft = {
   "type": "karel_turn_left",
-  "message0": "turn left",
+  "message0": "%{BKY_KAREL_TURN_LEFT}",
   "previousStatement": null,
   "nextStatement": null,
 }
@@ -120,7 +120,7 @@ Blockly.Blocks['karel_turn_left'] = {
 
 var karelPlaceStone = {
   "type": "karel_place_stone",
-  "message0": "place stone",
+  "message0": "%{BKY_KAREL_PLACE_STONE}",
   "previousStatement": null,
   "nextStatement": null,
 }
@@ -160,7 +160,7 @@ Blockly.Blocks['karel_place_stone'] = {
 
 var karelPickupStone = {
   "type": "karel_pickup_stone",
-  "message0": "pickup stone",
+  "message0": "%{BKY_KAREL_PICKUP_STONE}",
   "previousStatement": null,
   "nextStatement": null,
 }
@@ -174,7 +174,7 @@ Blockly.Blocks['karel_pickup_stone'] = {
 
 var karelFrontIsClear = {
   "type": "karel_front_is_clear",
-  "message0": "front is clear",
+  "message0": "%{BKY_KAREL_FRONT_IS_CLEAR}",
   "output": "Boolean",
   "colour": 45,
   "tooltip": "Check if there is an obstacle in front of Karel",
@@ -188,7 +188,7 @@ Blockly.Blocks['karel_front_is_clear'] = {
 
 var karelStonesPresent = {
   "type": "karel_stones_present",
-  "message0": "stones present",
+  "message0": "%{BKY_KAREL_STONES_PRESENT}",
   "output": "Boolean",
   "colour": 45,
   "tooltip": "Check if Karel is on top of any stones",
@@ -202,27 +202,27 @@ Blockly.Blocks['karel_stones_present'] = {
 
 var karelIfDropdown = {
   "type": "karel_if_dropdown",
-  "message0": "if %1 %2 %3",
+  "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "front is clear",
+          "%{BKY_KAREL_FRONT_IS_CLEAR}",
           "FRONT_CLEAR"
         ],
         [
-          "front is blocked",
+          "%{BKY_KAREL_FRONT_IS_BLOCKED}",
           "FRONT_BLOCKED"
         ],
         [
-          "stones present",
-          "STONE_PRESENT"
+          "%{BKY_KAREL_STONES_PRESENT}",
+          "STONES_PRESENT"
         ],
         [
-          "stones absent",
-          "STONE_ABSENT"
+          "%{BKY_KAREL_STONES_NOT_PRESENT}",
+          "STONES_NOT_PRESENT"
         ]
       ]
     },
@@ -249,18 +249,18 @@ Blockly.Blocks['karel_if_dropdown'] = {
 
 var karelIfFrontDropdown = {
   "type": "karel_if_front_dropdown",
-  "message0": "if front is %1 %2 %3",
+  "message0": "%{BKY_KAREL_IF_FRONT_IS} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "clear",
+          "%{BKY_KAREL_CLEAR}",
           "FRONT_CLEAR"
         ],
         [
-          "blocked",
+          "%{BKY_KAREL_BLOCKED}",
           "FRONT_BLOCKED"
         ]
       ]
@@ -288,18 +288,18 @@ Blockly.Blocks['karel_if_front_dropdown'] = {
 
 var karelIfStoneDropdown = {
   "type": "karel_if_stone_dropdown",
-  "message0": "if stone is %1 %2 %3",
+  "message0": "%{BKY_KAREL_IF_STONES_ARE} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "present",
+          "%{BKY_KAREL_PRESENT}",
           "STONE_PRESENT"
         ],
         [
-          "not present",
+          "%{BKY_KAREL_NOT_PRESENT}",
           "STONE_ABSENT"
         ]
       ]
@@ -327,18 +327,18 @@ Blockly.Blocks['karel_if_stone_dropdown'] = {
 
 var karelWhileFrontDropdown = {
   "type": "karel_while_front_dropdown",
-  "message0": "while front is %1 %2 %3",
+  "message0": "%{BKY_KAREL_WHILE_FRONT_IS} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "clear",
+          "%{BKY_KAREL_CLEAR}",
           "FRONT_CLEAR"
         ],
         [
-          "blocked",
+          "%{BKY_KAREL_BLOCKED}",
           "FRONT_BLOCKED"
         ]
       ]
@@ -366,18 +366,18 @@ Blockly.Blocks['karel_while_front_dropdown'] = {
 
 var karelWhileDropdown = {
   "type": "karel_while_dropdown",
-  "message0": "while %1 %2 %3",
+  "message0": "%{BKY_KAREL_WHILE} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "front is clear",
+          "%{BKY_KAREL_FRONT_IS_CLEAR}",
           "FRONT_CLEAR"
         ],
         [
-          "stones present",
+          "%{BKY_KAREL_STONES_PRESENT}",
           "STONE_PRESENT"
         ]
       ]
@@ -405,18 +405,18 @@ Blockly.Blocks['karel_while_dropdown'] = {
 
 var karelWhileStoneDropdown = {
   "type": "karel_while_stone_dropdown",
-  "message0": "while stone is %1 %2 %3",
+  "message0": "%{BKY_KAREL_WHILE_STONES_ARE} %1 %2 %3",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "CONDITION",
       "options": [
         [
-          "present",
+          "%{BKY_KAREL_PRESENT}",
           "STONE_PRESENT"
         ],
         [
-          "not present",
+          "%{BKY_KAREL_NOT_PRESENT}",
           "STONE_ABSENT"
         ]
       ]
