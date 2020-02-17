@@ -23,22 +23,22 @@ en["KAREL_WHILE_STONES_ARE"] = "while stones are";
 
 fr["PROCEDURES_DEFNOARGSNORETURN_TITLE"] = "définir";
 fr["KAREL_MAIN_TITLE"] = "définir main";
-fr["KAREL_MOVE_FORWARD"] = "avance";
-fr["KAREL_TURN_LEFT"] = "tournez à gauche";
+fr["KAREL_MOVE_FORWARD"] = "avancer";
+fr["KAREL_TURN_LEFT"] = "tourner à gauche";
 fr["KAREL_PLACE_STONE"] = "placer la pierre";
 fr["KAREL_PICKUP_STONE"] = "ramasser la pierre";
-fr["KAREL_FRONT_IS_CLEAR"] = "le devant est clair";
+fr["KAREL_FRONT_IS_CLEAR"] = "le devant est degager"; 
 fr["KAREL_FRONT_IS_BLOCKED"] = "le devant est bloqué";
 fr["KAREL_STONES_PRESENT"] = "pierres présentes";
-fr["KAREL_STONES_NOT_PRESENT"] = "ne sont pas présentes";
+fr["KAREL_STONES_NOT_PRESENT"] = "aucun pierre présente";
 fr["KAREL_IF_FRONT_IS"] = "si le devant est";
-fr["KAREL_CLEAR"] = "clair";
+fr["KAREL_CLEAR"] = "degagé";
 fr["KAREL_BLOCKED"] = "bloqué";
 fr["KAREL_IF_STONES_ARE"] = "si des pierres";
 fr["KAREL_PRESENT"] = "sont présentes";
 fr["KAREL_NOT_PRESENT"] = "ne sont pas présentes";
-fr["KAREL_WHILE"] = "tandis que";
-fr["KAREL_WHILE_FRONT_IS"] = "tandis que le devant est";
-fr["KAREL_WHILE_STONES_ARE"] = "tandis que les pierres sont";
+fr["KAREL_WHILE"] = "tant que";
+fr["KAREL_WHILE_FRONT_IS"] = "tant que le devant est";
+fr["KAREL_WHILE_STONES_ARE"] = "tant que les pierres sont";
 
 export { en, fr }
