@@ -23,7 +23,8 @@ const mapDispatchToProps = {
 
 class App extends Component {
 
-  componentDidMount(){
+  constructor(props){
+    super(props);
     this.props.onUpdateLocale(LOCALE);
   }
 
