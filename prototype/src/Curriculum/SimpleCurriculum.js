@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import {RepeatL3Dash5, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+
+/**
+A single learning experience is called an "item"
+An item/example/badExample is called a "problem"
+A group of stages is called a "unit"
+**/
 
 export default class SimpleCurriculum {
 
- static getItemFromId(itemId) {
-    if (IDs.includes(itemId)) {
-      return itemDatabase[itemId]
-    } else {
-      return itemDatabase['DefaultItem']
-    }
-  }
-
   static getPre() {
-    return []
+    return pre
   }
 
   static getPost() {
@@ -25,57 +23,154 @@ export default class SimpleCurriculum {
     return learningPlan
   }
 
-  static isLocked(studentState, itemId) {
-    // let item = SimpleCurriculum.getItemFromId(itemId)
-    // if('prereq' in item){
-    //   let prereq = item['prereq']
-    //   return !(prereq in studentState)
-    // }
-    //for now everything is unlocked (testing)
+  static isLocked(problemsDone, problem) {
+    if('prereq' in problem){
+      let prereq = problem['prereq']
+      return !(prereq in problemsDone)
+    }
     return false
   }
 
+  static isPre(currId){
+    for(let unitIndex in pre) {
+      let unit = pre[unitIndex]
+      if(unit['id'] === currId) {
+        return true
+      }
+    }
+    return false
+  }
+
+  static getNextPreItem(currId){
+    var index = SimpleCurriculum.getIndexFromPreId(currId)
+    if(index < pre.length - 1) {
+      index++
+    }
+    return pre[index]['id']
+  }
+
+  static getIndexFromPreId(itemId) {
+    for(let unitIndex in pre) {
+      let unit = pre[unitIndex]
+      if(unit['id'] === itemId) {
+        // why in gods good name is this a string???
+        return parseInt(unitIndex)
+      }
+    }
+  }
+
+  // only applies to dashboard items
+  static getProblemFromId(itemId) {
+    for(let unitIndex in learningPlan) {
+      let unit = learningPlan[unitIndex]
+      for(let problemIndex in unit['problems']) {
+        let problem = unit['problems'][problemIndex]
+        let allProblems = Object.values(problem)
+        let hasUnitId = allProblems.indexOf(itemId) > -1
+        if(hasUnitId) {
+          return problem
+        }
+      }
+    }
+  }
+
+  // only applies to dashboard items
+  static getItemType(itemId) {
+    let problem = SimpleCurriculum.getProblemFromId(itemId)
+    for(var key in problem){
+      if(problem[key] == itemId) {
+        return key
+      }
+    }
+  }
+
+
   /**
    * Returns the component for the problem / worked example
-   * with the given id. In the future we can certainly make
-   * this faster by caching a lookup map, but it doesn't
-   * seem like a performance heavy task!
+   * with the given id. 
    */
-  // static getComponent(itemId) {
-  //   let item = SimpleCurriculum.getItemFromId(itemId)
-  //   return item['component']
-  // }
-
   static getComponent(itemId){
-    let item = SimpleCurriculum.getItemFromId(itemId);
-    return(item['component']) 
+    if(itemId in itemComponentDatabase) {
+      return(itemComponentDatabase[itemId]) 
+    }
+    return itemComponentDatabase['DefaultItem']
   }
 
 }
+
+const pre = [
+  {id:'Welcome'},
+  {id:'MeetKarel'},
+  {id:'KarelCommandsMove'},
+  {id:'KarelCommandsTurnLeft'},
+  {id:'KarelCommandsPickStone'},
+  {id:'KarelCommandsPlaceStone'},
+  {id:'CommandsA'},
+  {id:'CommandsB'},
+  {id:'FirstProgram'},
+  //{id:'AnimatedProgram'},
+  {id:'ModifyMoves'},
+  {id:'PreDone'},
+]
 
 const learningPlan = [
   {
     unitName:'Commands',
     iconId:'egg',
     problems: [
-      'CommandsMLMR'
+      {
+        name:'Commands 1',
+        challenge:'CommandsMLMR',
+        goodExample:'CommandsHouse',
+        badExample:'CommandsHouseBad'
+      }
     ]
   },
   {
     unitName:'Teach Karel',
     iconId:'hatch',
     problems: [
-      'MethodsTurnAround',
-      'MethodsRightAround'
+      {
+        name:'Methods 1',
+        prereq:'Commands 1',
+        challenge:'MethodsStepUp',
+        goodExample:'MethodsTurnAround',
+        badExample:'MethodsTurnAroundBad'
+      },
+      {
+        name: 'Methods 2',
+        prereq:'Methods 1',
+        challenge:'MethodsRightAround',
+        goodExample:'MethodsReuse',
+        badExample:'MethodsReuseBad'
+      }
     ],
   },
   {
     unitName:'Repeat',
     iconId:'hatch',
     problems:[
-      'Repeat9',
-      'RepeatL2PlaceRow',
-      'RepeatL3Corner9'
+      {
+        name:'Repeat 1',
+        prereq: 'Methods 1',
+        challenge:'Repeat9',
+        goodExample:'Repeat5',
+        badExample:'Repeat5Bad'
+      },
+      {
+        name:'Repeat 2',
+        prereq: 'Repeat 1',
+        challenge:'RepeatL2PlaceRow',
+        goodExample:'RepeatL2StepUp',
+        badExample:'RepeatL2StepUpBad'
+      },
+      {
+        name:'Repeat 3',
+        prereq: 'Repeat 2',
+        challenge:'RepeatL3Corner9',
+        goodExample:'RepeatL3Dash5',
+        badExample:'RepeatL3Dash5Bad'
+      },
     ]
   },
   {
@@ -86,205 +181,45 @@ const learningPlan = [
       'Example':'cmdHouse'
     }
   },
-  // {
-  //   unitName:'While Loops',
-  //   iconId:'egg',
-  //   problems: [
-  //     {
-  //       itemId:'while1',
-  //       name:'While 1',
-  //       prereq:'challenge1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     },
-  //     {
-  //       itemId:'while2',
-  //       name:'While 2',
-  //       prereq:'while1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     }
-  //   ],
-  // },
-  // {
-  //   unitName:'If',
-  //   iconId:'hatch',
-  //   problems: [
-  //     {
-  //       itemId:'if1',
-  //       name:'If 1',
-  //       prereq:'while1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     },
-  //     {
-  //       itemId:'if2',
-  //       name:'If 2',
-  //       prereq:'if1',
-  //       examples: {
-  //         'Example':'cmdHouse'
-  //       }
-  //     }
-  //   ],
-  // },
-  // {
-  //   unitName:'Big Challenge Problem #2',
-  //   isChallenge:true,
-  //   itemId:'challenge2',
-  //   prereq:'challenge1',
-  //   examples: {
-  //     'Example':'cmdHouse'
-  //   }
-  // },
 ]
 
-const itemDatabase = {
-  // Commands 1
-  CommandsMLMR: {
-    name:'Commands 1',
-    component:<CommandsMLMR />,
-    // Commands 1 Tripplet
-    challenge:'CommandsMLMR',
-    goodExample:'CommandsHouse',
-    badExample:'CommandsHouseBad'
-  },
-  CommandsHouse: {
-    name:'Commands House',
-    component:<CommandsHouse />,
-    isGoodExample:true,
-    // Commands 1 Tripplet
-    challenge:'CommandsMLMR',
-    goodExample:'CommandsHouse',
-    badExample:'CommandsHouseBad'
-  },
-  CommandsHouseBad: {
-    name:'Commands House Bad',
-    component:<CommandsHouseBad />,
-    isBadExample:true,
-    // Commands 1 Tripplet
-    challenge:'CommandsMLMR',
-    goodExample:'CommandsHouse',
-    badExample:'CommandsHouseBad'
-  },
+const itemComponentDatabase = {
 
-  // Teach 1
-  MethodsTurnAround: {
-    name:'Teach 1',
-    component:<MethodsTurnAround />,
-    // Teach 1 Tripplet
-    challenge:'MethodsTurnAround',
-    goodExample:'MethodsStepUp',
-    badExample:'MethodsStepUpBad'
-  },
-  MethodsStepUp: {
-    name:'Teach StepUp',
-    isGoodExample:true,
-    component:<MethodsStepUp />,
-    // Teach 1 Tripplet
-    challenge:'MethodsTurnAround',
-    goodExample:'MethodsStepUp',
-    badExample:'MethodsStepUpBad'
-  },
-  MethodsStepUpBad: {
-    name:'Teach StepUp',
-    isBadExample:true,
-    component:<MethodsStepUpBad />,
-    // Teach 1 Tripplet
-    challenge:'MethodsTurnAround',
-    goodExample:'MethodsStepUp',
-    badExample:'MethodsStepUpBad'
-  },
+  // Pre Test
+  Welcome:<Splash text={'Welcome'} subText={'Lets learn to program.' }/>,
+  MeetKarel:<MeetKarel />,
+  KarelCommandsMove:<KarelCommandsMove />,
+  KarelCommandsTurnLeft:<KarelCommandsTurnLeft />,
+  KarelCommandsPickStone:<KarelCommandsPickStone />,
+  KarelCommandsPlaceStone:<KarelCommandsPlaceStone/>,
+  CommandsA:<CommandsA/>,
+  CommandsB:<CommandsB/>,
+  ModifyMoves:<ModifyMoves />,
+  FirstProgram:<FirstProgram />,
+  AnimatedProgram:<AnimatedProgram />,
+  PreDone:<Splash text={'Great work!'} subText={'You have finished the warmup...' }/>,
 
-  // Teach 2
-  MethodsRightAround: {
-    name:'Teach 2',
-    prereq:'cmd1',
-    component:<MethodsRightAround />,
-    // Teach 1 Tripplet
-    challenge:'MethodsRightAround',
-    goodExample:'MethodsReuse',
-    badExample:'MethodsReuseBad'
-  },
-  MethodsReuse: {
-    name:'Teach 2',
-    prereq:'cmd1',
-    isGoodExample:true,
-    component:<MethodsReuse />,
-    // Teach 1 Tripplet
-    challenge:'MethodsRightAround',
-    goodExample:'MethodsReuse',
-    badExample:'MethodsReuseBad'
-  },
-  MethodsReuseBad: {
-    name:'Teach 2',
-    prereq:'cmd1',
-    isBadExample:true,
-    component:<MethodsReuseBad />,
-    // Teach 1 Tripplet
-    challenge:'MethodsRightAround',
-    goodExample:'MethodsReuse',
-    badExample:'MethodsReuseBad'
-  },
-  // Repeat 1
-  Repeat9: {
-    name:'Repeat 1',
-    prereq:'cmd1',
-    component:<Repeat9 />,
-    // Repeat 1 Tripplet
-    challenge:'Repeat9',
-    goodExample:'Repeat5',
-    badExample:'Repeat5Bad'
-  },
-  Repeat5: {
-    name:'Repeat 1',
-    prereq:'cmd1',
-    component:<Repeat5 />,
-    // Repeat 1 Tripplet
-    challenge:'Repeat9',
-    goodExample:'Repeat5',
-    badExample:'Repeat5Bad'
-  },
-  Repeat5Bad: {
-    name:'Repeat 1',
-    prereq:'cmd1',
-    component:<Repeat5Bad />,
-    // Repeat 1 Tripplet
-    challenge:'Repeat9',
-    goodExample:'Repeat5',
-    badExample:'Repeat5Bad'
-  },
-  // Repeat 2
-  RepeatL2PlaceRow: {
-    name:'Repeat 2',
-    prereq:'cmd1',
-    component:<RepeatL2PlaceRow />,
-    // Repeat 2 Tripplet
-    challenge:'RepeatL2PlaceRow',
-    goodExample:'RepeatL2PlaceRow',
-    badExample:'RepeatL2PlaceRow'
-  },
-  // Repeat 3
-  RepeatL3Corner9: {
-    name:'Repeat 3',
-    prereq:'cmd1',
-    component:<RepeatL3Corner9 />,
-    // Repeat 3 Tripplet
-    challenge:'RepeatL3Corner9',
-    goodExample:'RepeatL3Corner9',
-    badExample:'RepeatL3Corner9'
-  },
-  DefaultItem: {
-    name:'Default Item',
-    component: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
-    challenge:'DefaultItem',
-    goodExample:'DefaultItem',
-    badExample:'DefaultItem'
-  },
+  // Dashboard
+  CommandsMLMR: <CommandsMLMR />,
+  CommandsHouse: <CommandsHouse />,
+  CommandsHouseBad:<CommandsHouseBad />,
+  MethodsTurnAround:<MethodsTurnAround />,
+  MethodsTurnAroundBad: <MethodsTurnAroundBad />,
+  MethodsStepUp:<MethodsStepUp />,
+  MethodsStepUpBad:<MethodsStepUpBad />,
+  MethodsRightAround: <MethodsRightAround />,
+  MethodsReuse: <MethodsReuse />,
+  MethodsReuseBad:<MethodsReuseBad />,
+  Repeat9:<Repeat9 />,
+  Repeat5: <Repeat5 />,
+  Repeat5Bad: <Repeat5Bad />,
+  RepeatL2PlaceRow: <RepeatL2PlaceRow />,
+  RepeatL2StepUp:<RepeatL2StepUp />,
+  RepeatL2StepUpBad:<RepeatL2StepUpBad />,
+  RepeatL3Corner9: <RepeatL3Corner9 />,
+  RepeatL3Dash5: <RepeatL3Dash5 />,
+  RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
+  DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
   //// 'RepeatL2PlaceRow',
   // 'RepeatL3Corner9'
 }
-
-const IDs = Object.keys(itemDatabase);

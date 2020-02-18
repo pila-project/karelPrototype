@@ -8,6 +8,8 @@ import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import RightTextArrow from 'Components/Util/RightTextArrow.js'
+
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { withTranslation } from 'react-i18next';
@@ -37,6 +39,7 @@ class Dashboard extends Component {
         {this.renderNav()}
         <div className="displayOuter">
           <div className="displayInner">
+            {this.renderFirstTimeInstructions()}
             {this.renderUnitsRows()}
             <div style={{height:30}} />
             <hr/>
@@ -45,6 +48,25 @@ class Dashboard extends Component {
         </div>
       </div>
     )
+  }
+
+  renderFirstTimeInstructions() {
+    if(!this.isFirstTime()) return <span />
+    return (
+      <span style={{
+        position:'absolute',
+        marginTop: 50,
+        marginLeft: 150,
+      }}>
+        <RightTextArrow 
+          text={'Click to work on a challenge'}
+        />
+      </span>
+    )
+  }
+
+  isFirstTime(){
+    return true
   }
 
   renderBigChallenge(unit) {
@@ -79,16 +101,16 @@ class Dashboard extends Component {
     return <div key={index}>{this.renderUnit(unit)}</div>
   }
 
-  renderItem(unit, itemId, index) {
-    let item = Curriculum.getItemFromId(itemId)
-    let locked = Curriculum.isLocked(this.props.studentState, itemId)
+  renderProblem(unit, problem, index) {
+    let locked = this.isLocked(problem)
     const { t } = this.props; // t is for translation
+    let challengeId = problem['challenge']
     return (
       <span 
-        key={itemId + '-btn'} 
+        key={challengeId + '-btn'} 
         class={"alignedVertical " + this.padLeft(index)}
       >
-        <Button onClick = {() => this.selectItem(itemId)} className={"unitIcon " + unit['iconId']} />
+        <Button onClick = {() => this.selectItem(challengeId)} className={"unitIcon " + unit['iconId']} />
         {
           locked &&
             <span className="lockedCover1">
@@ -96,7 +118,7 @@ class Dashboard extends Component {
               <span className="lockedCover2"></span>
             </span>
         }
-        <span>{t(item['name'])}</span>
+        <span>{t(problem['name'])}</span>
       </span>
     )
   }
@@ -105,11 +127,27 @@ class Dashboard extends Component {
     let problems = unit['problems']
     return (
       <div className="unit alignedHorizontal">
-        {problems.map((itemId, index) =>
-          {return this.renderItem(unit, itemId, index)}
+        {problems.map((problem, index) =>
+          {return this.renderProblem(unit, problem, index)}
         )}
       </div>
     )
+  }
+
+  isLocked(problem) {
+    // build a map of problems done from the redux "studentState"
+    // Note: there is a constant I didn't use for "completed" (no time)
+    let problemsDone = {}
+    for(var key in this.props.studentState) {
+      let value = this.props.studentState[key]
+      let status = value['status']
+      if(status === 'completed') {
+        let problem = Curriculum.getProblemFromId(key)
+        let name = problem['name']
+        problemsDone[name] = true
+      }
+    }
+    return Curriculum.isLocked(problemsDone, problem)
   }
 
   padLeft(i) {

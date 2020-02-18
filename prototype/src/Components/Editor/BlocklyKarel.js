@@ -24,9 +24,7 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateStatus, updateCode } from 'redux/actions';
-import { selectCodeByCurrentView } from 'redux/selectors';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -38,15 +36,6 @@ import BlocklyJS from 'blockly/javascript';
 
 import './blocks/customblocks';
 import './generator/generator';
-
-const mapStateToProps = (state, ownProps) => {
-  const savedXml = selectCodeByCurrentView(state);
-  return { savedXml };
-}
-
-const mapDispatchToProps = {
-  onUpdateCode: (code) => updateCode(code)
-};
 
 const OFFSET = 20
 
@@ -71,6 +60,8 @@ class BlocklyKarel extends React.Component {
     hideBlocks: {}
   }
 
+  componentWillMount() {}
+
   componentDidMount(){
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
@@ -78,7 +69,7 @@ class BlocklyKarel extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
-    this.simpleWorkspace.workspace.addChangeListener(this.storeCode);
+    this.simpleWorkspace.workspace.addChangeListener(this.onCodeChange);
   }
 
   highlightBlock = (id) => {
@@ -109,9 +100,6 @@ class BlocklyKarel extends React.Component {
     if(block.type == 'karel_main') {
       return true
     }
-    // if(block.type == 'karel_procedure') {
-    //   return true
-    // }
     return false
   }
 
@@ -143,15 +131,6 @@ class BlocklyKarel extends React.Component {
   }
 
   populateFunctionList() {
-    // const functions = this.getAllFunctions()
-    // const uFuncBlocks = {}
-    // for(const block of functions) {
-    //   if(block.type == 'karel_main') continue
-    //   let name = block.inputList[0]['fieldRow'][1].getValue()
-    //   uFuncBlocks[name] = block
-    // }
-    // this.setState({userFunctionBlocks:uFuncBlocks});
-
     const allProcedures = Blockly.Procedures.allProcedures(this.simpleWorkspace.workspace);
     const uFuncBlocks = {}
     for (const proc of allProcedures[0]) {
@@ -160,6 +139,7 @@ class BlocklyKarel extends React.Component {
     }
     this.setState({userFunctionBlocks:uFuncBlocks});
     // This is a bit of a hack, but I can't figure out how to get the toolbox view to re-render otherwise.
+
     this.simpleWorkspace.workspace.updateToolbox(this.simpleWorkspace.toolbox.outerHTML);
   }
 
@@ -172,8 +152,11 @@ class BlocklyKarel extends React.Component {
     }
   }
 
-  storeCode = (event) => {
-    this.props.onUpdateCode(Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML);
+  onCodeChange = (event) => {
+    let newCode = Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML
+    if(this.props.onCodeChange){
+      this.props.onCodeChange(newCode);
+    }
   }
 
   render() {
@@ -253,21 +236,6 @@ class ToolboxXML extends React.Component {
     )
   }
 
-  // addUserBlocks() {
-  //   // add the blocks for all the user defined methods
-  //   return (
-  //     <React.Fragment>
-  //       {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
-  //         <React.Fragment key={block.id}>
-  //           <Block key={block.id} type="karel_call" children={<mutation name={blockName}/>}>
-  //             <Field EDITABLE={false} key={blockName} name="NAME">{blockName}</Field>
-  //           </Block>
-  //         </React.Fragment>
-  //       )}
-  //     </React.Fragment>
-  //   )
-  // }
-
   render() {
 
     return (
@@ -285,9 +253,4 @@ class ToolboxXML extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  { forwardRef: true }
-)(BlocklyKarel)
+export default BlocklyKarel

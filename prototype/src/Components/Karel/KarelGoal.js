@@ -3,9 +3,15 @@ import './style/karel.css'
 import KarelWorld from './KarelWorld.js'
 
 class KarelGoal extends Component {
+
+  getWorldState() {
+    return this.refs['goalWorld'].getWorldState()
+  }
+
   render() {
     return <div>
       <KarelWorld 
+        ref="goalWorld"
         {...this.props}
       />
       <div 

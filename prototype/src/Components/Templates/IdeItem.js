@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStatus, updateCode, updateCurrentView } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView } from 'redux/actions'
+import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import Swal from 'sweetalert2'
 
 import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
@@ -18,17 +20,21 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {faPlay} from '@fortawesome/free-solid-svg-icons'
+import {faSyncAlt} from '@fortawesome/free-solid-svg-icons'
 import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (code) => updateCode(code),
-  onUpdateCurrentView: (view) => updateCurrentView(view)
+  onUpdateCurrentView: (view) => updateCurrentView(view),
+  onProblemComplete: () => problemComplete(),
+  onPreItemComplete: () => preItemComplete(),
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const savedXml = selectCodeByCurrentView(state);
   const studentState = state.studentState;
   const currentView = state.currentView;
-  return { studentState , currentView };
+  return { studentState , currentView, savedXml};
 }
 
 const SPACE_FLOAT = 20
@@ -40,7 +46,13 @@ class IdeItem extends Component {
     hasRun: true,
     hasStep: false,
     postWorld: null,
-    isEditable:true
+    isEditable:true,
+    testStage:'learning'
+  }
+
+  constructor(props){
+    super(props);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentWillMount() {
@@ -50,30 +62,17 @@ class IdeItem extends Component {
     })
   }
 
+  componentDidMount(){
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+
   componentWillUnmount(){
     this.engine.stop();
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
 
   goHome() {
     this.goToItem('dashboard')
-  }
-
-  goChallenge() {
-    let currentItemId = this.props.currentView
-    let item = Curriculum.getItemFromId(currentItemId)
-    this.goToItem(item['challenge'])
-  }
-
-  goGoodExample() {
-    let currentItemId = this.props.currentView
-    let item = Curriculum.getItemFromId(currentItemId)
-    this.goToItem(item['goodExample'])
-  }
-
-  goBadExample() {
-    let currentItemId = this.props.currentView
-    let item = Curriculum.getItemFromId(currentItemId)
-    this.goToItem(item['badExample'])
   }
 
   goToItem(itemId) {
@@ -81,6 +80,7 @@ class IdeItem extends Component {
   }
 
   reset() {
+    this.engine.stop();
     this.refs.world.reset(() => {
       this.setState({
         isReset:true
@@ -95,7 +95,7 @@ class IdeItem extends Component {
     }, () => {
       // Replacing `let engine` with `this.engine` to get `this.engine.stop()` working
       // let engine = new KarelEngine()
-      let isValid = this.engine.runCode(this.refs.world, this.refs.editor)
+      let isValid = this.engine.runCode(this.refs.world, this.refs.editor, () => this.onRunDone())
       if(!isValid) {
         this.setState({
           isReset:true
@@ -109,6 +109,70 @@ class IdeItem extends Component {
     this.setState({
       isReset:false
     })
+  }
+
+  // returns false if it is an example
+  isStudentItem() {
+    if(this.props.testStage != 'learning') {
+      return true
+    }
+    let itemType = Curriculum.getItemType(this.props.currentView)
+    return itemType === 'challenge'
+  }
+
+  onRunDone() {
+    // if this was a "challenge", then check if the solution
+    // was correct!
+    if(this.isStudentItem()) {
+      let goalState = this.refs.goalWorld.getWorldState()
+      let postState = this.refs.world.getWorldState()
+      let correct = KarelWorld.stateEquals(postState, goalState)
+      if(correct) {
+        this.onSolution()
+      } else {
+        this.onIncorrect()
+      }
+    }
+  }
+
+  onIncorrect() {
+    Swal.fire({
+      title: 'Not quite!',
+      icon: 'warning',
+      toast:true,
+      allowOutsideClick:true,
+    }).then((result) => {
+      if (result.value) {
+        // nothing todo
+      }
+    })
+  }
+
+  onSolution() {
+    Swal.fire({
+      title: 'Great work!',
+      icon: 'success',
+      toast:true,
+      allowOutsideClick:true,
+    }).then((result) => {
+      if (result.value) {
+        // change the redux state to complete, which
+        // also moves the view back to the dashboard
+        if(this.props.testStage == 'learning') {
+          this.props.onProblemComplete()
+        } else {
+          this.props.onPreItemComplete()
+        }
+        
+      }
+    })
+  }
+
+  handleKeyPress(e) {
+    let key = e.key
+    if(key == 'ArrowUp') {
+      this.onSolution()
+    }
   }
 
   renderButtons() {
@@ -137,15 +201,17 @@ class IdeItem extends Component {
         <FontAwesomeIcon icon={faPlay}/> &nbsp;Run
       </Button>
     } else {
-      return <Button className="ideButton" size="lg" onClick = {() => this.reset()}>Reset</Button>
+      return <Button className="ideButton" size="lg" onClick = {() => this.reset()}>
+        <FontAwesomeIcon icon={faSyncAlt}/> &nbsp; Reset
+      </Button>
     }
   }
 
-  getInstructionColor(item){
-    if(item['isGoodExample']) {
+  getInstructionColor(itemType){
+    if(itemType == 'goodExample') {
       return 'instructionGreen'
     }
-    if(item['isBadExample']) {
+    if(itemType == 'badExample') {
       return 'instructionRed'
     }
     return 'instructionBlue'
@@ -157,8 +223,8 @@ class IdeItem extends Component {
       return <span/>
     }
     let currentItemId = this.props.currentView
-    let item = Curriculum.getItemFromId(currentItemId)
-    let classColor = this.getInstructionColor(item)
+    let itemType = Curriculum.getItemType(currentItemId)
+    let classColor = this.getInstructionColor(itemType)
     return (
       <div className={"instructionBox " + classColor} style={{width:width}}>
         {this.props.instructions}
@@ -185,6 +251,7 @@ class IdeItem extends Component {
           <h3>Goal:</h3>
           <KarelGoal
             {...this.props.postWorld}
+            ref="goalWorld"
           />
         </div>
       )
@@ -203,6 +270,10 @@ class IdeItem extends Component {
     )
   }
 
+  saveCode(code) {
+    this.props.onUpdateCode(code)
+  }
+
   renderRightSide() {
     return (
       <div className="editorContainer" style = {{
@@ -213,9 +284,11 @@ class IdeItem extends Component {
       }}>
         <BlocklyKarel 
           ref="editor"
+          savedXml = {this.props.savedXml}
           initialXml = {this.props.initialXml}
           isEditable={this.props.isEditable}
           hideBlocks = {this.props.hideBlocks}
+          onCodeChange = {(e) => this.saveCode(e)}
         />
         
       </div>
@@ -239,6 +312,9 @@ class IdeItem extends Component {
   }
 
   renderNavBar() {
+    if(this.props.testStage != 'learning') {
+      return <span />
+    }
     return (
       <div className="navContainer" style={{height:'40px',
         width:this.calculateLeftWidth(),
@@ -246,7 +322,9 @@ class IdeItem extends Component {
       }}>
         <div className="navItem">
           <span>
-            <FontAwesomeIcon onClick={() => this.goHome()} style={{'font-size':'30px'}}icon={faHome} />
+            <Button variant="light" onClick={() => this.goHome()} >
+            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faHome} />
+            </Button>
           </span>
         </div>
         <div className="navItem" style={{flex:2}}>
@@ -275,54 +353,33 @@ class IdeItem extends Component {
 
   renderExampleToggle() {
     let currentItemId = this.props.currentView
-    let item = Curriculum.getItemFromId(currentItemId)
-    let activeKey = this.getActiveKey(item)
-
+    let problem = Curriculum.getProblemFromId(currentItemId)
+    let activeKey = Curriculum.getItemType(currentItemId)
+    
     return (
       <Nav variant="tabs" size="lg" activeKey={activeKey}>
         <Nav.Item>
-          <Nav.Link eventKey="challenge" onClick={() => this.goChallenge()}>
+          <Nav.Link 
+            eventKey="challenge" 
+            onClick={() => this.goToItem(problem['challenge'])}>
             <FontAwesomeIcon icon={faPuzzlePiece} />
             &nbsp;Challenge</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="good" onClick={() => this.goGoodExample()}>
+          <Nav.Link 
+            eventKey="goodExample" 
+            onClick={() => this.goToItem(problem['goodExample'])}>
             <FontAwesomeIcon icon={faCheck} /> Example</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="bad" onClick={() => this.goBadExample()}>
+          <Nav.Link 
+            eventKey="badExample" 
+            onClick={() => this.goToItem(problem['badExample'])}>
             <FontAwesomeIcon icon={faTimes} /> Example
           </Nav.Link>
         </Nav.Item>
       </Nav>
     )
-    // // there are a few states in this button:
-    // // if the item has an example, show it
-    // // if the item "is" an example, show a button to
-    // // take you back to its problem. Examples to problems
-    // // must be 1:1
-    // let currentItemId = this.props.currentView
-    // let item = Curriculum.getItemFromId(currentItemId)
-    // let hasExample = 'example' in item
-    // // case 1: its a problem with an example
-    // if(hasExample) {
-    //   let exampleId = item['example']
-    //   return (
-    //     <Button variant="outline-primary" onClick={() => this.goToItem(exampleId)}>
-    //       Show Example
-    //     </Button>
-    //   )
-    // } 
-    // // case 2: its an example with a problem
-    // let isExample = 'isExample' in item && item['isExample']
-    // if(isExample) {
-    //   let problemId = item['problem']
-    //   return (
-    //     <Button variant="outline-success" onClick={() => this.goToItem(problemId)}>
-    //       Show Challenge
-    //     </Button>
-    //   )
-    // }
   }
 
   calculateLeftWidth() {

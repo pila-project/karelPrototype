@@ -7,22 +7,22 @@ import SplitPane from 'react-split-pane'
 
 import Splash from '../Components/Templates/Splash.js'
 
-import DemoBuilderIde from '../Items/Old/Demos/DemoBuilder/DemoBuilderIde.js'
-import DemoBuilderCommands from '../Items/Old/Demos/DemoBuilder/DemoBuilderCommands.js'
+// import DemoBuilderIde from '../Items/Old/Demos/DemoBuilder/DemoBuilderIde.js'
+// import DemoBuilderCommands from '../Items/Old/Demos/DemoBuilder/DemoBuilderCommands.js'
 
 var demoList = [
-  {
-    name:'Demo Builder',
-    render:<Splash text={"Demo Builder"}/>
-  },
-  {
-    name:'Demo Builder',
-    render:<DemoBuilderCommands />
-  },
-  {
-    name:'Demo Builder',
-    render:<DemoBuilderIde />
-  },
+  // {
+  //   name:'Demo Builder',
+  //   render:<Splash text={"Demo Builder"}/>
+  // },
+  // {
+  //   name:'Demo Builder',
+  //   render:<DemoBuilderCommands />
+  // },
+  // {
+  //   name:'Demo Builder',
+  //   render:<DemoBuilderIde />
+  // },
   
 ]
 

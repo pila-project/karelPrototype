@@ -41,13 +41,13 @@ class KarelEngine {
 
   // this function is meant to be stateless, in that
   // it doesn't require any set up to be called.
-  runCode(world, editor) {
+  runCode(world, editor, callback) {
     this.compiler = this.compileBlockly(world, editor)
     
     if(this.compiler == null) {
       this.compilerWarning('Your program is empty')
     } else {
-      this.heartbeat(editor)
+      this.heartbeat(editor, callback)
     }
 
     // let the caller know if the code didn't compile
@@ -63,7 +63,6 @@ class KarelEngine {
     let javaCode = this.processBlocklyText(codeText)
     let compiler = new KarelCompiler(world)
     let functions = compiler.compile(javaCode)
-    console.log(functions)
     let isValid = this.validate(functions)
     if(!isValid) {
       return null
@@ -80,17 +79,17 @@ class KarelEngine {
     })
   }
 
-  heartbeat(editor) {
+  heartbeat(editor, callback) {
     // execute one step
     this.compiler.executeStep((results) => {
       // when finished executing, do another
       // (unless you are done) in 400ms
       if(!results.isDone) {
         this.heartbeatTimeout = setTimeout(() => {
-          this.heartbeat(editor)
+          this.heartbeat(editor, callback)
         }, 400)
       } else {
-        alert('done')
+        if(callback) callback()
       }
       let blockID = this.lineToBlockID[results.lineNumber];
       editor.highlightBlock(blockID);

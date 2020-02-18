@@ -24,13 +24,8 @@ class DashboardItem extends Component {
   componentWillMount(){
     document.title = "PISA 2024 Learn";
   }
-  
-  static defaultProps = {
-    itemId: 'MethodsRightAround'
-  }
 
   render() {
-
     return (
       <div style={{width:'100vw', height:'100vh'}}>
         {Curriculum.getComponent(this.props.currentView)}

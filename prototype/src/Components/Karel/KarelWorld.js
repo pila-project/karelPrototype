@@ -8,20 +8,42 @@ import KarelEast from './images/karelEast.png'
 import KarelWest from './images/karelWest.png'
 import Beeper from './images/beeper.png'
 
-/**
- Props:
- nRows
- nCols
- */
 const KAREL_IMG_PCT = 0.8
 const BEEPER_IMG_PCT = 0.5
 const CROSS_PCT = 0.1
 
 class KarelWorld extends Component {
 
+  static stateEquals(a, b) {
+    if(a.karelRow != b.karelRow) return false
+    if(a.karelCol != b.karelCol) return false
+    if(a.dir != b.dir) return false
+
+    // check stones
+    let nRowsA = a.stones.length
+    let nColsA = a.stones[0].length    
+    let nRowsB = b.stones.length
+    let nColsB = b.stones[0].length 
+    if(nRowsA != nRowsB) return false
+    if(nColsA != nColsB) return false 
+    for (var r = 0; r < nRowsA; r++) {
+      for (var c = 0; c < nColsA; c++) {
+        if(a.stones[r][c] != b.stones[r][c]) {
+          return false
+        }
+      }
+    }
+
+    // WARNING: doesn't check walls
+
+    return true
+  }
 
   componentWillMount() {
+    this.setStateToProps(console.log)
+  }
 
+  setStateToProps(callbackFn) {
     var karelRow = this.props.nRows - 1
     if('karelRow' in this.props){
       karelRow = this.props.karelRow
@@ -41,17 +63,16 @@ class KarelWorld extends Component {
       karelRow:karelRow,
       karelCol:karelCol,
       dir:karelDir,
-      stones:this.initStones()
-    })
+      stones:this.initStones(),
+    },callbackFn)
+  }
+
+  getWorldState() {
+    return this.state
   }
 
   reset(callbackFn) {
-    this.setState({
-      karelRow:this.props.nRows - 1,
-      karelCol:0,
-      dir:'East',
-      stones:this.initStones()
-    }, callbackFn)
+    this.setStateToProps(callbackFn)
   }
 
   initStones() {
@@ -172,21 +193,52 @@ class KarelWorld extends Component {
   ***********************************************/
 
   isMoveValid(startR, startC, endR, endC) {
+    console.log('isMoveValid')
     if(endC < 0 || endC >= this.props.nCols) return false;
     if(endR < 0 || endR >= this.props.nRows) return false;
 
     var dRow = Math.abs(endR - startR);
     var dCol = Math.abs(endC - startC);
+
+    // check for walls
+    let isEast = startC + 1 === endC
+    let isWest = startC - 1 === endC
+    let isNorth = startR - 1 === endR
+    let isSouth = startR + 1 === endR
+    console.log(isEast, isWest, isNorth, isSouth)
+
+    // walls are only north and east
+    if(isEast && this.hasEastWall(startR, startC)) return false
+    if(isWest && this.hasEastWall(endR, endC)) return false
+    if(isNorth && this.hasNorthWall(startR, startC)) return false
+    if(isSouth && this.hasNorthWall(endR, endC)) return false
+
+    // can only move 1 manhattan distance
     if (dRow + dCol != 1) return false; 
 
-    // TODO: look for walls
-    // if(startC + 1 == endC && that.rightWalls[startR][startC]) return false;
-    // if(startC - 1 == endC && that.rightWalls[endR][endC]) return false;
-
-    // if(startR + 1 == endR && that.topWalls[endR][endC]) return false;
-    // if(startR - 1 == endR && that.topWalls[startR][endC]) return false;
-
     return true
+  }
+
+  hasEastWall(r, c) {
+    console.log('hasEastWall', r, c)
+    return this.hasWall(r, c, 'East')
+  }
+
+  hasNorthWall(r, c) {
+    return this.hasWall(r, c, 'North')
+  }
+
+  // dir can only be east or north...
+  hasWall(r, c, dir) {
+    console.log(this.props.walls)
+    for(let wallIndex in this.props.walls) {
+      let wall = this.props.walls[wallIndex]
+      console.log('wall', wall)
+      if(wall.r == r && wall.c == c && wall.d == dir) {
+        return true
+      }
+    }
+    return false
   }
 
  /***********************************************
@@ -238,9 +290,10 @@ class KarelWorld extends Component {
     if(!('walls' in this.props)) return <div />
     for (var i = 0; i < this.props.walls.length; i++) {
       let wall = this.props.walls[i]
-      let x = this.getCornerX(wall.r, wall.c)
-      let y = this.getCornerY(wall.r, wall.c)
+      
       if(wall.d == 'North') {
+        let x = this.getCornerX(wall.r, wall.c)
+        let y = this.getCornerY(wall.r, wall.c)
         walls.push(<div
           className="wall" 
           style={{
@@ -252,6 +305,8 @@ class KarelWorld extends Component {
           key={i}
         ></div>)
       } else if(wall.d == 'East') {
+        let x = this.getCornerX(wall.r, wall.c+1)
+        let y = this.getCornerY(wall.r, wall.c)
         walls.push(<div
           className="wall" 
           style={{

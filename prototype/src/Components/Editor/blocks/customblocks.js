@@ -74,47 +74,49 @@ var karelMove = {
   "message0": "move forward",
   "previousStatement": null,
   "nextStatement": null,
+  "colour":160
 }
 
 Blockly.Blocks['karel_move'] = {
   init: function() {
     this.jsonInit(karelMove);
-    this.setStyle('procedure_blocks');
   }
 };
 
-// var karelCall = {
-//   "type": "karel_call",
-//   "message0": "%1",
-//   "args0": [
-//     {
-//       "type": "field_label_serializable",
-//       "name": "NAME"
-//     },
-//   ],
-//   "previousStatement": null,
-//   "nextStatement": null,
-//   "colour": 45,
-// }
+// mostly so that we can make a pretty block in
+// problem description...
+var karelCall = {
+  "type": "karel_call",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_label_serializable",
+      "name": "NAME"
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 45,
+}
 
-// Blockly.Blocks['karel_call'] = {
-//   init: function() {
-//     this.jsonInit(karelCall);
-//     this.setStyle('procedure_blocks');
-//   },
-// };
+Blockly.Blocks['karel_call'] = {
+  init: function() {
+    this.jsonInit(karelCall);
+    this.setStyle('procedure_blocks');
+  },
+};
 
 var karelTurnLeft = {
   "type": "karel_turn_left",
   "message0": "turn left",
   "previousStatement": null,
   "nextStatement": null,
+  "colour":160
 }
 
 Blockly.Blocks['karel_turn_left'] = {
   init: function() {
     this.jsonInit(karelTurnLeft);
-    this.setStyle('procedure_blocks');
   }
 };
 
@@ -123,12 +125,12 @@ var karelPlaceStone = {
   "message0": "place stone",
   "previousStatement": null,
   "nextStatement": null,
+  "colour":160
 }
 
 Blockly.Blocks['karel_place_stone'] = {
   init: function() {
     this.jsonInit(karelPlaceStone);
-    this.setStyle('procedure_blocks');
   }
 };
 
@@ -163,12 +165,12 @@ var karelPickupStone = {
   "message0": "pickup stone",
   "previousStatement": null,
   "nextStatement": null,
+  "colour":160
 }
 
 Blockly.Blocks['karel_pickup_stone'] = {
   init: function() {
     this.jsonInit(karelPickupStone);
-    this.setStyle('procedure_blocks');
   }
 };
 

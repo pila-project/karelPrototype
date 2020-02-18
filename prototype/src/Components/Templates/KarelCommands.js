@@ -1,17 +1,55 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
-
+import Swal from 'sweetalert2'
 import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 
 import './style/templates.css'
 
-const WORLD_SIZE = 150
+import { connect } from 'react-redux';
+import { preItemComplete } from 'redux/actions';
+import { selectCodeByCurrentView } from 'redux/selectors';
+
+const mapDispatchToProps = {
+  onPreItemComplete: () => preItemComplete()
+};
   
 class KarelCommandsPlaceStone extends Component {
 
-  componentWillMount() {
+  static defaultProps = {
+    hasMove: true,
+    hasTurnLeft: true,
+    hasPickStone: true,
+    hasPlaceStone:true
+  }
+
+  componentDidMount() {
+    this.refs.world.setStepCallback(() => this.onStepFinished())
+  }
+
+  onStepFinished() {
+    let goalState = this.refs.goalWorld.getWorldState()
+    let postState = this.refs.world.getWorldState()
+    let correct = KarelWorld.stateEquals(postState, goalState)
+    if(correct) {
+      setTimeout(() => this.showCorrect(), 300)
+    }
+  }
+
+  showCorrect() {
+    Swal.fire({
+      title: 'Wonderful!',
+      html: 'You solved the puzzle',
+      icon: 'success',
+      showConfirmButton:false,
+      timer: 2500,
+      onClose: () => this.props.onPreItemComplete()
+    })
+  }
+
+  onMoveClick() {
+    this.refs.world.move()
   }
 
   onMoveClick() {
@@ -64,22 +102,31 @@ class KarelCommandsPlaceStone extends Component {
   }
 
   render() {
-    return (<div className="vertical centered">
-      <div className="horizontal centered">
-        <div>
-          <h3>World:</h3>
-          <KarelWorld ref="world" {...this.props.preWorld}/>
-          
+    return (
+      <div className="verticalContainer centered testBody">
+        <h1 style={{marginBottom:40,marginTop:40}}>{this.props.title}</h1>
+        <div className="horizontal centered">
+          <div>
+            <h3>World:</h3>
+            <KarelWorld 
+              ref="world" 
+              {...this.props.preWorld}
+            />
+            
+          </div>
+          <div style={{width:100}}/>
+          <div>
+            <h3>Goal:</h3>
+            <KarelGoal 
+              ref="goalWorld"
+              {...this.props.postWorld}
+            />
+          </div>
         </div>
-        <div style={{width:100}}/>
-        <div>
-          <h3>Goal:</h3>
-          <KarelGoal {...this.props.postWorld}/>
+        <div style={{marginTop:38}}>
+          {this.renderButtons()}
         </div>
-      </div>
-      <div style={{marginTop:38}}>
-        {this.renderButtons()}
-      </div>
+
     </div>)
   }
 
@@ -87,4 +134,7 @@ class KarelCommandsPlaceStone extends Component {
 
 }
 
-export default KarelCommandsPlaceStone
+export default connect(
+  null,
+  mapDispatchToProps
+)(KarelCommandsPlaceStone)
