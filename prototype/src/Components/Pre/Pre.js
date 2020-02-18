@@ -70,17 +70,7 @@ class Pre extends Component {
     this.props.onPreItemComplete()
   }
 
-  motivation() {
-    let options = [
-      'Great work',
-      'Amazing',
-      'Wonderful',
-      'Awesome',
-      'How cool',
-      'You are really learning'
-    ]
-    return options[Math.floor(Math.random() * options.length)];
-  }
+  
 
   handleKeyPress(e) {
     let key = e.key
@@ -89,16 +79,6 @@ class Pre extends Component {
     }
     if(key == 'ArrowRight') {
       this.nextLesson()
-    }
-    if(key == 'ArrowUp') {
-      Swal.fire({
-        title: this.motivation() + '!',
-        html: 'You solved the puzzle',
-        icon: 'success',
-        showConfirmButton:false,
-        timer: 1500,
-        onClose: () => this.nextLesson()
-      })
     }
   }
  

@@ -11,7 +11,7 @@ import { selectCodeByCurrentView } from 'redux/selectors';
 import karelSide from 'Img/karelSide.png'
 import karelTop from 'Components/Karel/images/karelEast.png'
 import { withTranslation } from 'react-i18next';
-
+import {translate} from 'redux/translator.js'
 const mapDispatchToProps = {
   onPreItemComplete: () => preItemComplete()
 };
@@ -20,7 +20,6 @@ class MeetKarel extends Component {
 
 
   render() {
-    const translate = this.props.t
     const title = translate('Meet Karel the turtle')
     const subTitle = translate('MeetKarelSub')
     const clickHelp = translate('MeetKarelClickHelp')

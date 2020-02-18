@@ -7,12 +7,14 @@ import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Swal from 'sweetalert2'
-
+import {fireSuccessSwal} from 'Components/Util/SuccessSwal.js'
 import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import {translate} from 'redux/translator.js'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
@@ -149,23 +151,12 @@ class IdeItem extends Component {
   }
 
   onSolution() {
-    Swal.fire({
-      title: 'Great work!',
-      icon: 'success',
-      toast:true,
-      allowOutsideClick:true,
-    }).then((result) => {
-      if (result.value) {
-        // change the redux state to complete, which
-        // also moves the view back to the dashboard
-        if(this.props.testStage == 'learning') {
-          this.props.onProblemComplete()
-        } else {
-          this.props.onPreItemComplete()
-        }
-        
-      }
-    })
+    var onDone = () => this.props.onPreItemComplete()
+    if(this.props.testStage == 'learning') {
+      onDone = () => this.props.onProblemComplete()
+    }
+
+    fireSuccessSwal(onDone)
   }
 
   handleKeyPress(e) {
@@ -197,12 +188,12 @@ class IdeItem extends Component {
 
   renderRunResetButton() {
     if(this.state.isReset) {
-      return <Button className="ideButton" size="lg" onClick = {() => this.run()}>
-        <FontAwesomeIcon icon={faPlay}/> &nbsp;Run
+      return <Button className="ideButton wideButton" size="lg" onClick = {() => this.run()}>
+        <FontAwesomeIcon icon={faPlay}/> &nbsp;{translate('Run')}
       </Button>
     } else {
-      return <Button className="ideButton" size="lg" onClick = {() => this.reset()}>
-        <FontAwesomeIcon icon={faSyncAlt}/> &nbsp; Reset
+      return <Button className="ideButton wideButton" size="lg" onClick = {() => this.reset()}>
+        <FontAwesomeIcon icon={faSyncAlt}/> &nbsp; {translate('Reset')}
       </Button>
     }
   }
@@ -235,7 +226,7 @@ class IdeItem extends Component {
   renderPre() {
     return (
       <div style={{marginRight:SPACING}}>
-        <h3>World:</h3>
+        <h3>{translate('World')}:</h3>
         <KarelWorld 
           {...this.props.preWorld}
           ref="world"
@@ -248,7 +239,7 @@ class IdeItem extends Component {
     if(this.props.postWorld != null){
       return (
         <div>
-          <h3>Goal:</h3>
+          <h3>{translate('Goal')}:</h3>
           <KarelGoal
             {...this.props.postWorld}
             ref="goalWorld"

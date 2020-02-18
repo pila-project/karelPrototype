@@ -47,6 +47,8 @@
   width:120px;
 }
 
+
+
 .horizontalContainer {
   display: flex;
   flex-direction: row;

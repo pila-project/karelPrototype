@@ -6,13 +6,16 @@ import UpLeftTextArrow from 'Components/Util/UpLeftTextArrow.js'
 import MsgProgram from 'Img/thisIsProgram.png'
 import MsgRun from 'Img/hitRunButton.png'
 import { withTranslation } from 'react-i18next';
+import {translate} from 'redux/translator.js'
+
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_place_stone" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></statement></block></xml>`
 class ProgramsA extends Component {
 
   render() {
+    let title = translate('You can program Karel')
     return (
       <div className="vertical centered testBody">
-        <h1 style={{marginBottom:20,marginTop:0}}>You can <span className="blue">program</span> Karel:</h1>
+        <h1 style={{marginBottom:20,marginTop:0}}>{title}:</h1>
       
         <ExampleCode
           world = {{
@@ -30,7 +33,7 @@ class ProgramsA extends Component {
             marginLeft: '-370px'
           }}>
           <UpTextArrow 
-            text={'Hit the run button, and the program will run line by line.'}
+            text={translate('RunInstructions')}
           />
         </span>
         <span style={{
@@ -39,7 +42,7 @@ class ProgramsA extends Component {
             marginLeft: '270px'
           }}>
           <UpLeftTextArrow 
-            text={'This is a program'}
+            text={translate('This is a program')}
           />
         </span>
         

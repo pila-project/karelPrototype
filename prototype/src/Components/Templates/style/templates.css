@@ -19,6 +19,10 @@
   line-height: 100%;
 }
 
+.wideButton{
+  width:160px !important;
+}
+
 .navItem:first-child > span { margin-right: auto; }
 
 .navItem:last-child  > span { margin-left: auto;  }

@@ -43,7 +43,7 @@ class CommandsA extends Component {
       <div style={{height:20}} />
       <span>
         <UpTextArrow 
-          text={<span>Use these buttons to make the <b>World</b> match the <b>Goal</b></span>}
+          text={<span>{translate('Use these buttons to make the World match the Goal')}</span>}
         />
       </span>
     </div>

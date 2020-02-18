@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
 import { withTranslation } from 'react-i18next';
-
+import {fireSuccessSwal} from 'Components/Util/SuccessSwal.js'
 const WORLD_SIZE = 250
 
 const mapDispatchToProps = {
@@ -31,14 +31,7 @@ class KarelCommandsMove extends Component {
   }
 
   showCorrect() {
-    Swal.fire({
-      title: 'Great work!',
-      html: 'You solved the puzzle',
-      icon: 'success',
-      showConfirmButton:false,
-      timer: 2500,
-      onClose: () => this.props.onPreItemComplete()
-    })
+    fireSuccessSwal(() => this.props.onPreItemComplete())
   }
 
   onMoveClick() {

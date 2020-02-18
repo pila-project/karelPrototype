@@ -9,6 +9,7 @@ import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import Logo from "Img/pisa.jpeg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RightTextArrow from 'Components/Util/RightTextArrow.js'
+import {translate} from 'redux/translator.js'
 
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
@@ -59,7 +60,7 @@ class Dashboard extends Component {
         marginLeft: 150,
       }}>
         <RightTextArrow 
-          text={'Click to work on a challenge'}
+          text={translate('Click to work on a challenge')}
         />
       </span>
     )

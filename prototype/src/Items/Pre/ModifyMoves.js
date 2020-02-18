@@ -7,6 +7,7 @@ import UpLeftTextArrow from 'Components/Util/UpLeftTextArrow.js'
 import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import {translate} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_move"><next><block type="karel_move"></block></next></block></statement></block></xml>`
 class ModifyMoves extends Component {
@@ -56,7 +57,7 @@ class ModifyMoves extends Component {
           left:910
         }}>
           <UpLeftTextArrow 
-            text={<span>Put the <b>move</b> here</span>}
+            text={<span>{translate('Put the move here')}</span>}
           />
         </span>
         <span style = {{
@@ -66,7 +67,7 @@ class ModifyMoves extends Component {
           left:640
         }}>
           <UpTextArrow 
-            text={<span>Drag the <b>move</b> from here</span>}
+            text={<span>{translate('Drag the move from here')}</span>}
           />
         </span>
       </div>

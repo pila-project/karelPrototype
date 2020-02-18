@@ -14,7 +14,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {faPlay} from '@fortawesome/free-solid-svg-icons'
 import {faSyncAlt} from '@fortawesome/free-solid-svg-icons'
 import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
-
+import {translate} from 'redux/translator.js'
 import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
@@ -63,16 +63,16 @@ class ExampleCode extends Component {
 
   renderRunResetButton() {
     if(this.state.isReset) {
-      return <Button className="ideButton" size="lg" onClick = {() => this.run()}>
-        <FontAwesomeIcon icon={faPlay}/> &nbsp;Run
+      return <Button className="ideButton wideButton" size="lg" onClick = {() => this.run()}>
+        <FontAwesomeIcon icon={faPlay}/> &nbsp;{translate('Run')}
       </Button>
     } else if (!this.state.isDone){
-      return <Button disabled className="ideButton" size="lg" onClick = {() => this.run()}>
-        <FontAwesomeIcon icon={faPlay}/> &nbsp;Run
+      return <Button disabled className="ideButton wideButton" size="lg" onClick = {() => this.run()}>
+        <FontAwesomeIcon icon={faPlay}/> &nbsp;{translate('Run')}
       </Button>
     } else {
-      return <Button variant="success" className="ideButton" size="lg" onClick = {() => this.props.onPreItemComplete()}>
-        Got it!
+      return <Button variant="success" className="ideButton wideButton" size="lg" onClick = {() => this.props.onPreItemComplete()}>
+        {translate('Next')}
       </Button>
     }
   }
@@ -83,7 +83,7 @@ class ExampleCode extends Component {
         <div className = "vertical">
           <div className="horizontal">
             <div style={{marginRight:40}}>
-              <h3>World:</h3>
+              <h3>{translate('World')}:</h3>
               <KarelWorld 
                 {...this.props.world}
                 ref="world"
