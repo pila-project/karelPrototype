@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import {MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {Welcome, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 /**
 A single learning experience is called an "item"
@@ -131,15 +131,15 @@ const learningPlan = [
     iconId:'hatch',
     problems: [
       {
-        name:'Methods 1',
+        name:'Teach 1',
         prereq:'Commands 1',
         challenge:'MethodsStepUp',
         goodExample:'MethodsTurnAround',
         badExample:'MethodsTurnAroundBad'
       },
       {
-        name: 'Methods 2',
-        prereq:'Methods 1',
+        name: 'Teach 2',
+        prereq:'Teach 1',
         challenge:'MethodsRightAround',
         goodExample:'MethodsReuse',
         badExample:'MethodsReuseBad'
@@ -152,7 +152,7 @@ const learningPlan = [
     problems:[
       {
         name:'Repeat 1',
-        prereq: 'Methods 1',
+        prereq: 'Teach 1',
         challenge:'Repeat9',
         goodExample:'Repeat5',
         badExample:'Repeat5Bad'
@@ -186,7 +186,7 @@ const learningPlan = [
 const itemComponentDatabase = {
 
   // Pre Test
-  Welcome:<Splash text={'Welcome'} subText={'Lets learn to program.' }/>,
+  Welcome:<Welcome />,
   MeetKarel:<MeetKarel />,
   KarelCommandsMove:<KarelCommandsMove />,
   KarelCommandsTurnLeft:<KarelCommandsTurnLeft />,

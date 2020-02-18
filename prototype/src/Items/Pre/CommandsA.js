@@ -6,6 +6,8 @@ import KarelWorld from 'Components/Karel/KarelWorld.js'
 import KarelGoal from 'Components/Karel/KarelGoal.js'
 import KarelCommands from 'Components/Templates/KarelCommands.js'
 import UpTextArrow from 'Components/Util/UpTextArrow.js'
+import { withTranslation } from 'react-i18next';
+import {translate} from 'redux/translator.js'
 const WORLD_HEIGHT = 150
   
 class CommandsA extends Component {
@@ -31,9 +33,10 @@ class CommandsA extends Component {
   }
 
   render() {
+    let title = translate('Karel can perform many commands')
     return <div>
       <KarelCommands
-        title={<h1>Karel can perform many commands:</h1>}
+        title={<h1>{title}:</h1>}
         preWorld={this.renderPreWorld()}
         postWorld = {this.renderPostWorld()}
       />

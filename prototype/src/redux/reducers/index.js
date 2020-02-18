@@ -1,29 +1,16 @@
 import React from 'react'
+
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
+  locale: 'fr',
   currentView: 'dashboard',
   studentState: {} 
+}
   
-  // Student state will be populated as the student works through
-  // the exam. Here is an example of what studentState could
-  // look 
-  
-  // Example of what studentState will look like with content
-  // studentState: {
-  //     learnCmd1: {
-  //         status:STATUS.COMPLETED,
-  //         code:''
-  //     },
-  //     learnCmd2: {
-  //         status:STATUS.VISITED,
-  //         code:''
-  //     }
-  // }
 
-};
 
 // Reducers can't update the redux store directly because it is immutable.
 // So, reducers have to copy the store, modify it, and return the copy.
@@ -39,9 +26,17 @@ function rootReducer(state = initialState, action) {
     case PRE_ITEM_COMPLETE: return preItemComplete(state, action)
     case PROBLEM_COMPLETE: return problemComplete(state, action)
     case UPDATE_CODE: return updateCode(state, action)
+    case UPDATE_LOCALE: return updateLocale(state, action)
     default: return state
   }
 };
+
+function updateLocale(state, action) {
+  return {
+    ...state,
+    locale: action.locale
+  }
+}
 
 function preItemComplete(state, action){
   let pre = Curriculum.getPre()

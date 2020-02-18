@@ -7,5 +7,20 @@
     "Teach 2": "Enseigner 2",
     "Repeat 1": "Répétez 1",
     "Repeat 2": "Répétez 2",
-    "Repeat 3": "Répétez 3"
+    "Repeat 3": "Répétez 3",
+    "Welcome": "Bienvenue",
+    "You are going to learn how to program":"Vous allez apprendre à programmer!",
+    "Meet Karel the turtle":"Rencontrez Karel la tortue!",
+    "MeetKarelSub":"Voici à quoi ressemble Karel d'en haut:",
+    "MeetKarelClickHelp":"Cliquez sur ce bouton pour continuer",
+    "Next":"Prochain",
+    "KarelCanMove":"Karel peut advancer:",
+    "KarelCanTurnLeft":"Karel peut tourner à gauche:",
+    "world":"Monde",
+    "goal":"Objectif",
+    "move":"advancer",
+    "turnLeft":"tournez à gauche",
+    "pickStone":"ramasser la pierre",
+    "placeStone":"placer la pierre",
+    "clickMoveHelp":"Cliquez sur ce bouton pour faire advancer Karel"
 }

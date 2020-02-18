@@ -21,6 +21,7 @@ export {default as MethodsReuse} from './Dashboard/MethodsReuse'
 export {default as MethodsReuseBad} from './Dashboard/MethodsReuseBad'
 
 // Pre Items
+export {default as Welcome} from './Pre/Welcome.js'
 export {default as MeetKarel} from './Pre/MeetKarel'
 export {default as KarelCommandsMove} from './Pre/KarelCommandsMove'
 export {default as KarelCommandsTurnLeft} from './Pre/KarelCommandsTurnLeft'

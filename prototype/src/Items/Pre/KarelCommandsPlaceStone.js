@@ -6,14 +6,15 @@ import KarelWorld from 'Components/Karel/KarelWorld.js'
 import KarelGoal from 'Components/Karel/KarelGoal.js'
 import KarelCommands from 'Components/Templates/KarelCommands.js'
 
-
+import {translate} from 'redux/translator.js'
 const WORLD_SIZE = 150
   
 class KarelCommandsPlaceStone extends Component {
 
   render() {
+    let title = translate('Karel can place stones')
     return <KarelCommands
-      title = {<h1>Karel can <span style={{color:'blue'}}>place stones</span></h1>}
+      title = {<h1>{title}:</h1>}
       preWorld = {{
         nRows:2,
         nCols:2,

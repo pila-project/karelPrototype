@@ -10,6 +10,8 @@ import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
 import karelSide from 'Img/karelSide.png'
 import karelTop from 'Components/Karel/images/karelEast.png'
+import { withTranslation } from 'react-i18next';
+
 const mapDispatchToProps = {
   onPreItemComplete: () => preItemComplete()
 };
@@ -18,23 +20,29 @@ class MeetKarel extends Component {
 
 
   render() {
+    const translate = this.props.t
+    const title = translate('Meet Karel the turtle')
+    const subTitle = translate('MeetKarelSub')
+    const clickHelp = translate('MeetKarelClickHelp')
+    const buttonTxt = translate('Next')
+
     return (<div className="verticalContainer centered testBody">
-      <h1 style={{marginBottom:40,marginTop:20}}>Meet <span className="blue">Karel</span> the Turtle!</h1>
+      <h1 style={{marginBottom:40,marginTop:20}}>{title}</h1>
       <img src={karelSide} style={{width:250}}/>
       <div style={{height:40}}/>
-      <h3>This is what Karel looks like from the top:</h3>
+      <h3>{subTitle}</h3>
       <img src={karelTop} style={{width:100}}/>
       <div style={{height:40}}/>
       <div className="horizontal" style={{alignItems:'center'}}>
         <RightTextArrow 
           direction="right"
-          text="Click this button to continue"
+          text={clickHelp}
           width={250}
         />
         <Button 
           size="lg"
           variant="success"
-          onClick = {() => this.props.onPreItemComplete()}>Got it!
+          onClick = {() => this.props.onPreItemComplete()}>{buttonTxt}
         </Button>
         
       </div>
@@ -46,4 +54,4 @@ class MeetKarel extends Component {
 export default connect(
   null,
   mapDispatchToProps
-)(MeetKarel)
+)(withTranslation()(MeetKarel))

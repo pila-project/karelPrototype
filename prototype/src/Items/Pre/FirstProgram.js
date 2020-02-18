@@ -5,7 +5,7 @@ import UpTextArrow from 'Components/Util/UpTextArrow.js'
 import UpLeftTextArrow from 'Components/Util/UpLeftTextArrow.js'
 import MsgProgram from 'Img/thisIsProgram.png'
 import MsgRun from 'Img/hitRunButton.png'
-
+import { withTranslation } from 'react-i18next';
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_place_stone" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></statement></block></xml>`
 class ProgramsA extends Component {
 

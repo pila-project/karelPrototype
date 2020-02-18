@@ -1,4 +1,6 @@
-import React, { Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
+import {updateCurrentView, updateLocale} from 'redux/actions.js'
+import { connect } from 'react-redux';
 import './App.css';
 import './Pages/style/pages.css'
 import StarterCode from './Pages/StarterCode.js'
@@ -11,9 +13,23 @@ import {
   Route
 } from 'react-router-dom'
 
-function App() {
-  return (
-    <Router>
+// temporarily replicated in redux/tranlsator.js
+const LOCALE = 'fr'; // options are {'en', 'fr'}
+
+const mapDispatchToProps = {
+  onUpdateLocale: (locale) => updateLocale(locale)
+};
+
+class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.props.onUpdateLocale(LOCALE);
+  }
+
+  render() {
+    return (
+      <Router>
       <div>
         <Suspense fallback={(<div>Loading</div>)}>
         <Route exact path="/" component={GuineaExp} />
@@ -24,7 +40,8 @@ function App() {
         </Suspense>
       </div>
     </Router>
-  )
+    )
+  }
 }
 
-export default App;
+export default connect(null, mapDispatchToProps)(App)

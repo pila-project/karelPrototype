@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import UpTextArrow from 'Components/Util/UpTextArrow.js'
 import UpLeftTextArrow from 'Components/Util/UpLeftTextArrow.js'
-
+import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 

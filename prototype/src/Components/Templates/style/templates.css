@@ -5,7 +5,7 @@
 
 .commandButtons {
   margin-right:-10px;
-
+  display: flex;
 }
 
 .navContainer {

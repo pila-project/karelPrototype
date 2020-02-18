@@ -70,10 +70,10 @@ class Dashboard extends Component {
   }
 
   renderBigChallenge(unit) {
-    const { t } = this.props;
+    const translate = this.props.t;
     return (
       <Button className="bigChallengeBtn">
-        {t(unit['unitName'])}
+        {translate(unit['unitName'])}
       </Button>
 
     )
@@ -103,7 +103,7 @@ class Dashboard extends Component {
 
   renderProblem(unit, problem, index) {
     let locked = this.isLocked(problem)
-    const { t } = this.props; // t is for translation
+    const translate = this.props.t; // t is for translation
     let challengeId = problem['challenge']
     return (
       <span 
@@ -118,7 +118,7 @@ class Dashboard extends Component {
               <span className="lockedCover2"></span>
             </span>
         }
-        <span>{t(problem['name'])}</span>
+        <span>{translate(problem['name'])}</span>
       </span>
     )
   }
@@ -156,10 +156,10 @@ class Dashboard extends Component {
   }
 
   renderPoints() {
-    const { t } = this.props;
+    const translate = this.props.t;
     return (
       <div id="pointsDiv">
-      {t('Great work! You have earned 100 points. Click on an activity!')}
+      {translate('Great work! You have earned 100 points. Click on an activity!')}
       </div>
     )
   }

@@ -8,6 +8,7 @@ import RightTextArrow from 'Components/Util/RightTextArrow.js'
 import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
+import { withTranslation } from 'react-i18next';
 
 const WORLD_SIZE = 250
 
@@ -46,11 +47,18 @@ class KarelCommandsMove extends Component {
   }
 
   render() {
+    const translate = this.props.t
+    const title = translate('KarelCanMove')
+    const world = translate('world')
+    const goal = translate('goal')
+    const move = translate('move')
+    const btnHelp = translate('clickMoveHelp')
+
     return (<div className="verticalContainer centered testBody">
-      <h1 style={{marginBottom:40,marginTop:40}}>Karel can <span className="blue">move</span></h1>
+      <h1 style={{marginBottom:40,marginTop:40}}>{title}</h1>
       <div className="horizontal centered" style={{marginBottom:20}}>
         <div>
-          <h3>World:</h3>
+          <h3>{world}:</h3>
           <KarelWorld 
             width = {WORLD_SIZE}
             height = {WORLD_SIZE}
@@ -61,7 +69,7 @@ class KarelCommandsMove extends Component {
         </div>
         <div style={{width:100}}/>
         <div>
-          <h3>Goal:</h3>
+          <h3>{goal}:</h3>
           <KarelGoal
             width = {WORLD_SIZE}
             height = {WORLD_SIZE}
@@ -75,12 +83,12 @@ class KarelCommandsMove extends Component {
       <div className="horizontal" style={{alignItems:'center'}}>
         <RightTextArrow 
           direction="right"
-          text="Click this button to make karel move"
+          text={btnHelp}
           width={250}
         />
         <Button 
           size="lg"
-          onClick = {() => this.onMoveClick()}>move
+          onClick = {() => this.onMoveClick()}>{move}
         </Button>
         
       </div>
@@ -92,4 +100,4 @@ class KarelCommandsMove extends Component {
 export default connect(
   null,
   mapDispatchToProps
-)(KarelCommandsMove)
+)(withTranslation()(KarelCommandsMove))
