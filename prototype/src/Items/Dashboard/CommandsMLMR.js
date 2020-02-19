@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import MsgProgram from 'Img/thisIsProgram.png'
 import MsgRun from 'Img/hitRunButton.png'
-
+import {translate} from 'redux/translator.js'
 const initialXml = ``
 class Item extends Component {
 
@@ -13,7 +13,8 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>Challenge:</b> Write a program from scratch that makes Karel move to the position shown in the "Goal" world:
+            <b>{translate('Challenge')}: </b> 
+            {translate('Write a program from scratch that makes Karel move to the position shown in the "Goal" world')}.
           </span>}
           preWorld = {{
             width:300,

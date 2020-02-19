@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
-import MsgProgram from 'Img/thisIsProgram.png'
-import MsgRun from 'Img/hitRunButton.png'
+import {translate, translateAllParts} from 'redux/translator.js'
+
 
 const initialXml = ''
 class Repeat9 extends Component {
@@ -13,7 +13,8 @@ class Repeat9 extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>Challenge:</b> Use a repeat to place 9 stones.
+            <b>{translate('Challenge')}:</b> 
+            &nbsp;{translate('Use a repeat to place 9 stones')}.
           </span>}
           preWorld = {{
             width:300,
@@ -29,7 +30,7 @@ class Repeat9 extends Component {
             stones:[{r:2,c:1,n:9}]
           }}
           hasRun={true}
-          hasStep={true}
+          hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
           }}

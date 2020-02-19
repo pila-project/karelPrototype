@@ -8,7 +8,8 @@ import RightTextArrow from 'Components/Util/RightTextArrow.js'
 import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import { withTranslation } from 'react-i18next';
+import {translate, translateAllParts} from 'redux/translator.js'
+
 import {fireSuccessSwal} from 'Components/Util/SuccessSwal.js'
 const WORLD_SIZE = 250
 
@@ -40,7 +41,6 @@ class KarelCommandsMove extends Component {
   }
 
   render() {
-    const translate = this.props.t
     const title = translate('KarelCanMove')
     const world = translate('world')
     const goal = translate('goal')
@@ -93,4 +93,4 @@ class KarelCommandsMove extends Component {
 export default connect(
   null,
   mapDispatchToProps
-)(withTranslation()(KarelCommandsMove))
+)(KarelCommandsMove)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import {Welcome, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone,MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 /**
 A single learning experience is called an "item"
@@ -99,7 +99,6 @@ export default class SimpleCurriculum {
 }
 
 const pre = [
-  {id:'Welcome'},
   {id:'MeetKarel'},
   {id:'KarelCommandsMove'},
   {id:'KarelCommandsTurnLeft'},
@@ -111,6 +110,7 @@ const pre = [
   //{id:'AnimatedProgram'},
   {id:'ModifyMoves'},
   {id:'PreDone'},
+  
 ]
 
 const learningPlan = [
@@ -177,9 +177,12 @@ const learningPlan = [
     unitName:'Big Challenge Problem #1',
     isChallenge:true,
     itemId:'challenge1',
-    examples: {
-      'Example':'cmdHouse'
-    }
+    problems:[{
+      name:'Challenge 1',
+      challenge:'Checker',
+      goodExample:'Diamond',
+      badExample:'DiamondBad'
+    }]
   },
 ]
 
@@ -197,7 +200,7 @@ const itemComponentDatabase = {
   ModifyMoves:<ModifyMoves />,
   FirstProgram:<FirstProgram />,
   AnimatedProgram:<AnimatedProgram />,
-  PreDone:<Splash text={'Great work!'} subText={'You have finished the warmup...' }/>,
+  PreDone:<PreDone/>,
 
   // Dashboard
   CommandsMLMR: <CommandsMLMR />,
@@ -220,6 +223,9 @@ const itemComponentDatabase = {
   RepeatL3Dash5: <RepeatL3Dash5 />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
-  //// 'RepeatL2PlaceRow',
-  // 'RepeatL3Corner9'
+  
+  // Challenges
+  Checker:<Checker/>,
+  Diamond:<Diamond/>,
+  DiamondBad:<DiamondBad/>,
 }

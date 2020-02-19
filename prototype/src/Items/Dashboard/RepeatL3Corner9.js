@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
-import MsgProgram from 'Img/thisIsProgram.png'
-import MsgRun from 'Img/hitRunButton.png'
+import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = ``
 class Item extends Component {
@@ -13,7 +12,8 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>Learn:</b> Hit the <b>step</b> button until the program finishes.
+            <b>{translate('Challenge')}:</b> 
+            &nbsp;{translate('Use a repeat to place 9 stones in each corner')}.
           </span>}
           preWorld = {{
             width:300,
@@ -33,10 +33,8 @@ class Item extends Component {
               {r:2,c:0,n:9},
             ]
           }}
-          initialXml = {initialXml}
-          hasRun={false}
-          hasStep={true}
-          isEditable={false}
+          hasRun={true}
+          hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
           }}

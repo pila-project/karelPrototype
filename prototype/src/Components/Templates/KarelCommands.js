@@ -10,7 +10,7 @@ import './style/templates.css'
 import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import { withTranslation } from 'react-i18next';
+import {translate} from 'redux/translator.js'
 import {fireSuccessSwal} from 'Components/Util/SuccessSwal.js'
 
 const mapDispatchToProps = {
@@ -64,7 +64,6 @@ class KarelCommands extends Component {
   }
 
   renderButtons() {
-    const translate = this.props.t
     const move = translate('move')
     const turnLeft = translate('turnLeft')
     const pickStone = translate('pickStone')
@@ -103,7 +102,6 @@ class KarelCommands extends Component {
   }
 
   render() {
-    const translate = this.props.t
     const world = translate('world')
     const goal = translate('goal')
     return (
@@ -141,4 +139,4 @@ class KarelCommands extends Component {
 export default connect(
   null,
   mapDispatchToProps
-)(withTranslation()(KarelCommands))
+)(KarelCommands)

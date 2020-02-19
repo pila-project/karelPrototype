@@ -19,7 +19,7 @@ class ModifyMoves extends Component {
         <IdeItem
           instructions = {<span className="horizontal spaceBetween">
             <span>
-              <b>Instructions:</b> Add another "move" to the program.
+              <b>{translate('Instructions')}:</b> {translate('Add another move to the program')}.
             </span>
             {/*<div>
               <FontAwesomeIcon 
@@ -54,7 +54,7 @@ class ModifyMoves extends Component {
         <span style = {{
           position:'absolute',
           top:90,
-          left:910
+          left:810
         }}>
           <UpLeftTextArrow 
             text={<span>{translate('Put the move here')}</span>}
@@ -64,7 +64,7 @@ class ModifyMoves extends Component {
           position:'absolute',
           zIndex: 999,
           top:180,
-          left:640
+          left:600
         }}>
           <UpTextArrow 
             text={<span>{translate('Drag the move from here')}</span>}

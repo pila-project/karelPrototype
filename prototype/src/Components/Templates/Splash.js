@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import {translate} from 'redux/translator.js'
 
 class Splash extends Component {
 
@@ -31,6 +33,15 @@ class Splash extends Component {
               }}> 
                 {this.props.subText}
               </div>
+              <Button 
+                onClick = {() => this.props.onNext()}
+                size="lg"
+                variant="success"
+                style={{
+                  alignSelf:'center'
+                }}>
+                {translate('Next')}
+              </Button>
             </div>
           </div>
         </div>

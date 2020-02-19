@@ -28,7 +28,7 @@ class CommandsB extends Component {
       height: WORLD_HEIGHT,
       nRows: 2,
       nCols: 2,
-      stones: [{r:0,c:1,n:1}],
+      stones: [{r:0,c:0,n:1}],
       karelCol:0,
       karelRow:0,
       karelDir:'West',

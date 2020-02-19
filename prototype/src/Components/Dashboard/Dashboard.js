@@ -57,7 +57,7 @@ class Dashboard extends Component {
       <span style={{
         position:'absolute',
         marginTop: 50,
-        marginLeft: 150,
+        marginLeft: 120,
       }}>
         <RightTextArrow 
           text={translate('Click to work on a challenge')}
@@ -66,14 +66,13 @@ class Dashboard extends Component {
     )
   }
 
-  isFirstTime(){
-    return true
-  }
-
   renderBigChallenge(unit) {
-    const translate = this.props.t;
+    let challengeId = unit['problems'][0]['challenge']
     return (
-      <Button className="bigChallengeBtn">
+      <Button 
+      className="bigChallengeBtn"
+      onClick = {() => this.selectItem(challengeId)}
+      >
         {translate(unit['unitName'])}
       </Button>
 
@@ -91,6 +90,12 @@ class Dashboard extends Component {
     )
   }
 
+  isFirstTime(){
+    let firstProblem = Curriculum.getLearning()[0]['problems'][0]
+    let challengeId = firstProblem['challenge']
+    return !this.isComplete(challengeId)
+  }
+
   selectItem(itemId){
     this.props.onUpdateCurrentView(itemId)
   }
@@ -104,13 +109,17 @@ class Dashboard extends Component {
 
   renderProblem(unit, problem, index) {
     let locked = this.isLocked(problem)
-    const translate = this.props.t; // t is for translation
     let challengeId = problem['challenge']
+    
+    let complete = this.isComplete(challengeId)
     return (
       <span 
         key={challengeId + '-btn'} 
         class={"alignedVertical " + this.padLeft(index)}
       >
+        {
+          complete && <span className="completeRing"/>
+        }
         <Button onClick = {() => this.selectItem(challengeId)} className={"unitIcon " + unit['iconId']} />
         {
           locked &&
@@ -119,6 +128,8 @@ class Dashboard extends Component {
               <span className="lockedCover2"></span>
             </span>
         }
+        
+        
         <span>{translate(problem['name'])}</span>
       </span>
     )
@@ -133,6 +144,15 @@ class Dashboard extends Component {
         )}
       </div>
     )
+  }
+
+  isComplete(challengeId) {
+    if(!(challengeId in this.props.studentState)) {
+      return false
+    }
+    let value = this.props.studentState[challengeId]
+    let status = value['status']
+    return status === 'completed'
   }
 
   isLocked(problem) {
@@ -157,7 +177,6 @@ class Dashboard extends Component {
   }
 
   renderPoints() {
-    const translate = this.props.t;
     return (
       <div id="pointsDiv">
       {translate('Great work! You have earned 100 points. Click on an activity!')}
@@ -180,7 +199,7 @@ class Dashboard extends Component {
         </div>
         <div className="box">
           <span className="timer">
-            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 45mins
+            {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 45mins*/}
           </span>
         </div>
       </div>
@@ -190,4 +209,4 @@ class Dashboard extends Component {
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(withTranslation()(Dashboard))
+)(Dashboard)

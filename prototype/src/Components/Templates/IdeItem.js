@@ -139,7 +139,7 @@ class IdeItem extends Component {
 
   onIncorrect() {
     Swal.fire({
-      title: 'Not quite!',
+      title: translate('Not quite!'),
       icon: 'warning',
       toast:true,
       allowOutsideClick:true,
@@ -325,7 +325,7 @@ class IdeItem extends Component {
         </div>
         <div className="navItem">
           <span>
-            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 30mins
+            {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 30mins*/}
           </span>
         </div>   
       </div>
@@ -354,19 +354,19 @@ class IdeItem extends Component {
             eventKey="challenge" 
             onClick={() => this.goToItem(problem['challenge'])}>
             <FontAwesomeIcon icon={faPuzzlePiece} />
-            &nbsp;Challenge</Nav.Link>
+            &nbsp;{translate('Challenge')}</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link 
             eventKey="goodExample" 
             onClick={() => this.goToItem(problem['goodExample'])}>
-            <FontAwesomeIcon icon={faCheck} /> Example</Nav.Link>
+            <FontAwesomeIcon icon={faCheck} /> {translate('Example')}</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link 
             eventKey="badExample" 
             onClick={() => this.goToItem(problem['badExample'])}>
-            <FontAwesomeIcon icon={faTimes} /> Example
+            <FontAwesomeIcon icon={faTimes} /> {translate('Example')}
           </Nav.Link>
         </Nav.Item>
       </Nav>

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
-import MsgProgram from 'Img/thisIsProgram.png'
-import MsgRun from 'Img/hitRunButton.png'
+import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = ``
 class RepeatCorners extends Component {
@@ -18,8 +17,9 @@ class RepeatCorners extends Component {
     return (
       <div className="vertical centered fullSize">
         <IdeItem
-          instructions = {<span>
-            <b>Learn:</b> Hit the <b>step</b> button until the program finishes.
+         instructions = {<span>
+            <b>{translate('Challenge')}:</b> 
+            &nbsp;{translate('Use a repeat to place a row of stones')}.
           </span>}
           preWorld = {{
             width:300,
@@ -34,8 +34,8 @@ class RepeatCorners extends Component {
             nRows:2,
             nCols:nCols,
           }}
-          hasRun={false}
-          hasStep={true}
+          hasRun={true}
+          hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
           }}

@@ -33,6 +33,7 @@ import CodeWindow from './CodeWindow.js';
 import Blockly from 'blockly/core';
 import BlocklyComponent, { Category, Block, Value, Field, Shadow } from './Blockly';
 import BlocklyJS from 'blockly/javascript';
+import {blockToCode} from './CodeTranslator/codeTranslate.js'
 
 import './blocks/customblocks';
 import './generator/generator';
@@ -43,6 +44,16 @@ const defaultXml = `<xml xmlns="http://www.w3.org/1999/xhtml">
                     <block type="karel_main" deletable="false" movable="false" x="${OFFSET}" y="${OFFSET}"></block>
                   </xml>`
 
+
+const getMethods = (obj) => {
+  let properties = new Set()
+  let currentObj = obj
+  do {
+    Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
+  } while ((currentObj = Object.getPrototypeOf(currentObj)))
+  return [...properties.keys()].filter(item => typeof obj[item] === 'function')
+}
+
 class BlocklyKarel extends React.Component {
 
   constructor(props){
@@ -51,13 +62,16 @@ class BlocklyKarel extends React.Component {
         userCode: '',
         userFunctionBlocks: {},
         initialXml: this.getInitialXml()
+
       };
+      // gonna try and prevent changing uneditable blocks
+      this.fnChangeWatcher = {}
   }
 
   static defaultProps = {
     initialXml: defaultXml,
-    isEditable: true,
-    hideBlocks: {}
+    hideBlocks: {},
+    isEditable:true,
   }
 
   componentWillMount() {}
@@ -70,6 +84,8 @@ class BlocklyKarel extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
     this.simpleWorkspace.workspace.addChangeListener(this.onCodeChange);
+    this.simpleWorkspace.workspace.addChangeListener(this.preventEditingReadOnly)
+    
   }
 
   highlightBlock = (id) => {
@@ -114,6 +130,55 @@ class BlocklyKarel extends React.Component {
       }
     }
     return functions
+  }
+
+  setsEqual(a, b){
+    for (let item of a) {
+      if(!b.has(item)) return false
+    }
+    for (let item of b) {
+      if(!a.has(item)) return false
+    }
+    return true
+  }
+
+  // WARNING: work around...
+  // I wanted to prevent students from editing non-editable
+  // blocks. This method forces that to be the case. If it notices
+  // a new block in an uneditable method, it remove it!
+  preventEditingReadOnly = (event) => {
+    let functions = this.getAllFunctions()
+    for (var i = 0; i < functions.length; i++) {
+      let block = functions[i]
+      // we only care about uneditable functions
+      if(block.isEditable()) continue
+      
+      let descendants = block.getDescendants()
+      descendants[descendants.length - 1].setNextStatement(false)
+
+      let idSet = new Set()
+      for (var i = 0; i < descendants.length; i++) {
+        idSet.add(descendants[i].id)
+      }
+      let name = block.toString()
+
+      if(!(name in this.fnChangeWatcher)) {
+        this.fnChangeWatcher[name] = idSet
+      } else {
+        let workspace = this.simpleWorkspace.workspace
+        let oldIdSet = this.fnChangeWatcher[name]
+        if(!this.setsEqual(oldIdSet, idSet)) {
+          for(let blockId of idSet) {
+            if(!oldIdSet.has(blockId)) {
+              
+              let toRemove = workspace.getBlockById(blockId)
+              if(toRemove) toRemove.dispose(true)
+             
+            }
+          }
+        }
+      }
+    }
   }
 
   autoPositionBlocks() {
@@ -165,6 +230,7 @@ class BlocklyKarel extends React.Component {
 
         <div className="horizontalContainer fullSize">
             <BlocklyComponent
+              readOnly= {true}
 
               ref={e => this.simpleWorkspace = e}
               //horizontalLayout={true}
@@ -182,6 +248,7 @@ class BlocklyKarel extends React.Component {
               <ToolboxXML
                 userFunctionBlocks={this.state.userFunctionBlocks}
                 hideBlocks = {this.props.hideBlocks}
+                isEditable = {this.props.isEditable}
               />
             </BlocklyComponent>
           </div>
@@ -196,10 +263,12 @@ class ToolboxXML extends React.Component {
   }
 
   getBlockComponent(blockType) {
+    let disabledTxt = this.props.isEditable ? false : true
+    
     // The loop block is a bit complex
     if(blockType === 'controls_repeat_ext') {
       return (
-        <Block type="controls_repeat_ext">
+        <Block disabled={disabledTxt} type="controls_repeat_ext">
           <Value name="TIMES">
               <Shadow type="math_number">
               <Field name="NUM">10</Field>
@@ -209,11 +278,11 @@ class ToolboxXML extends React.Component {
       )
     }
     if(blockType === 'karel_procedure') {
-      return <Block type="procedures_defnoargsnoreturn" />
+      return <Block disabled={disabledTxt} type="procedures_defnoargsnoreturn" />
     }
 
     // But most blocks are straightforward
-    return <Block type={blockType} />
+    return <Block disabled={disabledTxt} type={blockType} />
   }
 
   addBlock(blockType) {
@@ -225,11 +294,12 @@ class ToolboxXML extends React.Component {
   }
 
   addUserBlocks() {
+    let disabledTxt = this.props.isEditable ? false : true
     return (
     <React.Fragment>
       {Object.entries(this.props.userFunctionBlocks).map(([blockName, block]) =>
       <React.Fragment key={block.id}>
-        <Block type="procedures_callnoargsnoreturn" children={<mutation name={blockName}/>}/>
+        <Block disabled={disabledTxt} type="procedures_callnoargsnoreturn" children={<mutation name={blockName}/>}/>
       </React.Fragment>
       )}
     </React.Fragment>

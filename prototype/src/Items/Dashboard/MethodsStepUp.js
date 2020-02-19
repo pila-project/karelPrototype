@@ -4,16 +4,23 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import MsgProgram from 'Img/thisIsProgram.png'
 import MsgRun from 'Img/hitRunButton.png'
+import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = `<xml><block disabled="false" readonly="true" type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_pickup_stone" deletable="false" movable="false" editable="false"><next><block type="karel_turn_left" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="procedures_callnoreturn" deletable="false" movable="false" editable="false"><mutation name="turn right"></mutation><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_place_stone" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoreturn" deletable="false" movable="false" editable="false" x="20" y="280"><field name="NAME">turn right</field></block></xml>`
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_pickup_stone" deletable="false" movable="false" editable="false"><next><block type="karel_turn_left" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="procedures_callnoargsnoreturn" deletable="false" movable="false" editable="false"><mutation name="turn right"></mutation><next><block type="karel_move" deletable="false" movable="false" editable="false"><next><block type="karel_place_stone" deletable="false" movable="false" editable="false"><next><block type="karel_move" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="false" editable="false" x="20" y="280"><field name="NAME">turn right</field></block></xml>`
 class Item extends Component {
 
   render() {
+    // replace all...
+    
+    let xml = translateAllParts(initialXml, 'turn right')
+
+
     return (
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>Example:</b> This program has karel pick up a stone and move it around a corner. It creates a new method to "turn right":
+            <b>{translate('Challenge')}:</b> 
+            &nbsp;{translate('This program has karel pick up a stone and move it around a corner. It creates a new command to "turn right"')}:
           </span>}
           preWorld = {{
             width:250,
@@ -45,6 +52,7 @@ class Item extends Component {
             karelRow:1,
             karelCol:3
           }}
+          initialXml={xml}
           hideBlocks = {{
             'karel_while_dropdown':true,
             'controls_repeat_ext':true

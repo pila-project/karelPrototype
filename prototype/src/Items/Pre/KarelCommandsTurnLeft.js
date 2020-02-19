@@ -6,13 +6,13 @@ import KarelWorld from 'Components/Karel/KarelWorld.js'
 import KarelGoal from 'Components/Karel/KarelGoal.js'
 import KarelCommands from 'Components/Templates/KarelCommands.js'
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import {translate, translateAllParts} from 'redux/translator.js'
+
 const WORLD_SIZE = 250
   
 class KarelCommandsTurnLeft extends Component {
 
   render() {
-    const translate = this.props.t
     const title = translate('KarelCanTurnLeft')
 
     return <KarelCommands
@@ -41,4 +41,4 @@ class KarelCommandsTurnLeft extends Component {
 export default connect(
   null,
   null
-)(withTranslation()(KarelCommandsTurnLeft))
+)(KarelCommandsTurnLeft)
