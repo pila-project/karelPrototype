@@ -1,22 +1,22 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 
 const initialState = {
   locale: 'fr',
   currentView: 'dashboard',
-  studentState: {} 
+  studentState: {}
 }
-  
+
 
 
 // Reducers can't update the redux store directly because it is immutable.
 // So, reducers have to copy the store, modify it, and return the copy.
 // All of the spread operators below are being used to create a copy of the state
-// and selectively modify the part that needs to be changed based 
-// on the action that was received. For example, when UPDATE_STATUS is 
+// and selectively modify the part that needs to be changed based
+// on the action that was received. For example, when UPDATE_STATUS is
 // received, the `status` value of the item specified by state.currentView is updated.
 
 function rootReducer(state = initialState, action) {
@@ -27,6 +27,7 @@ function rootReducer(state = initialState, action) {
     case PROBLEM_COMPLETE: return problemComplete(state, action)
     case UPDATE_CODE: return updateCode(state, action)
     case UPDATE_LOCALE: return updateLocale(state, action)
+    case RUN_CODE: return runCode(state, action)
     default: return state
   }
 };
@@ -56,7 +57,7 @@ function preItemComplete(state, action){
       currentView: 'dashboard'
     }
   }
-  
+
 }
 
 function updateCurrentView(state, action) {
@@ -101,6 +102,19 @@ function updateCode(state, action) {
       [state.currentView]: {
         ...state.studentState[state.currentView],
         code: action.code
+      }
+    }
+  }
+}
+
+function runCode(state, action) {
+  return {
+    ...state,
+    studentState: {
+      ...state.studentState,
+      [state.currentView]: {
+        ...state.studentState[state.currentView],
+        run_type: action.run_type
       }
     }
   }

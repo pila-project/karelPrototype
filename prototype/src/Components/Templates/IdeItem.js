@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView, runCode } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -27,6 +27,7 @@ import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (code) => updateCode(code),
+  onRunCode: (run_type) => runCode(run_type),
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onProblemComplete: () => problemComplete(),
   onPreItemComplete: () => preItemComplete(),
@@ -82,6 +83,7 @@ class IdeItem extends Component {
   }
 
   reset() {
+    this.props.onRunCode('reset')
     this.engine.stop();
     this.refs.world.reset(() => {
       this.setState({
@@ -91,6 +93,7 @@ class IdeItem extends Component {
   }
 
   run() {
+    this.props.onRunCode('run')
     let codeText = this.refs.editor.getCode()
     this.setState({
       isReset:false
@@ -107,6 +110,7 @@ class IdeItem extends Component {
   }
 
   step() {
+    this.props.onRunCode('step')    
     this.engine.step(this.refs.world, this.refs.editor)
     this.setState({
       isReset:false
@@ -178,9 +182,9 @@ class IdeItem extends Component {
   }
 
   renderStepButton() {
-    return <Button 
+    return <Button
       className="ideButton"
-      size="lg" 
+      size="lg"
       variant="info"
       onClick = {() => this.step()}
     >Step</Button>
@@ -227,11 +231,11 @@ class IdeItem extends Component {
     return (
       <div style={{marginRight:SPACING}}>
         <h3>{translate('World')}:</h3>
-        <KarelWorld 
+        <KarelWorld
           {...this.props.preWorld}
           ref="world"
-        />   
-      </div> 
+        />
+      </div>
     )
   }
 
@@ -248,7 +252,7 @@ class IdeItem extends Component {
       )
     }
     return <div/>
-    
+
   }
 
   render() {
@@ -273,7 +277,7 @@ class IdeItem extends Component {
         'height':'100%',
         'min-height':'500px'
       }}>
-        <BlocklyKarel 
+        <BlocklyKarel
           ref="editor"
           savedXml = {this.props.savedXml}
           initialXml = {this.props.initialXml}
@@ -281,7 +285,7 @@ class IdeItem extends Component {
           hideBlocks = {this.props.hideBlocks}
           onCodeChange = {(e) => this.saveCode(e)}
         />
-        
+
       </div>
     )
   }
@@ -297,7 +301,7 @@ class IdeItem extends Component {
         </div>
         <div style={{marginTop:SPACING}}>
           {this.renderButtons()}
-        </div>  
+        </div>
       </div>
     )
   }
@@ -327,7 +331,7 @@ class IdeItem extends Component {
           <span>
             {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 30mins*/}
           </span>
-        </div>   
+        </div>
       </div>
     )
   }
@@ -346,25 +350,25 @@ class IdeItem extends Component {
     let currentItemId = this.props.currentView
     let problem = Curriculum.getProblemFromId(currentItemId)
     let activeKey = Curriculum.getItemType(currentItemId)
-    
+
     return (
       <Nav variant="tabs" size="lg" activeKey={activeKey}>
         <Nav.Item>
-          <Nav.Link 
-            eventKey="challenge" 
+          <Nav.Link
+            eventKey="challenge"
             onClick={() => this.goToItem(problem['challenge'])}>
             <FontAwesomeIcon icon={faPuzzlePiece} />
             &nbsp;{translate('Challenge')}</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link 
-            eventKey="goodExample" 
+          <Nav.Link
+            eventKey="goodExample"
             onClick={() => this.goToItem(problem['goodExample'])}>
             <FontAwesomeIcon icon={faCheck} /> {translate('Example')}</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link 
-            eventKey="badExample" 
+          <Nav.Link
+            eventKey="badExample"
             onClick={() => this.goToItem(problem['badExample'])}>
             <FontAwesomeIcon icon={faTimes} /> {translate('Example')}
           </Nav.Link>

@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW } from "./actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -10,6 +10,10 @@ export function updateStatus(status) {
 
 export function updateCode(code) {
     return { type: UPDATE_CODE, code }
+}
+
+export function runCode(run_type) {
+  return { type: RUN_CODE, run_type}
 }
 
 export function updateCurrentView(view) {
@@ -29,7 +33,7 @@ export function updateLocale(locale) {
     return dispatch => {
         // Side effects ---------------
         if (locale == 'en'){
-            i18n.changeLanguage('en'); 
+            i18n.changeLanguage('en');
             Blockly.setLocale(en);
         } else if(locale == 'fr'){
             i18n.changeLanguage('fr');
