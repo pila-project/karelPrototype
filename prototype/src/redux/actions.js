@@ -9,7 +9,7 @@ export function updateStatus(status) {
 };
 
 export function updateCode(code) {
-    return { type: UPDATE_CODE, code }
+  return { type: UPDATE_CODE, code }
 }
 
 export function runCode(run_type) {

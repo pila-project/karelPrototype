@@ -5,7 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import { checkCodeBase } from "./middleware/index"
+import { logActions } from "./middleware/index"
 
 const persistConfig = {
     key: 'root',
@@ -15,7 +15,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export default function configureStore(preloadedState) {
-  const middlewares = [logger, thunk, checkCodeBase]
+  const middlewares = [logger, thunk, logActions]
   const middlewareEnhancer = applyMiddleware(...middlewares)
   const enhancers = [middlewareEnhancer]
   const composedEnhancers = composeWithDevTools(...enhancers)
