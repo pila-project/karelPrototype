@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED } from "../actionTypes";
 
 import { karelDB } from '../../firebase/firebase';
 
@@ -36,15 +36,18 @@ export function logActions({ getState, dispatch }) {
           logData.currentView = state.currentView;
           logData.data = action.codeUpdate.code;
           log_to_DB = true;
-
           break;
 
         case RUN_CODE:
-          logData.type = action.run_type;
+          logData.type = 'BUTTON_CLICK_' + action.runData.runType;
           logData.date = (new Date()).toISOString();
           logData.userId = state.userId;
           logData.currentView = state.currentView;
-          logData.data = state.studentState ? state.studentState[state.currentView].code : '';
+          if (action.runData.code) {
+            logData.data = action.runData.code;
+          } else {
+            logData.data = '';
+          }
           log_to_DB = true;
 
           break;
@@ -57,6 +60,15 @@ export function logActions({ getState, dispatch }) {
           logData.data = action.view;
           log_to_DB = true;
 
+          break;
+
+        case RUN_DONE:
+          logData.type = action.type;
+          logData.date = (new Date()).toISOString();
+          logData.userId = state.userId;
+          logData.currentView = state.currentView;
+          logData.data = action.correct == false ? 'unsuccessful' : 'successful';
+          log_to_DB = true;
           break;
 
         case PRE_ITEM_COMPLETE:

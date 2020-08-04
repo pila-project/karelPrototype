@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView, runCode } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView, runCode, runDone } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -27,10 +27,11 @@ import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (codeUpdate) => updateCode(codeUpdate),
-  onRunCode: (run_type) => runCode(run_type),
+  onRunCode: (runData) => runCode(runData),
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onProblemComplete: () => problemComplete(),
   onPreItemComplete: () => preItemComplete(),
+  onRunDone: (correct) => runDone(correct)
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -83,17 +84,20 @@ class IdeItem extends Component {
   }
 
   reset() {
-    this.props.onRunCode('reset')
     this.engine.stop();
     this.refs.world.reset(() => {
       this.setState({
         isReset:true
       })
     })
+
+    let resetData = {
+      runType: 'reset'
+    }
+    this.props.onRunCode(resetData)
   }
 
   run() {
-    this.props.onRunCode('run')
     let codeText = this.refs.editor.getCode()
     this.setState({
       isReset:false
@@ -107,14 +111,28 @@ class IdeItem extends Component {
         })
       }
     })
+
+    let codeHTML = this.refs.editor.getHTMLCode()
+    let runData = {
+      runType: 'run',
+      code: codeHTML
+    }
+    this.props.onRunCode(runData)
   }
 
   step() {
-    this.props.onRunCode('step')
     this.engine.step(this.refs.world, this.refs.editor)
     this.setState({
       isReset:false
     })
+
+    let codeHTML = this.refs.editor.getHTMLCode()
+    let stepData = {
+      runType: 'step',
+      code: codeHTML
+    }
+    this.props.onRunCode(stepData)
+
   }
 
   // returns false if it is an example
@@ -133,6 +151,9 @@ class IdeItem extends Component {
       let goalState = this.refs.goalWorld.getWorldState()
       let postState = this.refs.world.getWorldState()
       let correct = KarelWorld.stateEquals(postState, goalState)
+
+      this.props.onRunDone(correct)
+
       if(correct) {
         this.onSolution()
       } else {
@@ -266,7 +287,7 @@ class IdeItem extends Component {
   }
 
   saveCode(codeUpdate) {
-    // codeUpdate = {code: code-xml, userAction: type of action that resulted in the code}
+    // codeUpdate = {code: code-xml, runType: type of action that resulted in the code}
     this.props.onUpdateCode(codeUpdate)
   }
 

@@ -42,8 +42,6 @@ function updateLocale(state, action) {
 }
 
 function userLogged(state, action) {
-  console.log('I got activated')
-  console.log(action)
   return {
     ...state,
     userId: action.payload
@@ -53,7 +51,6 @@ function userLogged(state, action) {
 function preItemComplete(state, action){
   let pre = Curriculum.getPre()
   let currId = state.currentView
-  console.log(state)
   var index = Curriculum.getIndexFromPreId(currId)
   if(index < pre.length - 1) {
     // go to the next problem
@@ -113,7 +110,7 @@ function updateCode(state, action) {
       ...state.studentState,
       [state.currentView]: {
         ...state.studentState[state.currentView],
-        code: action.code
+        code: action.codeUpdate.code
       }
     }
   }
@@ -126,7 +123,7 @@ function runCode(state, action) {
       ...state.studentState,
       [state.currentView]: {
         ...state.studentState[state.currentView],
-        run_type: action.run_type
+        run_type: action.runData.runType
       }
     }
   }

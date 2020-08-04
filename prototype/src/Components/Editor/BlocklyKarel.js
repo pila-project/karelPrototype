@@ -104,6 +104,10 @@ class BlocklyKarel extends React.Component {
     return this.state.userCode
   }
 
+  getHTMLCode = () => {
+    return Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML
+  }
+
   hasInitialXml() {
     if (this.props.initialXml) { return true }
     else { return false }

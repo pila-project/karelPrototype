@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE, USER_LOGGED } from "./actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE, RUN_DONE, USER_LOGGED } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -12,8 +12,12 @@ export function updateCode(codeUpdate) {
   return { type: UPDATE_CODE, codeUpdate }
 }
 
-export function runCode(run_type) {
-  return { type: RUN_CODE, run_type}
+export function runCode(runData) {
+  return { type: RUN_CODE, runData}
+}
+
+export function runDone(correct) {
+  return { type: RUN_DONE, correct}
 }
 
 export function updateCurrentView(view) {
