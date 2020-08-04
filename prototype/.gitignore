@@ -24,3 +24,6 @@ yarn-error.log*
 
 # editor files
 .vscode
+
+# firebase config files
+/src/firebase/dev.js

@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE } from "./actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE, USER_LOGGED } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -21,11 +21,16 @@ export function updateCurrentView(view) {
 }
 
 export function problemComplete() {
-  return {type:PROBLEM_COMPLETE}
+  return {type: PROBLEM_COMPLETE}
 }
 
-export function preItemComplete() {
-  return {type:PRE_ITEM_COMPLETE}
+export function preItemComplete(userId) {
+  if (userId) { return {type: PRE_ITEM_COMPLETE, userId} }
+  else { return {type: PRE_ITEM_COMPLETE} }
+}
+
+export function userLogged(userId) {
+  return {type: USER_LOGGED, userId}
 }
 
 // Create an action with side effects using redux-thunk

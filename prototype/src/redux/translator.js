@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-const LOCALE = 'fr'
+const LOCALE = 'en'
 
 export var translate = function(input){
   const dict = getDictionary(LOCALE)
   if(input in dict) {
     return dict[input]
-  } 
+  }
   // default to returning what you were passed
   return input
 }
@@ -126,7 +126,7 @@ const fr = {
   "Meet Karel the turtle":"Rencontrez Karel la tortue!",
   "MeetKarelSub":"Voici à quoi ressemble Karel d'en haut:",
   "MeetKarelClickHelp":"Cliquez sur ce bouton pour continuer",
-    
+
 }
 
 const en = {

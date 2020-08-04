@@ -13,8 +13,8 @@ import {
   Route
 } from 'react-router-dom'
 
-// temporarily replicated in redux/tranlsator.js
-const LOCALE = 'fr'; // options are {'en', 'fr'}
+// temporarily replicated in redux/translator.js
+const LOCALE = 'en'; // options are {'en', 'fr'}
 
 const mapDispatchToProps = {
   onUpdateLocale: (locale) => updateLocale(locale)

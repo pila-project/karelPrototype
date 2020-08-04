@@ -110,7 +110,7 @@ class IdeItem extends Component {
   }
 
   step() {
-    this.props.onRunCode('step')    
+    this.props.onRunCode('step')
     this.engine.step(this.refs.world, this.refs.editor)
     this.setState({
       isReset:false
@@ -266,6 +266,7 @@ class IdeItem extends Component {
   }
 
   saveCode(code) {
+
     this.props.onUpdateCode(code)
   }
 

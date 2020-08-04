@@ -21,7 +21,7 @@ class Splash extends Component {
                 height:150,
                 textAlign:'center',
                 fontSize:36
-              }}> 
+              }}>
                 {this.props.text}
               </div>
               <div style={{
@@ -30,10 +30,10 @@ class Splash extends Component {
                 height:150,
                 textAlign:'center',
                 fontSize:24
-              }}> 
+              }}>
                 {this.props.subText}
               </div>
-              <Button 
+              <Button
                 onClick = {() => this.props.onNext()}
                 size="lg"
                 variant="success"

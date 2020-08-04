@@ -54,6 +54,8 @@ const getMethods = (obj) => {
   return [...properties.keys()].filter(item => typeof obj[item] === 'function')
 }
 
+const DO_NOT_LOG = [Blockly.Events.UI, Blockly.Events.CREATE, Blockly.Events.CHANGE]
+
 class BlocklyKarel extends React.Component {
 
   constructor(props){
@@ -66,6 +68,8 @@ class BlocklyKarel extends React.Component {
       };
       // gonna try and prevent changing uneditable blocks
       this.fnChangeWatcher = {}
+      this.onInitialCodeLoaded = this.onInitialCodeLoaded.bind(this);
+
   }
 
   static defaultProps = {
@@ -83,9 +87,13 @@ class BlocklyKarel extends React.Component {
     this.simpleWorkspace.workspace.addChangeListener(this.generateCode);
     this.simpleWorkspace.workspace.addChangeListener(Blockly.Events.disableOrphans);
     this.simpleWorkspace.workspace.addChangeListener(this.updateFunctions);
-    this.simpleWorkspace.workspace.addChangeListener(this.onCodeChange);
     this.simpleWorkspace.workspace.addChangeListener(this.preventEditingReadOnly)
-    
+
+    if (this.hasInitialXml()) {
+      this.simpleWorkspace.workspace.addChangeListener(this.onInitialCodeLoaded);
+    } else {
+      this.simpleWorkspace.workspace.addChangeListener(this.onCodeChange);
+    }
   }
 
   highlightBlock = (id) => {
@@ -94,6 +102,11 @@ class BlocklyKarel extends React.Component {
 
   getCode = () => {
     return this.state.userCode
+  }
+
+  hasInitialXml() {
+    if (this.props.initialXml) { return true }
+    else { return false }
   }
 
   getInitialXml() {
@@ -152,7 +165,7 @@ class BlocklyKarel extends React.Component {
       let block = functions[i]
       // we only care about uneditable functions
       if(block.isEditable()) continue
-      
+
       let descendants = block.getDescendants()
       descendants[descendants.length - 1].setNextStatement(false)
 
@@ -170,10 +183,10 @@ class BlocklyKarel extends React.Component {
         if(!this.setsEqual(oldIdSet, idSet)) {
           for(let blockId of idSet) {
             if(!oldIdSet.has(blockId)) {
-              
+
               let toRemove = workspace.getBlockById(blockId)
               if(toRemove) toRemove.dispose(true)
-             
+
             }
           }
         }
@@ -217,10 +230,19 @@ class BlocklyKarel extends React.Component {
     }
   }
 
+  onInitialCodeLoaded = (event) => {
+    if (event.type == 'finished_loading') {
+      this.simpleWorkspace.workspace.removeChangeListener(this.onInitialCodeLoaded);
+      this.simpleWorkspace.workspace.addChangeListener(this.onCodeChange);
+    }
+  }
+
   onCodeChange = (event) => {
     let newCode = Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML
     if(this.props.onCodeChange){
-      this.props.onCodeChange(newCode);
+      if (DO_NOT_LOG.indexOf(event.type) == (-1)) {
+        this.props.onCodeChange(newCode);
+      }
     }
   }
 
@@ -264,7 +286,7 @@ class ToolboxXML extends React.Component {
 
   getBlockComponent(blockType) {
     let disabledTxt = this.props.isEditable ? false : true
-    
+
     // The loop block is a bit complex
     if(blockType === 'controls_repeat_ext') {
       return (

@@ -87,11 +87,11 @@ export default class SimpleCurriculum {
 
   /**
    * Returns the component for the problem / worked example
-   * with the given id. 
+   * with the given id.
    */
   static getComponent(itemId){
     if(itemId in itemComponentDatabase) {
-      return(itemComponentDatabase[itemId]) 
+      return(itemComponentDatabase[itemId])
     }
     return itemComponentDatabase['DefaultItem']
   }
@@ -99,6 +99,7 @@ export default class SimpleCurriculum {
 }
 
 const pre = [
+  {id: 'Welcome'},
   {id:'MeetKarel'},
   {id:'KarelCommandsMove'},
   {id:'KarelCommandsTurnLeft'},
@@ -110,7 +111,7 @@ const pre = [
   //{id:'AnimatedProgram'},
   {id:'ModifyMoves'},
   {id:'PreDone'},
-  
+
 ]
 
 const learningPlan = [
@@ -223,7 +224,7 @@ const itemComponentDatabase = {
   RepeatL3Dash5: <RepeatL3Dash5 />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
-  
+
   // Challenges
   Checker:<Checker/>,
   Diamond:<Diamond/>,

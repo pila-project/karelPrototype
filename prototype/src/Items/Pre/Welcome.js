@@ -6,23 +6,29 @@ import KarelWorld from 'Components/Karel/KarelWorld.js'
 import KarelGoal from 'Components/Karel/KarelGoal.js'
 import RightTextArrow from 'Components/Util/RightTextArrow.js'
 import { connect } from 'react-redux';
-import { preItemComplete } from 'redux/actions';
+import { preItemComplete, userLogged } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import Splash from 'Components/Templates/Splash.js'
+import Login from 'Components/Templates/Login.js'
 import { withTranslation } from 'react-i18next';
+import { translate } from 'redux/translator.js'
 
 const mapDispatchToProps = {
-  onPreItemComplete: () => preItemComplete()
+  onPreItemComplete: (userId) => preItemComplete(userId),
 };
-  
-class Welcome extends Component {
 
+/*
+This is how we will go about it:
+1. Get user info
+2. Write the user info to the state of redux, as a state variable
+*/
+
+class Welcome extends Component {
 
   render() {
     const translate = this.props.t
     const text = translate('Welcome')
-    const sub = translate('You are going to learn how to program')
-    return <Splash text={text} subText={sub}/>
+    const sub = translate('You are going to learn how to program. Before we start, choose a username.')
+    return <Login text={text} subText={sub} onNext={this.props.onPreItemComplete}/>
   }
 
 }
@@ -31,5 +37,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(withTranslation()(Welcome))
-
-

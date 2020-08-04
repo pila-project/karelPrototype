@@ -1,11 +1,11 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED } from "../actionTypes";
 
 import { karelDB } from '../../firebase/firebase';
 
 var logData = {
   type: '',
   date: '',
-  user: '',
+  userId: '',
   currentView: '',
   data: ''
 }
@@ -28,16 +28,21 @@ export function logActions({ getState, dispatch }) {
       var log_to_DB = false;
 
       switch (action.type) {
+
         case UPDATE_CODE:
-          console.log('Implement the checks on the code and how the code originated')
           logData.type = action.type;
+          logData.date = (new Date()).toISOString();
+          logData.userId = state.userId;
           logData.currentView = state.currentView;
           logData.data = action.code;
+          log_to_DB = true;
 
           break;
 
         case RUN_CODE:
           logData.type = action.run_type;
+          logData.date = (new Date()).toISOString();
+          logData.userId = state.userId;
           logData.currentView = state.currentView;
           logData.data = state.studentState ? state.studentState[state.currentView].code : '';
           log_to_DB = true;
@@ -46,6 +51,8 @@ export function logActions({ getState, dispatch }) {
 
         case UPDATE_CURRENT_VIEW:
           logData.type = action.type;
+          logData.date = (new Date()).toISOString();
+          logData.userId = state.userId;
           logData.currentView = state.currentView;
           logData.data = action.view;
           log_to_DB = true;
@@ -54,6 +61,15 @@ export function logActions({ getState, dispatch }) {
 
         case PRE_ITEM_COMPLETE:
           logData.type = action.type;
+          if (action.userId) {
+            logData.userId = action.userId;
+            dispatch({
+              type: USER_LOGGED,
+              payload: action.userId
+            })
+          }
+          else { logData.userId = state.userId; }
+          logData.date = (new Date()).toISOString();
           logData.currentView = state.currentView;
           logData.data = state.currentView;
           log_to_DB = true;
