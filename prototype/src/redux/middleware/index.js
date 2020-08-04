@@ -30,11 +30,11 @@ export function logActions({ getState, dispatch }) {
       switch (action.type) {
 
         case UPDATE_CODE:
-          logData.type = action.type;
+          logData.type = action.type + '_' + action.codeUpdate.userAction;
           logData.date = (new Date()).toISOString();
           logData.userId = state.userId;
           logData.currentView = state.currentView;
-          logData.data = action.code;
+          logData.data = action.codeUpdate.code;
           log_to_DB = true;
 
           break;

@@ -8,8 +8,8 @@ export function updateStatus(status) {
     return { type: UPDATE_STATUS, status }
 };
 
-export function updateCode(code) {
-  return { type: UPDATE_CODE, code }
+export function updateCode(codeUpdate) {
+  return { type: UPDATE_CODE, codeUpdate }
 }
 
 export function runCode(run_type) {

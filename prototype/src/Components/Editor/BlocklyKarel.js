@@ -241,7 +241,11 @@ class BlocklyKarel extends React.Component {
     let newCode = Blockly.Xml.workspaceToDom(this.simpleWorkspace.workspace, true).outerHTML
     if(this.props.onCodeChange){
       if (DO_NOT_LOG.indexOf(event.type) == (-1)) {
-        this.props.onCodeChange(newCode);
+        let codeUpdate = {
+          code: newCode,
+          userAction: event.type
+        }
+        this.props.onCodeChange(codeUpdate);
       }
     }
   }

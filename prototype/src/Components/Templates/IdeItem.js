@@ -26,7 +26,7 @@ import {faSyncAlt} from '@fortawesome/free-solid-svg-icons'
 import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
-  onUpdateCode: (code) => updateCode(code),
+  onUpdateCode: (codeUpdate) => updateCode(codeUpdate),
   onRunCode: (run_type) => runCode(run_type),
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onProblemComplete: () => problemComplete(),
@@ -265,9 +265,9 @@ class IdeItem extends Component {
     )
   }
 
-  saveCode(code) {
-
-    this.props.onUpdateCode(code)
+  saveCode(codeUpdate) {
+    // codeUpdate = {code: code-xml, userAction: type of action that resulted in the code}
+    this.props.onUpdateCode(codeUpdate)
   }
 
   renderRightSide() {
