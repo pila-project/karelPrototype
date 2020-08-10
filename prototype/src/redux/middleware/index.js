@@ -1,8 +1,9 @@
 import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED } from "../actionTypes";
 
-import { karelDB } from '../../firebase/firebase';
+//import { DB } from '../../firebase/firebase';
+import * as FireStoreService from '../../firebase/firebase';
 
-var logData = {
+var loggedData = {
   type: '',
   date: '',
   userId: '',
@@ -30,60 +31,60 @@ export function logActions({ getState, dispatch }) {
       switch (action.type) {
 
         case UPDATE_CODE:
-          logData.type = action.type + '_' + action.codeUpdate.userAction;
-          logData.date = (new Date()).toISOString();
-          logData.userId = state.userId;
-          logData.currentView = state.currentView;
-          logData.data = action.codeUpdate.code;
+          loggedData.type = action.type + '_' + action.codeUpdate.userAction;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.currentView = state.currentView;
+          loggedData.data = action.codeUpdate.code;
           log_to_DB = true;
           break;
 
         case RUN_CODE:
-          logData.type = 'BUTTON_CLICK_' + action.runData.runType;
-          logData.date = (new Date()).toISOString();
-          logData.userId = state.userId;
-          logData.currentView = state.currentView;
+          loggedData.type = 'BUTTON_CLICK_' + action.runData.runType;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.currentView = state.currentView;
           if (action.runData.code) {
-            logData.data = action.runData.code;
+            loggedData.data = action.runData.code;
           } else {
-            logData.data = '';
+            loggedData.data = '';
           }
           log_to_DB = true;
 
           break;
 
         case UPDATE_CURRENT_VIEW:
-          logData.type = action.type;
-          logData.date = (new Date()).toISOString();
-          logData.userId = state.userId;
-          logData.currentView = state.currentView;
-          logData.data = action.view;
+          loggedData.type = action.type;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.currentView = state.currentView;
+          loggedData.data = action.view;
           log_to_DB = true;
 
           break;
 
         case RUN_DONE:
-          logData.type = action.type;
-          logData.date = (new Date()).toISOString();
-          logData.userId = state.userId;
-          logData.currentView = state.currentView;
-          logData.data = action.correct == false ? 'unsuccessful' : 'successful';
+          loggedData.type = action.type;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.currentView = state.currentView;
+          loggedData.data = action.correct == false ? 'unsuccessful' : 'successful';
           log_to_DB = true;
           break;
 
         case PRE_ITEM_COMPLETE:
-          logData.type = action.type;
+          loggedData.type = action.type;
           if (action.userId) {
-            logData.userId = action.userId;
+            loggedData.userId = action.userId;
             dispatch({
               type: USER_LOGGED,
               payload: action.userId
             })
           }
-          else { logData.userId = state.userId; }
-          logData.date = (new Date()).toISOString();
-          logData.currentView = state.currentView;
-          logData.data = state.currentView;
+          else { loggedData.userId = state.userId; }
+          loggedData.date = (new Date()).toISOString();
+          loggedData.currentView = state.currentView;
+          loggedData.data = state.currentView;
           log_to_DB = true;
 
           break;
@@ -91,7 +92,12 @@ export function logActions({ getState, dispatch }) {
       }
 
       if (log_to_DB) {
-        karelDB.push().set(logData);
+        //real-time DB:
+        //karelDB.push().set(loggedData);
+
+        //firestore:
+        FireStoreService.createDataLog(loggedData)
+
       }
 
       //return dispatch({ type: action.type });
