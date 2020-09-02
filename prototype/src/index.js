@@ -13,7 +13,7 @@ const { store, persistor } = configureStore();
 
 // Comment out to implement saving the store in localStorage
 // so state will not be reset when the browser is refreshed.
-persistor.purge();
+//persistor.purge();
 
 ReactDOM.render(
     <Provider store={store}>

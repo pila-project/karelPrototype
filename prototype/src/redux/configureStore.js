@@ -9,7 +9,8 @@ import { logActions } from "./middleware/index"
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage: storage,
+    blacklist: ['autofillUserId']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

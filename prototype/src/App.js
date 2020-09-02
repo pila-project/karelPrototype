@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import {updateCurrentView, updateLocale} from 'redux/actions.js'
 import { connect } from 'react-redux';
+import { useParams } from "react-router";
 import './App.css';
 import './Pages/style/pages.css'
 import StarterCode from './Pages/StarterCode.js'
@@ -33,6 +34,7 @@ class App extends Component {
       <div>
         <Suspense fallback={(<div>Loading</div>)}>
         <Route exact path="/" component={GuineaExp} />
+        <Route exact path="/:userId" component={GuineaExp} />
         <Route exact path="/startercode" component={StarterCode} />
         <Route exact path="/learning" component={Learning} />
         <Route exact path="/item" component={DashboardItem} />

@@ -16,6 +16,12 @@ const mapDispatchToProps = {
   onPreItemComplete: (userId) => preItemComplete(userId),
 };
 
+const mapStateToProps = (state, ownProps) => {
+  const autofill = state.autofillUserId;
+  const userId = state.userId; // required to see if autofill with url parameter or randomly generated parameter
+  return { autofill, userId } ;
+}
+
 /*
 This is how we will go about it:
 1. Get user info
@@ -28,12 +34,12 @@ class Welcome extends Component {
     const translate = this.props.t
     const text = translate('Welcome')
     const sub = translate('You are going to learn how to program. Before we start, choose a username.')
-    return <Login text={text} subText={sub} onNext={this.props.onPreItemComplete}/>
+    return <Login text={text} subText={sub} autofill = {this.props.autofill} userId = {this.props.userId} onNext={this.props.onPreItemComplete}/>
   }
 
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withTranslation()(Welcome))

@@ -22,6 +22,9 @@ function getDictionary(lang) {
 }
 
 const fr = {
+  // Controls
+  'End Session': 'Fin de Session',
+
   // some fn names
   'turn right':'tourner à droite',
   'turn around':'faire demi-tour',

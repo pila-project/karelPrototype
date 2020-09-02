@@ -1,14 +1,16 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED } from "../actionTypes";
+import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
+import { REHYDRATE } from 'redux-persist'
 
 const initialState = {
-  locale: 'fr',
-  currentView: 'dashboard',
+  locale: 'en',
+  currentView: '',
   studentState: {},
-  userId: ''
+  userId: '',
+  autofillUserId: false
 }
 
 
@@ -30,9 +32,21 @@ function rootReducer(state = initialState, action) {
     case UPDATE_LOCALE: return updateLocale(state, action)
     case RUN_CODE: return runCode(state, action)
     case USER_LOGGED: return userLogged(state, action)
+    case UPDATE_USERID: return updateUserId(state, action)
+    case END_SESSION: return endSession(state, action)
     default: return state
   }
 };
+
+function endSession(state, action) {
+  let pre = Curriculum.getPre()
+  let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
+  return {
+    ...initialState,
+    autofillUserId: false,
+    currentView: pre[0].id
+  }
+}
 
 function updateLocale(state, action) {
   return {
@@ -45,6 +59,14 @@ function userLogged(state, action) {
   return {
     ...state,
     userId: action.payload
+  }
+}
+
+function updateUserId(state, action) {
+  return {
+    ...state,
+    userId: action.userId,
+    autofillUserId: true
   }
 }
 

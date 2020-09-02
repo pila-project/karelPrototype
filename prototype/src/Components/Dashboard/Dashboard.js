@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import {updateCurrentView} from 'redux/actions.js'
+import {updateCurrentView, endSession} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
@@ -21,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  onUpdateCurrentView: (view) => updateCurrentView(view)
+  onUpdateCurrentView: (view) => updateCurrentView(view),
+  onEndSession: () => endSession()
 };
 
 class Dashboard extends Component {
@@ -59,7 +60,7 @@ class Dashboard extends Component {
         marginTop: 50,
         marginLeft: 120,
       }}>
-        <RightTextArrow 
+        <RightTextArrow
           text={translate('Click to work on a challenge')}
         />
       </span>
@@ -69,7 +70,7 @@ class Dashboard extends Component {
   renderBigChallenge(unit) {
     let challengeId = unit['problems'][0]['challenge']
     return (
-      <Button 
+      <Button
       className="bigChallengeBtn"
       onClick = {() => this.selectItem(challengeId)}
       >
@@ -110,11 +111,11 @@ class Dashboard extends Component {
   renderProblem(unit, problem, index) {
     let locked = this.isLocked(problem)
     let challengeId = problem['challenge']
-    
+
     let complete = this.isComplete(challengeId)
     return (
-      <span 
-        key={challengeId + '-btn'} 
+      <span
+        key={challengeId + '-btn'}
         class={"alignedVertical " + this.padLeft(index)}
       >
         {
@@ -128,8 +129,8 @@ class Dashboard extends Component {
               <span className="lockedCover2"></span>
             </span>
         }
-        
-        
+
+
         <span>{translate(problem['name'])}</span>
       </span>
     )
@@ -198,9 +199,15 @@ class Dashboard extends Component {
           </span>
         </div>
         <div className="box">
-          <span className="timer">
-            {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 45mins*/}
-          </span>
+          {/*}<span className="timer">
+            {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 45mins
+          </span> */}
+          <Button
+          className="endSessionBtn"
+          onClick = {() => this.props.onEndSession() }
+          >
+            {translate('End Session')}
+          </Button>
         </div>
       </div>
     )

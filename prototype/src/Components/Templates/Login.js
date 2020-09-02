@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import {translate} from 'redux/translator.js'
+import { v4 } from 'uuid';
 
 class Login extends Component {
 
@@ -11,10 +12,52 @@ class Login extends Component {
     };
     this.submitUser = this.submitUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.render = this.render.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.autofill) { // auto advance if autofill of user Id
+      this.submitUser(null)
+    }
   }
 
   render() {
     const { userId } = this.state;
+
+    if (this.props.autofill & !this.props.userId) { // generate unique identifier with v4
+      let randomUserId = v4();
+      this.state.userId = randomUserId;
+      var inputField = <input
+        type="text"
+        id="username"
+        value={v4()}
+        style={{
+          color:'black',
+          width:300,
+          height:40,
+          textAlign:'center',
+          fontSize:24,
+          margin:20,
+          alignSelf: 'center'
+        }}
+      />;
+    } else {
+      var inputField = <input
+        type="text"
+        id="username"
+        //value={userId}
+        onChange={this.handleChange} style={{
+          color:'black',
+          width:300,
+          height:40,
+          textAlign:'center',
+          fontSize:24,
+          margin:20,
+          alignSelf: 'center'
+        }}
+      />;
+    }
+
     return (
       <div style={{
         width:'100vw',
@@ -52,20 +95,7 @@ class Login extends Component {
                     fontSize:24,
                     alignSelf: 'center'
                   }}> Username: </label>
-                  <input
-                    type="text"
-                    id="username"
-                    //value={userId}
-                    onChange={this.handleChange} style={{
-                      color:'black',
-                      width:300,
-                      height:40,
-                      textAlign:'center',
-                      fontSize:24,
-                      margin:20,
-                      alignSelf: 'center'
-                    }}
-                  />
+                  {inputField}
                   <Button
                     type = "submit"
                     size="lg"
@@ -85,9 +115,8 @@ class Login extends Component {
   }
 
   submitUser(event) {
-    event.preventDefault();
-    const userId = this.state.username;
-    console.log(this.state)
+    if (event) event.preventDefault();
+    const userId = this.state.username ? this.state.username : this.state.userId;
     this.props.onNext(userId);
     this.setState({ userId: "" });
   }
