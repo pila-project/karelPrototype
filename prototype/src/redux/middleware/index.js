@@ -59,7 +59,9 @@ export function logActions({ getState, dispatch }) {
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
           loggedData.data = action.view;
-          log_to_DB = true;
+          if (state.userId) {
+            log_to_DB = true;
+          }
 
           break;
 

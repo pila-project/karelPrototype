@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import {translate} from 'redux/translator.js'
 import { v4 } from 'uuid';
+import firebaseAuth from '../../firebase/firebase';
 
 class Login extends Component {
 
@@ -117,8 +118,13 @@ class Login extends Component {
   submitUser(event) {
     if (event) event.preventDefault();
     const userId = this.state.username ? this.state.username : this.state.userId;
-    this.props.onNext(userId);
-    this.setState({ userId: "" });
+    firebaseAuth.signInAnonymously().then(() => {
+      this.props.onNext(userId);
+      this.setState({ userId: "" });
+    }).catch(error => {
+      console.log('something did not work in the login:')
+      console.log(error)
+    });
   }
 
   handleChange(event) {

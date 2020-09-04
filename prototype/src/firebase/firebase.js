@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
 
 import { FirebaseConfig } from "./keys";
-firebase.initializeApp(FirebaseConfig);
+
+const firebaseApp = firebase.initializeApp(FirebaseConfig);
 
 // set up firestore
 const DB = firebase.firestore();
@@ -15,4 +16,9 @@ const DB = firebase.firestore();
 export const createDataLog = (dataLog) => { // dataLog is a dictionary
     return DB.collection('karelDB')
         .add(dataLog);
-      }
+    }
+
+var firebaseAuth = firebaseApp.auth();
+firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+
+export default firebaseAuth
