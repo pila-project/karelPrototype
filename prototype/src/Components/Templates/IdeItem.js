@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView, runCode, runDone } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -29,6 +29,7 @@ const mapDispatchToProps = {
   onUpdateCode: (codeUpdate) => updateCode(codeUpdate),
   onRunCode: (runData) => runCode(runData),
   onUpdateCurrentView: (view) => updateCurrentView(view),
+  onUpdateItem: (item) => updateItem(item),
   onProblemComplete: () => problemComplete(),
   onPreItemComplete: () => preItemComplete(),
   onRunDone: (correct) => runDone(correct)
@@ -77,6 +78,7 @@ class IdeItem extends Component {
 
   goHome() {
     this.goToItem('dashboard')
+    this.props.onUpdateItem('dashboard')
   }
 
   goToItem(itemId) {

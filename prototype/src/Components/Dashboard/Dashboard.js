@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import {updateCurrentView, endSession} from 'redux/actions.js'
+import {updateCurrentView, updateItem, endSession} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
@@ -22,6 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   onUpdateCurrentView: (view) => updateCurrentView(view),
+  onUpdateItem: (item) => updateItem(item),
   onEndSession: () => endSession()
 };
 
@@ -98,7 +99,10 @@ class Dashboard extends Component {
   }
 
   selectItem(itemId){
+    let item = Curriculum.getProblemFromId(itemId)
+    this.props.onUpdateItem(item['name'])
     this.props.onUpdateCurrentView(itemId)
+
   }
 
   renderDashboardRow(unit, index) {

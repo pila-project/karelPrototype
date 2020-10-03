@@ -1,13 +1,14 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "../actionTypes";
+import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
 const initialState = {
   locale: 'en',
   currentView: '',
+  item: '',
   studentState: {},
   userId: '',
   autofillUserId: false
@@ -25,6 +26,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_CURRENT_VIEW: return updateCurrentView(state, action)
+    case UPDATE_ITEM: return updateItem(state, action)
     case UPDATE_STATUS: return updateStatus(state, action)
     case PRE_ITEM_COMPLETE: return preItemComplete(state, action)
     case PROBLEM_COMPLETE: return problemComplete(state, action)
@@ -79,13 +81,15 @@ function preItemComplete(state, action){
     let nextId = pre[index + 1]['id']
     return {
       ...state,
-      currentView: nextId
+      currentView: nextId,
+      item: nextId
     }
   } else {
     // switch to the "learning" part of the test
     return {
       ...state,
-      currentView: 'dashboard'
+      currentView: 'dashboard',
+      item: 'dashboard'
     }
   }
 
@@ -95,6 +99,13 @@ function updateCurrentView(state, action) {
   return {
     ...state,
     currentView: action.view
+  }
+}
+
+function updateItem(state, action) {
+  return {
+    ...state,
+    item: action.item
   }
 }
 

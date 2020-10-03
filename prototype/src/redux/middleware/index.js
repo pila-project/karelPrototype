@@ -8,6 +8,7 @@ var loggedData = {
   date: '',
   userId: '',
   currentView: '',
+  item: '',
   data: ''
 }
 /*
@@ -35,6 +36,7 @@ export function logActions({ getState, dispatch }) {
           loggedData.date = (new Date()).toISOString();
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
           loggedData.data = action.codeUpdate.code;
           log_to_DB = true;
           break;
@@ -44,6 +46,7 @@ export function logActions({ getState, dispatch }) {
           loggedData.date = (new Date()).toISOString();
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
           if (action.runData.code) {
             loggedData.data = action.runData.code;
           } else {
@@ -58,6 +61,7 @@ export function logActions({ getState, dispatch }) {
           loggedData.date = (new Date()).toISOString();
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
           loggedData.data = action.view;
           if (state.userId) {
             log_to_DB = true;
@@ -70,6 +74,7 @@ export function logActions({ getState, dispatch }) {
           loggedData.date = (new Date()).toISOString();
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
           loggedData.data = action.correct == false ? 'unsuccessful' : 'successful';
           log_to_DB = true;
           break;
@@ -86,6 +91,7 @@ export function logActions({ getState, dispatch }) {
           else { loggedData.userId = state.userId; }
           loggedData.date = (new Date()).toISOString();
           loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
           loggedData.data = state.currentView;
           log_to_DB = true;
 

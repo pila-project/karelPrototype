@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
-import { updateCurrentView, preItemComplete } from 'redux/actions';
+import { updateCurrentView, updateItem, preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 
@@ -10,6 +10,7 @@ import SplitPane from 'react-split-pane'
 
 const mapDispatchToProps = {
   onUpdateCurrentView: (id) => updateCurrentView(id),
+  onUpdateItem: (item) => updateItem(item),
   onPreItemComplete:() => preItemComplete()
 };
 
@@ -52,7 +53,7 @@ class Pre extends Component {
 
   getComponent() {
     let itemId = this.props.currentView
-    return Curriculum.getComponent(itemId)  
+    return Curriculum.getComponent(itemId)
   }
 
   previousLesson() {
@@ -70,7 +71,7 @@ class Pre extends Component {
     this.props.onPreItemComplete()
   }
 
-  
+
 
   handleKeyPress(e) {
     let key = e.key
@@ -81,10 +82,10 @@ class Pre extends Component {
       this.nextLesson()
     }
   }
- 
+
   render() {
     return (
-      <div 
+      <div
       onKeyPress={this.handleKeyPress}
       style={{width:'100vw', height:'100vh'}}>
         {this.getComponent()}

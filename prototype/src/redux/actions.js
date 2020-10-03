@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "./actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -26,6 +26,10 @@ export function runDone(correct) {
 
 export function updateCurrentView(view) {
   return { type: UPDATE_CURRENT_VIEW, view }
+}
+
+export function updateItem(item) {
+  return { type: UPDATE_ITEM, item }
 }
 
 export function problemComplete() {
