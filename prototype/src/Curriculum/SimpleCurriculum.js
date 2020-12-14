@@ -120,7 +120,7 @@ const learningPlan = [
     iconId:'egg',
     problems: [
       {
-        name:'Commands 1',
+        name:'Basic Commands',
         challenge:'CommandsMLMR',
         goodExample:'CommandsHouse',
         badExample:'CommandsHouseBad'
@@ -132,18 +132,11 @@ const learningPlan = [
     iconId:'hatch',
     problems: [
       {
-        name:'Teach 1',
-        prereq:'Commands 1',
+        name:'Function',
+        //prereq:'Basic Commands',
         challenge:'MethodsStepUp',
         goodExample:'MethodsTurnAround',
         badExample:'MethodsTurnAroundBad'
-      },
-      {
-        name: 'Teach 2',
-        prereq:'Teach 1',
-        challenge:'MethodsRightAround',
-        goodExample:'MethodsReuse',
-        badExample:'MethodsReuseBad'
       }
     ],
   },
@@ -152,22 +145,21 @@ const learningPlan = [
     iconId:'hatch',
     problems:[
       {
-        name:'Repeat 1',
-        prereq: 'Teach 1',
-        challenge:'Repeat9',
-        goodExample:'Repeat5',
-        badExample:'Repeat5Bad'
-      },
-      {
-        name:'Repeat 2',
-        prereq: 'Repeat 1',
+        name:'Repeat',
+        //prereq: 'Function',
         challenge:'RepeatL2PlaceRow',
         goodExample:'RepeatL2StepUp',
         badExample:'RepeatL2StepUpBad'
-      },
+      }
+    ]
+  },
+  {
+    unitName:'Combine',
+    iconId:'hatch',
+    problems:[
       {
-        name:'Repeat 3',
-        prereq: 'Repeat 2',
+        name:'Combine',
+        prereq: 'Repeat',
         challenge:'RepeatL3Corner9',
         goodExample:'RepeatL3Dash5',
         badExample:'RepeatL3Dash5Bad'
@@ -176,10 +168,10 @@ const learningPlan = [
   },
   {
     unitName:'Big Challenge Problem #1',
-    isChallenge:true,
-    itemId:'challenge1',
+    iconId:'hatch',
     problems:[{
-      name:'Challenge 1',
+      name:'Challenge',
+      prereq: 'Combine',
       challenge:'Checker',
       goodExample:'Diamond',
       badExample:'DiamondBad'

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
  * This class is responsible for linking between the world
  * and the editor. It reduces the need for each IDE version
  * to recreate this logic. It might also be worthwhile to
- * include refs to the buttons in the longness of time. 
+ * include refs to the buttons in the longness of time.
 
  * WARNING: assumes that the editor is a BlocklyEditor
  **/
@@ -34,7 +34,7 @@ class KarelEngine {
   // it doesn't require any set up to be called.
   runCode(world, editor) {
     this.compiler = this.compileBlockly(world, editor)
-    
+
     if(this.compiler == null) {
       this.compilerWarning('Your program is empty')
     } else {
@@ -79,7 +79,7 @@ class KarelEngine {
       if(!results.isDone) {
         setTimeout(() => {
           this.heartbeat(editor)
-        }, 400)
+        },200)
       }
       let blockID = this.lineToBlockID[results.lineNumber];
       editor.highlightBlock(blockID);
@@ -133,7 +133,7 @@ class KarelEngine {
     return java
   }
 
-  
+
 
 }
 
