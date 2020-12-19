@@ -22,6 +22,8 @@ const DB = firebase.firestore();
 //const databaseRef = firebase.database().ref();
 //export const karelDB = databaseRef.child("karelDB");
 
+console.log(fireBaseConfig)
+
 
 export const createDataLog = (dataLog) => { // dataLog is a dictionary
     return DB.collection('karelDB')
