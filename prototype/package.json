@@ -2,7 +2,6 @@
   "name": "prototype",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://https://chrispiech.github.io/pisaPrototype",
   "dependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
