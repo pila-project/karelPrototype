@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import {translate} from 'redux/translator.js'
 import { v4 } from 'uuid';
-import firebaseAuth from '../../firebase/firebase';
+import firebase, { createDataLog, firebaseAuth } from '../../firebase/firebase';
 
 class Login extends Component {
 
