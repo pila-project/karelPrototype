@@ -15,6 +15,8 @@ const { store, persistor } = configureStore();
 // so state will not be reset when the browser is refreshed.
 //persistor.purge();
 
+console.log('we are in index now')
+
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

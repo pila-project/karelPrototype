@@ -12,6 +12,9 @@ const fireBaseConfig = {
   messagingSenderId: process.env.REACT_APP_messagingSenderId,
   appId: process.env.REACT_APP_appId
 };
+
+console.log(fireBaseConfig)
+
 const firebaseApp = firebase.initializeApp(fireBaseConfig)
 
 // set up firestore
@@ -21,8 +24,6 @@ const DB = firebase.firestore();
 // set up real-time database:
 //const databaseRef = firebase.database().ref();
 //export const karelDB = databaseRef.child("karelDB");
-
-console.log(fireBaseConfig)
 
 
 export const createDataLog = (dataLog) => { // dataLog is a dictionary
