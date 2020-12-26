@@ -10,6 +10,7 @@
     "babel-plugin-i18next-extract": "^0.6.1",
     "blockly": "^3.20191014.4",
     "bootstrap": "^4.4.1",
+    "dotenv": "^8.2.0",
     "firebase": "^7.17.1",
     "gh-pages": "^2.1.1",
     "i18next": "^19.1.0",

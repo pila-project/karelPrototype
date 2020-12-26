@@ -1,0 +1,18 @@
+steps:
+- name: node:14.3.0
+  entrypoint: npm
+  args: ["install"]
+- name: node:14.3.0
+  entrypoint: npm
+  args: ["run", "create-env"]
+  env:
+    - 'REACT_APP_apiKey=${_APIKEY}'
+    - 'REACT_APP_authDomain=${_AUTHDOMAIN}'
+    - 'REACT_APP_databaseURL=${_DATABASEURL}'
+    - 'REACT_APP_projectId=${_PROJECTID}'
+    - 'REACT_APP_storageBucket=${_STORAGEBUCKET}'
+    - 'REACT_APP_messagingSenderId=${_MESSAGINGSENDERID}'
+    - 'REACT_APP_appId=${_APPID}'
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy", "app.yaml"]
+timeout: "1600s"
