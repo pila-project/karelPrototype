@@ -133,7 +133,7 @@ const learningPlan = [
     problems: [
       {
         name:'Function',
-        //prereq:'Basic Commands',
+        prereq:'Basic Commands',
         challenge:'MethodsStepUp',
         goodExample:'MethodsTurnAround',
         badExample:'MethodsTurnAroundBad'
@@ -146,7 +146,7 @@ const learningPlan = [
     problems:[
       {
         name:'Repeat',
-        //prereq: 'Function',
+        prereq: 'Function',
         challenge:'RepeatL2PlaceRow',
         goodExample:'RepeatL2StepUp',
         badExample:'RepeatL2StepUpBad'

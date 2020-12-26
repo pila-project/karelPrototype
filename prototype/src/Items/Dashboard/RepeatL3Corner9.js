@@ -12,7 +12,7 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Challenge')}:</b> 
+            <b>{translate('Challenge')}:</b>
             &nbsp;{translate('Use a repeat to place 9 stones in each corner')}.
           </span>}
           preWorld = {{
@@ -27,10 +27,10 @@ class Item extends Component {
             nRows:3,
             nCols:3,
             stones:[
-              {r:0,c:0,n:9},
-              {r:0,c:2,n:9},
-              {r:2,c:2,n:9},
-              {r:2,c:0,n:9},
+              {r:0,c:0,n:4},
+              {r:0,c:2,n:4},
+              {r:2,c:2,n:4},
+              {r:2,c:0,n:4},
             ]
           }}
           hasRun={true}

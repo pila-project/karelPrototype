@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID } from "../actionTypes";
+import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
@@ -34,6 +34,7 @@ function rootReducer(state = initialState, action) {
     case UPDATE_LOCALE: return updateLocale(state, action)
     case RUN_CODE: return runCode(state, action)
     case USER_LOGGED: return userLogged(state, action)
+    case TIMEDOUT: return timedOut(state, action)
     case UPDATE_USERID: return updateUserId(state, action)
     case END_SESSION: return endSession(state, action)
     default: return state
@@ -157,6 +158,20 @@ function runCode(state, action) {
       [state.currentView]: {
         ...state.studentState[state.currentView],
         run_type: action.runData.runType
+      }
+    }
+  }
+}
+
+function timedOut(state, action) {
+  return {
+    ...state,
+    currentView: 'dashboard',
+    studentState: {
+      ...state.studentState,
+      [state.currentView]: {
+        ...state.studentState[state.currentView],
+        status: STATUS.TIMEDOUT
       }
     }
   }
