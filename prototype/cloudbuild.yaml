@@ -41,7 +41,7 @@ steps:
 # Build and create .env file
 - name: node:14.3.0
   entrypoint: npm
-  args: ["run", "create-env"]
+  args: ["--prefix","prototype/","run", "create-env"]
   env:
     - 'REACT_APP_apiKey=${_APIKEY}'
     - 'REACT_APP_authDomain=${_AUTHDOMAIN}'
@@ -53,5 +53,5 @@ steps:
 
 # Deploy on google cloud
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy", "app.yaml"]
+  args: ["app", "deploy", "prototype/app.yaml"]
 timeout: "1600s"
