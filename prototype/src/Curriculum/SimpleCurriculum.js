@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import {Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone,MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import {Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 /**
 A single learning experience is called an "item"
@@ -111,6 +111,8 @@ const pre = [
   //{id:'AnimatedProgram'},
   {id:'ModifyMoves'},
   {id:'PreDone'},
+  {id:'IntroExplainTasks'},
+  {id:'IntroExplainEditor'}
 
 ]
 
@@ -194,6 +196,8 @@ const itemComponentDatabase = {
   FirstProgram:<FirstProgram />,
   AnimatedProgram:<AnimatedProgram />,
   PreDone:<PreDone/>,
+  IntroExplainTasks: <IntroExplainTasks/>,
+  IntroExplainEditor: <IntroExplainEditor/>,
 
   // Dashboard
   CommandsMLMR: <CommandsMLMR />,

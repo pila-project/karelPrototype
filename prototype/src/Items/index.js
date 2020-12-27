@@ -33,9 +33,10 @@ export {default as FirstProgram} from './Pre/FirstProgram'
 export {default as AnimatedProgram} from './Pre/AnimatedProgramBase'
 export {default as ModifyMoves} from './Pre/ModifyMoves'
 export {default as PreDone} from './Pre/PreDone'
+export {default as IntroExplainTasks} from './Pre/IntroExplainTasks'
+export {default as IntroExplainEditor} from './Pre/IntroExplainEditor'
 
 // Challenges
 export {default as Checker} from './Challenges/Checker'
 export {default as Diamond} from './Challenges/Diamond'
 export {default as DiamondBad} from './Challenges/DiamondBad'
-
