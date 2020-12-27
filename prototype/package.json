@@ -39,6 +39,7 @@
     "video-react": "^0.14.1"
   },
   "scripts": {
+    "create-env": "printenv > .env",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
