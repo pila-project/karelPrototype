@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {fireTimeUpSwal} from './TimeUpSwal.js'
+import {fireTimeUpSwal} from './TimeUpSwal.js';
+import Swal from 'sweetalert2';
 //import { problemComplete } from 'redux/actions'
 
 
@@ -62,7 +63,7 @@ class Clock extends Component {
     this.setState({timerOn: false})
     var onTimeUp = () => this.props.onCountdownEnd()
 
-    fireTimeUpSwal(onTimeUp)
+    if (!Swal.isVisible()) fireTimeUpSwal(onTimeUp)
   }
 
   render() {
