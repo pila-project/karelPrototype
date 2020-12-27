@@ -357,7 +357,7 @@ class IdeItem extends Component {
         <div className="navItem">
           <span className="countdown" style={{'flex':'2', 'min-width': '100px'}}>
             {<FontAwesomeIcon icon={faClock} /> }
-            <Clock duration = {10} onCountdownEnd = {this.props.onCountdownEnd}/>
+            <Clock duration = {11} onCountdownEnd = {this.props.onCountdownEnd}/>
           </span>
         </div>
       </div>
