@@ -1,0 +1,23 @@
+{
+    "Great work! You have earned 100 points. Click on an activity!": "Great work! You have earned 100 points. Click on an activity!",
+    "Commands": "Commands",
+    "Big Challenge Problem #1": "Big Challenge Problem #1",
+    "Big Challenge Problem #2": "Big Challenge Problem #2",
+    "Teach 1": "Teach 1",
+    "Teach 2": "Teach 2",
+    "Welcome": "Welcome",
+    "You are going to learn how to program":"You are going to learn how to program",
+    "Meet Karel the turtle":"Meet Karel the Turtle!",
+    "MeetKarelSub":"This is what Karel looks like from the top:",
+    "MeetKarelClickHelp":"Click this button to continue",
+    "Next":"Next",
+    "KarelCanMove":"Karel can move:",
+    "KarelCanTurnLeft":"Karel can turn left:",
+    "world":"World",
+    "goal":"Goal",
+    "move":"move",
+    "turnLeft":"turn left",
+    "pickStone":"pick stone",
+    "placeStone":"place stone",
+    "clickMoveHelp":"Click this button to make Karel move"
+}
