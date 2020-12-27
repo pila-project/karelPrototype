@@ -33,9 +33,12 @@ steps:
   - name: 'ssh'
     path: /root/.ssh
 
+# Install npm packages
 - name: node:14.3.0
   entrypoint: npm
-  args: ["install"]
+  args: ["install","--prefix","prototype/"]
+
+# Build and create .env file
 - name: node:14.3.0
   entrypoint: npm
   args: ["run", "create-env"]
@@ -47,6 +50,8 @@ steps:
     - 'REACT_APP_storageBucket=${_STORAGEBUCKET}'
     - 'REACT_APP_messagingSenderId=${_MESSAGINGSENDERID}'
     - 'REACT_APP_appId=${_APPID}'
+
+# Deploy on google cloud
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy", "app.yaml"]
 timeout: "1600s"
