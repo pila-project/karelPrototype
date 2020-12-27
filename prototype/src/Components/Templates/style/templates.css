@@ -19,6 +19,14 @@
   line-height: 100%;
 }
 
+.countdown {
+  display: flex;
+}
+
+.countdown > * {
+  margin: 0px 2px;
+}
+
 .wideButton{
   width:160px !important;
 }
@@ -51,7 +59,7 @@
 }
 
 .instructionBox {
-  
+
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;

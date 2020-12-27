@@ -167,7 +167,7 @@ class Dashboard extends Component {
     for(var key in this.props.studentState) {
       let value = this.props.studentState[key]
       let status = value['status']
-      if(status === 'completed') {
+      if(status === 'completed' || status === 'timedout') {
         let problem = Curriculum.getProblemFromId(key)
         console.log('problem')
         console.log(problem)

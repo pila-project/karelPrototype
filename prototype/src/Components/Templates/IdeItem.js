@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -14,6 +14,8 @@ import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import {translate} from 'redux/translator.js'
+
+import Clock from '../Util/countdownTimer.js'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,7 +34,8 @@ const mapDispatchToProps = {
   onUpdateItem: (item) => updateItem(item),
   onProblemComplete: () => problemComplete(),
   onPreItemComplete: () => preItemComplete(),
-  onRunDone: (correct) => runDone(correct)
+  onRunDone: (correct) => runDone(correct),
+  onCountdownEnd: () => timedOut()
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -352,8 +355,9 @@ class IdeItem extends Component {
           </span>
         </div>
         <div className="navItem">
-          <span>
-            {/*<FontAwesomeIcon style={{'font-size':'30px'}}icon={faClock} /> 30mins*/}
+          <span className="countdown" style={{'flex':'2', 'min-width': '100px'}}>
+            {<FontAwesomeIcon icon={faClock} /> }
+            <Clock duration = {0.2} onCountdownEnd = {this.props.onCountdownEnd}/>
           </span>
         </div>
       </div>
