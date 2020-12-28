@@ -31,6 +31,7 @@ class App extends Component {
 
     console.log('we are in App now')
     console.log(process.env)
+    console.log('does it work?')
   }
 
   render() {
