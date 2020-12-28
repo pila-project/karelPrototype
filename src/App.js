@@ -28,10 +28,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.props.onUpdateLocale(LOCALE);
-
-    console.log('we are in App now')
-    console.log(process.env)
-    console.log('does it work?')
+    
   }
 
   render() {
