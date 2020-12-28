@@ -14,6 +14,8 @@ import {
   Route
 } from 'react-router-dom'
 
+require('dotenv').config()
+
 // temporarily replicated in redux/translator.js
 const LOCALE = 'en'; // options are {'en', 'fr'}
 
@@ -28,6 +30,7 @@ class App extends Component {
     this.props.onUpdateLocale(LOCALE);
 
     console.log('we are in App now')
+    console.log(process.env)
   }
 
   render() {
