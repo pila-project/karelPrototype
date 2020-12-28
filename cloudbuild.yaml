@@ -51,6 +51,9 @@ steps:
     - 'REACT_APP_messagingSenderId=${_MESSAGINGSENDERID}'
     - 'REACT_APP_appId=${_APPID}'
 
+- name: ubuntu
+  args: ['cat','.env']
+
 # Deploy on google cloud
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy"]
