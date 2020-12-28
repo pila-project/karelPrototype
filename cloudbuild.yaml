@@ -34,12 +34,12 @@ steps:
     path: /root/.ssh
 
 # Install npm packages
-- name: node:14.3.0
+- name: node
   entrypoint: npm
   args: ["install"]
 
 # Build and create .env file
-- name: node:14.3.0
+- name: node
   entrypoint: npm
   args: ["run", "create-env"]
   env:
@@ -53,6 +53,11 @@ steps:
 
 - name: ubuntu
   args: ['cat','.env']
+
+# Build the files
+- name: node
+  entrypoint: npm
+  args: ['run', 'build']
 
 # Deploy on google cloud
 - name: "gcr.io/cloud-builders/gcloud"
