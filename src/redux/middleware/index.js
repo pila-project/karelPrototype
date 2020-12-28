@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED, TIMEDOUT } from "../actionTypes";
 
 //import { DB } from '../../firebase/firebase';
 import * as FireStoreService from '../../firebase/firebase';
@@ -76,6 +76,18 @@ export function logActions({ getState, dispatch }) {
           loggedData.currentView = state.currentView;
           loggedData.item = state.item;
           loggedData.data = action.correct == false ? 'unsuccessful' : 'successful';
+          log_to_DB = true;
+          break;
+
+        case TIMEDOUT:
+          loggedData.type = action.type;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.currentView = state.currentView;
+          loggedData.item = state.item;
+
+          console.log('timedout')
+          console.log(loggedData)
           log_to_DB = true;
           break;
 
