@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
-import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT } from "../actionTypes";
+import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
@@ -11,7 +11,8 @@ const initialState = {
   item: '',
   studentState: {},
   userId: '',
-  autofillUserId: false
+  autofillUserId: false,
+  countdown: {}
 }
 
 
@@ -37,6 +38,7 @@ function rootReducer(state = initialState, action) {
     case TIMEDOUT: return timedOut(state, action)
     case UPDATE_USERID: return updateUserId(state, action)
     case END_SESSION: return endSession(state, action)
+    case UPDATE_COUNTDOWN: return updateCountdown(state, action)
     default: return state
   }
 };
@@ -175,6 +177,20 @@ function timedOut(state, action) {
       }
     }
   }
+}
+
+  function updateCountdown(state, action) {
+
+    var tmp_countdown = state.countdown;
+
+    if (Object.keys(action.time).length==1) {
+      tmp_countdown[Object.keys(action.time)[0]] = action.time[Object.keys(action.time)[0]]
+    } else { console.log("WE HAVE A PROBLEM")}
+
+    return {
+      ...state,
+      countdown: tmp_countdown
+    }
 }
 
 export default rootReducer;

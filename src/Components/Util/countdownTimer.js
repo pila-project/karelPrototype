@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import {fireTimeUpSwal} from './TimeUpSwal.js';
 import Swal from 'sweetalert2';
-//import { problemComplete } from 'redux/actions'
 
-
-
-//const mapDispatchToProps = {
-//  onCountdownEnd: () => problemComplete()
-//};
-
-class Clock extends Component {
+class ClockRender extends Component {
   constructor(props) {
     super(props);
-    this.startTimeInMinutes = props.duration;
-    this.state = {timerOn: true, seconds: this.startTimeInMinutes * 60, time: {}};
+
+    this.state = {
+      seconds: props.countdown,
+      timerOn: true,
+      time: {}
+    };
+
     this.state.time = this.secondsToTime(this.state.seconds)
+
   }
 
   componentDidMount() {
 
     this.timerID = setInterval(
-      () => this.tick(),
+      () => {
+        this.tick()
+        this.props.updateClock(this.state.seconds)
+      },
       1000
     );
   }
@@ -75,4 +77,4 @@ class Clock extends Component {
   }
 }
 
-export default Clock;
+export default ClockRender;

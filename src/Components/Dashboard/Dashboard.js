@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './DashboardView.css'
 import Button from 'react-bootstrap/Button';
-import {updateCurrentView, updateItem, endSession} from 'redux/actions.js'
+import {updateCurrentView, updateItem, endSession, updateCountdown} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
@@ -17,13 +17,15 @@ import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
-  return { studentState };
+  const countdown = state.countdown;
+  return { studentState, countdown };
 }
 
 const mapDispatchToProps = {
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onUpdateItem: (item) => updateItem(item),
-  onEndSession: () => endSession()
+  onEndSession: () => endSession(),
+  onUpdateCountdown: (time) => updateCountdown(time)
 };
 
 class Dashboard extends Component {
@@ -102,6 +104,16 @@ class Dashboard extends Component {
     let item = Curriculum.getProblemFromId(itemId)
     this.props.onUpdateItem(item['name'])
     this.props.onUpdateCurrentView(itemId)
+
+    var time_obj = {}
+    if (this.props.countdown == {}) {
+      time_obj[item['name']] = 600
+    } else if (item['name'] in this.props.countdown) {
+      time_obj[item['name']] = this.props.countdown[item['name']]
+    } else {
+      time_obj[item['name']] = 600
+    }
+    this.props.onUpdateCountdown(time_obj);
 
   }
 

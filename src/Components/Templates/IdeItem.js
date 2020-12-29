@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut } from 'redux/actions'
+import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -15,7 +15,7 @@ import KarelEngine from '../Karel/KarelEngine.js'
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 import {translate} from 'redux/translator.js'
 
-import Clock from '../Util/countdownTimer.js'
+import  ClockRender from '../Util/countdownTimer.js'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,14 +35,17 @@ const mapDispatchToProps = {
   onProblemComplete: () => problemComplete(),
   onPreItemComplete: () => preItemComplete(),
   onRunDone: (correct) => runDone(correct),
-  onCountdownEnd: () => timedOut()
+  onCountdownEnd: () => timedOut(),
+  onUpdateCountdown: (time) => updateCountdown(time)
 };
 
 const mapStateToProps = (state, ownProps) => {
   const savedXml = selectCodeByCurrentView(state);
   const studentState = state.studentState;
   const currentView = state.currentView;
-  return { studentState , currentView, savedXml};
+  const countdown = state.countdown;
+  const item = state.item;
+  return { studentState , currentView, savedXml, countdown, item};
 }
 
 const SPACE_FLOAT = 20
@@ -61,6 +64,7 @@ class IdeItem extends Component {
   constructor(props){
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+     this.updateClock = this.updateClock.bind(this);
   }
 
   componentWillMount() {
@@ -138,6 +142,12 @@ class IdeItem extends Component {
     }
     this.props.onRunCode(stepData)
 
+  }
+
+  updateClock(time) {
+    var time_obj = {}
+    time_obj[this.props.item] = time
+    this.props.onUpdateCountdown(time_obj)
   }
 
   // returns false if it is an example
@@ -337,6 +347,7 @@ class IdeItem extends Component {
     if(this.props.testStage != 'learning') {
       return <span />
     }
+
     return (
       <div className="navContainer" style={{height:'40px',
         width:this.calculateLeftWidth(),
@@ -345,7 +356,7 @@ class IdeItem extends Component {
         <div className="navItem">
           <span>
             <Button variant="light" onClick={() => this.goHome()} >
-            <FontAwesomeIcon style={{'font-size':'30px'}}icon={faHome} />
+              <FontAwesomeIcon style={{'font-size':'30px'}}icon={faHome} />
             </Button>
           </span>
         </div>
@@ -357,7 +368,7 @@ class IdeItem extends Component {
         <div className="navItem">
           <span className="countdown" style={{'flex':'2', 'min-width': '100px'}}>
             {<FontAwesomeIcon icon={faClock} /> }
-            <Clock duration = {10} onCountdownEnd = {this.props.onCountdownEnd}/>
+            <ClockRender countdown = {this.props.countdown[this.props.item]} onCountdownEnd = {this.props.onCountdownEnd} updateClock = {this.updateClock}/>
           </span>
         </div>
       </div>
