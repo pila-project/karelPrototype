@@ -12,7 +12,8 @@ const initialState = {
   studentState: {},
   userId: '',
   autofillUserId: false,
-  countdown: {}
+  countdown: {},
+  points: 0
 }
 
 
@@ -126,14 +127,20 @@ function updateStatus(state, action) {
 }
 
 function problemComplete(state, action) {
+  var new_points = state.points;
+  if (action.item != null) {
+    new_points += 100;
+  }
+
   return {
     ...state,
     currentView: 'dashboard',
+    points: new_points,
     studentState: {
       ...state.studentState,
       [state.currentView]: {
         ...state.studentState[state.currentView],
-        status: STATUS.COMPLETED
+        status: STATUS.COMPLETED,
       }
     }
   }

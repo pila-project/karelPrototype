@@ -32,8 +32,8 @@ export function updateItem(item) {
   return { type: UPDATE_ITEM, item }
 }
 
-export function problemComplete() {
-  return {type: PROBLEM_COMPLETE}
+export function problemComplete(item) {
+  return {type: PROBLEM_COMPLETE, item}
 }
 
 export function preItemComplete(userId) {

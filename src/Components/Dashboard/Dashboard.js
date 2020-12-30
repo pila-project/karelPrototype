@@ -18,7 +18,8 @@ import { withTranslation } from 'react-i18next';
 const mapStateToProps = (state, ownProps) => {
   const studentState = state.studentState;
   const countdown = state.countdown;
-  return { studentState, countdown };
+  const points = state.points;
+  return { studentState, countdown, points };
 }
 
 const mapDispatchToProps = {
@@ -196,9 +197,16 @@ class Dashboard extends Component {
   }
 
   renderPoints() {
+    var point_msg = '';
+    if (this.props.points == 0) {
+      point_msg = 'Click on the first unlocked activity.'
+    } else {
+      point_msg = 'Great work! You have earned ' + this.props.points.toString() + ' points. Click on the next activity.';
+    }
+
     return (
       <div id="pointsDiv">
-      {translate('Great work! You have earned 100 points. Click on an activity!')}
+      {translate(point_msg)}
       </div>
     )
   }

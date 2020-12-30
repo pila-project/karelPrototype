@@ -32,7 +32,7 @@ const mapDispatchToProps = {
   onRunCode: (runData) => runCode(runData),
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onUpdateItem: (item) => updateItem(item),
-  onProblemComplete: () => problemComplete(),
+  onProblemComplete: (item) => problemComplete(item),
   onPreItemComplete: () => preItemComplete(),
   onRunDone: (correct) => runDone(correct),
   onCountdownEnd: () => timedOut(),
@@ -191,9 +191,9 @@ class IdeItem extends Component {
   }
 
   onSolution() {
-    var onDone = () => this.props.onPreItemComplete()
+    var onDone = () => this.props.onPreItemComplete(null)
     if(this.props.testStage == 'learning') {
-      onDone = () => this.props.onProblemComplete()
+      onDone = () => this.props.onProblemComplete(this.props.item)
     }
 
     fireSuccessSwal(onDone)
