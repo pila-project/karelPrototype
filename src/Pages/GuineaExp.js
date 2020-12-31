@@ -4,6 +4,7 @@ import './style/pages.css'
 import Swal from 'sweetalert2'
 import Learning from 'Components/Learning/Learning.js'
 import Pre from 'Components/Pre/Pre.js'
+import Post from 'Components/Post/Post.js'
 import Splash from 'Components/Templates/Splash.js'
 import { updateCurrentView, updateUserId } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
@@ -40,7 +41,7 @@ class Test extends Component {
   componentWillMount() {
     document.title = "Pisa 2024";
     if (!this.props.currentView) {
-      let firstView = Curriculum.getPre()[0]
+      let firstView = Curriculum.getCollection('pre')[0]
       this.props.onUpdateCurrentView(firstView['id'])
     } else {
       this.props.onUpdateCurrentView(this.props.currentView)
@@ -48,13 +49,15 @@ class Test extends Component {
 
     if (this.props.match.params.userId) {
       // If there is a parameter passed as userId, store it in state, and auto-advance
-      this.props.onUpdateUserId(this.props.match.params.userId)
+      this.props.onUpdateUserId(this.props.match.params.userId.replace(':userId=',''))
     }
   }
 
   render() {
     let isPre = Curriculum.isPre(this.props.currentView)
+    let isPost = Curriculum.isPost(this.props.currentView)
     if(isPre) return <Pre />
+    if(isPost) return <Post />
     return <Learning />
   }
 }

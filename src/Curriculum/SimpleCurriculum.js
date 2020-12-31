@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import {Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
+import { Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround, PostSurvey } from 'Items'
 
 /**
 A single learning experience is called an "item"
@@ -11,12 +11,14 @@ A group of stages is called a "unit"
 
 export default class SimpleCurriculum {
 
-  static getPre() {
-    return pre
-  }
-
-  static getPost() {
-    return []
+  static getCollection(collectionType) {
+    if (collectionType.toLowerCase()=='pre') {
+      return pre
+    } else if (collectionType.toLowerCase()=='post') {
+      return post
+    } else {
+      return pre
+    }
   }
 
   static getLearning() {
@@ -41,17 +43,27 @@ export default class SimpleCurriculum {
     return false
   }
 
-  static getNextPreItem(currId){
-    var index = SimpleCurriculum.getIndexFromPreId(currId)
-    if(index < pre.length - 1) {
-      index++
+  static isPost(currId){
+    for(let unitIndex in post) {
+      let unit = post[unitIndex]
+      if(unit['id'] === currId) {
+        return true
+      }
     }
-    return pre[index]['id']
+    return false
   }
 
-  static getIndexFromPreId(itemId) {
-    for(let unitIndex in pre) {
-      let unit = pre[unitIndex]
+  static getNextItem(currId, itemCollection){
+    var index = SimpleCurriculum.getIndexFromId(currId, itemCollection)
+    if(index < itemCollection.length - 1) {
+      index++
+    }
+    return itemCollection[index]['id']
+  }
+
+  static getIndexFromId(itemId, itemCollection) {
+    for(let unitIndex in itemCollection) {
+      let unit = itemCollection[unitIndex]
       if(unit['id'] === itemId) {
         // why in gods good name is this a string???
         return parseInt(unitIndex)
@@ -84,7 +96,6 @@ export default class SimpleCurriculum {
     }
   }
 
-
   /**
    * Returns the component for the problem / worked example
    * with the given id.
@@ -100,6 +111,7 @@ export default class SimpleCurriculum {
 
 const pre = [
   {id: 'Welcome'},
+  {id:'PreIntro'},
   {id:'MeetKarel'},
   {id:'KarelCommandsMove'},
   {id:'KarelCommandsTurnLeft'},
@@ -114,6 +126,10 @@ const pre = [
   {id:'IntroExplainTasks'},
   {id:'IntroExplainEditor'}
 
+]
+
+const post = [
+  {id: 'PostSurvey'}
 ]
 
 const learningPlan = [
@@ -185,6 +201,7 @@ const itemComponentDatabase = {
 
   // Pre Test
   Welcome:<Welcome />,
+  PreIntro:<PreIntro/>,
   MeetKarel:<MeetKarel />,
   KarelCommandsMove:<KarelCommandsMove />,
   KarelCommandsTurnLeft:<KarelCommandsTurnLeft />,
@@ -225,4 +242,8 @@ const itemComponentDatabase = {
   Checker:<Checker/>,
   Diamond:<Diamond/>,
   DiamondBad:<DiamondBad/>,
+
+  // Post Challenges
+  PostSurvey:<PostSurvey/>,
+
 }

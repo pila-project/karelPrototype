@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "./actionTypes";
+import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -38,7 +38,12 @@ export function problemComplete(item) {
 
 export function preItemComplete(userId) {
   if (userId) { return {type: PRE_ITEM_COMPLETE, userId} }
-  else { return {type: PRE_ITEM_COMPLETE} }
+  return {type: PRE_ITEM_COMPLETE}
+}
+
+export function postItemComplete(index) {
+  if (index) { return {type: POST_ITEM_COMPLETE, index} }
+  return {type: POST_ITEM_COMPLETE}
 }
 
 export function userLogged(userId) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
-import { updateCurrentView, updateItem, preItemComplete } from 'redux/actions';
+import { updateCurrentView, updateItem, postItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Curriculum from 'Curriculum/SimpleCurriculum.js'
 
@@ -11,7 +11,7 @@ import SplitPane from 'react-split-pane'
 const mapDispatchToProps = {
   onUpdateCurrentView: (id) => updateCurrentView(id),
   onUpdateItem: (item) => updateItem(item),
-  onPreItemComplete:() => preItemComplete()
+  onPostItemComplete:() => postItemComplete()
 };
 
 // const mapDispatchToProps = {
@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
   return { studentState , currentView, savedXml};
 }
 
-class Pre extends Component {
+class Post extends Component {
 
   constructor(props){
     super(props)
@@ -57,21 +57,19 @@ class Pre extends Component {
   }
 
   previousLesson() {
-    let pre = Curriculum.getCollection('pre')
+    let post = Curriculum.getCollection('post')
     let currId = this.props.currentView
-    var index = Curriculum.getIndexFromId(currId, pre)
+    var index = Curriculum.getIndexFromId(currId, post)
     if(index > 0) {
       index--
     }
-    let nextId = pre[index]['id']
+    let nextId = post[index]['id']
     this.props.onUpdateCurrentView(nextId)
   }
 
   nextLesson() {
-    this.props.onPreItemComplete()
+    this.props.onPostItemComplete()
   }
-
-
 
   handleKeyPress(e) {
     let key = e.key
@@ -97,4 +95,4 @@ class Pre extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Pre)
+)(Post)

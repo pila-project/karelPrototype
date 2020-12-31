@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown } from 'redux/actions'
+import { problemComplete, preItemComplete, postItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -34,6 +34,7 @@ const mapDispatchToProps = {
   onUpdateItem: (item) => updateItem(item),
   onProblemComplete: (item) => problemComplete(item),
   onPreItemComplete: () => preItemComplete(),
+  onPostItemComplete: (index) => postItemComplete(index),
   onRunDone: (correct) => runDone(correct),
   onCountdownEnd: () => timedOut(),
   onUpdateCountdown: (time) => updateCountdown(time)
@@ -58,13 +59,14 @@ class IdeItem extends Component {
     hasStep: false,
     postWorld: null,
     isEditable:true,
-    testStage:'learning'
+    testStage:'learning',
+    enableKeys: true
   }
 
   constructor(props){
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-     this.updateClock = this.updateClock.bind(this);
+    this.updateClock = this.updateClock.bind(this);
   }
 
   componentWillMount() {
@@ -192,7 +194,10 @@ class IdeItem extends Component {
 
   onSolution() {
     var onDone = () => this.props.onPreItemComplete(null)
-    if(this.props.testStage == 'learning') {
+    console.log('testStage')
+    if (this.props.item == 'Challenge') {
+      onDone = () => this.props.onPostItemComplete(-1)
+    } else if(this.props.testStage == 'learning') {
       onDone = () => this.props.onProblemComplete(this.props.item)
     }
 
@@ -201,7 +206,7 @@ class IdeItem extends Component {
 
   handleKeyPress(e) {
     let key = e.key
-    if(key == 'ArrowUp') {
+    if(key == 'ArrowUp' && this.props.enableKeys) {
       this.onSolution()
     }
   }
