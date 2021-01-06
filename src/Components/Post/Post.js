@@ -38,11 +38,11 @@ class Post extends Component {
   }
 
   componentDidMount(){
-    document.addEventListener("keydown", this.handleKeyPress, false);
+    //document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
   componentWillUnmount(){
-    document.removeEventListener("keydown", this.handleKeyPress, false);
+    //document.removeEventListener("keydown", this.handleKeyPress, false);
   }
 
   changeLevel(newIndex) {

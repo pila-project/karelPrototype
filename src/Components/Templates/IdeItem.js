@@ -77,12 +77,12 @@ class IdeItem extends Component {
   }
 
   componentDidMount(){
-    document.addEventListener("keydown", this.handleKeyPress, false);
+    //document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
   componentWillUnmount(){
     this.engine.stop();
-    document.removeEventListener("keydown", this.handleKeyPress, false);
+    //document.removeEventListener("keydown", this.handleKeyPress, false);
   }
 
   goHome() {

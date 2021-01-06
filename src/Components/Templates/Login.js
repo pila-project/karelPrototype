@@ -43,6 +43,7 @@ class Login extends Component {
         }}
       />;
     } else {
+      this.state.userId = this.props.userId;
       var inputField = <input
         type="text"
         id="username"

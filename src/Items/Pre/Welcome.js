@@ -12,6 +12,9 @@ import Login from 'Components/Templates/Login.js'
 import { withTranslation } from 'react-i18next';
 import { translate } from 'redux/translator.js'
 
+import queryString from 'query-string'
+import { useLocation } from 'react-router-dom'
+
 const mapDispatchToProps = {
   onPreItemComplete: (userId) => preItemComplete(userId),
 };
@@ -28,14 +31,19 @@ This is how we will go about it:
 2. Write the user info to the state of redux, as a state variable
 */
 
-class Welcome extends Component {
+const Welcome = (props) => {
 
-  render() {
-    const translate = this.props.t
-    const text = translate('Welcome')
-    const sub = translate('You are going to learn how to program. Before we start, choose a username.')
-    return <Login text={text} subText={sub} autofill = {this.props.autofill} userId = {this.props.userId} onNext={this.props.onPreItemComplete}/>
+  let { search } = useLocation()
+  const values = queryString.parse(search)
+  
+  var userId = null;
+  if ('userId' in values) {
+    userId = values.userId
   }
+  const translate = props.t
+  const text = translate('Welcome')
+  const sub = translate('You are going to learn how to program. Before we start, choose a username.')
+  return <Login text={text} subText={sub} autofill = {props.autofill} userId = {userId} onNext={props.onPreItemComplete}/>
 
 }
 
