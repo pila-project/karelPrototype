@@ -36,7 +36,7 @@ const mapDispatchToProps = {
   onPreItemComplete: () => preItemComplete(),
   onPostItemComplete: (index) => postItemComplete(index),
   onRunDone: (correct) => runDone(correct),
-  onCountdownEnd: () => timedOut(),
+  onTimeOut: () => timedOut(),
   onUpdateCountdown: (time) => updateCountdown(time)
 };
 
@@ -67,6 +67,7 @@ class IdeItem extends Component {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.updateClock = this.updateClock.bind(this);
+    this.onCountdownEnd = this.onCountdownEnd.bind(this);
   }
 
   componentWillMount() {
@@ -209,6 +210,14 @@ class IdeItem extends Component {
     }
 
     fireSuccessSwal(onDone)
+  }
+
+  onCountdownEnd() {
+    if (this.props.item == 'Challenge') {
+      this.props.onPostItemComplete(-1)
+    } else if(this.props.testStage == 'learning') {
+      this.props.onTimeOut()
+    }
   }
 
   handleKeyPress(e) {
@@ -380,7 +389,7 @@ class IdeItem extends Component {
         <div className="navItem">
           <span className="countdown" style={{'flex':'2', 'min-width': '100px'}}>
             {<FontAwesomeIcon icon={faClock} /> }
-            <ClockRender countdown = {this.props.countdown[this.props.item]} onCountdownEnd = {this.props.onCountdownEnd} updateClock = {this.updateClock}/>
+            <ClockRender countdown = {this.props.countdown[this.props.item]} onCountdownEnd = {this.onCountdownEnd} updateClock = {this.updateClock}/>
           </span>
         </div>
       </div>

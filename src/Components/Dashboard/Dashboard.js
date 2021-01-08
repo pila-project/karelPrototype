@@ -222,6 +222,8 @@ class Dashboard extends Component {
   }
 
   renderNav() {
+    let firstPost = Curriculum.getCollection('post')[0]['id']
+
     return (
       <div className="boxContainer">
         <div className="box">
@@ -240,9 +242,10 @@ class Dashboard extends Component {
           </span> */}
           <Button
           className="endSessionBtn"
-          onClick = {() => this.props.onEndSession() }
+          /*onClick = {() => this.props.onEndSession() }*/
+          onClick = {() => this.props.onUpdateCurrentView(firstPost)}
           >
-            {translate('End Session')}
+            {translate('End Tasks & Go to Survey')}
           </Button>
         </div>
       </div>

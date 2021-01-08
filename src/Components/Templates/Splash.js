@@ -18,7 +18,7 @@ class Splash extends Component {
               <div style={{
                 color:'white',
                 width:800,
-                height:150,
+                height:100,
                 textAlign:'center',
                 fontSize:36
               }}>
