@@ -207,7 +207,7 @@ const learningPlan = [
       challenge:'Checker',
       goodExample:'Diamond',
       badExample:'DiamondBad',
-      countDown: 0.05
+      countDown: 15
     }]
   },
 ]
