@@ -80,11 +80,13 @@ export function logActions({ getState, dispatch }) {
           break;
 
         case TIMEDOUT:
+          console.log('I AM IN THE MIDDLEWARE!')
           loggedData.type = action.type;
           loggedData.date = (new Date()).toISOString();
           loggedData.userId = state.userId;
           loggedData.currentView = state.currentView;
           loggedData.item = state.item;
+          loggedData.data = '';
 
           console.log('timedout')
           console.log(loggedData)

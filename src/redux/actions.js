@@ -51,6 +51,7 @@ export function userLogged(userId) {
 }
 
 export function timedOut() {
+  console.log('WE ARE NOW IN ACTIONS.JS')
   return {type: TIMEDOUT}
 }
 

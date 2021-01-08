@@ -200,6 +200,7 @@ function runCode(state, action) {
 }
 
 function timedOut(state, action) {
+  console.log('I GOT TRIGGERED IN THE REDUCER!')
   return {
     ...state,
     currentView: 'dashboard',

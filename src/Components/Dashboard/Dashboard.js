@@ -31,6 +31,10 @@ const mapDispatchToProps = {
 
 class Dashboard extends Component {
 
+  static defaultStartTimes = {
+
+  }
+
   constructor(props){
     super(props);
   }
@@ -106,13 +110,19 @@ class Dashboard extends Component {
     this.props.onUpdateItem(item['name'])
     this.props.onUpdateCurrentView(itemId)
 
+    // Set the countdown for the task
     var time_obj = {}
+    var startTime = 'countDown' in item ? item['countDown'] * 60 : 600 // default time in seconds is 600
     if (this.props.countdown == {}) {
-      time_obj[item['name']] = 600
+      time_obj[item['name']] = startTime
     } else if (item['name'] in this.props.countdown) {
-      time_obj[item['name']] = this.props.countdown[item['name']]
+      if (this.props.countdown[item['name']] < 1) { // create special case for countdown that has already ended.
+        time_obj[item['name']] = false
+      } else {
+        time_obj[item['name']] = this.props.countdown[item['name']]
+      }
     } else {
-      time_obj[item['name']] = 600
+      time_obj[item['name']] = startTime
     }
     this.props.onUpdateCountdown(time_obj);
 

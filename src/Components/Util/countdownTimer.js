@@ -12,19 +12,23 @@ class ClockRender extends Component {
       time: {}
     };
 
-    this.state.time = this.secondsToTime(this.state.seconds)
+    if (this.state.seconds) {
+      this.state.time = this.secondsToTime(this.state.seconds)
+    }
 
   }
 
   componentDidMount() {
 
-    this.timerID = setInterval(
-      () => {
-        this.tick()
-        this.props.updateClock(this.state.seconds)
-      },
-      1000
-    );
+    if (this.state.seconds) {
+      this.timerID = setInterval(
+        () => {
+          this.tick()
+          this.props.updateClock(this.state.seconds)
+        },
+        1000
+      );
+    }
   }
 
   componentWillUnmount() {

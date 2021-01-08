@@ -58,7 +58,7 @@ class IdeItem extends Component {
     hasRun: true,
     hasStep: false,
     postWorld: null,
-    isEditable:true,
+    isEditable: true,
     testStage:'learning',
     enableKeys: true
   }
@@ -72,8 +72,15 @@ class IdeItem extends Component {
   componentWillMount() {
     this.engine = new KarelEngine()
     this.setState({
-      isReset:true
+      isReset: true
     })
+
+    if (this.props.countdown[this.props.item] < 1) {
+      this.setState({
+        isEditable: false
+      })
+    }
+
   }
 
   componentDidMount(){
@@ -323,7 +330,7 @@ class IdeItem extends Component {
           ref="editor"
           savedXml = {this.props.savedXml}
           initialXml = {this.props.initialXml}
-          isEditable={this.props.isEditable}
+          isEditable={this.state.isEditable ? this.props.isEditable : this.state.isEditable}
           hideBlocks = {this.props.hideBlocks}
           onCodeChange = {(e) => this.saveCode(e)}
         />

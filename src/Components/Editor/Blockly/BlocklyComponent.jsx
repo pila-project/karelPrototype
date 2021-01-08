@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,8 +43,18 @@ class BlocklyComponent extends React.Component {
         );
 
         if (initialXml) {
-            Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(initialXml), this.primaryWorkspace);
+          Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(initialXml), this.primaryWorkspace);
         }
+
+        this.setWorkspaceToReadOnly()
+    }
+
+    setWorkspaceToReadOnly() {
+      if (this.props.isEditable) {
+        this.primaryWorkspace.options.readOnly = false
+      } else { // If the code is read only
+        this.primaryWorkspace.options.readOnly = true
+      }
     }
 
     get workspace() {

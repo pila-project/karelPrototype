@@ -107,6 +107,16 @@ export default class SimpleCurriculum {
     return itemComponentDatabase['DefaultItem']
   }
 
+  static getIndexFromProblem(itemId, itemCollection) {
+    for(let unitIndex in itemCollection) {
+      let unit = itemCollection[unitIndex]
+      if(unit['id'] === itemId) {
+        // why in gods good name is this a string???
+        return parseInt(unitIndex)
+      }
+    }
+  }
+
 }
 
 const pre = [
@@ -141,7 +151,8 @@ const learningPlan = [
         name:'Basic Commands',
         challenge:'CommandsMLMR',
         goodExample:'CommandsHouse',
-        badExample:'CommandsHouseBad'
+        badExample:'CommandsHouseBad',
+        countDown: 5 // in minutes
       }
     ]
   },
@@ -154,7 +165,8 @@ const learningPlan = [
         prereq:'Basic Commands',
         challenge:'MethodsStepUp',
         goodExample:'MethodsTurnAround',
-        badExample:'MethodsTurnAroundBad'
+        badExample:'MethodsTurnAroundBad',
+        countDown: 5
       }
     ],
   },
@@ -167,7 +179,8 @@ const learningPlan = [
         prereq: 'Function',
         challenge:'RepeatL2PlaceRow',
         goodExample:'RepeatL2StepUp',
-        badExample:'RepeatL2StepUpBad'
+        badExample:'RepeatL2StepUpBad',
+        countDown: 7.5
       }
     ]
   },
@@ -180,7 +193,8 @@ const learningPlan = [
         prereq: 'Repeat',
         challenge:'RepeatL3Corner9',
         goodExample:'RepeatL3Dash5',
-        badExample:'RepeatL3Dash5Bad'
+        badExample:'RepeatL3Dash5Bad',
+        countDown: 10
       },
     ]
   },
@@ -192,7 +206,8 @@ const learningPlan = [
       prereq: 'Combine',
       challenge:'Checker',
       goodExample:'Diamond',
-      badExample:'DiamondBad'
+      badExample:'DiamondBad',
+      countDown: 15
     }]
   },
 ]

@@ -162,7 +162,7 @@ class BlocklyKarel extends React.Component {
   // WARNING: work around...
   // I wanted to prevent students from editing non-editable
   // blocks. This method forces that to be the case. If it notices
-  // a new block in an uneditable method, it remove it!
+  // a new block in an uneditable method, it removes it!
   preventEditingReadOnly = (event) => {
     let functions = this.getAllFunctions()
     for (var i = 0; i < functions.length; i++) {
@@ -260,7 +260,6 @@ class BlocklyKarel extends React.Component {
 
         <div className="horizontalContainer fullSize">
             <BlocklyComponent
-              readOnly= {true}
 
               ref={e => this.simpleWorkspace = e}
               //horizontalLayout={true}
@@ -273,7 +272,8 @@ class BlocklyKarel extends React.Component {
                 drag: false,
                 wheel: true
               }}
-              initialXml={this.state.initialXml}>
+              initialXml={this.state.initialXml}
+              isEditable={this.props.isEditable}>
 
               <ToolboxXML
                 userFunctionBlocks={this.state.userFunctionBlocks}
@@ -313,6 +313,7 @@ class ToolboxXML extends React.Component {
 
     // But most blocks are straightforward
     return <Block disabled={disabledTxt} type={blockType} />
+
   }
 
   addBlock(blockType) {
