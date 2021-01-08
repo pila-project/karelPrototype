@@ -1,9 +1,9 @@
 
 // Dashboard Items
 export {default as CommandsMLMR} from './Dashboard/CommandsMLMR'
-export {default as CommandsHouse} from './Dashboard/CommandsHouse'
+export {default as CommandsHouseGood} from './Dashboard/CommandsHouseGood'
 export {default as CommandsHouseBad} from './Dashboard/CommandsHouseBad'
-export {default as MethodsTurnAround} from './Dashboard/MethodsTurnAround'
+export {default as MethodsTurnAroundGood} from './Dashboard/MethodsTurnAroundGood'
 export {default as MethodsTurnAroundBad} from './Dashboard/MethodsTurnAroundBad'
 export {default as MethodsRightAround} from './Dashboard/MethodsRightAround'
 export {default as MethodsStepUp} from './Dashboard/MethodsStepUp'
@@ -11,10 +11,10 @@ export {default as Repeat5} from './Dashboard/Repeat5'
 export {default as Repeat5Bad} from './Dashboard/Repeat5Bad'
 export {default as Repeat9} from './Dashboard/Repeat9'
 export {default as RepeatL2PlaceRow} from './Dashboard/RepeatL2PlaceRow'
-export {default as RepeatL2StepUp} from './Dashboard/RepeatL2StepUp'
+export {default as RepeatL2StepUpGood} from './Dashboard/RepeatL2StepUpGood'
 export {default as RepeatL2StepUpBad} from './Dashboard/RepeatL2StepUpBad'
 export {default as RepeatL3Corner9} from './Dashboard/RepeatL3Corner9'
-export {default as RepeatL3Dash5} from './Dashboard/RepeatL3Dash5'
+export {default as RepeatL3Dash5Good} from './Dashboard/RepeatL3Dash5Good'
 export {default as RepeatL3Dash5Bad} from './Dashboard/RepeatL3Dash5Bad'
 export {default as MethodsStepUpBad} from './Dashboard/MethodsStepUpBad'
 export {default as MethodsReuse} from './Dashboard/MethodsReuse'
@@ -39,7 +39,7 @@ export {default as IntroExplainEditor} from './Pre/IntroExplainEditor'
 
 // Challenges
 export {default as Checker} from './Challenges/Checker'
-export {default as Diamond} from './Challenges/Diamond'
+export {default as DiamondGood} from './Challenges/DiamondGood'
 export {default as DiamondBad} from './Challenges/DiamondBad'
 
 // Post

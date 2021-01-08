@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, Diamond, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround, PostSurvey } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey } from 'Items'
 
 /**
 A single learning experience is called an "item"
@@ -150,7 +150,7 @@ const learningPlan = [
       {
         name:'Basic Commands',
         challenge:'CommandsMLMR',
-        goodExample:'CommandsHouse',
+        goodExample:'CommandsHouseGood',
         badExample:'CommandsHouseBad',
         countDown: 5 // in minutes
       }
@@ -164,7 +164,7 @@ const learningPlan = [
         name:'Function',
         prereq:'Basic Commands',
         challenge:'MethodsStepUp',
-        goodExample:'MethodsTurnAround',
+        goodExample:'MethodsTurnAroundGood',
         badExample:'MethodsTurnAroundBad',
         countDown: 5
       }
@@ -178,7 +178,7 @@ const learningPlan = [
         name:'Repeat',
         prereq: 'Function',
         challenge:'RepeatL2PlaceRow',
-        goodExample:'RepeatL2StepUp',
+        goodExample:'RepeatL2StepUpGood',
         badExample:'RepeatL2StepUpBad',
         countDown: 7.5
       }
@@ -192,7 +192,7 @@ const learningPlan = [
         name:'Combine',
         prereq: 'Repeat',
         challenge:'RepeatL3Corner9',
-        goodExample:'RepeatL3Dash5',
+        goodExample:'RepeatL3Dash5Good',
         badExample:'RepeatL3Dash5Bad',
         countDown: 10
       },
@@ -205,7 +205,7 @@ const learningPlan = [
       name:'Challenge',
       prereq: 'Combine',
       challenge:'Checker',
-      goodExample:'Diamond',
+      goodExample:'DiamondGood',
       badExample:'DiamondBad',
       countDown: 15
     }]
@@ -233,9 +233,9 @@ const itemComponentDatabase = {
 
   // Dashboard
   CommandsMLMR: <CommandsMLMR />,
-  CommandsHouse: <CommandsHouse />,
+  CommandsHouseGood: <CommandsHouseGood />,
   CommandsHouseBad:<CommandsHouseBad />,
-  MethodsTurnAround:<MethodsTurnAround />,
+  MethodsTurnAroundGood:<MethodsTurnAroundGood />,
   MethodsTurnAroundBad: <MethodsTurnAroundBad />,
   MethodsStepUp:<MethodsStepUp />,
   MethodsStepUpBad:<MethodsStepUpBad />,
@@ -246,16 +246,16 @@ const itemComponentDatabase = {
   Repeat5: <Repeat5 />,
   Repeat5Bad: <Repeat5Bad />,
   RepeatL2PlaceRow: <RepeatL2PlaceRow />,
-  RepeatL2StepUp:<RepeatL2StepUp />,
+  RepeatL2StepUpGood:<RepeatL2StepUpGood />,
   RepeatL2StepUpBad:<RepeatL2StepUpBad />,
   RepeatL3Corner9: <RepeatL3Corner9 />,
-  RepeatL3Dash5: <RepeatL3Dash5 />,
+  RepeatL3Dash5Good: <RepeatL3Dash5Good />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
 
   // Challenges
   Checker:<Checker/>,
-  Diamond:<Diamond/>,
+  DiamondGood:<DiamondGood/>,
   DiamondBad:<DiamondBad/>,
 
   // Post Challenges
