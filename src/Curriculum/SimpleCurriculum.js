@@ -166,7 +166,7 @@ const learningPlan = [
         challenge:'MethodsStepUp',
         goodExample:'MethodsTurnAroundGood',
         badExample:'MethodsTurnAroundBad',
-        countDown: 5
+        countDown: 7.5
       }
     ],
   },
