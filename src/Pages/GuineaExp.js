@@ -8,7 +8,7 @@ import Post from 'Components/Post/Post.js'
 import Splash from 'Components/Templates/Splash.js'
 import { updateCurrentView, updateUserId } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Curriculum from 'Curriculum/Curriculum.js'
 
 import Button from 'react-bootstrap/Button'
 import SplitPane from 'react-split-pane'

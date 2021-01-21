@@ -19,6 +19,8 @@ export {default as RepeatL3Dash5Bad} from './Dashboard/RepeatL3Dash5Bad'
 export {default as MethodsStepUpBad} from './Dashboard/MethodsStepUpBad'
 export {default as MethodsReuse} from './Dashboard/MethodsReuse'
 export {default as MethodsReuseBad} from './Dashboard/MethodsReuseBad'
+export {default as Parson1} from './Dashboard/Parson1'
+export {default as Parson2} from './Dashboard/Parson2'
 
 // Pre Items
 export {default as Welcome} from './Pre/Welcome.js'

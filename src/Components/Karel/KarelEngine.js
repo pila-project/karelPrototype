@@ -60,7 +60,14 @@ class KarelEngine {
   // returns the compiler
   compileBlockly(world, editor) {
     let codeText = editor.getCode()
+
+    console.log('THIS IS THE CODE')
+    console.log(codeText)
+
     let javaCode = this.processBlocklyText(codeText)
+
+    console.log(javaCode)
+
     let compiler = new KarelCompiler(world)
     let functions = compiler.compile(javaCode)
     let isValid = this.validate(functions)
@@ -139,7 +146,43 @@ class KarelEngine {
     // the javascript method for "replace all"
     java = java.replaceAll("var", "int")
     java = java.replace("FRONT_CLEAR", "frontIsClear()")
+
+    java = this.removeEmptyBlocks(java);
+
     console.log('java', java)
+    return java
+  }
+
+  removeEmptyBlocks(java) {
+
+    java = java.split('\n');
+
+    console.log('WE ARE GOING THROUGH THIS CODE')
+    console.log(java)
+
+    var function_block = -1 // set to negative because the first line in the code is the class definition
+    var cleanedCode = []
+    for (const line of java) {
+      if (line.match('{')) { // does line contain opening bracket? --> Start of function block; add 1 to the tracker
+        function_block += 1;
+      } else if (line.match('}')) {// does line contain a closing bracket? --> End of function block; remove 1 from tracker
+        function_block -= 1;
+      } else { // does line not contain a bracket,
+        if (function_block == 0) { // ... and is not in function block (i.e. tracker equals 0)? --> Remove
+          continue
+        }
+      }
+
+      if (function_block < -1) { console.log("The function counter is negative and shouldn't be") }
+
+      cleanedCode.push(line)
+    }
+
+    java = cleanedCode.join('\n');
+
+    console.log('THIS IS THE CLEANED UP CODE')
+    console.log(java)
+
     return java
   }
 

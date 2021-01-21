@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
 import { updateCurrentView, updateItem, postItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Curriculum from 'Curriculum/Curriculum.js'
 
 import Button from 'react-bootstrap/Button'
 import SplitPane from 'react-split-pane'

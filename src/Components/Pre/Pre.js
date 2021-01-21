@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
 import { updateCurrentView, updateItem, preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Curriculum from 'Curriculum/Curriculum.js'
 
 import Button from 'react-bootstrap/Button'
 import SplitPane from 'react-split-pane'
@@ -38,11 +38,11 @@ class Pre extends Component {
   }
 
   componentDidMount(){
-    //document.addEventListener("keydown", this.handleKeyPress, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
   componentWillUnmount(){
-    //document.removeEventListener("keydown", this.handleKeyPress, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
 
   changeLevel(newIndex) {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2 } from 'Items'
+
+import {Prolific, ParsonProblems} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -9,7 +11,11 @@ An item/example/badExample is called a "problem"
 A group of stages is called a "unit"
 **/
 
-export default class SimpleCurriculum {
+const pre = Prolific.getPre()
+const post = Prolific.getPost()
+const learningPlan = Prolific.getLearningPlan()
+
+export default class Curriculum {
 
   static getCollection(collectionType) {
     if (collectionType.toLowerCase()=='pre') {
@@ -54,7 +60,7 @@ export default class SimpleCurriculum {
   }
 
   static getNextItem(currId, itemCollection){
-    var index = SimpleCurriculum.getIndexFromId(currId, itemCollection)
+    var index = Curriculum.getIndexFromId(currId, itemCollection)
     if(index < itemCollection.length - 1) {
       index++
     }
@@ -88,7 +94,7 @@ export default class SimpleCurriculum {
 
   // only applies to dashboard items
   static getItemType(itemId) {
-    let problem = SimpleCurriculum.getProblemFromId(itemId)
+    let problem = Curriculum.getProblemFromId(itemId)
     for(var key in problem){
       if(problem[key] == itemId) {
         return key
@@ -119,99 +125,6 @@ export default class SimpleCurriculum {
 
 }
 
-const pre = [
-  {id: 'Welcome'},
-  {id:'PreIntro'},
-  {id:'MeetKarel'},
-  {id:'KarelCommandsMove'},
-  {id:'KarelCommandsTurnLeft'},
-  {id:'KarelCommandsPickStone'},
-  {id:'KarelCommandsPlaceStone'},
-  {id:'CommandsA'},
-  {id:'CommandsB'},
-  {id:'FirstProgram'},
-  //{id:'AnimatedProgram'},
-  {id:'ModifyMoves'},
-  {id:'PreDone'},
-  {id:'IntroExplainTasks'},
-  {id:'IntroExplainEditor'}
-
-]
-
-const post = [
-  {id: 'PostSurvey'}
-]
-
-const learningPlan = [
-  {
-    unitName:'Commands',
-    iconId:'egg',
-    problems: [
-      {
-        name:'Basic Commands',
-        challenge:'CommandsMLMR',
-        goodExample:'CommandsHouseGood',
-        badExample:'CommandsHouseBad',
-        countDown: 5 // in minutes
-      }
-    ]
-  },
-  {
-    unitName:'Teach Karel',
-    iconId:'hatch',
-    problems: [
-      {
-        name:'Function',
-        prereq:'Basic Commands',
-        challenge:'MethodsStepUp',
-        goodExample:'MethodsTurnAroundGood',
-        badExample:'MethodsTurnAroundBad',
-        countDown: 7.5
-      }
-    ],
-  },
-  {
-    unitName:'Repeat',
-    iconId:'hatch',
-    problems:[
-      {
-        name:'Repeat',
-        prereq: 'Function',
-        challenge:'RepeatL2PlaceRow',
-        goodExample:'RepeatL2StepUpGood',
-        badExample:'RepeatL2StepUpBad',
-        countDown: 7.5
-      }
-    ]
-  },
-  {
-    unitName:'Combine',
-    iconId:'hatch',
-    problems:[
-      {
-        name:'Combine',
-        prereq: 'Repeat',
-        challenge:'RepeatL3Corner9',
-        goodExample:'RepeatL3Dash5Good',
-        badExample:'RepeatL3Dash5Bad',
-        countDown: 10
-      },
-    ]
-  },
-  {
-    unitName:'Big Challenge Problem #1',
-    iconId:'hatch',
-    problems:[{
-      name:'Challenge',
-      prereq: 'Combine',
-      challenge:'Checker',
-      goodExample:'DiamondGood',
-      badExample:'DiamondBad',
-      countDown: 15
-    }]
-  },
-]
-
 const itemComponentDatabase = {
 
   // Pre Test
@@ -232,6 +145,8 @@ const itemComponentDatabase = {
   IntroExplainEditor: <IntroExplainEditor/>,
 
   // Dashboard
+  Parson1: <Parson1 />,
+  Parson2: <Parson2 />,
   CommandsMLMR: <CommandsMLMR />,
   CommandsHouseGood: <CommandsHouseGood />,
   CommandsHouseBad:<CommandsHouseBad />,

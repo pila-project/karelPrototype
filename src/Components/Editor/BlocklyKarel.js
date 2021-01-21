@@ -75,7 +75,8 @@ class BlocklyKarel extends React.Component {
   static defaultProps = {
     initialXml: defaultXml,
     hideBlocks: {},
-    isEditable:true,
+    isEditable: true,
+    activateToolbox: true
   }
 
   componentWillMount() {}
@@ -255,10 +256,40 @@ class BlocklyKarel extends React.Component {
   }
 
   render() {
-    return (
-      <div className="verticalContainer fullSize">
+    if (this.props.activateToolbox) {
+      return (
+        <div className="verticalContainer fullSize">
 
-        <div className="horizontalContainer fullSize">
+          <div className="horizontalContainer fullSize">
+              <BlocklyComponent
+
+                ref={e => this.simpleWorkspace = e}
+                //horizontalLayout={true}
+                //toolboxPosition='end'
+                style={{height:'100%'}}
+                readOnly={false}
+                //theme={Blockly.Themes.Modern}
+                move={{
+                  scrollbars: true,
+                  drag: false,
+                  wheel: true
+                }}
+                initialXml={this.state.initialXml}
+                isEditable={this.props.isEditable}>
+
+                <ToolboxXML
+                  userFunctionBlocks={this.state.userFunctionBlocks}
+                  hideBlocks = {this.props.hideBlocks}
+                  isEditable = {this.props.isEditable}
+                />
+              </BlocklyComponent>
+            </div>
+        </div>
+      )
+    } else {
+      return(
+        <div className="verticalContainer fullSize">
+          <div className="horizontalContainer fullSize">
             <BlocklyComponent
 
               ref={e => this.simpleWorkspace = e}
@@ -275,15 +306,11 @@ class BlocklyKarel extends React.Component {
               initialXml={this.state.initialXml}
               isEditable={this.props.isEditable}>
 
-              <ToolboxXML
-                userFunctionBlocks={this.state.userFunctionBlocks}
-                hideBlocks = {this.props.hideBlocks}
-                isEditable = {this.props.isEditable}
-              />
             </BlocklyComponent>
           </div>
-      </div>
-    );
+        </div>
+      )
+    }
   }
 }
 

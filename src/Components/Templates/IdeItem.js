@@ -12,7 +12,7 @@ import BlocklyKarel from '../Editor/BlocklyKarel.js'
 import KarelWorld from '../Karel/KarelWorld.js'
 import KarelGoal from '../Karel/KarelGoal.js'
 import KarelEngine from '../Karel/KarelEngine.js'
-import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Curriculum from 'Curriculum/Curriculum.js'
 import {translate} from 'redux/translator.js'
 
 import  ClockRender from '../Util/countdownTimer.js'
@@ -85,12 +85,12 @@ class IdeItem extends Component {
   }
 
   componentDidMount(){
-    //document.addEventListener("keydown", this.handleKeyPress, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
   componentWillUnmount(){
     this.engine.stop();
-    //document.removeEventListener("keydown", this.handleKeyPress, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
 
   goHome() {
@@ -341,6 +341,7 @@ class IdeItem extends Component {
           initialXml = {this.props.initialXml}
           isEditable={this.state.isEditable ? this.props.isEditable : this.state.isEditable}
           hideBlocks = {this.props.hideBlocks}
+          activateToolbox = {this.props.activateToolbox}
           onCodeChange = {(e) => this.saveCode(e)}
         />
 
@@ -411,30 +412,46 @@ class IdeItem extends Component {
     let problem = Curriculum.getProblemFromId(currentItemId)
     let activeKey = Curriculum.getItemType(currentItemId)
 
-    return (
-      <Nav variant="tabs" size="lg" activeKey={activeKey}>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="challenge"
-            onClick={() => this.goToItem(problem['challenge'])}>
-            <FontAwesomeIcon icon={faPuzzlePiece} />
-            &nbsp;{translate('Challenge')}</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="goodExample"
-            onClick={() => this.goToItem(problem['goodExample'])}>
-            <FontAwesomeIcon icon={faCheck} /> {translate('Example')}</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="badExample"
-            onClick={() => this.goToItem(problem['badExample'])}>
-            <FontAwesomeIcon icon={faTimes} /> {translate('Example')}
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
-    )
+    if ('goodExample' in problem || 'badExample' in problem) {
+
+      return (
+        <Nav variant="tabs" size="lg" activeKey={activeKey}>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="challenge"
+              onClick={() => this.goToItem(problem['challenge'])}>
+              <FontAwesomeIcon icon={faPuzzlePiece} />
+              &nbsp;{translate('Challenge')}</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="goodExample"
+              onClick={() => this.goToItem(problem['goodExample'])}>
+              <FontAwesomeIcon icon={faCheck} /> {translate('Example')}</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="badExample"
+              onClick={() => this.goToItem(problem['badExample'])}>
+              <FontAwesomeIcon icon={faTimes} /> {translate('Example')}
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+      )
+    } else {
+      return (
+        <Nav variant="tabs" size="lg" activeKey={activeKey}>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="challenge"
+              onClick={() => this.goToItem(problem['challenge'])}>
+              <FontAwesomeIcon icon={faPuzzlePiece} />
+              &nbsp;{translate('Challenge')}</Nav.Link>
+          </Nav.Item>
+        </Nav>
+      )
+    }
+
   }
 
   calculateLeftWidth() {

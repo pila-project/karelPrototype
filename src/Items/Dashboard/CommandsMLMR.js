@@ -13,7 +13,7 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Challenge')}: </b> 
+            <b>{translate('Challenge')}: </b>
             {translate('Write a program from scratch that makes Karel move to the position shown in the "Goal" world')}.
           </span>}
           preWorld = {{

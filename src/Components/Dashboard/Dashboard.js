@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import {updateCurrentView, updateItem, endSession, updateCountdown} from 'redux/actions.js'
 import { connect } from 'react-redux';
 import { idToComponent } from 'constants'
-import Curriculum from 'Curriculum/SimpleCurriculum.js'
+import Curriculum from 'Curriculum/Curriculum.js'
 import Logo from "Img/pisa.jpeg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RightTextArrow from 'Components/Util/RightTextArrow.js'
