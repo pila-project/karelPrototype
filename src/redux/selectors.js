@@ -1,8 +1,12 @@
 export const selectCodeByCurrentView = (store) => {
     let currentView = store.currentView;
-    if (store.studentState[currentView] != undefined){
+    
+    if ('studentState' in store) {
+      if (store.studentState[currentView] != undefined){
         return (store.studentState[currentView].code);
-    } else {
+      } else {
         return;
-    }
+      }
+    } else { return; }
+
 }

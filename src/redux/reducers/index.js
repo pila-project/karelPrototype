@@ -200,7 +200,6 @@ function runCode(state, action) {
 }
 
 function timedOut(state, action) {
-  console.log('I GOT TRIGGERED IN THE REDUCER!')
   return {
     ...state,
     currentView: 'dashboard',
@@ -215,7 +214,6 @@ function timedOut(state, action) {
 }
 
   function updateCountdown(state, action) {
-
     var tmp_countdown = state.countdown;
 
     if (Object.keys(action.time).length==1) {
@@ -224,7 +222,10 @@ function timedOut(state, action) {
 
     return {
       ...state,
-      countdown: tmp_countdown
+      countdown: {
+        ...state.countdown,
+        [state.item]: tmp_countdown[state.item]
+      }
     }
 }
 

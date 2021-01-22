@@ -192,8 +192,6 @@ class Dashboard extends Component {
       let status = value['status']
       if(status === 'completed' || status === 'timedout') {
         let problem = Curriculum.getProblemFromId(key)
-        console.log('problem')
-        console.log(problem)
         let name = problem['name']
         problemsDone[name] = true
       }

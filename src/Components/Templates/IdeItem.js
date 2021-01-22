@@ -202,7 +202,6 @@ class IdeItem extends Component {
 
   onSolution() {
     var onDone = () => this.props.onPreItemComplete(null)
-    console.log('testStage')
     if (this.props.item == 'Challenge') {
       onDone = () => this.props.onPostItemComplete(-1)
     } else if(this.props.testStage == 'learning') {

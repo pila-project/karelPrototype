@@ -54,7 +54,7 @@ const learningPlan = [
         challenge:'CommandsMLMR',
         goodExample:'CommandsHouseGood',
         badExample:'CommandsHouseBad',
-        countDown: 0.5 // in minutes
+        countDown: 5 // in minutes
       }
     ]
   },
