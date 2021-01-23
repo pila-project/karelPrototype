@@ -7,12 +7,16 @@ import { REHYDRATE } from 'redux-persist'
 
 const initialState = {
   locale: 'en',
-  currentView: '',
   module: '',
-  item: '',
-  studentState: {},
+  currentView: 'Welcome',
   userId: '',
   autofillUserId: true,
+}
+
+const initialPageState = {
+  currentView: '',
+  item: '',
+  studentState: {},
   countdown: {},
   points: 0
 }
@@ -53,8 +57,7 @@ function endSession(state, action) {
   let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
   return {
     ...initialState,
-    autofillUserId: false,
-    currentView: pre[0].id
+    autofillUserId: false
   }
 }
 
@@ -81,31 +84,45 @@ function updateUserId(state, action) {
 }
 
 function updateModule(state,action) {
+  var LearnModule = new Curriculum(action.moduleName)
+  let pre = LearnModule.getCollection('pre')
+  let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
   return {
     ...state,
-    module: action.moduleName
+    [action.moduleName]: {
+      ... initialPageState,
+      currentView: pre[0].id
+    },
+    module: action.moduleName,
   }
 }
 
 function preItemComplete(state, action){
   var LearnModule = new Curriculum(state.module)
   let pre = LearnModule.getCollection('pre')
-  let currId = state.currentView
+  var stateModule = state[state.module];
+  let currId = stateModule.currentView
   var index = LearnModule.getIndexFromId(currId,pre)
   if(index < pre.length - 1) {
     // go to the next problem
     let nextId = pre[index + 1]['id']
     return {
       ...state,
-      currentView: nextId,
-      item: nextId
+      [state.module]: {
+        ...stateModule,
+        currentView: nextId,
+        item: nextId
+      }
     }
   } else {
     // switch to the "learning" part of the test
     return {
       ...state,
-      currentView: 'dashboard',
-      item: 'dashboard'
+      [state.module]: {
+        ...stateModule,
+        currentView: 'dashboard',
+        item: 'dashboard'
+      }
     }
   }
 }
@@ -113,11 +130,12 @@ function preItemComplete(state, action){
 function postItemComplete(state, action){
   var LearnModule = new Curriculum(state.module)
   let post = LearnModule.getCollection('post')
+  var stateModule = state[state.module]
   var index = 0
   if ('index' in action) {
     index = action.index;
   } else {
-    let currId = state.currentView
+    let currId = stateModule.currentView
     index = LearnModule.getIndexFromId(currId,post)
   }
   if(index < post.length - 1) {
@@ -125,108 +143,143 @@ function postItemComplete(state, action){
     let nextId = post[index + 1]['id']
     return {
       ...state,
-      currentView: nextId,
-      item: nextId
+      [state.module]: {
+        ...stateModule,
+        currentView: nextId,
+        item: nextId
+      }
     }
   } else {
     // switch to the "learning" part of the test
     return {
       ...state,
-      currentView: 'goodbye',
-      item: 'goodbye'
+      [state.module]: {
+        ...stateModule,
+        currentView: 'goodbye',
+        item: 'goodbye'
+      }
     }
   }
 }
 
 function updateCurrentView(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    currentView: action.view
+    [state.module]: {
+      ...stateModule,
+      currentView: action.view
+    }
   }
 }
 
 function updateItem(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    item: action.item
+    [state.module]: {
+      ...stateModule,
+      item: action.item
+    }
   }
 }
 
 function updateStatus(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    studentState: {
-      ...state.studentState,
-      [state.currentView]: {
-        ...state.studentState[state.currentView],
-        status: action.status
+    [state.module]: {
+      ...stateModule,
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          status: action.status
+        }
       }
     }
   }
 }
 
 function problemComplete(state, action) {
-  var new_points = state.points;
+  var stateModule = state[state.module]
+  var new_points = stateModule.points;
   if (action.item != null) {
     new_points += 100;
   }
 
   return {
     ...state,
-    currentView: 'dashboard',
-    points: new_points,
-    studentState: {
-      ...state.studentState,
-      [state.currentView]: {
-        ...state.studentState[state.currentView],
-        status: STATUS.COMPLETED,
+    [state.module]: {
+      ...stateModule,
+      currentView: 'dashboard',
+      points: new_points,
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          status: STATUS.COMPLETED,
+        }
       }
     }
   }
 }
 
 function updateCode(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    studentState: {
-      ...state.studentState,
-      [state.currentView]: {
-        ...state.studentState[state.currentView],
-        code: action.codeUpdate.code
+    [state.module]: {
+      ...stateModule,
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          code: action.codeUpdate.code
+        }
       }
     }
   }
 }
 
 function runCode(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    studentState: {
-      ...state.studentState,
-      [state.currentView]: {
-        ...state.studentState[state.currentView],
-        run_type: action.runData.runType
+    [state.module]: {
+      ...stateModule,
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          run_type: action.runData.runType
+        }
       }
     }
   }
 }
 
 function timedOut(state, action) {
+  var stateModule = state[state.module]
   return {
     ...state,
-    currentView: 'dashboard',
-    studentState: {
-      ...state.studentState,
-      [state.currentView]: {
-        ...state.studentState[state.currentView],
-        status: STATUS.TIMEDOUT
+    [state.module]: {
+      ...stateModule,
+      currentView: 'dashboard',
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          status: STATUS.TIMEDOUT
+        }
       }
     }
   }
 }
 
   function updateCountdown(state, action) {
-    var tmp_countdown = state.countdown;
+    var stateModule = state[state.module];
+    var tmp_countdown = stateModule.countdown;
 
     if (Object.keys(action.time).length==1) {
       tmp_countdown[Object.keys(action.time)[0]] = action.time[Object.keys(action.time)[0]]
@@ -234,9 +287,12 @@ function timedOut(state, action) {
 
     return {
       ...state,
-      countdown: {
-        ...state.countdown,
-        [state.item]: tmp_countdown[state.item]
+      [state.module]: {
+        ...stateModule,
+        countdown: {
+          ...stateModule.countdown,
+          [stateModule.item]: tmp_countdown[stateModule.item]
+        }
       }
     }
 }

@@ -17,9 +17,10 @@ import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = (state, ownProps) => {
   const moduleName = state.module
-  const studentState = state.studentState;
-  const countdown = state.countdown;
-  const points = state.points;
+  var pageState = state[moduleName]
+  const studentState = pageState.studentState;
+  const countdown = pageState.countdown;
+  const points = pageState.points;
   return { studentState, countdown, points, moduleName };
 }
 

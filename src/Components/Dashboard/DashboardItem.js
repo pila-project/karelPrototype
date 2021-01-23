@@ -11,8 +11,9 @@ import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat
 
 const mapStateToProps = (state, ownProps) => {
   const moduleName = state.module;
-  const studentState = state.studentState;
-  const currentView = state.currentView;
+  var pageState = state[moduleName];
+  const studentState = pageState.studentState;
+  const currentView = pageState.currentView;
   return { studentState , currentView, moduleName };
 }
 

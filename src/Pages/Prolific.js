@@ -27,10 +27,12 @@ const mapDispatchToProps = {
 // };
 
 const mapStateToProps = (state, ownProps) => {
-  const savedXml = selectCodeByCurrentView(state);
-  const studentState = state.studentState;
-  const currentView = state.currentView;
-  return { studentState , currentView, savedXml};
+  const moduleName = state.module;
+  var pageState = moduleName in state ? state[moduleName] : state
+  const savedXml = selectCodeByCurrentView(pageState);
+  const studentState = pageState.studentState;
+  const currentView = pageState.currentView;
+  return { studentState , currentView, savedXml, moduleName};
 }
 
 class Test extends Component {
@@ -47,8 +49,9 @@ class Test extends Component {
 
     this.LearnModule = new Curriculum(this.moduleName)
 
+    let firstView = null
     if (!this.props.currentView) {
-      let firstView = this.LearnModule.getCollection('pre')[0]
+      firstView = this.LearnModule.getCollection('pre')[0]
       this.props.onUpdateCurrentView(firstView['id'])
     } else {
       this.props.onUpdateCurrentView(this.props.currentView)

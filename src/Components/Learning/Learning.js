@@ -10,8 +10,10 @@ import Logo from "Img/pisa.jpeg";
 import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 const mapStateToProps = (state, ownProps) => {
-  const studentState = state.studentState;
-  const currentView = state.currentView;
+  const moduleName = state.module;
+  var pageState = state[moduleName]
+  const studentState = pageState.studentState;
+  const currentView = pageState.currentView;
   return { studentState, currentView };
 }
 
@@ -22,6 +24,7 @@ class Learning extends Component {
       return <Dashboard />
     } else {
       // change this to redux
+      console.log('ARE WE AGAIN HERE?')
       return <DashboardItem />
     }
   }
