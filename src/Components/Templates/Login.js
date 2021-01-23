@@ -31,7 +31,7 @@ class Login extends Component {
       var inputField = <input
         type="text"
         id="username"
-        value={v4()}
+        value={randomUserId}
         style={{
           color:'black',
           width:300,
@@ -47,7 +47,7 @@ class Login extends Component {
       var inputField = <input
         type="text"
         id="username"
-        //value={userId}
+        //value={this.state.userId}
         onChange={this.handleChange} style={{
           color:'black',
           width:300,

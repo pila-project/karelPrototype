@@ -29,15 +29,22 @@ const mapStateToProps = (state, ownProps) => {
   return { currentView, moduleName};
 }
 
-function ManagePages (props) {
+function ManageModules (props) {
 
     const location = useLocation();
-    console.log(location.pathname.replace('/',''))
-    var page = location.pathname.replace('/','').charAt(0).toUpperCase() + location.pathname.slice(2)
+    var newModule = location.pathname.split(':')[0].replaceAll('/','')
+    newModule = newModule.charAt(0).toUpperCase() + newModule.slice(1)
 
-    props.onUpdateModule(page)
+    props.onUpdateModule(newModule)
 
-    switch (page) {
+    //var userId = null;
+    //if (props.match.params.userId) {
+      // If there is a parameter passed as userId, store it in state, and auto-advance
+      //props.onUpdateUserId(props.match.params.userId.replace(':userId=',''))
+    //  userId = props.match.params.userId.replace(':userId=','')
+    //}
+
+    switch (newModule) {
       case 'Prolific':
         return <Prolific />
         break;
@@ -47,18 +54,12 @@ function ManagePages (props) {
         break;
 
       default:
-        console.log('SHOOT WE ARE HERE')
         return <Prolific />
         break;
-    }
-
-    if (props.match.params.userId) {
-      // If there is a parameter passed as userId, store it in state, and auto-advance
-      props.onUpdateUserId(props.match.params.userId.replace(':userId=',''))
     }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManagePages)
+)(ManageModules)

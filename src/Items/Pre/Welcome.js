@@ -33,13 +33,14 @@ This is how we will go about it:
 
 const Welcome = (props) => {
 
-  let { search } = useLocation()
-  const values = queryString.parse(search)
-  
+  // Look whether there is a username in the URL
+  const location = useLocation()
+  const values = queryString.parse(location.pathname.split('/')[2].replace(':',''))
   var userId = null;
   if ('userId' in values) {
     userId = values.userId
   }
+
   const translate = props.t
   const text = translate('Welcome')
   const sub = translate('You are going to learn how to program. Before we start, choose a username.')

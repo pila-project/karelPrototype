@@ -39,15 +39,15 @@ class Test extends Component {
 
   constructor(props){
     super(props)
-    this.moduleName = 'Prolific'
-    this.props.onUpdateModule(this.moduleName)
+    //this.moduleName = 'Prolific'
+    //this.props.onUpdateModule(this.moduleName)
 
   }
 
   componentWillMount() {
     document.title = "Pisa 2024";
 
-    this.LearnModule = new Curriculum(this.moduleName)
+    this.LearnModule = new Curriculum(this.props.moduleName)
 
     let firstView = null
     if (!this.props.currentView) {

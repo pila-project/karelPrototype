@@ -16,7 +16,7 @@ import SplitPane from 'react-split-pane'
 const mapDispatchToProps = {
   onUpdateCurrentView: (id) => updateCurrentView(id),
   onUpdateUserId: (userId) => updateUserId(userId),
-  onUpdateModule: (moduleName) => updateModule(moduleName)
+  //onUpdateModule: (moduleName) => updateModule(moduleName)
 
 };
 
@@ -39,15 +39,15 @@ class Test extends Component {
 
   constructor(props){
     super(props)
-    this.moduleName = 'Parson'
-    this.props.onUpdateModule(this.moduleName)
+    //this.moduleName = 'Parson'
+    //this.props.onUpdateModule(this.moduleName)
 
   }
 
   componentWillMount() {
     document.title = "Pisa 2024";
 
-    this.LearnModule = new Curriculum(this.moduleName)
+    this.LearnModule = new Curriculum(this.props.moduleName)
 
     if (!this.props.currentView) {
       let firstView = this.LearnModule.getCollection('pre')[0]
