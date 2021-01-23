@@ -1,13 +1,14 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/Curriculum.js'
-import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "../actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
 const initialState = {
   locale: 'en',
   currentView: '',
+  module: '',
   item: '',
   studentState: {},
   userId: '',
@@ -30,6 +31,7 @@ function rootReducer(state = initialState, action) {
     case UPDATE_CURRENT_VIEW: return updateCurrentView(state, action)
     case UPDATE_ITEM: return updateItem(state, action)
     case UPDATE_STATUS: return updateStatus(state, action)
+    case UPDATE_MODULE: return updateModule(state, action)
     case PRE_ITEM_COMPLETE: return preItemComplete(state, action)
     case PROBLEM_COMPLETE: return problemComplete(state, action)
     case POST_ITEM_COMPLETE: return postItemComplete(state, action)
@@ -46,7 +48,8 @@ function rootReducer(state = initialState, action) {
 };
 
 function endSession(state, action) {
-  let pre = Curriculum.getCollection('pre')
+  var LearnModule = new Curriculum(state.module)
+  let pre = LearnModule.getCollection('pre')
   let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
   return {
     ...initialState,
@@ -77,10 +80,18 @@ function updateUserId(state, action) {
   }
 }
 
+function updateModule(state,action) {
+  return {
+    ...state,
+    module: action.moduleName
+  }
+}
+
 function preItemComplete(state, action){
-  let pre = Curriculum.getCollection('pre')
+  var LearnModule = new Curriculum(state.module)
+  let pre = LearnModule.getCollection('pre')
   let currId = state.currentView
-  var index = Curriculum.getIndexFromId(currId,pre)
+  var index = LearnModule.getIndexFromId(currId,pre)
   if(index < pre.length - 1) {
     // go to the next problem
     let nextId = pre[index + 1]['id']
@@ -100,13 +111,14 @@ function preItemComplete(state, action){
 }
 
 function postItemComplete(state, action){
-  let post = Curriculum.getCollection('post')
+  var LearnModule = new Curriculum(state.module)
+  let post = LearnModule.getCollection('post')
   var index = 0
   if ('index' in action) {
     index = action.index;
   } else {
     let currId = state.currentView
-    index = Curriculum.getIndexFromId(currId,post)
+    index = LearnModule.getIndexFromId(currId,post)
   }
   if(index < post.length - 1) {
     // go to the next problem

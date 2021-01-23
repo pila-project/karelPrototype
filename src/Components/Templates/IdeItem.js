@@ -41,12 +41,13 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const moduleName = state.module
   const savedXml = selectCodeByCurrentView(state);
   const studentState = state.studentState;
   const currentView = state.currentView;
   const countdown = state.countdown;
   const item = state.item;
-  return { studentState , currentView, savedXml, countdown, item};
+  return { studentState , currentView, savedXml, countdown, item, moduleName};
 }
 
 const SPACE_FLOAT = 20
@@ -81,6 +82,8 @@ class IdeItem extends Component {
         isEditable: false
       })
     }
+
+    this.LearnModule = new Curriculum(this.props.moduleName)
 
   }
 
@@ -165,7 +168,7 @@ class IdeItem extends Component {
     if(this.props.testStage != 'learning') {
       return true
     }
-    let itemType = Curriculum.getItemType(this.props.currentView)
+    let itemType = this.LearnModule.getItemType(this.props.currentView)
     return itemType === 'challenge'
   }
 
@@ -274,7 +277,7 @@ class IdeItem extends Component {
       return <span/>
     }
     let currentItemId = this.props.currentView
-    let itemType = Curriculum.getItemType(currentItemId)
+    let itemType = this.LearnModule.getItemType(currentItemId)
     let classColor = this.getInstructionColor(itemType)
     return (
       <div className={"instructionBox " + classColor} style={{width:width}}>
@@ -408,8 +411,8 @@ class IdeItem extends Component {
 
   renderExampleToggle() {
     let currentItemId = this.props.currentView
-    let problem = Curriculum.getProblemFromId(currentItemId)
-    let activeKey = Curriculum.getItemType(currentItemId)
+    let problem = this.LearnModule.getProblemFromId(currentItemId)
+    let activeKey = this.LearnModule.getItemType(currentItemId)
 
     if ('goodExample' in problem || 'badExample' in problem) {
 

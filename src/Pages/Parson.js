@@ -27,10 +27,9 @@ const mapDispatchToProps = {
 // };
 
 const mapStateToProps = (state, ownProps) => {
-  var pageState = state['landingPage']
-  const savedXml = selectCodeByCurrentView(pageState);
-  const studentState = pageState.studentState;
-  const currentView = pageState.currentView;
+  const savedXml = selectCodeByCurrentView(state);
+  const studentState = state.studentState;
+  const currentView = state.currentView;
   return { studentState , currentView, savedXml};
 }
 

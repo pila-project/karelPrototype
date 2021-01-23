@@ -1,16 +1,20 @@
-import { UPDATE_STATUS, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "./actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
 import { en, fr } from 'blocklyTranslations.js'
 
 export function updateUserId(userId) {
-    return {type: UPDATE_USERID, userId }
+  return {type: UPDATE_USERID, userId }
 }
 
 export function updateStatus(status) {
-    return { type: UPDATE_STATUS, status }
+  return { type: UPDATE_STATUS, status }
 };
+
+export function updateModule(moduleName) {
+  return { type: UPDATE_MODULE, moduleName}
+}
 
 export function updateCode(codeUpdate) {
   return { type: UPDATE_CODE, codeUpdate }

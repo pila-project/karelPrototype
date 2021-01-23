@@ -27,7 +27,6 @@ const mapDispatchToProps = {
 // };
 
 const mapStateToProps = (state, ownProps) => {
-  
   const savedXml = selectCodeByCurrentView(state);
   const studentState = state.studentState;
   const currentView = state.currentView;

@@ -7,7 +7,7 @@ import './Pages/style/pages.css'
 import StarterCode from './Pages/StarterCode.js'
 import Dashboard from './Components/Dashboard/Dashboard.js'
 import Learning from './Components/Learning/Learning.js'
-import GuineaExp from './Pages/GuineaExp.js'
+import {Parson, Prolific} from './Pages'
 import DashboardItem from './Components/Dashboard/DashboardItem.js'
 import {
   HashRouter as Router,
@@ -36,8 +36,10 @@ class App extends Component {
       <Router>
       <div>
         <Suspense fallback={(<div>Loading</div>)}>
-        <Route exact path="/" component={GuineaExp} />
-        <Route exact path="/:userId" component={GuineaExp} />
+        <Route exact path="/prolific" component={Prolific} />
+        <Route exact path="/prolific/:userId" component={Prolific} />
+        <Route exact path="/parson" component={Parson} />
+        <Route exact path="/parson/:userId" component={Parson} />
         <Route exact path="/startercode" component={StarterCode} />
         <Route exact path="/learning" component={Learning} />
         <Route exact path="/item" component={DashboardItem} />

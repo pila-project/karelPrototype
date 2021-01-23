@@ -3,7 +3,7 @@ import Splash from 'Components/Templates/Splash'
 
 import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2 } from 'Items'
 
-import {Prolific, ParsonProblems} from './TaskSequences'
+import {Prolific, Parson} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -11,27 +11,35 @@ An item/example/badExample is called a "problem"
 A group of stages is called a "unit"
 **/
 
-const pre = Prolific.getPre()
-const post = Prolific.getPost()
-const learningPlan = Prolific.getLearningPlan()
-
 export default class Curriculum {
 
-  static getCollection(collectionType) {
-    if (collectionType.toLowerCase()=='pre') {
-      return pre
-    } else if (collectionType.toLowerCase()=='post') {
-      return post
-    } else {
-      return pre
+  constructor(moduleName) {
+    if (moduleName == 'Prolific') {
+      this.pre = Prolific.getPre()
+      this.post = Prolific.getPost()
+      this.learningPlan = Prolific.getLearningPlan()
+    } else if (moduleName == 'Parson') {
+      this.pre = Parson.getPre()
+      this.post = Parson.getPost()
+      this.learningPlan = Parson.getLearningPlan()
     }
   }
 
-  static getLearning() {
-    return learningPlan
+  getCollection(collectionType) {
+    if (collectionType.toLowerCase()=='pre') {
+      return this.pre
+    } else if (collectionType.toLowerCase()=='post') {
+      return this.post
+    } else {
+      return this.pre
+    }
   }
 
-  static isLocked(problemsDone, problem) {
+  getLearning() {
+    return this.learningPlan
+  }
+
+  isLocked(problemsDone, problem) {
     if('prereq' in problem){
       let prereq = problem['prereq']
       return !(prereq in problemsDone)
@@ -39,9 +47,9 @@ export default class Curriculum {
     return false
   }
 
-  static isPre(currId){
-    for(let unitIndex in pre) {
-      let unit = pre[unitIndex]
+  isPre(currId){
+    for(let unitIndex in this.pre) {
+      let unit = this.pre[unitIndex]
       if(unit['id'] === currId) {
         return true
       }
@@ -49,9 +57,9 @@ export default class Curriculum {
     return false
   }
 
-  static isPost(currId){
-    for(let unitIndex in post) {
-      let unit = post[unitIndex]
+  isPost(currId){
+    for(let unitIndex in this.post) {
+      let unit = this.post[unitIndex]
       if(unit['id'] === currId) {
         return true
       }
@@ -59,15 +67,15 @@ export default class Curriculum {
     return false
   }
 
-  static getNextItem(currId, itemCollection){
-    var index = Curriculum.getIndexFromId(currId, itemCollection)
+  getNextItem(currId, itemCollection){
+    var index = this.getIndexFromId(currId, itemCollection)
     if(index < itemCollection.length - 1) {
       index++
     }
     return itemCollection[index]['id']
   }
 
-  static getIndexFromId(itemId, itemCollection) {
+  getIndexFromId(itemId, itemCollection) {
     for(let unitIndex in itemCollection) {
       let unit = itemCollection[unitIndex]
       if(unit['id'] === itemId) {
@@ -78,9 +86,9 @@ export default class Curriculum {
   }
 
   // only applies to dashboard items
-  static getProblemFromId(itemId) {
-    for(let unitIndex in learningPlan) {
-      let unit = learningPlan[unitIndex]
+  getProblemFromId(itemId) {
+    for(let unitIndex in this.learningPlan) {
+      let unit = this.learningPlan[unitIndex]
       for(let problemIndex in unit['problems']) {
         let problem = unit['problems'][problemIndex]
         let allProblems = Object.values(problem)
@@ -93,8 +101,8 @@ export default class Curriculum {
   }
 
   // only applies to dashboard items
-  static getItemType(itemId) {
-    let problem = Curriculum.getProblemFromId(itemId)
+  getItemType(itemId) {
+    let problem = this.getProblemFromId(itemId)
     for(var key in problem){
       if(problem[key] == itemId) {
         return key
@@ -106,14 +114,14 @@ export default class Curriculum {
    * Returns the component for the problem / worked example
    * with the given id.
    */
-  static getComponent(itemId){
+  getComponent(itemId){
     if(itemId in itemComponentDatabase) {
       return(itemComponentDatabase[itemId])
     }
     return itemComponentDatabase['DefaultItem']
   }
 
-  static getIndexFromProblem(itemId, itemCollection) {
+  getIndexFromProblem(itemId, itemCollection) {
     for(let unitIndex in itemCollection) {
       let unit = itemCollection[unitIndex]
       if(unit['id'] === itemId) {

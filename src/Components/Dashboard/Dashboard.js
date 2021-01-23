@@ -16,10 +16,11 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = (state, ownProps) => {
+  const moduleName = state.module
   const studentState = state.studentState;
   const countdown = state.countdown;
   const points = state.points;
-  return { studentState, countdown, points };
+  return { studentState, countdown, points, moduleName };
 }
 
 const mapDispatchToProps = {
@@ -41,6 +42,7 @@ class Dashboard extends Component {
 
   componentWillMount(){
     document.title = "PISA 2024 Dashboard";
+    this.LearnModule = new Curriculum(this.props.moduleName)
   }
 
   render() {
@@ -89,7 +91,7 @@ class Dashboard extends Component {
   }
 
   renderUnitsRows() {
-    let curriculum = Curriculum.getLearning()
+    let curriculum = this.LearnModule.getLearning()
     return (
       <div class="alignedVertical">
         {curriculum.map((unit, index) =>
@@ -100,13 +102,13 @@ class Dashboard extends Component {
   }
 
   isFirstTime(){
-    let firstProblem = Curriculum.getLearning()[0]['problems'][0]
+    let firstProblem = this.LearnModule.getLearning()[0]['problems'][0]
     let challengeId = firstProblem['challenge']
     return !this.isComplete(challengeId)
   }
 
   selectItem(itemId){
-    let item = Curriculum.getProblemFromId(itemId)
+    let item = this.LearnModule.getProblemFromId(itemId)
     this.props.onUpdateItem(item['name'])
     this.props.onUpdateCurrentView(itemId)
 
@@ -191,12 +193,12 @@ class Dashboard extends Component {
       let value = this.props.studentState[key]
       let status = value['status']
       if(status === 'completed' || status === 'timedout') {
-        let problem = Curriculum.getProblemFromId(key)
+        let problem = this.LearnModule.getProblemFromId(key)
         let name = problem['name']
         problemsDone[name] = true
       }
     }
-    return Curriculum.isLocked(problemsDone, problem)
+    return this.LearnModule.isLocked(problemsDone, problem)
   }
 
   padLeft(i) {
@@ -220,7 +222,7 @@ class Dashboard extends Component {
   }
 
   renderNav() {
-    let firstPost = Curriculum.getCollection('post')[0]['id']
+    let firstPost = this.LearnModule.getCollection('post')[0]['id']
 
     return (
       <div className="boxContainer">

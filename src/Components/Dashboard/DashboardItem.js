@@ -10,9 +10,10 @@ import Logo from "Img/pisa.jpeg";
 import {RepeatL3Dash5, RepeatL3Corner9, RepeatL2StepUp, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouse, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAround} from 'Items'
 
 const mapStateToProps = (state, ownProps) => {
+  const moduleName = state.module;
   const studentState = state.studentState;
   const currentView = state.currentView;
-  return { studentState , currentView };
+  return { studentState , currentView, moduleName };
 }
 
 class DashboardItem extends Component {
@@ -23,12 +24,13 @@ class DashboardItem extends Component {
 
   componentWillMount(){
     document.title = "PISA 2024 Learn";
+    this.LearnModule = new Curriculum(this.props.moduleName)
   }
 
   render() {
     return (
       <div style={{width:'100vw', height:'100vh'}}>
-        {Curriculum.getComponent(this.props.currentView)}
+        {this.LearnModule.getComponent(this.props.currentView)}
       </div>
     )
   }

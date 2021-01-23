@@ -21,10 +21,11 @@ const mapDispatchToProps = {
 // };
 
 const mapStateToProps = (state, ownProps) => {
+  const moduleName = state.module;
   const savedXml = selectCodeByCurrentView(state);
   const studentState = state.studentState;
   const currentView = state.currentView;
-  return { studentState , currentView, savedXml};
+  return { studentState , currentView, savedXml, moduleName};
 }
 
 class Pre extends Component {
@@ -35,6 +36,7 @@ class Pre extends Component {
   }
 
   componentWillMount() {
+    this.LearnModule = new Curriculum(this.props.moduleName)
   }
 
   componentDidMount(){
@@ -53,13 +55,13 @@ class Pre extends Component {
 
   getComponent() {
     let itemId = this.props.currentView
-    return Curriculum.getComponent(itemId)
+    return this.LearnModule.getComponent(itemId)
   }
 
   previousLesson() {
-    let pre = Curriculum.getCollection('pre')
+    let pre = this.LearnModule.getCollection('pre')
     let currId = this.props.currentView
-    var index = Curriculum.getIndexFromId(currId, pre)
+    var index = this.LearnModule.getIndexFromId(currId, pre)
     if(index > 0) {
       index--
     }
