@@ -52,7 +52,7 @@ export const learningPlan = [
       {
         name:'Parson Problem 1',
         challenge:'Parson1',
-        countDown: 50 // in minutes
+        countDown: 5 // in minutes
       }
     ]
   },
@@ -63,7 +63,7 @@ export const learningPlan = [
       {
         name:'Parson Problem 2',
         challenge:'Parson2',
-        countDown: 50 // in minutes
+        countDown: 5 // in minutes
       }
     ]
   }

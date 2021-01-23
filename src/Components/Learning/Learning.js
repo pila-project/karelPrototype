@@ -24,7 +24,6 @@ class Learning extends Component {
       return <Dashboard />
     } else {
       // change this to redux
-      console.log('ARE WE AGAIN HERE?')
       return <DashboardItem />
     }
   }

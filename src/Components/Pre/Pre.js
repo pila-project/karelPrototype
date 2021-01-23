@@ -34,8 +34,6 @@ class Pre extends Component {
   constructor(props){
     super(props)
     this.handleKeyPress = this.handleKeyPress.bind(this);
-
-    console.log('am I getting initiated?!)')
   }
 
   componentWillMount() {
@@ -44,7 +42,6 @@ class Pre extends Component {
 
   componentDidMount(){
     document.addEventListener("keydown", this.handleKeyPress, false);
-    console.log('did it work?')
   }
 
   componentWillUnmount(){
@@ -74,14 +71,12 @@ class Pre extends Component {
   }
 
   nextLesson() {
-    console.log('I GOT TRIGGERED')
     this.props.onPreItemComplete()
   }
 
 
 
   handleKeyPress(e) {
-    console.log('KEY GOT PRESSED')
     let key = e.key
     if(key == 'ArrowLeft') {
       this.previousLesson()

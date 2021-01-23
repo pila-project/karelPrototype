@@ -56,10 +56,10 @@ class Test extends Component {
       this.props.onUpdateCurrentView(this.props.currentView)
     }
 
-    if (this.props.match.params.userId) {
+    //if (this.props.match.params.userId) {
       // If there is a parameter passed as userId, store it in state, and auto-advance
-      this.props.onUpdateUserId(this.props.match.params.userId.replace(':userId=',''))
-    }
+    //  this.props.onUpdateUserId(this.props.match.params.userId.replace(':userId=',''))
+    //}
   }
 
   render() {

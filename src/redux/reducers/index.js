@@ -84,17 +84,34 @@ function updateUserId(state, action) {
 }
 
 function updateModule(state,action) {
-  var LearnModule = new Curriculum(action.moduleName)
-  let pre = LearnModule.getCollection('pre')
-  let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
-  return {
-    ...state,
-    [action.moduleName]: {
-      ... initialPageState,
-      currentView: pre[0].id
-    },
-    module: action.moduleName,
+
+  if (state.module != action.moduleName) { // This is needed to ensure that refresh does not re-initialize the state.
+    if (!(action.moduleName in state)) {
+      var LearnModule = new Curriculum(action.moduleName)
+      let pre = LearnModule.getCollection('pre')
+      let initialPage = pre[0].id; // Return user to initial page, but without autofilling user id
+      return {
+        ...state,
+        currentView: pre[0].id,
+        [action.moduleName]: {
+          ... initialPageState,
+          currentView: pre[0].id
+        },
+        module: action.moduleName,
+      }
+    } else {
+      return {
+        ...state,
+        currentView: state[action.moduleName].currentView,
+        module: action.moduleName
+      }
+    }
+  } else {
+    return {
+      ...state
+    }
   }
+
 }
 
 function preItemComplete(state, action){
@@ -108,6 +125,7 @@ function preItemComplete(state, action){
     let nextId = pre[index + 1]['id']
     return {
       ...state,
+      currentView: nextId,
       [state.module]: {
         ...stateModule,
         currentView: nextId,
@@ -118,6 +136,7 @@ function preItemComplete(state, action){
     // switch to the "learning" part of the test
     return {
       ...state,
+      currentView: 'dashboard',
       [state.module]: {
         ...stateModule,
         currentView: 'dashboard',
@@ -143,6 +162,7 @@ function postItemComplete(state, action){
     let nextId = post[index + 1]['id']
     return {
       ...state,
+      currentView: nextId,
       [state.module]: {
         ...stateModule,
         currentView: nextId,
@@ -153,6 +173,7 @@ function postItemComplete(state, action){
     // switch to the "learning" part of the test
     return {
       ...state,
+      currentView: 'goodbye',
       [state.module]: {
         ...stateModule,
         currentView: 'goodbye',
@@ -166,6 +187,7 @@ function updateCurrentView(state, action) {
   var stateModule = state[state.module]
   return {
     ...state,
+    currentView: action.view,
     [state.module]: {
       ...stateModule,
       currentView: action.view

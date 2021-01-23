@@ -97,9 +97,6 @@ function  initializeCode(blockList) {
     }
 
     initialXml += `</xml>`
-
-    console.log('THIS IS THE FINAL INITIALXML')
-    console.log(initialXml)
     return initialXml
   }
 
