@@ -75,7 +75,7 @@ class ClockRender extends Component {
   render() {
     return (
       <div>
-        <span> {this.state.time.m} : {this.state.time.s} </span>
+        <span> {this.state.time.m.toLocaleString('en-US',{'minimumIntegerDigits':2})} : {this.state.time.s.toLocaleString('en-US',{'minimumIntegerDigits':2})} </span>
       </div>
     );
   }

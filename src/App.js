@@ -10,7 +10,7 @@ import Learning from './Components/Learning/Learning.js'
 import {ManageModules, Parson, Prolific} from './Pages'
 import DashboardItem from './Components/Dashboard/DashboardItem.js'
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 

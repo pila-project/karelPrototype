@@ -35,9 +35,13 @@ const Welcome = (props) => {
 
   // Look whether there is a username in the URL
   const location = useLocation()
-  const values = queryString.parse(location.pathname.split('/')[2].replaceAll('#','').replaceAll(':',''))
-  console.log('IN WELCOME')
-  console.log(location.pathname)
+  var values = null;
+  if (location.pathname.split('/').length==2) {
+    values = queryString.parse(location.pathname.split('/')[1].replaceAll('#','').replaceAll(':',''))
+  } else {
+    values = queryString.parse(location.pathname.split('/')[2].replaceAll('#','').replaceAll(':',''))
+  }
+
   var userId = null;
   if ('userId' in values) {
     userId = values.userId
