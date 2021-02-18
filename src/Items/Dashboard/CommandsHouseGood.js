@@ -55,7 +55,8 @@ class Item extends Component {
           hideBlocks = {{
             'karel_procedure':true,
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
           isEditable={false}
         />

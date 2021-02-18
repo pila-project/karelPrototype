@@ -17,7 +17,7 @@ class Item extends Component {
           instructions = {<span>
             <b>{translate('Challenge')}:</b>
             &nbsp;{translate('Write a program that has karel turn right around this wall. You should define a "turn right" command to be three "turn left" commands')}
-            
+
           </span>}
           preWorld = {{
             width:300,
@@ -37,7 +37,8 @@ class Item extends Component {
           }}
           hideBlocks = {{
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
           examples = {[
             'Good Example',

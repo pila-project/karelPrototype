@@ -9,7 +9,7 @@ import UpTextArrow from 'Components/Util/UpTextArrow.js'
 import { withTranslation } from 'react-i18next';
 import {translate} from 'redux/translator.js'
 const WORLD_HEIGHT = 150
-  
+
 class CommandsA extends Component {
 
   renderPreWorld() {
@@ -39,10 +39,11 @@ class CommandsA extends Component {
         title={<h1>{title}:</h1>}
         preWorld={this.renderPreWorld()}
         postWorld = {this.renderPostWorld()}
+        hideBlocks = {{'karel_if_dropdown': false}}
       />
       <div style={{height:20}} />
       <span>
-        <UpTextArrow 
+        <UpTextArrow
           text={<span>{translate('Use these buttons to make the World match the Goal')}</span>}
         />
       </span>

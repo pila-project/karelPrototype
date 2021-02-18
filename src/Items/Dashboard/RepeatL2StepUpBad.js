@@ -49,6 +49,7 @@ class Item extends Component {
           hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
+            'karel_if_dropdown': true
           }}
           isEditable={false}
         />

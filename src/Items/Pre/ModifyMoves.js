@@ -22,7 +22,7 @@ class ModifyMoves extends Component {
               <b>{translate('Instructions')}:</b> {translate('Add another move to the program')}.
             </span>
             {/*<div>
-              <FontAwesomeIcon 
+              <FontAwesomeIcon
                 icon={faQuestionCircle}
               />
             </div>*/}
@@ -48,7 +48,8 @@ class ModifyMoves extends Component {
             'controls_repeat_ext':true,
             'karel_turn_left':true,
             'karel_place_stone':true,
-            'karel_pickup_stone':true
+            'karel_pickup_stone':true,
+            'karel_if_dropdown': true
           }}
         />
         <span style = {{
@@ -56,7 +57,7 @@ class ModifyMoves extends Component {
           top:90,
           left:810
         }}>
-          <UpLeftTextArrow 
+          <UpLeftTextArrow
             text={<span>{translate('Put the move here')}</span>}
           />
         </span>
@@ -66,7 +67,7 @@ class ModifyMoves extends Component {
           top:180,
           left:600
         }}>
-          <UpTextArrow 
+          <UpTextArrow
             text={<span>{translate('Drag the move from here')}</span>}
           />
         </span>

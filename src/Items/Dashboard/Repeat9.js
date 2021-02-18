@@ -13,7 +13,7 @@ class Repeat9 extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Challenge')}:</b> 
+            <b>{translate('Challenge')}:</b>
             &nbsp;{translate('Use a repeat to place 9 stones')}.
           </span>}
           preWorld = {{
@@ -33,6 +33,7 @@ class Repeat9 extends Component {
           hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
+            'karel_if_dropdown': true
           }}
         />
       </div>

@@ -38,6 +38,7 @@ class RepeatCorners extends Component {
           isEditable={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
+            'karel_if_dropdown': true
           }}
         />
       </div>

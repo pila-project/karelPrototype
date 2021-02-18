@@ -12,7 +12,7 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
          instructions = {<span>
-            <b>{translate('Bad Example')}:</b> 
+            <b>{translate('Bad Example')}:</b>
             &nbsp;{translate('Although this program solves the problem, it is harder to read')}:
           </span>}
           preWorld = {{
@@ -35,7 +35,8 @@ class Item extends Component {
           initialXml={initialXml}
           hideBlocks = {{
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
           examples = {[
             'Good Example',

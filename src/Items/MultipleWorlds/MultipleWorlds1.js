@@ -104,7 +104,7 @@ class RepeatCorners extends Component {
           hasRun={true}
           hasStep={false}
           hideBlocks = {{
-            'karel_while_dropdown':false,
+            'karel_while_dropdown':true,
             'karel_if_dropdown': false
           }}
         />

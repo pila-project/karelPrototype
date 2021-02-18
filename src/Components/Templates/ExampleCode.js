@@ -84,29 +84,25 @@ class ExampleCode extends Component {
           <div className="horizontal">
             <div style={{marginRight:40}}>
               <h3>{translate('World')}:</h3>
-              <KarelWorld 
+              <KarelWorld
                 {...this.props.world}
                 ref="world"
-              />   
-            </div> 
-            
+              />
+            </div>
+
           </div>
           <div style={{marginTop:20}}>
             {this.renderRunResetButton()}
-          </div>  
+          </div>
         </div>
         <div style={{width:500, height:500, marginRight:40}}>
-          <BlocklyKarel 
+          <BlocklyKarel
             ref="editor"
             initialXml={this.props.initialXml}
             toolboxPresent={false}
-            hideBlocks = {{
-              'karel_procedure':true,
-              'karel_while_dropdown':true,
-              'controls_repeat_ext':true
-            }}
+            hideBlocks = {this.props.hideBlocks }
           />
-          
+
         </div>
       </div>
     )

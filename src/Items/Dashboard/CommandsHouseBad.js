@@ -29,7 +29,7 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Example')}:</b> 
+            <b>{translate('Example')}:</b>
             &nbsp;{translate('This example program makes Karel walk out of her house')}.
             &nbsp;{translate('It is broken since the commands are outside the define block')}.
           </span>}
@@ -56,7 +56,8 @@ class Item extends Component {
           hideBlocks = {{
             'karel_procedure':true,
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
           isEditable={false}
         />

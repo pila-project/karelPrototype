@@ -12,7 +12,7 @@ class Repeat5 extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Bad Example')}:</b> 
+            <b>{translate('Bad Example')}:</b>
             &nbsp;{translate("This program doesn't use a repeat")}.
           </span>}
           preWorld = {{
@@ -33,6 +33,7 @@ class Repeat5 extends Component {
           hasStep={false}
           hideBlocks = {{
             'karel_while_dropdown':true,
+            'karel_if_dropdown': true
           }}
           isEditable={false}
         />

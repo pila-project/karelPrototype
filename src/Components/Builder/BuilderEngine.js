@@ -68,6 +68,7 @@ class KarelEngine {
       html: message,
       icon: 'warning',
       toast:true,
+      allowOutsideClick:true
     })
   }
 
@@ -132,7 +133,7 @@ class KarelEngine {
     java = java.replace("FRONT_BLOCKED", "frontIsBlocked()")
     java = java.replace("STONES_PRESENT", "stonesPresent()")
     java = java.replace("STONES_NOT_PRESENT", "stonesNotPresent()")
-    
+
     console.log('java', java)
     return java
   }

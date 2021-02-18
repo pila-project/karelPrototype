@@ -16,7 +16,7 @@ class ProgramsA extends Component {
     return (
       <div className="vertical centered testBody">
         <h1 style={{marginBottom:20,marginTop:0}}>{title}:</h1>
-      
+
         <ExampleCode
           world = {{
             width:300,
@@ -25,6 +25,12 @@ class ProgramsA extends Component {
             nCols:4
           }}
           initialXml = {initialXml}
+          hideBlocks = {{
+            'karel_if_dropdown': true,
+            'karel_procedure':true,
+            'karel_while_dropdown':true,
+            'controls_repeat_ext':true
+          }}
         >
         </ExampleCode>
         <span style={{
@@ -32,7 +38,7 @@ class ProgramsA extends Component {
             top: '520px',
             marginLeft: '-370px'
           }}>
-          <UpTextArrow 
+          <UpTextArrow
             text={translate('RunInstructions')}
           />
         </span>
@@ -41,11 +47,11 @@ class ProgramsA extends Component {
             top: '190px',
             marginLeft: '270px'
           }}>
-          <UpLeftTextArrow 
+          <UpLeftTextArrow
             text={translate('This is a program')}
           />
         </span>
-        
+
       </div>
     )
   }

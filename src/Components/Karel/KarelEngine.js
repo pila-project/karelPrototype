@@ -84,6 +84,7 @@ class KarelEngine {
       html: message,
       icon: 'warning',
       toast:true,
+      allowOutsideClick:true
     })
   }
 

@@ -288,6 +288,7 @@ class KarelWorld extends Component {
       title: message,
       icon: 'error',
       toast:true,
+      allowOutsideClick:true
     })
   }
 

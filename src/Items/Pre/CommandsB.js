@@ -42,6 +42,7 @@ class CommandsB extends Component {
       title={<h1>{title}:</h1>}
       preWorld={this.renderPreWorld()}
       postWorld = {this.renderPostWorld()}
+      hideBlocks = {{'karel_if_dropdown': false}}
     />
   }
 

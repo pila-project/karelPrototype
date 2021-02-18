@@ -11,7 +11,7 @@ class Item extends Component {
 
   render() {
     // replace all...
-    
+
     let xml = translateAllParts(initialXml, 'turn right')
 
 
@@ -19,7 +19,7 @@ class Item extends Component {
       <div className="vertical centered fullSize">
         <IdeItem
           instructions = {<span>
-            <b>{translate('Challenge')}:</b> 
+            <b>{translate('Challenge')}:</b>
             &nbsp;{translate('This program has karel pick up a stone and move it around a corner. It creates a new command to "turn right"')}:
           </span>}
           preWorld = {{
@@ -55,7 +55,8 @@ class Item extends Component {
           initialXml={xml}
           hideBlocks = {{
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
         />
       </div>

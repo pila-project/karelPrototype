@@ -49,7 +49,8 @@ class Item extends Component {
           initialXml = {initialXml}
           hideBlocks = {{
             'karel_while_dropdown':true,
-            'controls_repeat_ext':true
+            'controls_repeat_ext':true,
+            'karel_if_dropdown': true
           }}
         />
       </div>
