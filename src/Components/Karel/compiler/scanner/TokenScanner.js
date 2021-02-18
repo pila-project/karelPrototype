@@ -33,8 +33,8 @@
  */
 
  import {
-   isdigit, 
-   isalnum, 
+   isdigit,
+   isalnum,
    isalpha,
    isspace,
    isxdigit
@@ -381,7 +381,7 @@ TokenScanner.prototype.isWordCharacter = function(ch) {
  *    TokenScanner.NUMBER
  *    TokenScanner.STRING
  *    TokenScanner.OPERATOR
- *</pre> 
+ *</pre>
  */
 
 TokenScanner.prototype.getTokenType = function(tokenText) {
@@ -435,6 +435,8 @@ TokenScanner.OPERATOR = 4;
 TokenScanner.getTokenType = function(tokenText) {
    assert(typeof tokenText == "string")
    if (tokenText == "") return TokenScanner.EOF;
+   console.log('TOKEN SCANNER')
+   console.log(tokenText)
    var ch = tokenText.charAt(0);
    if (isspace(ch)) return TokenScanner.SEPARATOR;
    if (ch == '"' || ch == "'") return TokenScanner.STRING;

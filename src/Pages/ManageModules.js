@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './style/pages.css'
 import { updateCurrentView, updateUserId, updateModule } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import {Parson, Prolific} from './'
+import {Parson, Prolific, MultipleWorlds, LearnExperience} from './'
 import Curriculum from 'Curriculum/Curriculum.js'
 import Learning from 'Components/Learning/Learning.js'
 
@@ -44,7 +44,11 @@ function ManageModules (props) {
     //  userId = props.match.params.userId.replace(':userId=','')
     //}
 
+    return <LearnExperience />
+
+    /*
     switch (newModule) {
+
       case 'Prolific':
         return <Prolific />
         break;
@@ -53,10 +57,15 @@ function ManageModules (props) {
         return <Parson />
         break;
 
+      case 'MultipleWorlds':
+        return <MultipleWorlds />
+        break;
+
       default:
         return <Prolific />
         break;
     }
+    */
 }
 
 export default connect(

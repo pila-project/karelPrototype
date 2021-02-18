@@ -68,7 +68,7 @@ class BuilderWorld extends Component {
         var stone = this.props.bricks[i]
         bricks[stone.r][stone.c] = stone.n
       }
-    } 
+    }
     return bricks
   }
 
@@ -90,7 +90,7 @@ class BuilderWorld extends Component {
       case 'West': newCol--; break;
       case 'North': newRow = newRow - 1; break;
       case 'South': newRow = newRow + 1; break;
-      default: console.console.error("invalid this.dir: " + this.dir); break;   
+      default: console.console.error("invalid this.dir: " + this.dir); break;
     }
     if(this.isMoveValid(oldRow, oldCol, newRow, newCol)) {
       this.setState({
@@ -115,7 +115,7 @@ class BuilderWorld extends Component {
       return {
         bricks
       };
-    }, this.onStepFinished); 
+    }, this.onStepFinished);
   }
 
   moveUp() {
@@ -167,9 +167,13 @@ class BuilderWorld extends Component {
       case 'West': newCol--; break;
       case 'North': newRow = newRow - 1; break;
       case 'South': newRow = newRow + 1; break;
-      default: console.console.error("invalid this.dir: " + this.dir); break;   
+      default: console.console.error("invalid this.dir: " + this.dir); break;
     }
     return this.isMoveValid(oldRow, oldCol, newRow, newCol)
+  }
+
+  frontIsBlocked() {
+    return !(this.frontIsClear())
   }
 
   bricksPresent() {
@@ -188,7 +192,7 @@ class BuilderWorld extends Component {
 
     var dRow = Math.abs(endR - startR);
     var dCol = Math.abs(endC - startC);
-    if (dRow + dCol != 1) return false; 
+    if (dRow + dCol != 1) return false;
 
     // TODO: look for walls
     // if(startC + 1 == endC && that.rightWalls[startR][startC]) return false;
@@ -251,7 +255,7 @@ class BuilderWorld extends Component {
       let y = this.getCornerY(wall.r, wall.c)
       if(wall.d == 'North') {
         walls.push(<div
-          className="wall" 
+          className="wall"
           style={{
             marginLeft:x,
             marginTop:y,
@@ -279,7 +283,7 @@ class BuilderWorld extends Component {
         let y = this.getCornerY(r, c) + 0.5 * cornerSize
         let crossSize = cornerSize * CROSS_PCT
         lines.push(<div
-          className="cross" 
+          className="cross"
           style={{
             marginLeft:x - crossSize/2,
             marginTop:y-1,
@@ -289,7 +293,7 @@ class BuilderWorld extends Component {
           key={r+','+c +'1'}
         ></div>)
         lines.push(<div
-          className="cross" 
+          className="cross"
           style={{
             marginLeft:x-1,
             marginTop:y - crossSize/2,
@@ -319,7 +323,7 @@ class BuilderWorld extends Component {
           let x = this.getCornerX(r, c) + marginWidth/2.0
           let y = this.getCornerY(r, c) + marginHeight/2.0
           bricks.push(<div
-            className="brick" 
+            className="brick"
             style={{
               marginLeft:x,
               marginTop:y,
@@ -353,8 +357,8 @@ class BuilderWorld extends Component {
 
   render() {
     return (
-      <div 
-        className= "ideCanvas" 
+      <div
+        className= "ideCanvas"
         style={{
           width:this.props.width,
           height:this.props.height

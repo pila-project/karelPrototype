@@ -47,6 +47,8 @@ class Test extends Component {
   componentWillMount() {
     document.title = "Pisa 2024";
 
+    console.log("MODULENAME")
+    console.log(this.props)
     this.LearnModule = new Curriculum(this.props.moduleName)
 
     let firstView = null

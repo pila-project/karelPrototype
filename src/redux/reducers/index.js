@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/Curriculum.js'
-import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "../actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
@@ -18,7 +18,9 @@ const initialPageState = {
   item: '',
   studentState: {},
   countdown: {},
-  points: 0
+  points: 0,
+  world: '',
+  solvedWorlds:{}
 }
 
 
@@ -36,6 +38,7 @@ function rootReducer(state = initialState, action) {
     case UPDATE_ITEM: return updateItem(state, action)
     case UPDATE_STATUS: return updateStatus(state, action)
     case UPDATE_MODULE: return updateModule(state, action)
+    case UPDATE_WORLD: return updateWorld(state, action)
     case PRE_ITEM_COMPLETE: return preItemComplete(state, action)
     case PROBLEM_COMPLETE: return problemComplete(state, action)
     case POST_ITEM_COMPLETE: return postItemComplete(state, action)
@@ -83,7 +86,20 @@ function updateUserId(state, action) {
   }
 }
 
-function updateModule(state,action) {
+function updateWorld(state, action) {
+  console.log('in REDUX')
+  console.log(action)
+  return {
+    ...state,
+    [state.module]: {
+      ...state[state.module],
+      world: action.worldName,
+      solvedWorlds: action.solvedWorlds
+    }
+  }
+}
+
+function updateModule(state, action) {
 
   if (state.module != action.moduleName) { // This is needed to ensure that refresh does not re-initialize the state.
     if (!(action.moduleName in state)) {

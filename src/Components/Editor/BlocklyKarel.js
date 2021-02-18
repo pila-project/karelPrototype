@@ -344,7 +344,7 @@ class ToolboxXML extends React.Component {
   }
 
   addBlock(blockType) {
-    if(blockType in this.props.hideBlocks) {
+    if(this.props.hideBlocks[blockType]) {
       return <span />
     } else {
       return this.getBlockComponent(blockType)
@@ -373,6 +373,7 @@ class ToolboxXML extends React.Component {
         {this.addBlock('karel_turn_left')}
         {this.addBlock('karel_place_stone')}
         {this.addBlock('karel_pickup_stone')}
+        {this.addBlock('karel_if_dropdown')}
         {this.addUserBlocks()}
         {this.addBlock('karel_while_dropdown')}
         {this.addBlock('controls_repeat_ext')}

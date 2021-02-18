@@ -21,6 +21,8 @@ class Item extends Component {
             height:300,
             nRows:2,
             nCols:2,
+            //karelRow: 1,
+            //karelCol: 0,
             walls:[
             ],
           }}

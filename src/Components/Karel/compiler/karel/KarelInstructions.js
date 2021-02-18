@@ -8,6 +8,7 @@ Karel.instructions = {
 
 Karel.predicates = {
    frontIsClear:1, frontIsBlocked:1,
+   stonesPresent:1, stonesNotPresent:1,
    leftIsClear:1, leftIsBlocked:1,
    rightIsClear:1, rightIsBlocked:1,
    beepersPresent:1, noBeepersPresent:1,

@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -298,11 +298,11 @@ var karelIfStoneDropdown = {
       "options": [
         [
           "%{BKY_KAREL_PRESENT}",
-          "STONE_PRESENT"
+          "STONES_PRESENT"
         ],
         [
           "%{BKY_KAREL_NOT_PRESENT}",
-          "STONE_ABSENT"
+          "STONES_NOT_PRESENT"
         ]
       ]
     },
@@ -380,7 +380,7 @@ var karelWhileDropdown = {
         ],
         [
           "%{BKY_KAREL_STONES_PRESENT}",
-          "STONE_PRESENT"
+          "STONES_PRESENT"
         ]
       ]
     },
@@ -415,11 +415,11 @@ var karelWhileStoneDropdown = {
       "options": [
         [
           "%{BKY_KAREL_PRESENT}",
-          "STONE_PRESENT"
+          "STONES_PRESENT"
         ],
         [
           "%{BKY_KAREL_NOT_PRESENT}",
-          "STONE_ABSENT"
+          "STONES_NOT_PRESENT"
         ]
       ]
     },
@@ -454,7 +454,7 @@ Blockly.Blocks['karel_while_stone_dropdown'] = {
 const procedures_defnoreturn_copy = Object.assign({}, Blockly.Blocks['procedures_defnoreturn']);
 
 
-// 2. Monkeypatch init function of copied object to change the title of the block from 'to' to 'define' 
+// 2. Monkeypatch init function of copied object to change the title of the block from 'to' to 'define'
 //    and remove the button that adds arguments.
 //    See https://github.com/google/blockly/blob/master/blocks/procedures.js for the full definition.
 

@@ -7,7 +7,7 @@ import {ReturnIns} from './vm/VM.js'
  * Class: KarelCompiledEngine
  * --------------------------
  * This class is in charge of compiling a piece of Karel
- * code into some abstraction such that it can execute 
+ * code into some abstraction such that it can execute
  * the program one step at a time. Implements the same
  * interface as the karelEvalEngine.
  */
@@ -43,6 +43,8 @@ class KarelCompiler {
       // console.log(ast.toString())
       this.vm.resetTempCounter();
       var parser = new KarelParser();
+      console.log('PARSER')
+      console.log(text)
       parser.setInput(text);
       parser.readImport();
       var karelClass = parser.readClass();
@@ -52,7 +54,9 @@ class KarelCompiler {
       }
       var baseClass = karelClass[2];
       var functionMap = karelClass[3];
-
+      console.log('KAREL CLASS')
+      console.log(karelClass)
+      console.log(token)
       var functions = [];
       var functionNames = [];
       for(var fnName in functionMap) {
@@ -65,6 +69,8 @@ class KarelCompiler {
       for(var i = 0; i < functions.length; i++) {
          var fn = functions[i];
          var code = [];
+         console.log('COMPILER')
+         console.log(fn, ' ' , code)
          this.vm.compile(fn[2], code);
          code.push(new ReturnIns());
          this.vm.functions[fn[1]] = code;
@@ -77,7 +83,7 @@ class KarelCompiler {
 
    // public: run this to execute the next step. Works
    // with a callbackFn which will be called when the step
-   // is done. The callbackFn will be told if the program 
+   // is done. The callbackFn will be told if the program
    // is finished and what line number was just executed.
    executeStep(callbackFn) {
       console.log('step started')
@@ -104,9 +110,9 @@ class KarelCompiler {
                lineNumber:this.vm.getCurrLineNum()
             })
          }
-         // if you made a change to the world, you have to 
+         // if you made a change to the world, you have to
          // wait for the callback. Programmers of KarelWorld
-         // are responsible for calling the callback. 
+         // are responsible for calling the callback.
       }
    }
 
@@ -114,7 +120,7 @@ class KarelCompiler {
    // once react has finished with the state update.
    worldStepFinished() {
       console.log('step finished')
-      
+
       // to avoid a deadlock condition, you must busy wait
       // if the engine hasn't finished
       if(this.isEngineFinished) {

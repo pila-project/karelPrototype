@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, postItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown } from 'redux/actions'
+import { problemComplete, preItemComplete, postItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown, updateWorld } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
+import ToggleButton from 'react-bootstrap/ToggleButton'
 import Swal from 'sweetalert2'
 import {fireSuccessSwal} from 'Components/Util/SuccessSwal.js'
 import BlocklyKarel from '../Editor/BlocklyKarel.js'
@@ -37,7 +39,8 @@ const mapDispatchToProps = {
   onPostItemComplete: (index) => postItemComplete(index),
   onRunDone: (correct) => runDone(correct),
   onTimeOut: () => timedOut(),
-  onUpdateCountdown: (time) => updateCountdown(time)
+  onUpdateCountdown: (time) => updateCountdown(time),
+  onUpdateWorld: (world, solvedWorlds) => updateWorld(world, solvedWorlds)
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -48,7 +51,9 @@ const mapStateToProps = (state, ownProps) => {
   const currentView = pageState.currentView;
   const countdown = pageState.countdown;
   const item = pageState.item;
-  return { studentState , currentView, savedXml, countdown, item, moduleName};
+  const world = pageState.world;
+  const solvedWorlds = pageState.solvedWorlds;
+  return { studentState , currentView, savedXml, countdown, item, moduleName, world, solvedWorlds};
 }
 
 const SPACE_FLOAT = 20
@@ -62,7 +67,8 @@ class IdeItem extends Component {
     postWorld: null,
     isEditable: true,
     testStage:'learning',
-    enableKeys: true
+    enableKeys: true,
+    multiWorlds: false
   }
 
   constructor(props){
@@ -74,23 +80,51 @@ class IdeItem extends Component {
 
   componentWillMount() {
     this.engine = new KarelEngine()
-    this.setState({
-      isReset: true
-    })
+    var isReset = true
 
+    var isEditable = true
     if (this.props.countdown[this.props.item] < 1) {
-      this.setState({
-        isEditable: false
-      })
+      isEditable = false
+
     }
 
     this.LearnModule = new Curriculum(this.props.moduleName)
+
+    // Multiple worlds to be solved?
+    var multiWorlds = true
+    var solvedWorlds = {}
+    if ('width' in this.props.preWorld || Object.keys(this.props.preWorld).length == 1) {
+      multiWorlds = false
+
+    } else {
+
+      if (Object.keys(this.props.solvedWorlds).length) {
+        solvedWorlds = this.props.solvedWorlds
+      } else {
+        for (var key in this.props.preWorld) {
+          solvedWorlds[key] = 0 // 0 ... hasn't run yet
+        }
+      }
+    }
+
+    this.setState({
+      isEditable: isEditable,
+      isReset: isReset,
+      multiWorlds: multiWorlds,
+      solvedWorlds: solvedWorlds,
+    })
 
   }
 
   componentDidMount(){
     document.addEventListener("keydown", this.handleKeyPress, false);
-    console.log('OK BUT THIS ONE DOES NOT GET TRIGGERED EITHER?!')
+
+    if (this.state.multiWorlds) {
+      // Set up tracker of which worlds are solved
+      this.resetWorldSelection()
+
+    }
+
   }
 
   componentWillUnmount(){
@@ -122,6 +156,7 @@ class IdeItem extends Component {
   }
 
   run() {
+
     let codeText = this.refs.editor.getCode()
     this.setState({
       isReset:false
@@ -184,12 +219,105 @@ class IdeItem extends Component {
 
       this.props.onRunDone(correct)
 
-      if(correct) {
-        this.onSolution()
+      if (!this.state.multiWorlds) {
+        if(correct) {
+          this.onSolution()
+        } else {
+          this.onIncorrect()
+        }
       } else {
-        this.onIncorrect()
+        this.onNextStep(correct)
       }
     }
+  }
+
+  onNextStep(correct) {
+    var solvedWorlds = this.state.solvedWorlds
+    // update tracker of worlds correct
+    solvedWorlds[this.state.world] = [1,2][correct*correct] //0... hasn't run; 1 ... failed; 2... succeeded
+    //correct = true
+    var allWorldsCorrect = true
+    Object.keys(solvedWorlds).map(key => {
+      allWorldsCorrect = allWorldsCorrect * (solvedWorlds[key]==2) // 2 ... succeeded
+    })
+
+    var solutionState = correct + allWorldsCorrect // 2 ... completed; 1 ... correct world; 0 ... failed
+
+    var responseType = ''
+    var iconType = ''
+    var confirmText = ''
+    var cancelText = ''
+    switch (solutionState) {
+      case 2:
+        responseType = translate('You solved all worlds!')
+        iconType = 'success'
+        confirmText = 'Return to the main menu.'
+        cancelText = 'Stay in this task'
+      break;
+
+      case 1:
+        responseType = translate(this.state.worldName + ' solved.')
+        iconType = 'success'
+        confirmText = 'Run next world'
+        cancelText = 'Keep this world'
+      break;
+
+      case 0:
+        responseType = translate(this.state.worldName + ' not solved.')
+        iconType = 'warning'
+        confirmText = 'Run next world'
+        cancelText = 'Keep this world'
+
+    }
+
+
+      // Generate swall
+    Swal.fire({
+      title: responseType,
+      icon: iconType,
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: confirmText,
+      cancelButtonText: cancelText,
+      allowOutsideClick: true
+    }).then((result) => {
+
+      if (result.value) {
+        if (solutionState == 2) {
+          this.onSolution()
+
+        } else {
+
+          // Run the world that has not been run yet
+          this.setState({
+            solvedWorlds: solvedWorlds
+          })
+          // Find the next unsolved world
+          var nextWorld = Object.keys(this.state.solvedWorlds)[0]
+          var returnNext = false
+          Object.keys(this.state.solvedWorlds).map((key,idx) => {
+            if (returnNext && !(this.state.solvedWorlds[key]==2)) {
+              nextWorld = key
+              returnNext = false
+            }
+            if (key == this.state.world) returnNext = true
+          })
+
+          // Reset the code
+          this.reset()
+
+          // Update view to the identified world
+          this.updateWorld(nextWorld)
+
+          // Run the code once updated
+          this.run()
+        }
+      } else {
+        // Reset the code
+        this.reset()
+      }
+    })
+
   }
 
   onIncorrect() {
@@ -263,6 +391,67 @@ class IdeItem extends Component {
     }
   }
 
+  resetWorlds() {
+    var solvedWorlds = {}
+    for (var key in this.props.preWorld) {
+      solvedWorlds[key] = 0 // 0 ... hasn't run yet
+    }
+
+    this.props.onUpdateWorld(this.state.world, solvedWorlds)
+    this.setState({
+      solvedWorlds: solvedWorlds
+    })
+
+  }
+
+  updateWorld(evt) {
+    var newWorld = ''
+    if (evt.target) {
+      newWorld = evt.target.value
+    } else {
+      newWorld = evt
+    }
+    this.reset()
+    this.props.onUpdateWorld(newWorld, this.state.solvedWorlds)
+    this.setState({
+      world: newWorld,
+      worldName: newWorld ? 'World ' + newWorld.replace(/[^0-9]+/,'') : 'World 1'
+    })
+  }
+
+  resetWorldSelection() {
+    this.props.onUpdateWorld('world1', this.state.solvedWorlds)
+    this.setState({
+      world: 'world1',
+      worldName: 'World 1'
+
+    })
+  }
+
+  renderMultiWorldButtons() {
+
+    var num_buttons = Object.keys(this.props.preWorld).length
+    var button_focus = []
+    Array.from({length: num_buttons}, (x, i) => i).map(idx => {
+      button_focus.push('world' + (idx + 1))
+    })
+
+    var select_world = 'world1'
+    if (this.state.world) {
+      select_world = button_focus.find(elem => elem==this.state.world) ? this.state.world : "world1"
+    }
+
+    return <ToggleButtonGroup
+      name='test'
+      defaultValue={'world1'}
+      value={select_world}
+      onClick={(event) => this.updateWorld(event)}>
+        {button_focus.map((button_idx,idx) =>
+          <ToggleButton value={button_idx} variant={'solvedWorlds' in this.state? ['secondary','danger','success'][this.state.solvedWorlds[button_idx]] : 'secondary'}> {'World ' + (idx+1).toString()} </ToggleButton>
+        )}
+      </ToggleButtonGroup>
+  }
+
   getInstructionColor(itemType){
     if(itemType == 'goodExample') {
       return 'instructionGreen'
@@ -289,11 +478,30 @@ class IdeItem extends Component {
   }
 
   renderPre() {
+
+    var preWorld = null
+    if (Object.keys(this.props.preWorld).length==1) {
+      preWorld = this.props.preWorld[Object.keys(this.props.preWorld)[0]]
+    } else if (!('width' in this.props.preWorld)) {
+
+      if (this.props.world && this.props.world in this.props.preWorld) {
+        preWorld = this.props.preWorld[this.props.world]
+        preWorld['world'] = this.props.world
+      } else {
+        console.log('PROBLEM IN RENDER PRE')
+        preWorld = this.props.preWorld[Object.keys(this.props.preWorld)[0]]
+      }
+
+    } else {
+      preWorld = this.props.preWorld
+    }
+
     return (
       <div style={{marginRight:SPACING}}>
         <h3>{translate('World')}:</h3>
         <KarelWorld
-          {...this.props.preWorld}
+          {...preWorld}
+          key={this.props.world}
           ref="world"
         />
       </div>
@@ -301,12 +509,30 @@ class IdeItem extends Component {
   }
 
   renderPost() {
+
     if(this.props.postWorld != null){
+      var postWorld = null
+      if (Object.keys(this.props.postWorld).length==1) {
+        postWorld = this.props.postWorld[Object.keys(this.props.postWorld)[0]]
+      } else if (!('width' in this.props.postWorld)) {
+
+        if (this.props.world && this.props.world in this.props.postWorld) {
+          postWorld = this.props.postWorld[this.props.world]
+          postWorld['world'] = this.props.world
+        } else {
+          console.log('PROBLEM IN RENDER POST')
+          postWorld = this.props.postWorld[Object.keys(this.props.postWorld)[0]]
+        }
+      } else {
+        postWorld = this.props.postWorld
+      }
+
       return (
-        <div>
+        <div >
           <h3>{translate('Goal')}:</h3>
           <KarelGoal
-            {...this.props.postWorld}
+            {...postWorld}
+            key={this.props.world}
             ref="goalWorld"
           />
         </div>
@@ -329,6 +555,9 @@ class IdeItem extends Component {
   saveCode(codeUpdate) {
     // codeUpdate = {code: code-xml, runType: type of action that resulted in the code}
     this.props.onUpdateCode(codeUpdate)
+    console.log('WE ARE HERE')
+    this.resetWorlds()
+
   }
 
   renderRightSide() {
@@ -354,19 +583,37 @@ class IdeItem extends Component {
   }
 
   renderLeftSide() {
-    return (
-      <div className = "vertical">
-        {this.renderNavBar()}
-        {this.renderInstructions()}
-        <div className="horizontal">
-          {this.renderPre()}
-          {this.renderPost()}
+
+    if (!this.state.multiWorlds) {
+      return (
+        <div className = "vertical">
+          {this.renderNavBar()}
+          {this.renderInstructions()}
+          <div className="horizontal">
+            {this.renderPre()}
+            {this.renderPost()}
+          </div>
+          <div style={{marginTop:SPACING}} className="horizontal-spaced">
+            {this.renderButtons()}
+          </div>
         </div>
-        <div style={{marginTop:SPACING}}>
-          {this.renderButtons()}
+      )
+    } else {
+      return (
+        <div className = "vertical">
+          {this.renderNavBar()}
+          {this.renderInstructions()}
+          <div className="horizontal">
+            {this.renderPre()}
+            {this.renderPost()}
+          </div>
+          <div style={{marginTop:SPACING}} className="horizontal-spaced">
+            {this.renderButtons()}
+            {this.renderMultiWorldButtons()}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
   renderNavBar() {

@@ -14,3 +14,4 @@ export const TIMEDOUT = "TIMEDOUT";
 export const END_SESSION = "END_SESSION";
 export const UPDATE_USERID = "UPDATE_USERID";
 export const UPDATE_COUNTDOWN = "UPDATE_COUNTDOWN";
+export const UPDATE_WORLD = "UPDATE_WORLD";

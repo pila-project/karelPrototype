@@ -1,3 +1,5 @@
 export {default as ManageModules} from './ManageModules'
 export {default as Parson} from './Parson'
 export {default as Prolific} from './Prolific'
+export {default as MultipleWorlds} from './MultipleWorlds'
+export {default as LearnExperience} from './LearnExperience'

@@ -47,11 +47,12 @@ class Test extends Component {
   componentWillMount() {
     document.title = "Pisa 2024";
 
+    console.log("MODULENAME")
+    console.log(this.props)
     this.LearnModule = new Curriculum(this.props.moduleName)
 
-    let firstView = null
     if (!this.props.currentView) {
-      firstView = this.LearnModule.getCollection('pre')[0]
+      let firstView = this.LearnModule.getCollection('pre')[0]
       this.props.onUpdateCurrentView(firstView['id'])
     } else {
       this.props.onUpdateCurrentView(this.props.currentView)

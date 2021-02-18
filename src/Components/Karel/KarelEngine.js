@@ -67,7 +67,8 @@ class KarelEngine {
     let javaCode = this.processBlocklyText(codeText)
 
     console.log(javaCode)
-
+    console.log('COMPILE BLOCKLY')
+    console.log(world)
     let compiler = new KarelCompiler(world)
     let functions = compiler.compile(javaCode)
     let isValid = this.validate(functions)
@@ -146,6 +147,9 @@ class KarelEngine {
     // the javascript method for "replace all"
     java = java.replaceAll("var", "int")
     java = java.replace("FRONT_CLEAR", "frontIsClear()")
+    java = java.replace("FRONT_BLOCKED", "frontIsBlocked()")
+    java = java.replace("STONES_PRESENT","stonesPresent()")
+    java = java.replace("STONES_NOT_PRESENT", "stonesNotPresent()")
 
     java = this.removeEmptyBlocks(java);
 

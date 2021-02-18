@@ -1,4 +1,4 @@
-import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN } from "./actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -14,6 +14,16 @@ export function updateStatus(status) {
 
 export function updateModule(moduleName) {
   return { type: UPDATE_MODULE, moduleName}
+}
+
+export function updateWorld(worldName, solvedWorlds) {
+  console.log('IN ACTIONS')
+  console.log(worldName)
+  console.log(solvedWorlds)
+  return { type: UPDATE_WORLD,
+           worldName: worldName,
+           solvedWorlds: solvedWorlds
+  }
 }
 
 export function updateCode(codeUpdate) {

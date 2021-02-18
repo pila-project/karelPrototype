@@ -7,7 +7,7 @@ import './Pages/style/pages.css'
 import StarterCode from './Pages/StarterCode.js'
 import Dashboard from './Components/Dashboard/Dashboard.js'
 import Learning from './Components/Learning/Learning.js'
-import {ManageModules, Parson, Prolific} from './Pages'
+import { ManageModules, Parson, Prolific, MultipleWorlds} from './Pages'
 import DashboardItem from './Components/Dashboard/DashboardItem.js'
 import {
   BrowserRouter as Router,
@@ -40,6 +40,8 @@ class App extends Component {
         <Route exact path="/prolific/:userId" component={ManageModules} />
         <Route exact path="/parson" component={ManageModules} />
         <Route exact path="/parson/:userId" component={ManageModules} />
+        <Route exact path="/multipleworlds" component={ManageModules} />
+        <Route exact path="/multipleworlds/:userId" component={ManageModules} />        
         <Route exact path="/startercode" component={StarterCode} />
         <Route exact path="/learning" component={Learning} />
         <Route exact path="/item" component={DashboardItem} />

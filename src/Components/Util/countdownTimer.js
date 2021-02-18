@@ -73,11 +73,15 @@ class ClockRender extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <span> {this.state.time.m.toLocaleString('en-US',{'minimumIntegerDigits':2})} : {this.state.time.s.toLocaleString('en-US',{'minimumIntegerDigits':2})} </span>
-      </div>
-    );
+    if (Object.keys(this.state.time).length) {
+      return (
+        <div>
+          <span> {this.state.time.m.toLocaleString('en-US',{'minimumIntegerDigits':2})} : {this.state.time.s.toLocaleString('en-US',{'minimumIntegerDigits':2})} </span>
+        </div>
+      );
+    } else {
+      return(<div></div>)
+    }
   }
 }
 

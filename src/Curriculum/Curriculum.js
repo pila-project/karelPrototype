@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2 } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1 } from 'Items'
 
-import {Prolific, Parson} from './TaskSequences'
+import {Prolific, Parson, MultipleWorlds} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -14,14 +14,18 @@ A group of stages is called a "unit"
 export default class Curriculum {
 
   constructor(moduleName) {
-    if (moduleName == 'Prolific') {
+    if (moduleName.toLowerCase() == 'prolific') {
       this.pre = Prolific.getPre()
       this.post = Prolific.getPost()
       this.learningPlan = Prolific.getLearningPlan()
-    } else if (moduleName == 'Parson') {
+    } else if (moduleName.toLowerCase() == 'parson') {
       this.pre = Parson.getPre()
       this.post = Parson.getPost()
       this.learningPlan = Parson.getLearningPlan()
+    } else if (moduleName.toLowerCase() == 'multipleworlds') {
+      this.pre = MultipleWorlds.getPre()
+      this.post = MultipleWorlds.getPost()
+      this.learningPlan = MultipleWorlds.getLearningPlan()
     }
   }
 
@@ -152,9 +156,14 @@ const itemComponentDatabase = {
   IntroExplainTasks: <IntroExplainTasks/>,
   IntroExplainEditor: <IntroExplainEditor/>,
 
-  // Dashboard
+  // Parson1
   Parson1: <Parson1 />,
   Parson2: <Parson2 />,
+
+  // MultipleWorlds
+  MultipleWorlds1: <MultipleWorlds1 />,
+
+  // Dashboard
   CommandsMLMR: <CommandsMLMR />,
   CommandsHouseGood: <CommandsHouseGood />,
   CommandsHouseBad:<CommandsHouseBad />,

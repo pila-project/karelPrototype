@@ -31,6 +31,9 @@ KarelParser.statementForms["if"] = function(parser) {
    parser.verifyToken("(");
    var exp = parser.readPredicate();
    parser.verifyToken(")");
+   console.log('IF PARSER')
+   console.log(parser)
+   console.log(exp)
    var s1 = parser.readStatement();
    var token = parser.nextToken();
    if (token.text == "else") {
@@ -44,6 +47,8 @@ KarelParser.statementForms["if"] = function(parser) {
 KarelParser.statementForms["while"] = function(parser) {
    parser.verifyToken("(");
    var exp = parser.readPredicate();
+   console.log('WHILE PARSER')
+   console.log(parser)
    console.log(exp)
    parser.verifyToken(")");
    return [ "while", exp, parser.readStatement() ];
@@ -103,7 +108,7 @@ KarelParser.prototype.readImport = function() {
          token = this.nextToken();
       }
    }
-   
+
 }
 
 KarelParser.prototype.readClass = function() {
@@ -163,7 +168,7 @@ KarelParser.prototype.readFunction = function() {
 
    this.verifyToken("void");
    var name = this.nextToken().text;
-   
+
    if (!this.scanner.isValidIdentifier(name)) {
       throw new Error("\"" + name + "\" is not a legal function name");
    }
@@ -193,6 +198,8 @@ KarelParser.prototype.readStatement = function() {
       }
       return block;
    }
+   console.log('readStatement')
+   console.log(token)
    var tokenText = token.text
    var lineNumber = token.lineNumber
    var prop = KarelParser.statementForms[tokenText];
