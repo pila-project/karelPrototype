@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1 } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded } from 'Items'
 
-import {Prolific, Parson, MultipleWorlds} from './TaskSequences'
+import {Prolific, Parson, MultipleWorlds, Experience1} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -22,6 +22,10 @@ export default class Curriculum {
       this.pre = Parson.getPre()
       this.post = Parson.getPost()
       this.learningPlan = Parson.getLearningPlan()
+    } else if (moduleName.toLowerCase() == 'experience1') {
+      this.pre = Experience1.getPre()
+      this.post = Experience1.getPost()
+      this.learningPlan = Experience1.getLearningPlan()
     } else if (moduleName.toLowerCase() == 'multipleworlds') {
       this.pre = MultipleWorlds.getPre()
       this.post = MultipleWorlds.getPost()
@@ -178,9 +182,11 @@ const itemComponentDatabase = {
   Repeat5: <Repeat5 />,
   Repeat5Bad: <Repeat5Bad />,
   RepeatL2PlaceRow: <RepeatL2PlaceRow />,
+  RepeatL2PlaceRow_scaffolded: <RepeatL2PlaceRow_scaffolded />,
   RepeatL2StepUpGood:<RepeatL2StepUpGood />,
   RepeatL2StepUpBad:<RepeatL2StepUpBad />,
   RepeatL3Corner9: <RepeatL3Corner9 />,
+  RepeatL3Corner9_scaffolded: <RepeatL3Corner9_scaffolded />,
   RepeatL3Dash5Good: <RepeatL3Dash5Good />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,

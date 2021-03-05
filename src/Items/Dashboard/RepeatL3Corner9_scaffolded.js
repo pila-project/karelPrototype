@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="false" editable="false" x="20" y="232"><field name="NAME">place 4</field><statement name="STACK"></statement></block></xml>`
 class Item extends Component {
 
   render() {

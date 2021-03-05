@@ -20,7 +20,7 @@ class Item extends Component {
         <IdeItem
           instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('This program has karel pick up a stone and move it around a corner. It creates a new command to "turn right"')}:
+            &nbsp;{translate('This program has karel pick up a stone and move it around a corner. It creates a new command to "turn right". Fill in the remaining blocks in the FUNCTION BLOCK')}:
           </span>}
           preWorld = {{
             width:250,
