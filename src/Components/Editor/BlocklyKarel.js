@@ -138,6 +138,7 @@ class BlocklyKarel extends React.Component {
   }
 
   getAllFunctions() {
+
     // Find top-level blocks and return them by position, sorted top to bottom
     let topBlocks = this.simpleWorkspace.workspace.getTopBlocks(true)
     let functions = []
@@ -165,33 +166,40 @@ class BlocklyKarel extends React.Component {
   // blocks. This method forces that to be the case. If it notices
   // a new block in an uneditable method, it removes it!
   preventEditingReadOnly = (event) => {
+
     let functions = this.getAllFunctions()
     for (var i = 0; i < functions.length; i++) {
       let block = functions[i]
       // we only care about uneditable functions
+      //if(block.isEditable() && !Object.keys(this.props.restrictedUse).length) continue
       if(block.isEditable()) continue
 
       let descendants = block.getDescendants()
       descendants[descendants.length - 1].setNextStatement(false)
 
       let idSet = new Set()
-      for (var i = 0; i < descendants.length; i++) {
-        idSet.add(descendants[i].id)
-      }
       let name = block.toString()
 
-      if(!(name in this.fnChangeWatcher)) {
-        this.fnChangeWatcher[name] = idSet
-      } else {
-        let workspace = this.simpleWorkspace.workspace
-        let oldIdSet = this.fnChangeWatcher[name]
-        if(!this.setsEqual(oldIdSet, idSet)) {
-          for(let blockId of idSet) {
-            if(!oldIdSet.has(blockId)) {
+      for (var i = 0; i < descendants.length; i++) {
+        if (descendants[i].toString() != name) {
+          idSet.add(descendants[i].id)
+        }
+      }
 
-              let toRemove = workspace.getBlockById(blockId)
-              if(toRemove) toRemove.dispose(true)
+      if (idSet.size>0) {
+        if(!(name in this.fnChangeWatcher)) {
+          this.fnChangeWatcher[name] = idSet
+        } else {
+          let workspace = this.simpleWorkspace.workspace
+          let oldIdSet = this.fnChangeWatcher[name]
+          if(!this.setsEqual(oldIdSet, idSet)) {
+            for(let blockId of idSet) {
+              if(!oldIdSet.has(blockId)) {
 
+                let toRemove = workspace.getBlockById(blockId)
+                if(toRemove) toRemove.dispose(true)
+
+              }
             }
           }
         }

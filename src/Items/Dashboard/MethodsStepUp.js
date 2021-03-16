@@ -14,7 +14,6 @@ class Item extends Component {
 
     let xml = translateAllParts(initialXml, 'turn right')
 
-
     return (
       <div className="vertical centered fullSize">
         <IdeItem

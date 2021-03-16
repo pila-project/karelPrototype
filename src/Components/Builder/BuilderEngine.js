@@ -129,10 +129,10 @@ class KarelEngine {
     // this is a lame hack. On flight couldn't remember
     // the javascript method for "replace all"
     java = java.replaceAll("var", "int")
-    java = java.replace("FRONT_CLEAR", "frontIsClear()")
-    java = java.replace("FRONT_BLOCKED", "frontIsBlocked()")
-    java = java.replace("STONES_PRESENT", "stonesPresent()")
-    java = java.replace("STONES_NOT_PRESENT", "stonesNotPresent()")
+    java = java.replaceAll("FRONT_CLEAR", "frontIsClear()")
+    java = java.replaceAll("FRONT_BLOCKED", "frontIsBlocked()")
+    java = java.replaceAll("STONES_PRESENT", "stonesPresent()")
+    java = java.replaceAll("STONES_NOT_PRESENT", "stonesNotPresent()")
 
     console.log('java', java)
     return java

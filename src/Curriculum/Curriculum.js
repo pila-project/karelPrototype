@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, MultipleWorldsIF1, MultipleWorldsIF2, MultipleWorldsWHILE1, MultipleWorldsWHILE2, MultipleWorldsCOMBINE1, MultipleWorldsCOMBINE2, MultipleWorldsCHALLENGE1, MultipleWorldsCHALLENGE2, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded, RepeatL3AlternateRows, PlaceStonesWithFunctions,
+MWIF1BAD,MWIF1GOOD,MWIF2BAD,MWIF2GOOD,MWWHILE1BAD,MWWHILE2BAD,MWWHILE1GOOD,MWWHILE2GOOD,MWCOMBINE1BAD,MWCOMBINE2BAD,MWCOMBINE1GOOD,MWCOMBINE2GOOD,MWCHALLENGE2BAD,MWCHALLENGE2GOOD } from 'Items'
 
-import {Prolific, Parson, MultipleWorlds, Experience1} from './TaskSequences'
+import {Prolific, Parson, MultipleWorlds, Experience1, Experience2} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -26,6 +27,10 @@ export default class Curriculum {
       this.pre = Experience1.getPre()
       this.post = Experience1.getPost()
       this.learningPlan = Experience1.getLearningPlan()
+    } else if (moduleName.toLowerCase() == 'experience2') {
+      this.pre = Experience2.getPre()
+      this.post = Experience2.getPost()
+      this.learningPlan = Experience2.getLearningPlan()
     } else if (moduleName.toLowerCase() == 'multipleworlds') {
       this.pre = MultipleWorlds.getPre()
       this.post = MultipleWorlds.getPost()
@@ -166,6 +171,28 @@ const itemComponentDatabase = {
 
   // MultipleWorlds
   MultipleWorlds1: <MultipleWorlds1 />,
+  MultipleWorldsIF1: <MultipleWorldsIF1 />,
+  MultipleWorldsIF2: <MultipleWorldsIF2 />,
+  MultipleWorldsWHILE1: <MultipleWorldsWHILE1 />,
+  MultipleWorldsWHILE2: <MultipleWorldsWHILE2 />,
+  MultipleWorldsCOMBINE1: <MultipleWorldsCOMBINE1 />,
+  MultipleWorldsCOMBINE2: <MultipleWorldsCOMBINE2 />,
+  MultipleWorldsCHALLENGE1: <MultipleWorldsCHALLENGE1 />,
+  MultipleWorldsCHALLENGE2: <MultipleWorldsCHALLENGE2 />,
+  MWIF1BAD: <MWIF1BAD />,
+  MWIF2BAD: <MWIF2BAD />,
+  MWWHILE1BAD: <MWWHILE1BAD />,
+  MWWHILE2BAD: <MWWHILE2BAD />,
+  MWCOMBINE1BAD: <MWCOMBINE1BAD />,
+  MWCOMBINE2BAD: <MWCOMBINE2BAD />,
+  MWCHALLENGE2BAD: <MWCHALLENGE2BAD />,
+  MWIF1GOOD: <MWIF1GOOD />,
+  MWIF2GOOD: <MWIF2GOOD />,
+  MWWHILE1GOOD: <MWWHILE1GOOD />,
+  MWWHILE2GOOD: <MWWHILE2GOOD />,
+  MWCOMBINE1GOOD: <MWCOMBINE1GOOD />,
+  MWCOMBINE2GOOD: <MWCOMBINE2GOOD />,
+  MWCHALLENGE2GOOD: <MWCHALLENGE2GOOD />,
 
   // Dashboard
   CommandsMLMR: <CommandsMLMR />,
@@ -186,9 +213,11 @@ const itemComponentDatabase = {
   RepeatL2StepUpGood:<RepeatL2StepUpGood />,
   RepeatL2StepUpBad:<RepeatL2StepUpBad />,
   RepeatL3Corner9: <RepeatL3Corner9 />,
+  RepeatL3AlternateRows: <RepeatL3AlternateRows />,
   RepeatL3Corner9_scaffolded: <RepeatL3Corner9_scaffolded />,
   RepeatL3Dash5Good: <RepeatL3Dash5Good />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
+  PlaceStonesWithFunctions: <PlaceStonesWithFunctions />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
 
   // Challenges

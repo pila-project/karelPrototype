@@ -44,6 +44,7 @@ class BlocklyComponent extends React.Component {
 
         if (initialXml) {
           Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(initialXml), this.primaryWorkspace);
+
         }
 
         this.setWorkspaceToReadOnly()

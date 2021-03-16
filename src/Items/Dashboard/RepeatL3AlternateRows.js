@@ -5,36 +5,48 @@ import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="true" x="20" y="20"><statement name="program"></statement></block></xml>`
-class Item extends Component {
+class RepeatCorners extends Component {
+
 
   render() {
+    var n = 7
+    var stones = []
+    for (var i = 1; i < n; i++) {
+      if (i%2==1) {
+        stones.push({r:1,c:i,n:1})
+      } else {
+        stones.push({r:0,c:i,n:1})
+      }
+    }
+
+    var walls = ''
 
     let xml = translateAllParts(initialXml, 'turn right')
 
     return (
       <div className="vertical centered fullSize">
         <IdeItem
-          instructions = {<span>
+         instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use TWO REPEAT BLOCKS AND A FUNCTION to place 4 stones in each corner')}.
+            &nbsp;{translate('Use a REPEAT BLOCK to place a stone after each column')}.
           </span>}
           preWorld = {{
             width:300,
-            height:300,
-            nRows:3,
-            nCols:3,
+            height:300 * (2/n),
+            nRows:2,
+            nCols:n,
+            walls:walls,
           }}
           postWorld = {{
             width:300,
-            height:300,
-            nRows:3,
-            nCols:3,
-            stones:[
-              {r:0,c:0,n:4},
-              {r:0,c:2,n:4},
-              {r:2,c:2,n:4},
-              {r:2,c:0,n:4},
-            ]
+            height:300 * (2/n) ,
+            nRows:2,
+            nCols:n,
+            walls:walls,
+            stones:stones,
+            karelRow:1,
+            karelCol:n - 1
+
           }}
           hasRun={true}
           hasStep={false}
@@ -50,4 +62,4 @@ class Item extends Component {
 
 }
 
-export default Item
+export default RepeatCorners

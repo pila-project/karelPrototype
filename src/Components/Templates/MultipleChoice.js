@@ -36,8 +36,8 @@ const mapStateToProps = (state, ownProps) => {
   const currentView = pageState.currentView;
   const countdown = pageState.countdown;
   const item = pageState.item;
-  const world = pageState.world;
-  const solvedWorlds = pageState.solvedWorlds;
+  const world = currentView in studentState ? studentState[currentView].world : false;
+  const solvedWorlds = currentView in studentState ? studentState[currentView].solvedWorlds : false;
   return { studentState , currentView, savedXml, countdown, item, moduleName, world, solvedWorlds};
 }
 

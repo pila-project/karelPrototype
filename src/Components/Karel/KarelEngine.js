@@ -147,10 +147,10 @@ class KarelEngine {
     // this is a lame hack. On flight couldn't remember
     // the javascript method for "replace all"
     java = java.replaceAll("var", "int")
-    java = java.replace("FRONT_CLEAR", "frontIsClear()")
-    java = java.replace("FRONT_BLOCKED", "frontIsBlocked()")
-    java = java.replace("STONES_PRESENT","stonesPresent()")
-    java = java.replace("STONES_NOT_PRESENT", "stonesNotPresent()")
+    java = java.replaceAll("FRONT_CLEAR", "frontIsClear()")
+    java = java.replaceAll("FRONT_BLOCKED", "frontIsBlocked()")
+    java = java.replaceAll("STONES_PRESENT","stonesPresent()")
+    java = java.replaceAll("STONES_NOT_PRESENT", "stonesNotPresent()")
 
     java = this.removeEmptyBlocks(java);
 
@@ -161,9 +161,6 @@ class KarelEngine {
   removeEmptyBlocks(java) {
 
     java = java.split('\n');
-
-    console.log('WE ARE GOING THROUGH THIS CODE')
-    console.log(java)
 
     var function_block = -1 // set to negative because the first line in the code is the class definition
     var cleanedCode = []
@@ -184,9 +181,6 @@ class KarelEngine {
     }
 
     java = cleanedCode.join('\n');
-
-    console.log('THIS IS THE CLEANED UP CODE')
-    console.log(java)
 
     return java
   }

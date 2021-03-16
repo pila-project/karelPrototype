@@ -59,44 +59,49 @@ const learningPlan = [
     ]
   },
   {
-    unitName:'Teach Karel',
+    unitName:'Conditionals',
     iconId:'hatch',
     problems: [
       {
-        name:'Function 1',
+        name:'Conditionals 1',
         prereq:'Basic Commands',
-        challenge:'MethodsStepUp',
-        goodExample:'MethodsTurnAroundGood',
-        badExample:'MethodsTurnAroundBad',
-        countDown: 5
+        challenge:'MultipleWorldsIF1',
+        goodExample:'MWIF1GOOD',
+        badExample:'MWIF1BAD',
+        countDown: 30
       },
       ,
       {
-        name:'Function 2',
-        prereq:'Basic Commands',
-        challenge:'PlaceStonesWithFunctions',
-        countDown: 7.5
+        name:'Conditionals 2',
+        prereq:'Conditionals 1',
+        challenge:'MultipleWorldsIF2',
+        goodExample:'MWIF2GOOD',
+        badExample:'MWIF2BAD',
+        countDown: 30
       }
     ],
   },
   {
-    unitName:'Repeat',
+    unitName:'While',
     iconId:'hatch',
     problems:[
       {
-        name:'Repeat 1',
-        prereq: 'Basic Commands',
-        challenge:'RepeatL2PlaceRow_scaffolded',
-        goodExample:'RepeatL2StepUpGood',
-        badExample:'RepeatL2StepUpBad',
-        countDown: 5
+        name:'While 1',
+        prereq:'Conditionals 2',
+        challenge:'MultipleWorldsWHILE1',
+        goodExample:'MWWHILE1GOOD',
+        badExample:'MWWHILE1BAD',
+        countDown: 30
       },
+      ,
       {
-        name:'Repeat 2',
-        prereq: 'Basic Commands',
-        challenge:'RepeatL3AlternateRows',
-        countDown: 7.5
-      },
+        name:'While 2',
+        prereq:'While 1',
+        challenge:'MultipleWorldsWHILE2',
+        goodExample:'MWWHILE2GOOD',
+        badExample:'MWWHILE2BAD',
+        countDown: 30
+      }
     ]
   },
   {
@@ -104,11 +109,19 @@ const learningPlan = [
     iconId:'hatch',
     problems:[
       {
-        name:'Combine',
-        prereq: 'Basic Commands',
-        challenge:'RepeatL3Corner9_scaffolded',
-        goodExample:'RepeatL3Dash5Good',
-        badExample:'RepeatL3Dash5Bad',
+        name:'Combine 1',
+        prereq: 'While 2',
+        challenge:'MultipleWorldsCOMBINE1',
+        goodExample:'MWCOMBINE1GOOD',
+        badExample:'MWCOMBINE1BAD',
+        countDown: 10
+      },
+      {
+        name:'Combine 2',
+        prereq: 'Combine 1',
+        challenge:'MultipleWorldsCOMBINE2',
+        goodExample:'MWCOMBINE2GOOD',
+        badExample:'MWCOMBINE2BAD',
         countDown: 10
       },
     ]
@@ -118,10 +131,10 @@ const learningPlan = [
     iconId:'hatch',
     problems:[{
       name:'Challenge',
-      prereq: 'Basic Commands',
-      challenge:'Checker',
-      goodExample:'DiamondGood',
-      badExample:'DiamondBad',
+      prereq: 'Combine 2',
+      challenge:'MultipleWorldsCHALLENGE2',
+      goodExample:'MWCHALLENGE2GOOD',
+      badExample:'MWCHALLENGE2BAD',
       countDown: 30
     }]
   },

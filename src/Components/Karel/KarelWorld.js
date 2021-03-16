@@ -333,6 +333,21 @@ class KarelWorld extends Component {
       if(wall.d == 'North') {
         let x = this.getCornerX(wall.r, wall.c)
         let y = this.getCornerY(wall.r, wall.c)
+
+        walls.push(<div
+          className="wall"
+          style={{
+            marginLeft:x,
+            marginTop:y,
+            width:this.getCornerSize(),
+            height:2,
+          }}
+          key={i}
+        ></div>)
+      } else if(wall.d == 'South') {
+        let x = this.getCornerX(wall.r+1, wall.c)
+        let y = this.getCornerY(wall.r+1, wall.c)
+
         walls.push(<div
           className="wall"
           style={{
@@ -345,6 +360,19 @@ class KarelWorld extends Component {
         ></div>)
       } else if(wall.d == 'East') {
         let x = this.getCornerX(wall.r, wall.c+1)
+        let y = this.getCornerY(wall.r, wall.c)
+        walls.push(<div
+          className="wall"
+          style={{
+            marginLeft:x,
+            marginTop:y,
+            width:2,
+            height:this.getCornerSize(),
+          }}
+          key={i}
+        ></div>)
+      } else if(wall.d == 'West') {
+        let x = this.getCornerX(wall.r, wall.c-1)
         let y = this.getCornerY(wall.r, wall.c)
         walls.push(<div
           className="wall"

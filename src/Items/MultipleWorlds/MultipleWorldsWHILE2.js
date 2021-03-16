@@ -4,8 +4,9 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = ``
-class RepeatCorners extends Component {
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
+
+class Item extends Component {
 
   makeWalls(n) {
     var walls = []
@@ -24,6 +25,8 @@ class RepeatCorners extends Component {
 
     var walls = this.makeWalls(0)
 
+    let xml = translateAllParts(initialXml, 'check stone')
+
     return (
       <div className="vertical centered fullSize">
         <IdeItem
@@ -35,40 +38,31 @@ class RepeatCorners extends Component {
             'world1':{
                 width:300,
                 height:300,
-                nRows:4,
-                nCols:4,
-                karelRow:1,
-                karelCol:2,
+                nRows:3,
+                nCols:3,
+                karelRow:2,
+                karelCol:0,
                 karelDir:'East',
                 stones: [
-                  {r:1, c:3, n:1},
-                  {r:0, c:3, n:1}
+                  {r:0, c:1, n:1},
+                  {r:1, c:2, n:1},
+                  {r:2, c:1, n:1},
+                  {r:1, c:0, n:1}
                 ]
               },
               'world2': {
                 width:300,
                 height:300,
-                nRows:4,
-                nCols:4,
-                karelRow:0,
-                karelCol:1,
-                karelDir: 'South',
+                nRows:3,
+                nCols:3,
+                karelRow:2,
+                karelCol:0,
+                karelDir: 'East',
                 stones: [
-                  {r:2, c:1, n:1},
-                  {r:2, c:2, n:1}
-                ]
-              },
-              'world3': {
-                width:300,
-                height:300,
-                nRows:4,
-                nCols:4,
-                karelRow:3,
-                karelCol:2,
-                karelDir: 'North',
-                stones: [
-                  {r:0, c:2, n:1},
-                  {r:0, c:1, n:1}
+                  {r:0, c:1, n:3},
+                  {r:1, c:2, n:3},
+                  {r:2, c:1, n:3},
+                  {r:1, c:0, n:3}
                 ]
               }
         }}
@@ -76,36 +70,30 @@ class RepeatCorners extends Component {
             'world1': {
               width:300,
               height:300,
-              nRows:4,
-              nCols:4,
-              karelRow:0,
-              karelCol:0,
-              karelDir: 'West'
+              nRows:3,
+              nCols:3,
+              karelRow:2,
+              karelCol:2,
+              karelDir: 'East'
             },
             'world2': {
               width:300,
               height:300,
-              nRows:4,
-              nCols:4,
-              karelRow:0,
+              nRows:3,
+              nCols:3,
+              karelRow:2,
               karelCol:2,
-              karelDir: 'North'
-            },
-            'world3': {
-              width:300,
-              height:300,
-              nRows:4,
-              nCols:4,
-              karelRow:1,
-              karelCol:1,
-              karelDir: 'South'
+              karelDir: 'East'
             }
           }}
           hasRun={true}
           hasStep={false}
+          initialXml={xml}
           hideBlocks = {{
             'karel_while_dropdown':false,
-            'karel_if_dropdown': false
+            'karel_if_dropdown': true,
+            'karel_procedure':true,
+            'controls_repeat_ext':true,
           }}
         />
       </div>
@@ -114,4 +102,4 @@ class RepeatCorners extends Component {
 
 }
 
-export default RepeatCorners
+export default Item

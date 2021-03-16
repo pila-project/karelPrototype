@@ -41,5 +41,27 @@ export const learningPlan = [
         countDown: 30 // in minutes
       }
     ]
+  },
+  {
+    unitName:'MultipleWorldsIF1',
+    iconId:'hatch',
+    problems: [
+      {
+        name:'Multiple Worlds 2',
+        challenge:'MultipleWorldsIF1',
+        countDown: 30 // in minutes
+      }
+    ]
+  },
+  {
+    unitName:'MultipleWorldsIF2',
+    iconId:'hatch',
+    problems: [
+      {
+        name:'Multiple Worlds 3',
+        challenge:'MultipleWorldsIF2',
+        countDown: 30 // in minutes
+      }
+    ]
   }
 ]

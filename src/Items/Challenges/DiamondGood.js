@@ -54,7 +54,7 @@ class PreTestA extends Component {
     return (<div className="verticalContainer centered fullSize">
       <IdeItem
         instructions = {<span>
-          <b>{translate('Example')}:</b> 
+          <b>{translate('Example')}:</b>
           &nbsp;{translate('Pick up all the stones')}!
         </span>}
         preWorld = {this.getPreWorld()}
@@ -67,7 +67,7 @@ class PreTestA extends Component {
     </div>)
   }
 
-  
+
 
 }
 

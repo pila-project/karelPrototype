@@ -7,10 +7,9 @@ import KarelGoal from 'Components/Karel/KarelGoal.js'
 import KarelCommands from 'Components/Templates/KarelCommands.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate} from 'redux/translator.js'
-
 const WORLD_WIDTH = 280
-
-class PostTestA extends Component {
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
+class PreTestA extends Component {
 
   getPreWorld() {
     return {
@@ -18,31 +17,7 @@ class PostTestA extends Component {
       height:WORLD_WIDTH,
       nRows:6,
       nCols:6,
-      stones: [
-        {r:0,c:5,n:4},
-        {r:0,c:3,n:4},
-        {r:0,c:1,n:4},
-
-        {r:1,c:4,n:4},
-        {r:1,c:2,n:4},
-        {r:1,c:0,n:4},
-
-        {r:2,c:5,n:4},
-        {r:2,c:3,n:4},
-        {r:2,c:1,n:4},
-
-        {r:3,c:4,n:4},
-        {r:3,c:2,n:4},
-        {r:3,c:0,n:4},
-
-        {r:4,c:5,n:4},
-        {r:4,c:3,n:4},
-        {r:4,c:1,n:4},
-
-        {r:5,c:4,n:4},
-        {r:5,c:2,n:4},
-        {r:5,c:0,n:4},
-      ]
+      
     }
   }
 
@@ -59,17 +34,18 @@ class PostTestA extends Component {
     return (<div className="verticalContainer centered fullSize">
       <IdeItem
         instructions = {<span>
-          <b>{translate('Challenge')}:</b>
-          &nbsp;{translate('Pick up all the stones')}!
+          <b>{translate('Example')}:</b>
+          &nbsp;{translate('Example showing how to use feature / concept, or solve a similar task.')}!
         </span>}
         preWorld = {this.getPreWorld()}
         postWorld = {this.getPostWorld()}
         hideBlocks = {{
-          'karel_while_dropdown':true,
-          'karel_while_dropdown':true,
-          'karel_if_dropdown': true
+          'karel_while_dropdown':false,
+          'karel_if_dropdown': true,
+          'karel_procedure':true,
+          'controls_repeat_ext':true,
         }}
-
+        initialXml = {initialXml}
       />
     </div>)
   }
@@ -78,4 +54,4 @@ class PostTestA extends Component {
 
 }
 
-export default PostTestA
+export default PreTestA

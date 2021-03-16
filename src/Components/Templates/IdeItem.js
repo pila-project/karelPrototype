@@ -49,8 +49,8 @@ const mapStateToProps = (state, ownProps) => {
   const currentView = pageState.currentView;
   const countdown = pageState.countdown;
   const item = pageState.item;
-  const world = pageState.world;
-  const solvedWorlds = pageState.solvedWorlds;
+  const world = currentView in studentState ? studentState[currentView].world : false;
+  const solvedWorlds = currentView in studentState ? studentState[currentView].solvedWorlds : false;
   return { studentState , currentView, savedXml, countdown, item, moduleName, world, solvedWorlds};
 }
 
@@ -95,13 +95,23 @@ class IdeItem extends Component {
       multiWorlds = false
 
     } else {
-
-      if (Object.keys(this.props.solvedWorlds).length) {
-        solvedWorlds = this.props.solvedWorlds
-      } else {
-        for (var key in this.props.preWorld) {
-          solvedWorlds[key] = 0 // 0 ... hasn't run yet
+      var solvedWorldsExist = false
+      if (solvedWorlds in this.props) {
+        if (Object.keys(this.props.solvedWorlds).length) {
+          solvedWorldsExist = true
         }
+      }
+
+      switch(solvedWorldsExist) {
+        case false:
+          for (var key in this.props.preWorld) {
+            solvedWorlds[key] = 0 // 0 ... hasn't run yet
+          }
+          break;
+
+        case true:
+          solvedWorlds = this.props.solvedWorlds
+          break;
       }
     }
 
@@ -574,6 +584,7 @@ class IdeItem extends Component {
           hideBlocks = {this.props.hideBlocks}
           activateToolbox = {this.props.activateToolbox}
           onCodeChange = {(e) => this.saveCode(e)}
+          restrictedUse = {'restrictedUse' in this.props ? this.props.restrictedUse : {}}
         />
 
       </div>

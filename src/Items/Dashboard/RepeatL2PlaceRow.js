@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" editable="true" x="20" y="20"><statement name="program"></statement></block></xml>`
 class RepeatCorners extends Component {
 
   makeWalls(n) {

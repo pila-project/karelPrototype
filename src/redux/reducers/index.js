@@ -20,7 +20,6 @@ const initialPageState = {
   countdown: {},
   points: 0,
   world: '',
-  solvedWorlds:{}
 }
 
 
@@ -89,12 +88,20 @@ function updateUserId(state, action) {
 function updateWorld(state, action) {
   console.log('in REDUX')
   console.log(action)
+  var stateModule = state[state.module]
+
   return {
     ...state,
     [state.module]: {
       ...state[state.module],
-      world: action.worldName,
-      solvedWorlds: action.solvedWorlds
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          world: action.worldName,
+          solvedWorlds: action.solvedWorlds
+        }
+      }
     }
   }
 }
