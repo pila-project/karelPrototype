@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="LOOP"></statement></block></statement></block></xml>`
 
 class Item extends Component {
 
@@ -32,7 +32,7 @@ class Item extends Component {
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use a repeat to place a stone after each column')}.
+            &nbsp;{translate('Complete the while loops with if conditions, and pick appropriate statements, to pick up all the stones in both worlds. (Possibly provide partial code again?)')}.
           </span>}
           preWorld = {{
             'world1':{

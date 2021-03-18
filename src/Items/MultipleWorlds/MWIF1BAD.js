@@ -17,7 +17,7 @@ class PreTestA extends Component {
       height:WORLD_WIDTH,
       nRows:6,
       nCols:6,
-      
+
     }
   }
 
@@ -35,7 +35,7 @@ class PreTestA extends Component {
       <IdeItem
         instructions = {<span>
           <b>{translate('Example')}:</b>
-          &nbsp;{translate('Example showing how NOT to use feature / concept, or solve a similar task')}!
+          &nbsp;{translate('Example showing how NOT to use feature / concept, or solve a similar task: Not solving both worlds / not using an if statement.')}!
         </span>}
         preWorld = {this.getPreWorld()}
         postWorld = {this.getPostWorld()}

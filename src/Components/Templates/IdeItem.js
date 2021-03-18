@@ -472,6 +472,8 @@ class IdeItem extends Component {
 
   renderInstructions() {
     let width = this.calculateLeftWidth()
+    console.log('HERE')
+    console.log(width)
     if(!('instructions' in this.props)) {
       return <span/>
     }
@@ -720,6 +722,7 @@ class IdeItem extends Component {
       width += parseFloat(this.props.postWorld.width)
       width += SPACE_FLOAT
     }
+    if (isNaN(width)) width = 500
     return Math.max(width, 620)
   }
 }

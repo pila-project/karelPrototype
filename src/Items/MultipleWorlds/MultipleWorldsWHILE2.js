@@ -32,7 +32,7 @@ class Item extends Component {
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use a repeat to place a stone after each column')}.
+            &nbsp;{translate('Use a while loop to pick up the stone piles in both worlds')}.
           </span>}
           preWorld = {{
             'world1':{
