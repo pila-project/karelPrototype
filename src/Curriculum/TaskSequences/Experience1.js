@@ -65,7 +65,7 @@ const learningPlan = [
       {
         name:'Function 1',
         prereq:'Basic Commands',
-        challenge:'MethodsStepUp',
+        challenge:'BuryTreasures',
         goodExample:'MethodsTurnAroundGood',
         badExample:'MethodsTurnAroundBad',
         countDown: 5
@@ -75,6 +75,8 @@ const learningPlan = [
         name:'Function 2',
         prereq:'Basic Commands',
         challenge:'PlaceStonesWithFunctions',
+        goodExample: 'PlaceStonesWithFunctionsGood',
+        badExample: 'PlaceStonesWithFunctionsBad',
         countDown: 7.5
       }
     ],
@@ -95,6 +97,8 @@ const learningPlan = [
         name:'Repeat 2',
         prereq: 'Basic Commands',
         challenge:'RepeatL3AlternateRows',
+        goodExample:'RepeatL3AlternateRowsGood',
+        badExample:'RepeatL3AlternateRowsBad',
         countDown: 7.5
       },
     ]

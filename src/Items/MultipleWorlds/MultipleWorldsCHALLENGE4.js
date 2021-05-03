@@ -14,8 +14,8 @@ class Item extends Component {
     let xml = translateAllParts(initialXml, 'check stone')
 
     var stones_row = []
-    var nCol = 6;
-    var nRow = 2;
+    var nCol = 9;
+    var nRow = 4;
     for (var i = 0; i < nCol-1; i++) {
       stones_row.push({r:nRow-1,c:i,n:1})
     }
@@ -25,48 +25,56 @@ class Item extends Component {
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use a WHILE loop and IF conditions to pick up all the stones')}.
+            &nbsp;{translate('Use a repeat to place a stone after each column')}.
           </span>}
           preWorld = {{
             'world1':{
                 width:350,
-                height:120,
+                height:160,
                 nRows:nRow,
                 nCols:nCol,
-                karelRow:nRow-1,
+                karelRow:3,
                 karelCol:0,
                 karelDir:'East',
                 walls: [
-                  {r:nRow-1,c:2,d:'East'},
+                  {r:3,c:2,d:'East'},
+                  {r:3,c:5,d:'East'},
                 ],
                 stones: stones_row
               },
               'world2': {
                 width:350,
-                height:120,
+                height:160,
                 nRows:nRow,
                 nCols:nCol,
-                karelRow:nRow-1,
+                karelRow:3,
                 karelCol:0,
                 karelDir:'East',
                 walls: [
-                  {r:nRow-1,c:1,d:'East'},
-                  {r:nRow-1,c:3,d:'East'},
+                  {r:3,c:3,d:'East'},
+                  {r:2,c:3,d:'East'},
+                  {r:1,c:3,d:'East'},
+                  {r:3,c:6,d:'East'},
+                  {r:2,c:6,d:'East'},
+                  {r:1,c:6,d:'East'},
                 ],
                 stones: stones_row
               },
               'world3':{
                   width:350,
-                  height:120,
+                  height:160,
                   nRows:nRow,
                   nCols:nCol,
-                  karelRow:nRow-1,
+                  karelRow:3,
                   karelCol:0,
                   karelDir:'East',
                   walls: [
-                    {r:nRow-1,c:1,d:'East'},
-                    {r:nRow-1,c:2,d:'East'},
-                    {r:nRow-1,c:3,d:'East'},
+                    {r:3,c:2,d:'East'},
+                    {r:2,c:2,d:'East'},
+                    {r:3,c:3,d:'East'},
+                    {r:2,c:3,d:'East'},
+                    {r:3,c:5,d:'East'},
+                    {r:2,c:5,d:'East'},
                   ],
                   stones: stones_row
                 }
@@ -74,42 +82,53 @@ class Item extends Component {
           postWorld = {{
             'world1':{
                 width:350,
-                height:120,
+                height:160,
                 nRows:nRow,
                 nCols:nCol,
                 karelRow:nRow-1,
                 karelCol:nCol-1,
                 karelDir:'East',
                 walls: [
-                  {r:nRow-1,c:2,d:'East'},
+                  {r:3,c:2,d:'East'},
+                  {r:3,c:5,d:'East'},
                 ],
+                stones: []
               },
               'world2': {
                 width:350,
-                height:120,
+                height:160,
                 nRows:nRow,
                 nCols:nCol,
                 karelRow:nRow-1,
                 karelCol:nCol-1,
                 karelDir:'East',
                 walls: [
-                  {r:nRow-1,c:1,d:'East'},
-                  {r:nRow-1,c:3,d:'East'},
+                  {r:3,c:3,d:'East'},
+                  {r:2,c:3,d:'East'},
+                  {r:1,c:3,d:'East'},
+                  {r:3,c:6,d:'East'},
+                  {r:2,c:6,d:'East'},
+                  {r:1,c:6,d:'East'},
                 ],
+                stones: []
               },
               'world3':{
                   width:350,
-                  height:120,
+                  height:160,
                   nRows:nRow,
                   nCols:nCol,
                   karelRow:nRow-1,
                   karelCol:nCol-1,
                   karelDir:'East',
                   walls: [
-                    {r:nRow-1,c:1,d:'East'},
-                    {r:nRow-1,c:2,d:'East'},
-                    {r:nRow-1,c:3,d:'East'},
+                    {r:3,c:2,d:'East'},
+                    {r:2,c:2,d:'East'},
+                    {r:3,c:3,d:'East'},
+                    {r:2,c:3,d:'East'},
+                    {r:3,c:5,d:'East'},
+                    {r:2,c:5,d:'East'},
                   ],
+                  stones: []
                 }
           }}
           hasRun={true}

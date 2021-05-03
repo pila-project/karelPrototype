@@ -9,12 +9,12 @@ class RepeatCorners extends Component {
 
 
   render() {
-    var n = 7
+    var n = 6
     var stones = []
     for (var i = 1; i < n; i++) {
       if (i%2==1) {
         stones.push({r:1,c:i,n:1})
-      } else {
+      //} else {
         stones.push({r:0,c:i,n:1})
       }
     }
@@ -32,20 +32,20 @@ class RepeatCorners extends Component {
           </span>}
           preWorld = {{
             width:300,
-            height:300 * (2/n),
+            height:300 * (2/(n+1)),
             nRows:2,
-            nCols:n,
+            nCols:n+1,
             walls:walls,
           }}
           postWorld = {{
             width:300,
-            height:300 * (2/n) ,
+            height:300 * (2/(n+1)) ,
             nRows:2,
-            nCols:n,
+            nCols:n+1,
             walls:walls,
             stones:stones,
             karelRow:1,
-            karelCol:n - 1
+            karelCol:n
 
           }}
           hasRun={true}

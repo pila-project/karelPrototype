@@ -253,6 +253,8 @@ class KarelWorld extends Component {
     if(isWest && this.hasEastWall(endR, endC)) return false
     if(isNorth && this.hasNorthWall(startR, startC)) return false
     if(isSouth && this.hasNorthWall(endR, endC)) return false
+    if(isWest && this.hasWestWall(startR, startC)) return false
+    if(isSouth && this.hasSouthWall(startR, startC)) return false
 
     // can only move 1 manhattan distance
     if (dRow + dCol != 1) return false;
@@ -266,6 +268,14 @@ class KarelWorld extends Component {
 
   hasNorthWall(r, c) {
     return this.hasWall(r, c, 'North')
+  }
+
+  hasWestWall(r, c) {
+    return this.hasWall(r, c, 'West')
+  }
+
+  hasSouthWall(r, c) {
+    return this.hasWall(r, c, 'South')
   }
 
   // dir can only be east or north...

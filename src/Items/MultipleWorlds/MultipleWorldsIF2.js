@@ -38,27 +38,49 @@ class Item extends Component {
             'world1':{
                 width:300,
                 height:300,
-                nRows:3,
-                nCols:3,
-                karelRow:0,
+                nRows:4,
+                nCols:4,
+                karelRow:3,
                 karelCol:0,
                 karelDir:'East',
                 stones: [
-                  {r:0, c:2, n:1},
-                  {r:2, c:2, n:1},
-                  {r:2, c:0, n:1}
+                  {r:3, c:0, n:1},
+                  {r:2, c:1, n:1},
+                  {r:1, c:2, n:1},
+                ],
+                walls: [
+                  {r:3,c:0,d:'East'},
+                  {r:2,c:1,d:'South'},
+                  {r:2,c:1,d:'East'},
+                  {r:1,c:2,d:'South'},
+                  {r:1,c:2,d:'East'},
+                  {r:0,c:3,d:'South'},
                 ]
               },
               'world2': {
-                width:300,
-                height:300,
-                nRows:3,
-                nCols:3,
-                karelRow:0,
+                width:350,
+                height:235,
+                nRows:4,
+                nCols:6,
+                karelRow:3,
                 karelCol:0,
                 karelDir: 'East',
                 stones: [
-                  {r:0, c:0, n:1},
+                  {r:3, c:0, n:1},
+                  {r:2, c:1, n:1},
+                  {r:2, c:2, n:1},
+                  {r:1, c:3, n:1},
+                  {r:1, c:4, n:1},
+                ],
+                walls: [
+                  {r:3,c:0,d:'East'},
+                  {r:2,c:1,d:'South'},
+                  {r:2,c:2,d:'South'},
+                  {r:2,c:2,d:'East'},
+                  {r:1,c:3,d:'South'},
+                  {r:1,c:4,d:'South'},
+                  {r:1,c:4,d:'East'},
+                  {r:0,c:5,d:'South'}
                 ]
               }
         }}
@@ -66,20 +88,50 @@ class Item extends Component {
             'world1': {
               width:300,
               height:300,
-              nRows:3,
-              nCols:3,
+              nRows:4,
+              nCols:4,
               karelRow:0,
-              karelCol:0,
-              karelDir: 'North'
+              karelCol:3,
+              karelDir:'East',
+              stones: [
+                {r:2, c:1, n:1},
+                {r:1, c:2, n:1},
+                {r:0, c:3, n:1},
+              ],
+              walls: [
+                {r:3,c:0,d:'East'},
+                {r:2,c:1,d:'South'},
+                {r:2,c:1,d:'East'},
+                {r:1,c:2,d:'South'},
+                {r:1,c:2,d:'East'},
+                {r:0,c:3,d:'South'},
+              ]
             },
             'world2': {
-              width:300,
-              height:300,
-              nRows:3,
-              nCols:3,
+              width:350,
+              height:235,
+              nRows:4,
+              nCols:6,
               karelRow:0,
-              karelCol:0,
-              karelDir: 'West'
+              karelCol:5,
+              karelDir: 'East',
+              stones: [
+                {r:2, c:1, n:1},
+                {r:2, c:2, n:1},
+                {r:1, c:3, n:1},
+                {r:1, c:4, n:1},
+                {r:0, c:5, n:1},
+              ],
+              walls: [
+                {r:3,c:0,d:'East'},
+                {r:2,c:1,d:'South'},
+                {r:2,c:2,d:'South'},
+                {r:2,c:2,d:'East'},
+                {r:1,c:3,d:'South'},
+                {r:1,c:4,d:'South'},
+                {r:1,c:4,d:'East'},
+                {r:0,c:5,d:'South'}
+              ]
             }
           }}
           hasRun={true}

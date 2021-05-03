@@ -14,23 +14,23 @@ class Item extends Component {
         <IdeItem
           instructions = {<span>
             <b>{translate('Bad Example')}:</b>
-            &nbsp;{translate('Although this program solves the problem, it is harder to read')}:
+            &nbsp;{translate('Although this program solves the problem, not using new commands makes it harder to read')}:
           </span>}
           preWorld = {{
             width:300,
-            height:300 * (3/nCols),
-            nRows:3,
+            height:300 * (2/nCols),
+            nRows:2,
             nCols:nCols,
             stones:[
-              {r:2,c:1,n:5},
-              {r:2,c:3,n:5},
-              {r:2,c:5,n:5}
+              {r:1,c:1,n:5},
+              {r:1,c:3,n:5},
+              {r:1,c:5,n:5}
             ]
           }}
           postWorld = {{
             width:300,
-            height:300 * (3/nCols),
-            nRows:3,
+            height:300 * (2/nCols),
+            nRows:2,
             nCols:nCols,
             karelCol:nCols - 1
           }}

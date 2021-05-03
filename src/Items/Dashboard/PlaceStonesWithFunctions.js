@@ -21,10 +21,9 @@ const initialXml = `<xml><block type="karel_main" deletable="false" movable="fal
 <block type="procedures_callnoargsnoreturn" deletable="false" movable="false" editable="false"><mutation name="go back to beginning position"></mutation>
 </block></next></block></next></block></next></block></next></block></next></block></next></block>
 </statement></block>
-<block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="558"><field name="NAME">pick up stones in line</field><statement name="STACK"></statement></block>
-<block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="280"><field name="NAME">go back to beginning position</field></block></xml>`
+<block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="280"><field name="NAME">pick up stones in line</field><statement name="STACK"></statement></block>
+<block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="558"><field name="NAME">go back to beginning position</field></block></xml>`
 
-//`<xml><block type="karel_main" deletable="false" movable="false" editable="false" x="20" y="20"><statement name="program"></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="false" editable="false" x="20" y="180"><field name="NAME">place row of stones</field></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="false" editable="false" x="20" y="280"><field name="NAME">turn around</field></block></xml>`
 
 class PostTestA extends Component {
 
@@ -49,7 +48,8 @@ class PostTestA extends Component {
       width:WORLD_WIDTH,
       height:WORLD_WIDTH,
       nRows:4,
-      nCols:4
+      nCols:4,
+      karelDir:'South'
     }
   }
 

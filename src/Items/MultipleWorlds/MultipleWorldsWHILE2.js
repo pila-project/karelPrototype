@@ -32,58 +32,79 @@ class Item extends Component {
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use a while loop to pick up the stone piles in both worlds')}.
+            &nbsp;{translate('Use multiple WHILE loops to find the hole in the fence and place stones in both worlds')}.
           </span>}
           preWorld = {{
             'world1':{
-                width:300,
-                height:300,
-                nRows:3,
-                nCols:3,
-                karelRow:2,
+                width:350,
+                height:340,
+                nRows:4,
+                nCols:4,
+                karelRow:3,
                 karelCol:0,
-                karelDir:'East',
+                karelDir:'North',
                 stones: [
-                  {r:0, c:1, n:1},
-                  {r:1, c:2, n:1},
-                  {r:2, c:1, n:1},
-                  {r:1, c:0, n:1}
+                ],
+                walls: [
+                  {r:(1),c:(0),d:'North'},
+                  {r:(1),c:(1),d:'North'},
+                  {r:(1),c:(3),d:'North'},
                 ]
               },
               'world2': {
-                width:300,
-                height:300,
-                nRows:3,
-                nCols:3,
-                karelRow:2,
+                width:350,
+                height:340,
+                nRows:4,
+                nCols:4,
+                karelRow:3,
                 karelCol:0,
-                karelDir: 'East',
+                karelDir:'North',
                 stones: [
-                  {r:0, c:1, n:3},
-                  {r:1, c:2, n:3},
-                  {r:2, c:1, n:3},
-                  {r:1, c:0, n:3}
+                ],
+                walls: [
+                  {r:(2),c:(0),d:'North'},
+                  {r:(2),c:(1),d:'North'},
+                  {r:(2),c:(2),d:'North'}
                 ]
               }
         }}
           postWorld = {{
             'world1': {
-              width:300,
-              height:300,
-              nRows:3,
-              nCols:3,
-              karelRow:2,
+              width:350,
+              height:340,
+              nRows:4,
+              nCols:4,
+              karelRow:0,
               karelCol:2,
-              karelDir: 'East'
+              karelDir:'North',
+              stones: [
+                {r:1, c:0, n:1},
+                {r:1, c:1, n:1}
+              ],
+              walls: [
+                {r:(1),c:(0),d:'North'},
+                {r:(1),c:(1),d:'North'},
+                {r:(1),c:(3),d:'North'},
+              ]
             },
             'world2': {
-              width:300,
-              height:300,
-              nRows:3,
-              nCols:3,
-              karelRow:2,
-              karelCol:2,
-              karelDir: 'East'
+              width:350,
+              height:340,
+              nRows:4,
+              nCols:4,
+              karelRow:0,
+              karelCol:3,
+              karelDir:'North',
+              stones: [
+                {r:2, c:0, n:1},
+                {r:2, c:1, n:1},
+                {r:2, c:2, n:1},
+              ],
+              walls: [
+                {r:(2),c:(0),d:'North'},
+                {r:(2),c:(1),d:'North'},
+                {r:(2),c:(2),d:'North'}
+              ]
             }
           }}
           hasRun={true}

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, MultipleWorldsIF1, MultipleWorldsIF2, MultipleWorldsWHILE1, MultipleWorldsWHILE2, MultipleWorldsCOMBINE1, MultipleWorldsCOMBINE2, MultipleWorldsCHALLENGE1, MultipleWorldsCHALLENGE2, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded, RepeatL3AlternateRows, PlaceStonesWithFunctions,
-MWIF1BAD,MWIF1GOOD,MWIF2BAD,MWIF2GOOD,MWWHILE1BAD,MWWHILE2BAD,MWWHILE1GOOD,MWWHILE2GOOD,MWCOMBINE1BAD,MWCOMBINE2BAD,MWCOMBINE1GOOD,MWCOMBINE2GOOD,MWCHALLENGE2BAD,MWCHALLENGE2GOOD } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, MultipleWorldsIF1, MultipleWorldsIF2, MultipleWorldsWHILE1, MultipleWorldsWHILE2, MultipleWorldsCOMBINE1, MultipleWorldsCOMBINE2, MultipleWorldsCHALLENGE1, MultipleWorldsCHALLENGE2, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded, RepeatL3AlternateRows, RepeatL3AlternateRowsGood, RepeatL3AlternateRowsBad, PlaceStonesWithFunctions, PlaceStonesWithFunctionsGood, PlaceStonesWithFunctionsBad, BuryTreasures, MWIF1BAD,MWIF1GOOD,MWIF2BAD,MWIF2GOOD,MWWHILE1BAD,MWWHILE2BAD,MWWHILE1GOOD,MWWHILE2GOOD,MWCOMBINE1BAD,MWCOMBINE2BAD,MWCOMBINE1GOOD,MWCOMBINE2GOOD,MWCHALLENGE2BAD,MWCHALLENGE2GOOD } from 'Items'
 
 import {Prolific, Parson, MultipleWorlds, Experience1, Experience2} from './TaskSequences'
 
@@ -200,6 +199,7 @@ const itemComponentDatabase = {
   CommandsHouseBad:<CommandsHouseBad />,
   MethodsTurnAroundGood:<MethodsTurnAroundGood />,
   MethodsTurnAroundBad: <MethodsTurnAroundBad />,
+  BuryTreasures: <BuryTreasures />,
   MethodsStepUp:<MethodsStepUp />,
   MethodsStepUpBad:<MethodsStepUpBad />,
   MethodsRightAround: <MethodsRightAround />,
@@ -214,10 +214,14 @@ const itemComponentDatabase = {
   RepeatL2StepUpBad:<RepeatL2StepUpBad />,
   RepeatL3Corner9: <RepeatL3Corner9 />,
   RepeatL3AlternateRows: <RepeatL3AlternateRows />,
+  RepeatL3AlternateRowsGood: <RepeatL3AlternateRowsGood />,
+  RepeatL3AlternateRowsBad: <RepeatL3AlternateRowsBad />,
   RepeatL3Corner9_scaffolded: <RepeatL3Corner9_scaffolded />,
   RepeatL3Dash5Good: <RepeatL3Dash5Good />,
   RepeatL3Dash5Bad: <RepeatL3Dash5Bad />,
   PlaceStonesWithFunctions: <PlaceStonesWithFunctions />,
+  PlaceStonesWithFunctionsGood: <PlaceStonesWithFunctionsGood />,
+  PlaceStonesWithFunctionsBad: <PlaceStonesWithFunctionsBad />,
   DefaultItem: <Splash text={'Default Item'} subText={'The requested item was not found.' }/>,
 
   // Challenges

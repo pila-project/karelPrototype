@@ -26,7 +26,7 @@ class Item extends Component {
         <IdeItem
           instructions = {<span>
             <b>{translate('Good Example')}:</b>
-            &nbsp;{translate('This program uses a repeat with several commands')}.
+            &nbsp;{translate('This program uses a REPEAT block with several commands')}.
           </span>}
           preWorld = {{
             width:300,

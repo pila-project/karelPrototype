@@ -19,29 +19,29 @@ class PostTestA extends Component {
       nRows:6,
       nCols:6,
       stones: [
-        {r:0,c:5,n:4},
-        {r:0,c:3,n:4},
-        {r:0,c:1,n:4},
+        {r:0,c:5,n:3},
+        {r:0,c:3,n:3},
+        {r:0,c:1,n:3},
 
-        {r:1,c:4,n:4},
-        {r:1,c:2,n:4},
-        {r:1,c:0,n:4},
+        {r:1,c:4,n:3},
+        {r:1,c:2,n:3},
+        {r:1,c:0,n:3},
 
-        {r:2,c:5,n:4},
-        {r:2,c:3,n:4},
-        {r:2,c:1,n:4},
+        {r:2,c:5,n:3},
+        {r:2,c:3,n:3},
+        {r:2,c:1,n:3},
 
-        {r:3,c:4,n:4},
-        {r:3,c:2,n:4},
-        {r:3,c:0,n:4},
+        {r:3,c:4,n:3},
+        {r:3,c:2,n:3},
+        {r:3,c:0,n:3},
 
-        {r:4,c:5,n:4},
-        {r:4,c:3,n:4},
-        {r:4,c:1,n:4},
+        {r:4,c:5,n:3},
+        {r:4,c:3,n:3},
+        {r:4,c:1,n:3},
 
-        {r:5,c:4,n:4},
-        {r:5,c:2,n:4},
-        {r:5,c:0,n:4},
+        {r:5,c:4,n:3},
+        {r:5,c:2,n:3},
+        {r:5,c:0,n:3},
       ]
     }
   }
@@ -60,7 +60,7 @@ class PostTestA extends Component {
       <IdeItem
         instructions = {<span>
           <b>{translate('Challenge')}:</b>
-          &nbsp;{translate('Pick up all the stones')}!
+          &nbsp;{translate('Pick up all the stones, by writing a prgoram that uses the REPEAT block and new commands; similar to the previous problem')}!
         </span>}
         preWorld = {this.getPreWorld()}
         postWorld = {this.getPostWorld()}

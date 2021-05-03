@@ -111,18 +111,10 @@ const learningPlan = [
       {
         name:'Combine 1',
         prereq: 'While 2',
-        challenge:'MultipleWorldsCOMBINE1',
-        goodExample:'MWCOMBINE1GOOD',
-        badExample:'MWCOMBINE1BAD',
-        countDown: 10
-      },
-      {
-        name:'Combine 2',
-        prereq: 'Combine 1',
         challenge:'MultipleWorldsCOMBINE2',
         goodExample:'MWCOMBINE2GOOD',
         badExample:'MWCOMBINE2BAD',
-        countDown: 10
+        countDown: 30
       },
     ]
   },
@@ -131,8 +123,8 @@ const learningPlan = [
     iconId:'hatch',
     problems:[{
       name:'Challenge',
-      prereq: 'Combine 2',
-      challenge:'MultipleWorldsCHALLENGE2',
+      prereq: 'Combine 1',
+      challenge:'MultipleWorldsCHALLENGE1',
       goodExample:'MWCHALLENGE2GOOD',
       badExample:'MWCHALLENGE2BAD',
       countDown: 30

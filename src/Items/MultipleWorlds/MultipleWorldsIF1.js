@@ -4,7 +4,7 @@ import ExampleCode from 'Components/Templates/ExampleCode.js'
 import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
-const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext" deletable="false" movable="false"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="karel_move" deletable="false" movable="false"><next><block type="karel_if_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"></statement></block></next></block></statement><next><block type="karel_turn_left" deletable="false" movable="false"><next><block type="karel_turn_left" deletable="false" movable="false"></block></next></block></next></block></statement></block></xml>`
+const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext" deletable="false" movable="false"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="karel_move" deletable="false" movable="false"><next><block type="karel_if_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"></statement></block></next></block></statement></block></statement></block></xml>`
 
 
 class Item extends Component {
@@ -33,7 +33,7 @@ class Item extends Component {
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Complete the if condition block, and select the appropriate statement, to solve both World 1 and World 2.')}.
+            &nbsp;{translate('Complete the IF condition block, and select the appropriate statement, to solve both World 1 and World 2. Hint: You can place IF condition blocks inside other IF condition blocks.')}
           </span>}
           preWorld = {{
             'world1':{
@@ -69,7 +69,7 @@ class Item extends Component {
               nCols:5,
               karelRow:0,
               karelCol:4,
-              karelDir: 'West',
+              karelDir: 'East',
               stones: [
                 {r:0, c:2, n:2},
               ]
@@ -81,9 +81,9 @@ class Item extends Component {
               nCols:5,
               karelRow:0,
               karelCol:4,
-              karelDir: 'West',
+              karelDir: 'East',
               stones: [
-                {r:0, c:4, n:2},
+                {r:0, c:4, n:3},
               ]
             }
           }}
