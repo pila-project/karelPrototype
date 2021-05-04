@@ -34,8 +34,7 @@ steps:
     path: /root/.ssh
 
 # Install npm packages
-- name: node
-  entrypoint: npm
+- name: gcr.io/cloud-builders/npm:node-14.3.0
   args: ["install"]
 
 # Build and create .env file
