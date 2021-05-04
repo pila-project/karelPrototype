@@ -73,6 +73,7 @@ export {default as PreDone} from './Pre/PreDone'
 export {default as PreIntro} from './Pre/PreIntro'
 export {default as IntroExplainTasks} from './Pre/IntroExplainTasks'
 export {default as IntroExplainEditor} from './Pre/IntroExplainEditor'
+export {default as IntroExplainEditor_Resources} from './Pre/IntroExplainEditor_Resources'
 
 // Challenges
 export {default as Checker} from './Challenges/Checker'

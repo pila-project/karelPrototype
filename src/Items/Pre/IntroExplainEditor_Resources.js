@@ -8,7 +8,7 @@ import RightTextArrow from 'Components/Util/RightTextArrow.js'
 import { connect } from 'react-redux';
 import { preItemComplete } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import explainEditor from 'Img/explainEditor_1.png'
+import explainEditor from 'Img/explainEditor_2.png'
 import { withTranslation } from 'react-i18next';
 import {translate} from 'redux/translator.js'
 const mapDispatchToProps = {
@@ -19,7 +19,7 @@ class IntroExplainEditor extends Component {
 
 
   render() {
-    const title = translate('Each task looks like this') + ':'
+    const title = translate('Each task has two examples to help you solve the problem') + ':'
     const buttonTxt = translate('Next')
 
     return (<div className="verticalContainer centered fullSize" style={{backgroundColor:'black'}}>

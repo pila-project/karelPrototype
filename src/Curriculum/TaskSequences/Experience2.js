@@ -36,7 +36,8 @@ const pre = [
   {id:'ModifyMoves'},
   {id:'PreDone'},
   {id:'IntroExplainTasks'},
-  {id:'IntroExplainEditor'}
+  {id:'IntroExplainEditor'},
+  {id:'IntroExplainEditor_Resources'}
 
 ]
 
