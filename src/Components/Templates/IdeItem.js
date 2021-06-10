@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { problemComplete, preItemComplete, postItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown, updateWorld } from 'redux/actions'
+import { problemComplete, preItemComplete, postItemComplete, updateCode, updateCurrentView, updateItem, runCode, runDone, timedOut, updateCountdown, updateWorld, updateHints, loadSolution, hintClick } from 'redux/actions'
 import { selectCodeByCurrentView } from 'redux/selectors';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -29,6 +29,7 @@ import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons'
 
 const mapDispatchToProps = {
   onUpdateCode: (codeUpdate) => updateCode(codeUpdate),
+  onLoadSolution: (solToLoad) => loadSolution(solToLoad),
   onRunCode: (runData) => runCode(runData),
   onUpdateCurrentView: (view) => updateCurrentView(view),
   onUpdateItem: (item) => updateItem(item),
@@ -38,7 +39,9 @@ const mapDispatchToProps = {
   onRunDone: (correct) => runDone(correct),
   onTimeOut: () => timedOut(),
   onUpdateCountdown: (time) => updateCountdown(time),
-  onUpdateWorld: (world, solvedWorlds) => updateWorld(world, solvedWorlds)
+  onUpdateWorld: (world, solvedWorlds) => updateWorld(world, solvedWorlds),
+  onUpdateHints: (hintsGiven) => updateHints(hintsGiven),
+  onHintClick: (hint_obj) => hintClick(hint_obj)
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -51,7 +54,8 @@ const mapStateToProps = (state, ownProps) => {
   const item = pageState.item;
   const world = currentView in studentState ? studentState[currentView].world : false;
   const solvedWorlds = currentView in studentState ? studentState[currentView].solvedWorlds : false;
-  return { studentState , currentView, savedXml, countdown, item, moduleName, world, solvedWorlds};
+  const hintsGiven = 'hintsGiven' in pageState ? pageState.hintsGiven : 0;
+  return { studentState , currentView, savedXml, countdown, item, moduleName, world, solvedWorlds, hintsGiven};
 }
 
 const SPACE_FLOAT = 20
@@ -62,6 +66,10 @@ class IdeItem extends Component {
   static defaultProps = {
     hasRun: true,
     hasStep: false,
+    hints: false,
+    solutionXml: '',
+    solutionLoaded: false,
+    hintsGiven: 0,
     postWorld: null,
     isEditable: true,
     testStage:'learning',
@@ -80,13 +88,26 @@ class IdeItem extends Component {
     this.engine = new KarelEngine()
     var isReset = true
 
+    var solutionLoaded = this.props.item in this.props.hintsGiven ? (!Number.isInteger(this.props.hintsGiven[this.props.item]) ? true : false) : false
     var isEditable = true
     if (this.props.countdown[this.props.item] < 1) {
       isEditable = false
-
+    } else if (solutionLoaded) {
+      isEditable = false
     }
 
     this.LearnModule = new Curriculum(this.props.moduleName)
+
+    if (!solutionLoaded) {
+      this.setState({
+        countdown: this.props.countdown[this.props.item]
+      })
+    } else {
+      this.setState({
+        countdown: false
+      })
+    }
+
 
     // Multiple worlds to be solved?
     var multiWorlds = true
@@ -120,6 +141,22 @@ class IdeItem extends Component {
       isReset: isReset,
       multiWorlds: multiWorlds,
       solvedWorlds: solvedWorlds,
+    })
+
+    let hints = false
+    let solutionXml = ''
+    if (Array.isArray(this.props.hints) && this.props.hints.length) {
+      hints = this.props.hints
+    }
+    if (this.props.solutionXml) {
+      solutionXml = this.props.solutionXml
+    }
+
+    this.setState({
+      hints: hints,
+      solutionXml: solutionXml,
+      hintsGiven: this.props.item in this.props.hintsGiven ? this.props.hintsGiven[this.props.item] : 0, // 0 means no hint given yet; 1 = one hint given, etc.
+      solutionLoaded: this.props.item in this.props.hintsGiven ? (!Number.isInteger(this.props.hintsGiven[this.props.item]) ? true : false ) : false
     })
 
   }
@@ -200,6 +237,106 @@ class IdeItem extends Component {
     }
     this.props.onRunCode(stepData)
 
+  }
+
+  giveHint() {
+
+    // Get next hint
+    var hints = this.state.hints
+    var hintsGiven = this.state.hintsGiven
+    var hintMsg = hints[hintsGiven]
+    var numHints = hints.length
+
+    // Display hint
+    Swal.fire({
+      title: '<strong>Hint '+ (hintsGiven + 1) + ' of ' + numHints + '</strong>',
+      icon: 'info',
+      html: hintMsg,
+      showCloseButton: false,
+      showDenyButton: true,
+      showCancelButton: false,
+      focusConfirm: true,
+      allowOutsideClick: false,
+      denyButtonText: `That's not useful`,
+      confirmButtonText:'This is useful!',
+    }).then((result) => {
+      var hint_obj = {
+        hintNum: hintsGiven,
+      }
+
+      if(result.isConfirmed) {
+        hint_obj['value'] = 'useful'
+        this.props.onHintClick(hint_obj)
+      } else if (result.isDenied) {
+        hint_obj['value'] = 'useless'
+        this.props.onHintClick(hint_obj)
+      }
+    })
+
+    // Increase counter for hintsGiven
+    hintsGiven += 1
+    var hints_obj = {}
+    hints_obj[this.props.item] = hintsGiven
+    this.props.onUpdateHints(hints_obj)
+    this.setState({
+      hintsGiven: hintsGiven
+    })
+  }
+
+  showSolution() {
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Once you see the solution, you can't modify the code anymore and won't get any points for the problem.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, show the solution!',
+      cancelButtonText: "No, don't show the solution",
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // codeUpdate = {code: code-xml, runType: type of action that resulted in the code}
+        // Swal.fire(
+        //   "The solution is loaded into the code editor!",'',
+        //   'success'
+        // )
+        // If there is a this.state.solutionXml, loaded into the editor.
+
+        console.log('loading solution')
+
+        var codeUpdate = {
+          code: this.state.solutionXml
+        }
+        codeUpdate[this.props.item] = 'solution'
+        this.loadSolution(codeUpdate)
+
+        this.setState({
+          solutionLoaded: true,
+          isEditable: false
+        })
+
+        // stop timer
+        this.updateClock(false)
+
+        // mark problem as complete
+        var probComplete = {
+          item: this.props.item,
+          showSolution: true
+        }
+        this.props.onProblemComplete(probComplete)
+
+         window.location.reload(false);
+
+        //let loadCode = this.refs.editor.loadCode(this.state.solutionXml)
+      } else if (result.isDismissed) {
+        var hint_obj = {
+          value: 'abortSolution'
+        }
+        this.props.onHintClick(hint_obj)
+      }
+    })
   }
 
   updateClock(time) {
@@ -348,7 +485,6 @@ class IdeItem extends Component {
     } else if(this.props.testStage == 'learning') {
       onDone = () => this.props.onProblemComplete(this.props.item)
     }
-
     fireSuccessSwal(onDone)
   }
 
@@ -375,6 +511,10 @@ class IdeItem extends Component {
     if(this.props.hasStep){
       buttons.push(this.renderStepButton())
     }
+    if(this.props.hints) {
+      buttons.push(this.renderHintButton())
+    }
+
     return <div>{buttons}</div>
   }
 
@@ -396,6 +536,39 @@ class IdeItem extends Component {
       return <Button className="ideButton wideButton" size="lg" onClick = {() => this.reset()}>
         <FontAwesomeIcon icon={faSyncAlt}/> &nbsp; {translate('Reset')}
       </Button>
+    }
+  }
+
+  renderHintButton() {
+    var hintsGiven = this.state.hintsGiven
+    var numHints = this.state.hints.length
+
+    if (!this.state.solutionLoaded) {
+      if(hintsGiven<numHints) {
+        /*
+        - check whether all the hints have been given. If all hints have been given, and the code has a solution,
+        give option to show solution
+        - Add counter of number of hints
+        */
+        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#b00544', borderColor: '#b00544'}} onClick = {() => this.giveHint()}>
+          {translate('I need help')}
+        </Button>
+      } else if ('solutionXml' in this.state && this.state.solutionXml != '') {
+        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#b00544', borderColor: '#b00544'}} onClick = {() => this.showSolution()}>
+          {translate('Show solution')}
+        </Button>
+      } else {
+        hintsGiven -= 1
+        var hints_obj = {}
+        hints_obj[this.props.item] = hintsGiven
+        this.props.onUpdateHints(hints_obj)
+        this.setState({
+          hintsGiven: hintsGiven
+        })
+        return <Button className="ideButton wideButton" size="lg" onClick = {() => this.giveHint()}>
+          {translate('I am stuck')}
+        </Button>
+      }
     }
   }
 
@@ -472,8 +645,7 @@ class IdeItem extends Component {
 
   renderInstructions() {
     let width = this.calculateLeftWidth()
-    console.log('HERE')
-    console.log(width)
+
     if(!('instructions' in this.props)) {
       return <span/>
     }
@@ -498,7 +670,6 @@ class IdeItem extends Component {
         preWorld = this.props.preWorld[this.props.world]
         preWorld['world'] = this.props.world
       } else {
-        console.log('PROBLEM IN RENDER PRE')
         preWorld = this.props.preWorld[Object.keys(this.props.preWorld)[0]]
       }
 
@@ -530,7 +701,6 @@ class IdeItem extends Component {
           postWorld = this.props.postWorld[this.props.world]
           postWorld['world'] = this.props.world
         } else {
-          console.log('PROBLEM IN RENDER POST')
           postWorld = this.props.postWorld[Object.keys(this.props.postWorld)[0]]
         }
       } else {
@@ -565,7 +735,13 @@ class IdeItem extends Component {
   saveCode(codeUpdate) {
     // codeUpdate = {code: code-xml, runType: type of action that resulted in the code}
     this.props.onUpdateCode(codeUpdate)
-    console.log('WE ARE HERE')
+    this.resetWorlds()
+
+  }
+
+  loadSolution(codeUpdate) {
+    // codeUpdate = {code: code-xml, runType: type of action that resulted in the code}
+    this.props.onLoadSolution(codeUpdate)
     this.resetWorlds()
 
   }
@@ -580,6 +756,7 @@ class IdeItem extends Component {
       }}>
         <BlocklyKarel
           ref="editor"
+          key = {this.state}
           savedXml = {this.props.savedXml}
           initialXml = {this.props.initialXml}
           isEditable={this.state.isEditable ? this.props.isEditable : this.state.isEditable}
@@ -652,7 +829,7 @@ class IdeItem extends Component {
         <div className="navItem">
           <span className="countdown" style={{'flex':'2', 'min-width': '100px'}}>
             {<FontAwesomeIcon icon={faClock} /> }
-            <ClockRender countdown = {this.props.countdown[this.props.item]} onCountdownEnd = {this.onCountdownEnd} updateClock = {this.updateClock}/>
+            <ClockRender countdown = {this.state.countdown} onCountdownEnd = {this.onCountdownEnd} updateClock = {this.updateClock}/>
           </span>
         </div>
       </div>

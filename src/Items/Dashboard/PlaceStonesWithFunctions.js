@@ -24,6 +24,12 @@ const initialXml = `<xml><block type="karel_main" deletable="false" movable="fal
 <block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="280"><field name="NAME">pick up stones in line</field><statement name="STACK"></statement></block>
 <block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="558"><field name="NAME">go back to beginning position</field></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" x="20" y="20"><statement name="program"><block type="procedures_callnoargsnoreturn"><mutation name="pick up stones in line"></mutation><next><block type="procedures_callnoargsnoreturn"><mutation name="go back to beginning position"></mutation><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="procedures_callnoargsnoreturn"><mutation name="pick up stones in line"></mutation><next><block type="procedures_callnoargsnoreturn"><mutation name="go back to beginning position"></mutation></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="251"><field name="NAME">pick up stones in line</field><statement name="STACK"><block type="karel_move"><next><block type="karel_pickup_stone"><next><block type="karel_move"><next><block type="karel_move"><next><block type="karel_pickup_stone"></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="437"><field name="NAME">go back to beginning position</field><statement name="STACK"><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_move"><next><block type="karel_move"></block></next></block></next></block></next></block></next></block></statement></block></xml>`
+
+const hintMessages = [
+  'does this work also?',
+  'this seems to work also'
+]
 
 class PostTestA extends Component {
 
@@ -55,7 +61,8 @@ class PostTestA extends Component {
 
   render() {
 
-    let xml = translateAllParts(initialXml, 'turn around')
+    let initXml = translateAllParts(initialXml, 'turn around')
+    let solXml = translateAllParts(solutionXml, 'turn right')
 
     return (<div className="verticalContainer centered fullSize">
       <IdeItem
@@ -65,7 +72,9 @@ class PostTestA extends Component {
         </span>}
         preWorld = {this.getPreWorld()}
         postWorld = {this.getPostWorld()}
-        initialXml = {xml}
+        initialXml={initXml}
+        solutionXml={solXml}
+        hints={hintMessages}
         hideBlocks = {{
           'karel_while_dropdown': true,
           'controls_repeat_ext': true,

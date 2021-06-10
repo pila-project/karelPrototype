@@ -5,6 +5,7 @@ import IdeItem from 'Components/Templates/IdeItem.js'
 import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="LOOP"></statement></block></statement></block></xml>`
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="LOOP"></statement></block></statement></block></xml>`
 
 class Item extends Component {
 
@@ -25,7 +26,8 @@ class Item extends Component {
 
     var walls = this.makeWalls(0)
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     return (
       <div className="vertical centered fullSize">
@@ -88,7 +90,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          hasHint={false}
+          initialXml={initXml}
+          solutionXml={solXml}
           hideBlocks = {{
             'karel_while_dropdown':false,
             'karel_if_dropdown': false,

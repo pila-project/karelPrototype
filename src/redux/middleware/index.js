@@ -1,4 +1,4 @@
-import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED, TIMEDOUT } from "../actionTypes";
+import { UPDATE_STATUS,PRE_ITEM_COMPLETE, PROBLEM_COMPLETE,UPDATE_CURRENT_VIEW, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, RUN_DONE, USER_LOGGED, TIMEDOUT, HINTCLICK, LOAD_SOLUTION } from "../actionTypes";
 
 //import { DB } from '../../firebase/firebase';
 import * as FireStoreService from '../../firebase/firebase';
@@ -95,8 +95,32 @@ export function logActions({ getState, dispatch }) {
           loggedData.item = stateModule.item;
           loggedData.data = '';
 
-          console.log('timedout')
-          console.log(loggedData)
+          log_to_DB = true;
+          break;
+
+        case HINTCLICK:
+          console.log('I AM IN THE MIDDLEWARE!')
+          loggedData.type = action.type;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.module = state.module;
+          loggedData.currentView = stateModule.currentView;
+          loggedData.item = stateModule.item;
+          loggedData.data = action.hint_obj;
+
+          log_to_DB = true;
+          break;
+
+        case LOAD_SOLUTION:
+          console.log('I AM IN THE MIDDLEWARE!')
+          loggedData.type = action.type;
+          loggedData.date = (new Date()).toISOString();
+          loggedData.userId = state.userId;
+          loggedData.module = state.module;
+          loggedData.currentView = stateModule.currentView;
+          loggedData.item = stateModule.item;
+          loggedData.data = '';
+
           log_to_DB = true;
           break;
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Curriculum from 'Curriculum/Curriculum.js'
-import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD } from "../actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, UPDATE_CODE, UPDATE_CURRENT_ID, UPDATE_LOCALE, RUN_CODE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD, UPDATE_HINTS, LOAD_SOLUTION } from "../actionTypes";
 import { STATUS, VIEW, IDs } from "../../constants"
 import { REHYDRATE } from 'redux-persist'
 
@@ -18,6 +18,7 @@ const initialPageState = {
   item: '',
   studentState: {},
   countdown: {},
+  hintsGiven: {},
   points: 0,
   world: '',
 }
@@ -49,6 +50,8 @@ function rootReducer(state = initialState, action) {
     case UPDATE_USERID: return updateUserId(state, action)
     case END_SESSION: return endSession(state, action)
     case UPDATE_COUNTDOWN: return updateCountdown(state, action)
+    case UPDATE_HINTS: return updateHints(state, action)
+    case LOAD_SOLUTION: return loadSolution(state, action)
     default: return state
   }
 };
@@ -86,8 +89,6 @@ function updateUserId(state, action) {
 }
 
 function updateWorld(state, action) {
-  console.log('in REDUX')
-  console.log(action)
   var stateModule = state[state.module]
 
   return {
@@ -249,7 +250,24 @@ function updateStatus(state, action) {
 function problemComplete(state, action) {
   var stateModule = state[state.module]
   var new_points = stateModule.points;
-  if (action.item != null) {
+  var count_points = true
+  var go_to_dashboard = true
+  var reason_completed = STATUS.COMPLETED
+
+  if (typeof action.item === 'object') {
+    if (action.item['showSolution']) {
+      count_points = false
+      go_to_dashboard = false
+      reason_completed = STATUS.COMPLETED
+    }
+  } else if (typeof state[state.module].studentState[stateModule.currentView] === 'object') {
+    if (state[state.module].studentState[stateModule.currentView]['status'] =='completed') {
+      count_points = false
+      go_to_dashboard = false
+    }
+  }
+
+  if (count_points) {
     new_points += 100;
   }
 
@@ -257,13 +275,13 @@ function problemComplete(state, action) {
     ...state,
     [state.module]: {
       ...stateModule,
-      currentView: 'dashboard',
+      currentView: go_to_dashboard ? 'dashboard' : stateModule.currentView,
       points: new_points,
       studentState: {
         ...stateModule.studentState,
         [stateModule.currentView]: {
           ...stateModule.studentState[stateModule.currentView],
-          status: STATUS.COMPLETED,
+          status: reason_completed,
         }
       }
     }
@@ -322,24 +340,76 @@ function timedOut(state, action) {
   }
 }
 
-  function updateCountdown(state, action) {
-    var stateModule = state[state.module];
-    var tmp_countdown = stateModule.countdown;
+function loadSolution(state, action) {
+  var stateModule = state[state.module]
 
-    if (Object.keys(action.time).length==1) {
-      tmp_countdown[Object.keys(action.time)[0]] = action.time[Object.keys(action.time)[0]]
-    } else { console.log("WE HAVE A PROBLEM")}
+  var tmp_hints = stateModule.hintsGiven;
 
-    return {
-      ...state,
-      [state.module]: {
-        ...stateModule,
-        countdown: {
-          ...stateModule.countdown,
-          [stateModule.item]: tmp_countdown[stateModule.item]
+  var solToLoad = action.solToLoad
+  var code = solToLoad.code;
+  delete solToLoad['code'];
+
+  if (Object.keys(action.solToLoad).length==1) {
+    tmp_hints[Object.keys(action.solToLoad)[0]] = action.solToLoad[Object.keys(action.solToLoad)[0]]
+  } else { console.log("WE HAVE A PROBLEM")}
+
+  return {
+    ...state,
+    [state.module]: {
+      ...stateModule,
+      studentState: {
+        ...stateModule.studentState,
+        [stateModule.currentView]: {
+          ...stateModule.studentState[stateModule.currentView],
+          code: code
         }
+      },
+      hintsGiven: {
+        ...stateModule.hintsGiven,
+        [stateModule.item]: tmp_hints[stateModule.item]
       }
     }
+  }
+}
+
+function updateHints(state, action) {
+  var stateModule = state[state.module];
+  var tmp_hints = stateModule.hintsGiven;
+
+  if (Object.keys(action.hintsGiven).length==1) {
+    tmp_hints[Object.keys(action.hintsGiven)[0]] = action.hintsGiven[Object.keys(action.hintsGiven)[0]]
+  } else { console.log("WE HAVE A PROBLEM")}
+
+  return {
+    ...state,
+    [state.module]: {
+      ...stateModule,
+      hintsGiven: {
+        ...stateModule.hintsGiven,
+        [stateModule.item]: tmp_hints[stateModule.item]
+      }
+    }
+  }
+}
+
+function updateCountdown(state, action) {
+  var stateModule = state[state.module];
+  var tmp_countdown = stateModule.countdown;
+
+  if (Object.keys(action.time).length==1) {
+    tmp_countdown[Object.keys(action.time)[0]] = action.time[Object.keys(action.time)[0]]
+  } else { console.log("WE HAVE A PROBLEM")}
+
+  return {
+    ...state,
+    [state.module]: {
+      ...stateModule,
+      countdown: {
+        ...stateModule.countdown,
+        [stateModule.item]: tmp_countdown[stateModule.item]
+      }
+    }
+  }
 }
 
 export default rootReducer;

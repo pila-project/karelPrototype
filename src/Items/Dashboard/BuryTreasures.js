@@ -8,12 +8,21 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="true" editable="true" x="20" y="20"><statement name="program"><block type="procedures_callnoargsnoreturn" deletable='false' movable="false"><mutation name="bury stone"></mutation><next><block type="karel_move" deletable='false' movable="false"><next><block type="procedures_callnoargsnoreturn" deletable='false' movable="false"><mutation name="bury stone"></mutation></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="280"><field name="NAME">turn right</field><statement name="STACK"><block type="karel_turn_left" deletable='false' movable="false"><next><block type="karel_turn_left" deletable='false' movable="false"><next><block type="karel_turn_left" deletable='false' movable="false"></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" movable="true" editable="true" x="20" y="580"><field name="NAME">bury stone</field><statement name="STACK"></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" x="20" y="20"><statement name="program"><block type="procedures_callnoargsnoreturn" deletable="false" movable="false"><mutation name="bury stone"></mutation><next><block type="karel_move" deletable="false" movable="false"><next><block type="procedures_callnoargsnoreturn" deletable="false" movable="false"><mutation name="bury stone"></mutation></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="155"><field name="NAME">turn right</field><statement name="STACK"><block type="karel_turn_left" deletable="false" movable="false"><next><block type="karel_turn_left" deletable="false" movable="false"><next><block type="karel_turn_left" deletable="false" movable="false"></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="291"><field name="NAME">bury stone</field><statement name="STACK"><block type="karel_pickup_stone"><next><block type="karel_move"><next><block type="procedures_callnoargsnoreturn"><mutation name="turn right"></mutation><next><block type="karel_move"><next><block type="karel_turn_left"><next><block type="karel_place_stone"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="procedures_callnoargsnoreturn"><mutation name="turn right"></mutation><next><block type="karel_move"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>`
+
+const hintMessages = [
+  'does this work?',
+  'this seems to work'
+]
+
 class Item extends Component {
 
   render() {
     // replace all...
 
-    let xml = translateAllParts(initialXml, 'turn right')
+    let initXml = translateAllParts(initialXml, 'turn right')
+    let solXml = translateAllParts(solutionXml, 'turn right')
+
 
     return (
       <div className="vertical centered fullSize">
@@ -72,7 +81,9 @@ class Item extends Component {
               {r:1,c:4,n:1}
             ],
           }}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':true,
             'controls_repeat_ext':true,

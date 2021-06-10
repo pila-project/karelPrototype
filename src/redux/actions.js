@@ -1,4 +1,4 @@
-import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD } from "./actionTypes";
+import { UPDATE_STATUS, UPDATE_MODULE, PRE_ITEM_COMPLETE, PROBLEM_COMPLETE, POST_ITEM_COMPLETE, UPDATE_CODE, UPDATE_LOCALE, UPDATE_CURRENT_VIEW, UPDATE_ITEM, RUN_CODE, RUN_DONE, USER_LOGGED, END_SESSION, UPDATE_USERID, TIMEDOUT, UPDATE_COUNTDOWN, UPDATE_WORLD, UPDATE_HINTS, LOAD_SOLUTION, HINTCLICK } from "./actionTypes";
 
 import i18n from "i18n";
 import Blockly from 'blockly/core';
@@ -17,9 +17,6 @@ export function updateModule(moduleName) {
 }
 
 export function updateWorld(worldName, solvedWorlds) {
-  console.log('IN ACTIONS')
-  console.log(worldName)
-  console.log(solvedWorlds)
   return { type: UPDATE_WORLD,
            worldName: worldName,
            solvedWorlds: solvedWorlds
@@ -28,6 +25,10 @@ export function updateWorld(worldName, solvedWorlds) {
 
 export function updateCode(codeUpdate) {
   return { type: UPDATE_CODE, codeUpdate }
+}
+
+export function loadSolution(solToLoad) {
+  return { type: LOAD_SOLUTION, solToLoad }
 }
 
 export function runCode(runData) {
@@ -71,6 +72,14 @@ export function timedOut() {
 
 export function updateCountdown(time) {
   return {type: UPDATE_COUNTDOWN, time}
+}
+
+export function updateHints(hintsGiven) {
+  return {type: UPDATE_HINTS, hintsGiven}
+}
+
+export function hintClick(hint_obj) {
+  return {type: HINTCLICK, hint_obj}
 }
 
 export function endSession() {

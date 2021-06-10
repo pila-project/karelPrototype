@@ -19,8 +19,8 @@ export var fireSuccessSwal = function(callback){
     icon: 'success',
     showConfirmButton:false,
     timer: 2500,
-    onClose: callback
+    //onClose: callback
+  }).then((result) => {
+    callback()
   })
 }
-
-

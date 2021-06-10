@@ -63,8 +63,8 @@ class BlocklyKarel extends React.Component {
       this.state = {
         userCode: '',
         userFunctionBlocks: {},
-        initialXml: this.getInitialXml()
-
+        initialXml: this.getInitialXml(),
+        isEditable: props.isEditable
       };
       // gonna try and prevent changing uneditable blocks
       this.fnChangeWatcher = {}
@@ -79,9 +79,11 @@ class BlocklyKarel extends React.Component {
     activateToolbox: true
   }
 
-  componentWillMount() {}
+  componentWillMount() {
+  }
 
   componentDidMount(){
+    console.log('DID I MOUNT AGAIN')
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
     Blockly.JavaScript.addReservedWords('run');
@@ -112,6 +114,14 @@ class BlocklyKarel extends React.Component {
   hasInitialXml() {
     if (this.props.initialXml) { return true }
     else { return false }
+  }
+
+  loadCode = (newCode) => {
+
+    this.setState({userCode: newCode});
+    this.simpleWorkspace.workspace.clear()
+    this.simpleWorkspace.setXml(newCode)
+    return true
   }
 
   getInitialXml() {
