@@ -342,7 +342,7 @@ class IdeItem extends Component {
   updateClock(time) {
     var time_obj = {}
     time_obj[this.props.item] = time
-    //this.props.onUpdateCountdown(time_obj)
+    this.props.onUpdateCountdown(time_obj)
   }
 
   // returns false if it is an example
