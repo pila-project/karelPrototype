@@ -11,8 +11,8 @@ const initialXml = `<xml><block type="karel_main" deletable="false" movable="tru
 const solutionXml = `<xml><block type="karel_main" deletable="false" x="20" y="20"><statement name="program"><block type="procedures_callnoargsnoreturn" deletable="false" movable="false"><mutation name="bury stone"></mutation><next><block type="karel_move" deletable="false" movable="false"><next><block type="procedures_callnoargsnoreturn" deletable="false" movable="false"><mutation name="bury stone"></mutation></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="155"><field name="NAME">turn right</field><statement name="STACK"><block type="karel_turn_left" deletable="false" movable="false"><next><block type="karel_turn_left" deletable="false" movable="false"><next><block type="karel_turn_left" deletable="false" movable="false"></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="291"><field name="NAME">bury stone</field><statement name="STACK"><block type="karel_pickup_stone"><next><block type="karel_move"><next><block type="procedures_callnoargsnoreturn"><mutation name="turn right"></mutation><next><block type="karel_move"><next><block type="karel_turn_left"><next><block type="karel_place_stone"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="procedures_callnoargsnoreturn"><mutation name="turn right"></mutation><next><block type="karel_move"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>`
 
 const hintMessages = [
-  'does this work?',
-  'this seems to work'
+  'Have you looked at the examples yet?',
+  'You only need to complete the function "bury stone" so Karel picks up each stone on top and buries it in the succeeding hole. Find the right sequence of blocks by testing the code often.'
 ]
 
 class Item extends Component {

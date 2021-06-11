@@ -27,8 +27,8 @@ const initialXml = `<xml><block type="karel_main" deletable="false" movable="fal
 const solutionXml = `<xml><block type="karel_main" x="20" y="20"><statement name="program"><block type="procedures_callnoargsnoreturn"><mutation name="pick up stones in line"></mutation><next><block type="procedures_callnoargsnoreturn"><mutation name="go back to beginning position"></mutation><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="procedures_callnoargsnoreturn"><mutation name="pick up stones in line"></mutation><next><block type="procedures_callnoargsnoreturn"><mutation name="go back to beginning position"></mutation></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="251"><field name="NAME">pick up stones in line</field><statement name="STACK"><block type="karel_move"><next><block type="karel_pickup_stone"><next><block type="karel_move"><next><block type="karel_move"><next><block type="karel_pickup_stone"></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_defnoargsnoreturn" deletable="false" x="20" y="437"><field name="NAME">go back to beginning position</field><statement name="STACK"><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_move"><next><block type="karel_move"></block></next></block></next></block></next></block></next></block></statement></block></xml>`
 
 const hintMessages = [
-  'does this work also?',
-  'this seems to work also'
+  'As shown in the examples, split up the sequence of actions of Karel into the two blocks such that each subsequence corresponds to the name of each function.',
+  'The function "go back to beginning position" should not have any stone-related blocks in it, and should change the orientation of Karel only before moving back, but not afterwards.'
 ]
 
 class PostTestA extends Component {

@@ -292,8 +292,8 @@ class IdeItem extends Component {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, show the solution!',
-      cancelButtonText: "No, don't show the solution",
+      confirmButtonText: 'Yes, show a solution!',
+      cancelButtonText: "No, don't show a solution",
       allowOutsideClick: false
     }).then((result) => {
       if (result.isConfirmed) {
@@ -342,7 +342,7 @@ class IdeItem extends Component {
   updateClock(time) {
     var time_obj = {}
     time_obj[this.props.item] = time
-    this.props.onUpdateCountdown(time_obj)
+    //this.props.onUpdateCountdown(time_obj)
   }
 
   // returns false if it is an example
@@ -550,11 +550,11 @@ class IdeItem extends Component {
         give option to show solution
         - Add counter of number of hints
         */
-        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#b00544', borderColor: '#b00544'}} onClick = {() => this.giveHint()}>
+        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#820e5d', borderColor: '#820e5d'}} onClick = {() => this.giveHint()}>
           {translate('I need help')}
         </Button>
       } else if ('solutionXml' in this.state && this.state.solutionXml != '') {
-        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#b00544', borderColor: '#b00544'}} onClick = {() => this.showSolution()}>
+        return <Button className="ideButton wideButton" size="lg" style={{backgroundColor:'#820e5d', borderColor: '#820e5d'}} onClick = {() => this.showSolution()}>
           {translate('Show solution')}
         </Button>
       } else {
