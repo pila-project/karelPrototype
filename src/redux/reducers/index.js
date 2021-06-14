@@ -255,10 +255,13 @@ function problemComplete(state, action) {
   var reason_completed = STATUS.COMPLETED
 
   if (typeof action.item === 'object') {
+
     if (action.item['showSolution']) {
       count_points = false
       go_to_dashboard = false
       reason_completed = STATUS.COMPLETED
+    } else if (action.item['onButtonClick']) {
+      go_to_dashboard = true
     }
   } else if (typeof state[state.module].studentState[stateModule.currentView] === 'object') {
     if (state[state.module].studentState[stateModule.currentView]['status'] =='completed') {
@@ -270,6 +273,8 @@ function problemComplete(state, action) {
   if (count_points) {
     new_points += 100;
   }
+
+  console.log(go_to_dashboard)
 
   return {
     ...state,

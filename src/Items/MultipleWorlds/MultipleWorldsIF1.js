@@ -6,6 +6,13 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext" deletable="false" movable="false"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="karel_move" deletable="false" movable="false"><next><block type="karel_if_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"></statement></block></next></block></statement></block></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext" deletable="false" movable="false"><value name="TIMES"><shadow type="math_number"><field name="NUM">4</field></shadow></value><statement name="DO"><block type="karel_move" deletable="false" movable="false"><next><block type="karel_if_dropdown" deletable="false" movable="false"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_place_stone"><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_BLOCKED</field><statement name="THEN"><block type="karel_place_stone"></block></statement></block></next></block></statement></block></next></block></statement></block></statement></block></xml>`
+
+const hintMessages = [
+  'You can place IF condition blocks inside other IF condition blocks.',
+  'What difference do you notice in the position of the stone in the initial world of the first problem, and the stone in the initial world of the second problem?'
+]
+
 
 class Item extends Component {
 
@@ -26,14 +33,15 @@ class Item extends Component {
 
     var walls = this.makeWalls(0)
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     return (
       <div className="vertical centered fullSize">
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Complete the IF condition block, and select the appropriate statement, to solve both World 1 and World 2. Hint: You can place IF condition blocks inside other IF condition blocks.')}
+            &nbsp;{translate('Complete the IF condition block, and select the appropriate statement, to solve both World 1 and World 2.')}
           </span>}
           preWorld = {{
             'world1':{
@@ -89,7 +97,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':true,
             'karel_if_dropdown': false,

@@ -303,9 +303,6 @@ class IdeItem extends Component {
         //   'success'
         // )
         // If there is a this.state.solutionXml, loaded into the editor.
-
-        console.log('loading solution')
-
         var codeUpdate = {
           code: this.state.solutionXml
         }
@@ -396,7 +393,7 @@ class IdeItem extends Component {
       case 2:
         responseType = translate('You solved all worlds!')
         iconType = 'success'
-        confirmText = 'Return to the main menu.'
+        confirmText = 'Return to the main menu'
         cancelText = 'Stay in this task'
       break;
 
@@ -429,7 +426,7 @@ class IdeItem extends Component {
 
       if (result.value) {
         if (solutionState == 2) {
-          this.onSolution()
+          this.onSolution(true)
 
         } else {
 
@@ -478,13 +475,18 @@ class IdeItem extends Component {
     })
   }
 
-  onSolution() {
+  onSolution(onButtonClick = false) {
     var onDone = () => this.props.onPreItemComplete(null)
     if (this.props.item == 'Challenge') {
       onDone = () => this.props.onPostItemComplete(-1)
     } else if(this.props.testStage == 'learning') {
-      onDone = () => this.props.onProblemComplete(this.props.item)
+      if (onButtonClick) {
+        onDone = () => this.props.onProblemComplete({onButtonClick: onButtonClick})
+      } else {
+        onDone = () => this.props.onProblemComplete(this.props.item)
+      }
     }
+
     fireSuccessSwal(onDone)
   }
 

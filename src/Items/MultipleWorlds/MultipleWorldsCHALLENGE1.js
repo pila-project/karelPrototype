@@ -6,6 +6,13 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown"><field name="CONDITION">FRONT_CLEAR</field><statement name="LOOP"><block type="karel_move"><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"><block type="karel_if_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_pickup_stone"><next><block type="karel_move"><next><block type="karel_turn_left"></block></next></block></next></block></statement></block></statement><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_BLOCKED</field><statement name="THEN"><block type="karel_if_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_pickup_stone"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"></block></next></block></next></block></next></block></statement></block></statement></block></next></block></next></block></statement></block></statement></block></xml>`
+
+const hintMessages = [
+  'Look at the placement of stones in each problem. What do you notice about their position with respect to the inner shape of walls?',
+  'Use a WHILE loop that checks if front is clear, and use the stones as points of decision (i.e. implemented as IF condition blocks). You can use IF condition blocks within WHILE loop blocks that use the same check (e.g. whether front is clear, or stone is present).'
+]
+
 class Item extends Component {
 
   makeWalls(n) {
@@ -25,7 +32,8 @@ class Item extends Component {
 
     var walls = this.makeWalls(0)
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     return (
       <div className="vertical centered fullSize">
@@ -142,7 +150,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':false,
             'karel_if_dropdown': false,

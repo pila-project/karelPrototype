@@ -6,12 +6,20 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="LOOP"><block type="karel_if_dropdown"><field name="CONDITION">FRONT_BLOCKED</field><statement name="THEN"><block type="karel_if_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_pickup_stone"></block></statement><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_turn_left"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"><block type="karel_if_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_pickup_stone"></block></statement><next><block type="karel_move"></block></next></block></statement></block></next></block></statement></block></statement></block></xml>`
+
+const hintMessages = [
+  'The solution has one WHILE loop and multiple IF condition blocks. Use the WHILE loop block to follow the line of stones.',
+  'Use IF conditions to check whether the front is blocked or not.'
+]
+
 class Item extends Component {
 
 
   render() {
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     var stones_row = []
     var nCol = 6;
@@ -114,7 +122,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':false,
             'karel_if_dropdown': false,

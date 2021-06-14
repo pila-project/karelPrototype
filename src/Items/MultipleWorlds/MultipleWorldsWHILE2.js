@@ -6,6 +6,13 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="karel_while_dropdown"><field name="CONDITION">FRONT_CLEAR</field><statement name="LOOP"><block type="karel_move"><next><block type="karel_while_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="LOOP"><block type="karel_pickup_stone"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_turn_left"></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></statement></block></statement></block></xml>`
+
+const hintMessages = [
+  'You can have WHILE loop blocks within other WHILE loop blocks. Look at the difference between the two problems to decide what should be the condition for the outer WHILE loop.',
+  'What sequence of actions could be triggered by a stone? And what position and orientation should Karel have after this sequence of actions?'
+]
+
 class Item extends Component {
 
   makeWalls(n) {
@@ -25,7 +32,8 @@ class Item extends Component {
 
     var walls = this.makeWalls(0)
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     return (
       <div className="vertical centered fullSize">
@@ -44,6 +52,8 @@ class Item extends Component {
                 karelCol:0,
                 karelDir:'North',
                 stones: [
+                  {r:1, c:0, n:1},
+                  {r:1, c:1, n:1}
                 ],
                 walls: [
                   {r:(1),c:(0),d:'North'},
@@ -60,6 +70,9 @@ class Item extends Component {
                 karelCol:0,
                 karelDir:'North',
                 stones: [
+                  {r:2, c:0, n:1},
+                  {r:2, c:1, n:1},
+                  {r:2, c:2, n:1},
                 ],
                 walls: [
                   {r:(2),c:(0),d:'North'},
@@ -77,10 +90,7 @@ class Item extends Component {
               karelRow:0,
               karelCol:2,
               karelDir:'North',
-              stones: [
-                {r:1, c:0, n:1},
-                {r:1, c:1, n:1}
-              ],
+              stones: [],
               walls: [
                 {r:(1),c:(0),d:'North'},
                 {r:(1),c:(1),d:'North'},
@@ -96,9 +106,6 @@ class Item extends Component {
               karelCol:3,
               karelDir:'North',
               stones: [
-                {r:2, c:0, n:1},
-                {r:2, c:1, n:1},
-                {r:2, c:2, n:1},
               ],
               walls: [
                 {r:(2),c:(0),d:'North'},
@@ -109,7 +116,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':false,
             'karel_if_dropdown': true,

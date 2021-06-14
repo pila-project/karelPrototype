@@ -6,6 +6,14 @@ import {translate, translateAllParts} from 'redux/translator.js'
 
 const initialXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"></statement></block></xml>`//<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext" deletable="false" movable="false"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="karel_if_dropdown" deletable="false" movable="false"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"></statement></block></statement></statement></block></xml>`
 
+const solutionXml = `<xml><block type="karel_main" deletable="false" movable="false" x="20" y="20"><statement name="program"><block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">3</field></shadow></value><statement name="DO"><block type="karel_if_dropdown"><field name="CONDITION">STONES_PRESENT</field><statement name="THEN"><block type="karel_pickup_stone"><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_CLEAR</field><statement name="THEN"><block type="karel_move"></block></statement><next><block type="karel_if_dropdown"><field name="CONDITION">FRONT_BLOCKED</field><statement name="THEN"><block type="karel_turn_left"><next><block type="karel_move"><next><block type="karel_turn_left"><next><block type="karel_turn_left"><next><block type="karel_turn_left"></block></next></block></next></block></next></block></next></block></statement><next><block type="karel_move"><next><block type="karel_place_stone"></block></next></block></next></block></next></block></next></block></statement></block></statement></block></statement></block></xml>`
+
+const hintMessages = [
+  'What sequence of actions could you initiate when the front of Karel is blocked?',
+  'When you have at least two IF condition blocks in sequence, the order of the sequence matters! Changing the order of the IF condition blocks can change the outcome of the program.'
+]
+
+
 class Item extends Component {
 
   makeWalls(n) {
@@ -25,14 +33,15 @@ class Item extends Component {
 
     var walls = this.makeWalls(0)
 
-    let xml = translateAllParts(initialXml, 'check stone')
+    let initXml = translateAllParts(initialXml, 'check stone')
+    let solXml = translateAllParts(solutionXml, 'check stone')
 
     return (
       <div className="vertical centered fullSize">
         <IdeItem
          instructions = {<span>
             <b>{translate('Challenge')}:</b>
-            &nbsp;{translate('Use an if condition to solve both worlds. (Indicate whether to use stones to turn corners?)')}.
+            &nbsp;{translate('Use multiple IF condition block to solve both problems.')}.
           </span>}
           preWorld = {{
             'world1':{
@@ -136,7 +145,9 @@ class Item extends Component {
           }}
           hasRun={true}
           hasStep={false}
-          initialXml={xml}
+          initialXml={initXml}
+          solutionXml={solXml}
+          hints={hintMessages}
           hideBlocks = {{
             'karel_while_dropdown':true,
             'karel_if_dropdown': false,

@@ -13,6 +13,8 @@ function motivation() {
 }
 
 export var fireSuccessSwal = function(callback){
+
+  console.log('START OF SUCCESS SWAL')
   Swal.fire({
     title: motivation(),
     html: translate('You solved the puzzle'),
@@ -21,6 +23,7 @@ export var fireSuccessSwal = function(callback){
     timer: 2500,
     //onClose: callback
   }).then((result) => {
+    console.log('ARE WE GETTING HERE?')
     callback()
   })
 }
