@@ -41,6 +41,8 @@ class Pre extends Component {
   }
 
   componentDidMount(){
+    console.log('ENABLE KEYS')
+    console.log(this.props.enableKeys)
     document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
@@ -78,10 +80,10 @@ class Pre extends Component {
 
   handleKeyPress(e) {
     let key = e.key
-    if(key == 'ArrowLeft') {
+    if(key == 'ArrowLeft' && this.props.enableKeys) {
       this.previousLesson()
     }
-    if(key == 'ArrowRight') {
+    if(key == 'ArrowRight' && this.props.enableKeys) {
       this.nextLesson()
     }
   }

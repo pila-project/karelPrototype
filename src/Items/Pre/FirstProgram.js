@@ -36,7 +36,7 @@ class ProgramsA extends Component {
         <span style={{
             position:'absolute',
             top: '520px',
-            marginLeft: '-370px'
+            marginLeft: '-700px'
           }}>
           <UpTextArrow
             text={translate('RunInstructions')}
@@ -45,7 +45,7 @@ class ProgramsA extends Component {
         <span style={{
             position:'absolute',
             top: '190px',
-            marginLeft: '270px'
+            marginLeft: '500px'
           }}>
           <UpLeftTextArrow
             text={translate('This is a program')}

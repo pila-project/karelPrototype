@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './style/pages.css'
 import { updateCurrentView, updateUserId, updateModule } from 'redux/actions';
 import { selectCodeByCurrentView } from 'redux/selectors';
-import {Parson, Prolific, MultipleWorlds, LearnExperience, Experience1, Experience2} from './'
+import {Parson, Prolific, MultipleWorlds, LearnExperience, Tutorial, Experience1, Experience2} from './'
 import Curriculum from 'Curriculum/Curriculum.js'
 import Learning from 'Components/Learning/Learning.js'
 

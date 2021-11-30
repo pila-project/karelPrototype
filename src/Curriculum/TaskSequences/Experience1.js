@@ -74,7 +74,7 @@ const learningPlan = [
       ,
       {
         name:'Function 2',
-        prereq:'Basic Commands',
+        prereq:'Function 1',
         challenge:'PlaceStonesWithFunctions',
         goodExample: 'PlaceStonesWithFunctionsGood',
         badExample: 'PlaceStonesWithFunctionsBad',
@@ -88,7 +88,7 @@ const learningPlan = [
     problems:[
       {
         name:'Repeat 1',
-        prereq: 'Basic Commands',
+        prereq: 'Function 2',
         challenge:'RepeatL2PlaceRow_scaffolded',
         goodExample:'RepeatL2StepUpGood',
         badExample:'RepeatL2StepUpBad',
@@ -96,7 +96,7 @@ const learningPlan = [
       },
       {
         name:'Repeat 2',
-        prereq: 'Basic Commands',
+        prereq: 'Repeat 1',
         challenge:'RepeatL3AlternateRows',
         goodExample:'RepeatL3AlternateRowsGood',
         badExample:'RepeatL3AlternateRowsBad',
@@ -110,7 +110,7 @@ const learningPlan = [
     problems:[
       {
         name:'Combine',
-        prereq: 'Basic Commands',
+        prereq: 'Repeat 2',
         challenge:'RepeatL3Corner9_scaffolded',
         goodExample:'RepeatL3Dash5Good',
         badExample:'RepeatL3Dash5Bad',
@@ -123,7 +123,7 @@ const learningPlan = [
     iconId:'hatch',
     problems:[{
       name:'Challenge',
-      prereq: 'Basic Commands',
+      prereq: 'Combine',
       challenge:'Checker',
       goodExample:'DiamondGood',
       badExample:'DiamondBad',

@@ -64,6 +64,7 @@ class Test extends Component {
   }
 
   render() {
+    alert('I DO GET CALLED')
     let isPre = this.LearnModule.isPre(this.props.currentView)
     let isPost = this.LearnModule.isPost(this.props.currentView)
     if(isPre) return <Pre />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Splash from 'Components/Templates/Splash'
 
-import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, PreIntro, IntroExplainTasks, IntroExplainEditor, IntroExplainEditor_Resources, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, MultipleWorldsIF1, MultipleWorldsIF2, MultipleWorldsWHILE1, MultipleWorldsWHILE2, MultipleWorldsCOMBINE1, MultipleWorldsCOMBINE2, MultipleWorldsCHALLENGE1, MultipleWorldsCHALLENGE2, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded, RepeatL3AlternateRows, RepeatL3AlternateRowsGood, RepeatL3AlternateRowsBad, PlaceStonesWithFunctions, PlaceStonesWithFunctionsGood, PlaceStonesWithFunctionsBad, BuryTreasures, MWIF1BAD,MWIF1GOOD,MWIF2BAD,MWIF2GOOD,MWWHILE1BAD,MWWHILE2BAD,MWWHILE1GOOD,MWWHILE2GOOD,MWCOMBINE1BAD,MWCOMBINE2BAD,MWCOMBINE1GOOD,MWCOMBINE2GOOD,MWCHALLENGE2BAD,MWCHALLENGE2GOOD } from 'Items'
+import { Welcome, Checker, DiamondGood, DiamondBad, PostTestA, PreDone, TutorialEnd, PreIntro, IntroExplainTasks, IntroExplainEditor, IntroExplainEditor_Resources, MeetKarel, FirstProgram,AnimatedProgram,KarelCommandsTurnLeft, ModifyMoves, CommandsA, CommandsB,KarelCommandsPickStone, KarelCommandsPlaceStone, KarelCommandsMove, RepeatL3Dash5Good, RepeatL3Dash5Bad, RepeatL2StepUpBad, MethodsTurnAroundBad, Repeat5Bad, MethodsReuse, MethodsReuseBad, MethodsStepUpBad, CommandsHouseBad, RepeatL3Corner9, RepeatL2StepUpGood, RepeatL2PlaceRow, Repeat9, Repeat5, CommandsHouseGood, MethodsRightAround, MethodsStepUp, CommandsMLMR, CommandsLMTRM, MethodsTurnAroundGood, PostSurvey, Parson1, Parson2, MultipleWorlds1, MultipleWorldsIF1, MultipleWorldsIF2, MultipleWorldsWHILE1, MultipleWorldsWHILE2, MultipleWorldsCOMBINE1, MultipleWorldsCOMBINE2, MultipleWorldsCHALLENGE1, MultipleWorldsCHALLENGE2, RepeatL2PlaceRow_scaffolded, RepeatL3Corner9_scaffolded, RepeatL3AlternateRows, RepeatL3AlternateRowsGood, RepeatL3AlternateRowsBad, PlaceStonesWithFunctions, PlaceStonesWithFunctionsGood, PlaceStonesWithFunctionsBad, BuryTreasures, MWIF1BAD,MWIF1GOOD,MWIF2BAD,MWIF2GOOD,MWWHILE1BAD,MWWHILE2BAD,MWWHILE1GOOD,MWWHILE2GOOD,MWCOMBINE1BAD,MWCOMBINE2BAD,MWCOMBINE1GOOD,MWCOMBINE2GOOD,MWCHALLENGE2BAD,MWCHALLENGE2GOOD } from 'Items'
 
-import {Prolific, Parson, MultipleWorlds, Experience1, Experience2} from './TaskSequences'
+import {Prolific, Parson, MultipleWorlds, Tutorial, Experience1, Experience2} from './TaskSequences'
 
 /**
 A single learning experience is called an "item"
@@ -13,7 +13,11 @@ A group of stages is called a "unit"
 
 export default class Curriculum {
 
+
   constructor(moduleName) {
+
+    this.enableKeys = true;
+
     if (moduleName.toLowerCase() == 'prolific') {
       this.pre = Prolific.getPre()
       this.post = Prolific.getPost()
@@ -22,6 +26,11 @@ export default class Curriculum {
       this.pre = Parson.getPre()
       this.post = Parson.getPost()
       this.learningPlan = Parson.getLearningPlan()
+    } else if (moduleName.toLowerCase() == 'tutorial') {
+      this.pre = Tutorial.getPre()
+      this.post = Tutorial.getPost()
+      this.learningPlan = Tutorial.getLearningPlan()
+      this.enableKeys = Tutorial.getEnableKeys();
     } else if (moduleName.toLowerCase() == 'experience1') {
       this.pre = Experience1.getPre()
       this.post = Experience1.getPost()
@@ -35,6 +44,10 @@ export default class Curriculum {
       this.post = MultipleWorlds.getPost()
       this.learningPlan = MultipleWorlds.getLearningPlan()
     }
+  }
+
+  getEnableKeys() {
+    return this.enableKeys
   }
 
   getCollection(collectionType) {
@@ -161,6 +174,7 @@ const itemComponentDatabase = {
   FirstProgram:<FirstProgram />,
   AnimatedProgram:<AnimatedProgram />,
   PreDone:<PreDone/>,
+  TutorialEnd:<TutorialEnd/>,
   IntroExplainTasks: <IntroExplainTasks/>,
   IntroExplainEditor: <IntroExplainEditor/>,
   IntroExplainEditor_Resources: <IntroExplainEditor_Resources/>,

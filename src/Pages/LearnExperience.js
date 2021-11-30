@@ -67,7 +67,8 @@ class Test extends Component {
   render() {
     let isPre = this.LearnModule.isPre(this.props.currentView)
     let isPost = this.LearnModule.isPost(this.props.currentView)
-    if(isPre) return <Pre />
+    let enableKeys = this.LearnModule.getEnableKeys()
+    if(isPre) return <Pre enableKeys = {enableKeys}/>
     if(isPost) return <Post />
     return <Learning />
   }
