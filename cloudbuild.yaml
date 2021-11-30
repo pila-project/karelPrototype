@@ -34,11 +34,11 @@ steps:
     path: /root/.ssh
 
 # Install npm packages
-- name: 'gcr.io/cloud-builders/npm:node-14.10.0'
+- name: 'gcr.io/cloud-builders/npm:node-12.18.3'
   args: ["install"]
 
 # Build and create .env file
-- name: node
+- name: 'gcr.io/cloud-builders/npm:node-12.18.3'
   entrypoint: npm
   args: ["run", "create-env"]
   env:
@@ -54,7 +54,7 @@ steps:
   args: ['cat','.env']
 
 # Build the files
-- name: node
+- name: 'gcr.io/cloud-builders/npm:node-12.18.3'
   entrypoint: npm
   args: ['run', 'build']
 
