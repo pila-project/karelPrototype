@@ -115,7 +115,7 @@ class Dashboard extends Component {
 
     // Set the countdown for the task
     var time_obj = {}
-    var startTime = 'countDown' in item ? item['countDown'] * 60 : 600 // default time in seconds is 600
+    var startTime = 'countDown' in item ? item['countDown'] * 60 : 6000 // default time in seconds is 600
     if (this.props.countdown == {}) {
       time_obj[item['name']] = startTime
     } else if (item['name'] in this.props.countdown) {
