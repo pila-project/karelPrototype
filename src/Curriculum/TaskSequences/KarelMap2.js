@@ -23,18 +23,6 @@ export default class TaskSequences {
 
 const pre = [
   {id: 'Welcome'},
-  {id:'PreIntro'},
-  {id:'MeetKarel'},
-  {id:'KarelCommandsMove'},
-  {id:'KarelCommandsTurnLeft'},
-  {id:'KarelCommandsPickStone'},
-  {id:'KarelCommandsPlaceStone'},
-  {id:'CommandsA'},
-  {id:'CommandsB'},
-  {id:'FirstProgram'},
-  //{id:'AnimatedProgram'},
-  {id:'ModifyMoves'},
-  {id:'PreDone'},
   {id:'IntroExplainTasks'},
   {id:'IntroExplainEditor'},
   {id:'IntroExplainEditor_Resources'}
