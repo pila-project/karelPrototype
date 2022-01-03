@@ -19,11 +19,11 @@ class IntroExplainTasks extends Component {
 
 
   render() {
-    const text = translate("You're ready to solve 5 Karel problems") + '!'
-    const sub = translate("The first four problems each introduce a new programming idea.") + " " +
-                translate("The final problem is your main challenge. ") +
-                translate("Each problem has to be solved within a given amount of time. ") +
-                translate("The next problem gets unlocked when you solve the previous problem or when the time runs out.")
+    const text = translate("You're ready to solve our Karel problems") + '!'
+    const sub = translate("The first two sets of problems each introduce a new programming idea.") + " " +
+                translate("The final two problems require you to combine these ideas. ") +
+                translate("For each problem, you can get up to two hints or see examples of similar problems. ") +
+                translate("Each problem gets unlocked when you solve the previous problem.")
     //const sub = translate("You're given 5 problems, to be solved one after another. The first four problems introduce a new programming idea each. The final problem is the main challenge.") + '...
     return <Splash
       text={text}
